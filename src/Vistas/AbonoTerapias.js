@@ -6,7 +6,7 @@ import axios from 'axios';
 import { deleteToken, getToken, initAxiosInterceptors, setUsuarioM, setUsuario, getDatosUsuario, getUsuarioCompleto } from '../auth-helpers'
 import Headers from '../Headers'
 
-///siiii
+
 function AbonoTerapias() {
 
     const [fecha, setFecha] = useState(0)
