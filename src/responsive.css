@@ -1,0 +1,29 @@
+@media(max-width:1298px) {
+    .labelPaciente {
+        font-size: 13px;
+    }
+}
+
+
+@media(max-width:1200px) {
+    .contenedor-admin {
+        background-color: red;
+        height: 100%;
+
+    }
+
+    #primeraFila {
+        flex-direction: column;
+    }
+
+    #terceraFila {
+        flex-direction: column;
+    }
+
+    #segundaFila {
+        flex-direction: column;
+    }
+
+}
+
+

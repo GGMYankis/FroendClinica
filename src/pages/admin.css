@@ -1,0 +1,1037 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+    transition: all .5s linear;
+}
+
+.checkbtn {
+    font-size: 30px;
+    color: white;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+}
+
+.checkbtn:hover {
+    border: 1px solid white;
+}
+
+.encabezado .cont-menu {
+    position: fixed;
+    width: 220px;
+    height: 100vh;
+    background-color: #0b2f57;
+    top: 55px;
+    text-align: center;
+    transition: all .5s;
+    left: -100%;
+    overflow: auto;
+}
+
+.encabezado .cont-menu::-webkit-scrollbar {
+    background-color: #0b2f57;
+    width: 8px;
+}
+
+.encabezado .cont-menu::-webkit-scrollbar-thumb {
+    background-color: orange;
+    border-radius: 5px;
+    width: 0px;
+}
+
+.cont-menu {
+    transition: all .5s;
+
+}
+
+.cont-menu ul li {
+    display: block;
+    line-height: 30px;
+    color: red;
+    padding-left: 10px;
+    display: flex;
+    justify-content: center;
+}
+
+.letras-menu:hover {
+    transition: all .1s;
+    color: white;
+}
+
+.letras-menu {
+    text-decoration: none;
+    color: white;
+    padding-right: 10px;
+    transition: all .2s;
+    font-size: 15px;
+    text-align: left;
+    width: 100%;
+}
+
+.cont-nombre-usuario {
+    padding-right: 20px;
+}
+
+.cont-nombre-usuario .nombreUsuario {
+    color: orange;
+    margin-top: 15px;
+    font-weight: 700;
+}
+
+.contenedor-botones {
+    display: flex;
+}
+
+#ddd {
+    margin-top: 100px;
+}
+
+
+
+#check:checked~.cont-menu {
+    left: 0;
+    width: 220px;
+    transition: all .5s;
+}
+
+#check {
+    display: none;
+}
+
+
+
+.mi-clase-css {
+    margin-left: 220px;
+}
+
+@media (max-width:1150px) {
+
+
+    .checkbtnOtro {
+        display: block;
+    }
+}
+
+.perfil {
+    padding: 10px;
+    color: white;
+    border-radius: 50%;
+    margin-right: 10px;
+    font-size: 20px;
+}
+
+.perfil:hover {
+    color: aqua;
+}
+
+
+.sugerencia {
+    padding: 5px;
+}
+
+/* encabezado*/
+
+
+.cont-titulo-form {
+    background-color: #0b2f57;
+    text-align: center;
+    padding: 10px;
+    width: 100%;
+    border-top-right-radius: 10px;
+    border-top-left-radius: 10px;
+}
+
+
+.cont-titulo-form h1 {
+
+    font-size: 25px;
+    color: white;
+    margin-bottom: 0px;
+
+}
+
+.encabezado {
+    left: 0;
+    right: 0;
+    top: 0;
+    display: flex;
+    background-color: #0b2f57;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    color: white;
+    position: fixed;
+    height: 55px;
+}
+
+
+.cont-menu a:hover a {
+    color: red;
+}
+
+
+.img-admin-logo {
+    width: 40px;
+    height: 40px;
+    border-radius: 500px;
+}
+
+
+.nom-logo {
+    font-size: 20px;
+}
+
+.ver .gg {
+
+    color: white;
+    font-size: 20px;
+
+}
+
+
+.ver {
+    margin-top: 70px;
+    color: white;
+    font-size: 20px;
+}
+
+
+.perfilBoll {
+    border-radius: 100%;
+    width: 40px;
+    height: 40px;
+    display: inline-block;
+    background-color: white;
+    padding: 5px;
+    text-align: center;
+}
+
+.perfilBoll p {
+    font-size: 20px;
+    font-weight: bold;
+    color: #0b2f57;
+}
+
+/* #0b2f57 */
+
+.Cerra-Sesion-ul {
+    padding: 8px;
+    border-radius: 5px;
+    text-decoration: none;
+    color: white;
+    cursor: pointer;
+    font-weight: bolder;
+    transition: all .2s;
+}
+
+.Cerra-Sesion-ul:hover {
+    color: orange;
+}
+
+.Cerra-Sesion {
+    padding: 8px;
+    border-radius: 5px;
+    text-decoration: none;
+    color: white;
+    margin-top: 60px;
+    cursor: pointer;
+    font-weight: bolder;
+    transition: all .2s;
+
+}
+
+.Cerra-Sesion:hover {
+    transform: scale(1.1);
+    transition: all .2s;
+    color: white;
+    background-image: linear-gradient(to bottom right, #134074, aqua);
+}
+
+
+ul li {
+    color: red;
+}
+
+li ul {
+    display: none;
+    position: absolute;
+}
+
+li:hover>ul {
+    display: block;
+}
+
+body {
+    min-height: 100vh;
+}
+
+
+
+
+
+@media(max-width:525px) {
+    .paddd {
+        padding: 14px;
+    }
+}
+
+@media(max-width:980px) {
+    .contenedor-cita {
+        width: 800px;
+    }
+}
+
+@media(max-width:850px) {
+    .contenedor-cita {
+        width: 600px;
+    }
+}
+
+@media(max-width:650px) {
+    .contenedor-cita {
+        width: 500px;
+    }
+}
+
+.sub-cont-cita {
+    background-color: white;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.form-select {
+    width: 100%;
+    background-color: white;
+}
+
+.mostra {
+
+    background-color: gray;
+    width: 400px;
+    height: 300px;
+    font-size: 30px
+}
+
+.mostra p {
+    font-size: 30px;
+}
+
+.cont-input {
+    width: 250px;
+    margin: 10px 30px;
+    background-color: white;
+}
+
+#cont-btn-admin {
+    display: flex;
+    justify-content: center;
+}
+
+.btn-cita {
+    padding: 10px;
+    background-color: #0b2f57;
+    border: 3px solid #0b2f57;
+    border-radius: 5px;
+    color: white;
+    margin-left: 5px;
+    margin-top: 14px;
+    display: block;
+    margin: auto;
+    width: 200px;
+}
+
+.btn-cita:hover {
+    background-color: #0b2e57c4;
+}
+
+.cont-btn {
+    display: flex;
+    justify-content: right;
+    width: 100%;
+}
+
+/* pagina de perfil */
+
+.contenedorPadre {
+    margin-top: 80px;
+    width: 100%;
+    background-color: white;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.sub-elemento {
+    display: block;
+    margin: auto;
+    width: 40%;
+    background-color: white;
+    padding: 20px;
+    margin-bottom: 30px;
+}
+
+#eliminar-perfil {
+    color: #fff;
+    background-color: #de4b33;
+    border-color: #dc3f25;
+}
+
+@media(max-width:760px) {
+    .sub-elemento {
+        width: 70%;
+    }
+}
+
+@media(max-width:660px) {
+    .sub-elemento {
+        width: 80%;
+    }
+}
+
+@media(max-width:500px) {
+    .sub-elemento {
+        width: 90%;
+    }
+
+    .contenedorPadre {
+        padding: 5px;
+
+    }
+
+}
+
+.alertPerfilActualiazado {
+
+    background-color: #dbf5d3;
+    border-color: #aed3a5;
+    color: #569845;
+    height: 70px;
+    border-radius: 5px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-left: 20px;
+    font-weight: bold;
+    padding: 20px;
+}
+
+.close {
+    width: 20px;
+    height: 20px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #dbf5d3;
+    border: none;
+}
+
+.barra-perfil {
+    width: 100%;
+    height: 34px;
+    padding: 6px 12px;
+    background-color: #fff;
+    background-image: none;
+    border: 1px solid #ccc;
+    border-radius: 0;
+}
+
+.btn-perfil {
+    padding: 10px;
+    background-color: #0b2e57ca;
+    color: white;
+    font-weight: 400;
+    width: 200px;
+    border-radius: 5px;
+    border: none;
+    display: block;
+    margin: auto;
+}
+
+.btn-perfil:hover {
+    background-color: #0b2f57;
+}
+
+.titulosPerfil {
+    font-size: 40px;
+    font-weight: 300;
+}
+
+.con-barra {
+    margin-bottom: 20px;
+}
+
+
+.sub-elemento label {
+    color: black;
+    font-weight: bold;
+    font-size: 19px;
+}
+
+.alert {
+
+    margin-top: 10px;
+}
+
+/*  ListaTerapias*/
+
+.cont-principal-lista-terapia {
+    width: 100%;
+    background-color: aqua;
+    /*   background-color: rgba(0, 0, 0, .1);*/
+    display: flex;
+    justify-content: center;
+    margin-top: 70px;
+    padding: 30px;
+}
+
+
+.sub-box {
+    width: 90%;
+    box-shadow: 0 1rem 2rem rgba(0, 0, 0, .1);
+    border-radius: 15px;
+    background-color: white;
+}
+
+.table-terapia {
+    background-color: white;
+    width: 100%;
+}
+
+.cont-titu {
+    border-top-right-radius: 15px;
+    border-top-left-radius: 15px;
+    padding: 5px;
+    height: 40px;
+    background-color: #0b2f57;
+    color: white;
+}
+
+.cont-titu h1 {
+    margin-left: 20px;
+    font-size: 25px;
+}
+
+tr:nth-child(even) {
+    background-color: #dddddd;
+}
+
+.titu-listaTerapias {
+    width: 100%;
+    background-color: #0b2f57;
+    border-top-right-radius: 10px;
+    border-top-left-radius: 10px;
+    color: white;
+    padding: 10px;
+    height: 50px;
+}
+
+
+.titu-listaTerapias h1 {
+    font-size: 25px;
+    color: white;
+    line-height: 25px;
+}
+
+.titu-listaTerapias h1:hover {
+
+    color: orange;
+}
+
+.cont-footer {
+    margin: 10px;
+}
+
+
+.btn-crear-Terapia {
+    padding: 10px;
+    color: white;
+    transition: all .2s;
+    border-radius: 8px;
+    font-weight: bold;
+    background-color: red;
+    border: 1px solid #0b2f57;
+}
+
+.btn-crear-Terapia:hover {
+    color: orange;
+    transition: all .2s;
+    transform: scale(1.1);
+}
+
+td,
+th {
+    border: 1px solid rgba(196, 190, 190, 0.322);
+    ;
+    text-align: left;
+}
+
+
+
+/*
+
+.mi-clase
+-css {
+    padding-right: 0;
+    padding-left: 0;
+    position: absolute;
+    right: 0;
+    transform: translate(70px);
+    transition: all .5s;
+}
+*/
+
+.cont-Button {
+    width: 200px;
+}
+
+/*modal terapia*/
+
+.cont-modal-lista-terapia {
+    position: fixed;
+    top: -120%;
+    left: 0;
+    min-height: 100vh;
+    width: 100%;
+    background-color: rgba(0, 0, 0, .7);
+    z-index: 10000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.text-eliminar {
+    color: red;
+    font-weight: 500;
+}
+
+.cont-modal-lista-terapiaEditar {
+    position: fixed;
+    top: -120%;
+    left: 0;
+    min-height: 100vh;
+    width: 100%;
+    background-color: rgba(0, 0, 0, .7);
+    z-index: 10000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.cont-modal-lista-terapia.activo {
+    top: 0;
+}
+
+.cont-modal-lista-terapiaEditar.activoEditar {
+    top: 0;
+}
+
+.form-perfil-terapi {
+    width: 500px;
+    margin: 10px;
+    background-color: white;
+    border-radius: 10px;
+}
+
+.box-con-usuario {
+    padding: 20px;
+    margin-top: 30px;
+}
+
+.box-con {
+    padding: 20px;
+}
+
+.con-input-terapia {
+    width: 100%;
+    margin-top: 20px;
+}
+
+.con-input-terapia label {
+    font-weight: bold;
+    color: #0b2f57;
+}
+
+.con-input-terapia input {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    border: 2px solid #0b2f57;
+}
+
+.cont-titu-terapia {
+    align-items: center;
+    background-color: #0b2f57;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    color: #fff;
+    display: flex;
+    height: 40px;
+    justify-content: center;
+    text-align: center;
+    width: 100%;
+}
+
+.cont-titu-terapia h1 {
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-weight: bold;
+    color: white;
+    font-size: 25px;
+    margin-bottom: 0px;
+}
+
+.btn-editar-terapia {
+    padding: 10px;
+    background-color: #0b2f57;
+    color: white;
+    border-radius: 5px;
+    border: 1px solid #0b2f57;
+    margin-top: 20px;
+    transition: all .2s;
+}
+
+.btn-editar-terapia:hover {
+    transform: scale(1.1);
+    transition: all .2s;
+}
+
+.btn-eliminar-terapia {
+    padding: 10px;
+    background-color: rgb(193, 5, 5);
+    color: white;
+    border-radius: 5px;
+    border: 1px solid rgb(193, 5, 5);
+    font-weight: bold;
+    float: right;
+    margin-top: 20px;
+    transition: all .2s;
+}
+
+.btn-eliminar-terapia:hover {
+    transform: scale(1.1);
+    transition: all .2s;
+}
+
+/* lista de pacientes */
+
+.cont-tablapaciente {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    margin-top: 70px;
+}
+
+.modal-header {
+    color: white;
+    background-color: #dc3545;
+}
+
+.sub-box-paciente {
+    box-shadow: 0 1rem 2rem rgba(0, 0, 0, .1);
+    background-color: white;
+}
+
+#hh {
+    width: 100%;
+    background-color: white;
+}
+
+.modal-paciente {
+    position: fixed;
+    top: -245%;
+    left: 0;
+    min-height: 100vh;
+    width: 100%;
+    background-color: rgba(0, 0, 0, .7);
+    z-index: 10000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+@media(max-width:480px) {
+    .contenedor-cita {
+        width: 95%;
+    }
+}
+
+@media(max-width:530px) {
+    .contenedor-cita .btn-cita {
+        width: 100px;
+    }
+}
+
+.modal-paciente-editar {
+    position: fixed;
+    top: -245%;
+    left: 0;
+    min-height: 100vh;
+    width: 100%;
+    background-color: rgba(0, 0, 0, .7);
+    z-index: 10000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+@media(max-width:1200px) {
+
+    .modal-paciente {
+        position: absolute;
+    }
+
+    .modal-paciente-editar {
+        position: absolute;
+    }
+}
+
+.modal-paciente.active {
+    top: 0;
+}
+
+.modal-paciente-editar.active {
+    top: 0;
+}
+
+.cont-admin {
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    background-color: white;
+    margin-top: 55px;
+}
+
+.contenedor-admin {
+    width: 80%;
+    height: 80%;
+    background-color: white;
+    box-shadow: 0 1rem 2rem rgba(0, 0, 0, .1);
+    border-radius: 10px;
+    margin: 40px 10px 10px 10px;
+}
+
+.paddd {
+    padding: 20px;
+}
+
+/*
+@media(max-width:1200px) {
+    .contenedor-admin {
+        height: 1240px;
+    }
+
+    .cont-admin {
+        margin-top: 55px;
+    }
+
+}
+
+*/
+
+.contenedor-cita {
+    width: 1200px;
+    margin: 10px;
+    background-color: white;
+    box-shadow: 0 1rem 2rem rgba(0, 0, 0, .1);
+    border-radius: 10px;
+}
+
+
+
+.crearpaciente {
+    padding: 10px;
+    background-color: orange;
+    border: 1px solid orange;
+    border-radius: 5px;
+    color: white;
+    transform: scale(1.1);
+    transition: all .2s;
+    margin: 5px;
+    font-weight: bold;
+
+}
+
+
+.crearpaciente:hover {
+    transform: scale(1.1);
+    color: #0b2f57;
+    font-weight: bold;
+
+}
+
+.box-pri {
+    margin: 10px;
+}
+
+.cont-titu-paciente h1 {
+    padding: 10px;
+    font-size: 25px;
+}
+
+.cont-titu-paciente {
+    border-top-right-radius: 10px;
+    border-top-left-radius: 10px;
+
+    background-color: #0b2f57;
+    color: white;
+}
+
+
+@media(max-width:445px) {
+    .Cerra-Sesion {
+        display: none;
+    }
+
+    .Cerra-Sesion-ul {
+        display: block;
+    }
+}
+
+
+
+/*ELIMINAR APPCIENTE */
+
+.container-eliPaciente {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+}
+
+.contEli {
+
+    width: 90%;
+    height: 220px;
+    padding: 15px;
+    border: 1px solid black;
+    position: relative;
+    margin-top: 100px;
+    border-radius: 10px;
+}
+
+
+.contEli p {
+    font-weight: bold;
+    font-size: 20px;
+    line-height: 40px;
+
+}
+
+
+.contEli .atra-eli-paciente {
+    padding: 10px;
+    width: 100px;
+    background-color: #0b2f57;
+    color: white;
+    border-radius: 8px;
+    font-weight: bolder;
+    border: 1px solid #0b2f57;
+    margin-left: 10px;
+    margin-bottom: 10px;
+
+}
+
+.editar-eli-paciente {
+    padding: 10px;
+    width: 100px;
+    background-color: #dc3545;
+    color: white;
+    border-radius: 8px;
+    font-weight: bolder;
+    border: 1px solid #dc3545;
+    margin-bottom: 10px;
+}
+
+.container-eliPaciente .alert {
+    margin-top: 60px;
+}
+
+.probarUs {
+    background-color: white;
+    width: 35px;
+    height: 35px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    color: #0b2f57;
+    transition: all .2s;
+}
+
+
+.probarUs .Link {
+    text-decoration: none;
+    font-weight: bold;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 15px;
+    color: #0b2f57;
+    margin-top: 3px;
+
+}
+
+.cont-btn-headers {
+    display: flex;
+    padding: 10px;
+}
+
+
+.lds-ring {
+    display: inline-block;
+    position: relative;
+    width: 80px;
+    height: 80px;
+    margin-top: 90px;
+}
+
+.lds-ring div {
+    box-sizing: border-box;
+    display: block;
+    position: absolute;
+    width: 64px;
+    height: 64px;
+    margin: 8px;
+    border: 8px solid #fff;
+    border-radius: 50%;
+    animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+    border-color: #fff transparent transparent transparent;
+}
+
+.lds-ring div:nth-child(1) {
+    animation-delay: -0.45s;
+}
+
+.lds-ring div:nth-child(2) {
+    animation-delay: -0.3s;
+}
+
+.lds-ring div:nth-child(3) {
+    animation-delay: -0.15s;
+}
+
+@keyframes lds-ring {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.mds {
+    margin-top: 60px;
+}

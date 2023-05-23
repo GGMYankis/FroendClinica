@@ -1,0 +1,301 @@
+* {
+    box-sizing: border-box;
+}
+
+.table-container {
+    margin-top: 70px;
+    padding: 30px;
+    background-color: white;
+    height: 100vh;
+    transition: all .5s
+}
+
+.sex-tables {
+    border-radius: 10px;
+    box-shadow: 0 1rem 2rem rgba(0, 0, 0, .1);
+}
+
+.sub-2 {
+    padding: 10px;
+}
+
+.cont-titu-tables {
+    align-items: center;
+    background-color: #0b2f57;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    color: #fff;
+    display: flex;
+    height: 40px;
+    justify-content: center;
+    text-align: center;
+    width: 100%;
+}
+
+.cont-titu-tables h1 {
+    margin-bottom: 0px;
+}
+
+.cont-action {
+    display: flex;
+    justify-content: left;
+    height: 65px;
+    align-items: center;
+    background-color: white;
+}
+
+.cont-titu-tables h1 {
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-weight: bold;
+    color: white;
+    font-size: 25px;
+    margin-bottom: 0px;
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    box-shadow: 0 1rem 2rem rgba(0, 0, 0, .1);
+}
+
+.table thead {
+    background-color: #0b2f57;
+}
+
+.table thead tr th {
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.35px;
+    color: #FFFFFF;
+    opacity: 1;
+    padding: 12px;
+    vertical-align: top;
+    border: 1px solid #dee2e685;
+    text-align: left;
+}
+
+.table tbody tr td {
+    font-size: 14px;
+    font-weight: normal;
+    color: #0b2f57;
+    background-color: white;
+    text-align: left;
+    padding: 3;
+}
+
+.table .text_open {
+    font-size: 14px;
+    font-weight: bold;
+    letter-spacing: 0.35px;
+    color: #FF1046;
+}
+
+.tr-btn {
+    display: flex;
+}
+
+.table tbody tr td .btn {
+    width: 100px;
+    height: 40px;
+    text-decoration: none;
+    line-height: 35px;
+    display: inline-block;
+    background-color: #0b2f57;
+    color: white;
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+}
+
+.btn-crear-Paciente-tabla {
+    padding: 10px;
+    background-color: #0b2f57;
+    border: 3px solid #0b2f57;
+    border-radius: 5px;
+    color: white;
+}
+
+.btn-crear-Paciente-tabla:hover {
+    background-color: #0b2e57c4;
+}
+
+.table tbody tr td .eliminar {
+    margin-left: 5px;
+    background-color: #FF1046;
+}
+
+
+.cont-crear-paciente {
+    margin-left: 10px;
+}
+
+.cont-crear-paciente label {
+    padding-right: 10px;
+    font-weight: bolder;
+}
+
+
+.cont-crear-paciente #txtbuscar {
+    margin-right: 15px;
+    padding: 8px;
+    border-radius: 8px;
+    border: 1px solid #ced4da;
+
+}
+
+
+
+@media (max-width:405px) {
+    .table-container {
+        padding: 5px;
+    }
+}
+
+.activoLista {
+    color: red;
+}
+
+
+@media (max-width:750px) {
+    .table td::before {
+        content: attr(data-label);
+        font-size: 10px;
+        font-family: Arial, Helvetica, sans-serif;
+        font-weight: bold;
+    }
+}
+
+@media (max-width:525px) {
+    .table tbody tr td .btn {
+        width: 70px;
+    }
+
+    .btn-crear-Paciente-tabla {
+        font-size: 14px;
+        width: 120px;
+        padding: 8px;
+    }
+
+    .cont-titu-tables {
+        text-align: center;
+    }
+}
+
+
+@media (max-width:1150px) {
+    .table thead {
+        display: none;
+    }
+
+    .table,
+    .table tbody,
+    .table tr,
+    .table td {
+        display: block;
+        width: 100%;
+    }
+
+    .table tr {
+        margin-bottom: 15px;
+    }
+
+    .table tbody tr td {
+        text-align: right;
+        padding-left: 50%;
+        position: relative;
+    }
+
+    .table td::before {
+        content: attr(data-label);
+        position: absolute;
+        left: 0;
+        width: 50%;
+        padding-left: 15px;
+        font-weight: 600;
+        text-align: left;
+    }
+}
+
+
+@media (max-width:1150px) {
+    .table thead {
+        display: none;
+    }
+
+    .table {
+        background-color: #0b2f57;
+    }
+
+    .table,
+    .table tbody,
+    .table tr,
+    .table td {
+        width: 100%;
+    }
+
+    .table tr {
+        margin-bottom: 15px;
+    }
+
+    .table tbody tr td {
+        text-align: right;
+        padding-left: 50%;
+        position: relative;
+    }
+
+    .table td::before {
+        content: attr(data-label);
+        position: absolute;
+        left: 0;
+        width: 50%;
+        padding-left: 15px;
+        font-weight: 600;
+        text-align: left;
+    }
+
+}
+
+.divPadre {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background-color: rgba(255, 255, 255, 0.229);
+    z-index: 10000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.divHijo {
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
+
+#cont-crear-terapia-listado {
+    margin-top: 10px;
+}
+
+.divPadreAll {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background-color: #0b2f57;
+    z-index: 10000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.loadin {
+    background-color: #0b2f57;
+}
