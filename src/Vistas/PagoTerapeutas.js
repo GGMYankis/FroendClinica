@@ -31,13 +31,9 @@ function PagoTerapeutas() {
     }
 
 
-
     return (
 
         <div>
-
-
-
             <div className='cont-formPagoTerapeuat'>
                 <form className='formPagoTerapeuat' onSubmit={enviars} ref={resportes}>
                     {

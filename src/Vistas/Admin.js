@@ -47,7 +47,7 @@ const Admin = () => {
         setParents_Name(value);
     }
 
-    
+
 
     const handlemothers_number = (value) => {
 
@@ -84,10 +84,16 @@ const Admin = () => {
         const birthDate = new Date(inputValue);
         const differenceMs = currentDate - birthDate;
         const differenceYears = parseFloat((differenceMs / (1000 * 60 * 60 * 24 * 365)).toFixed(2));
-        return differenceYears.toString();
-    }
-  
+        let SinEdad = "";
 
+        if (isNaN(differenceYears)) {
+            return SinEdad
+        }
+
+       return differenceYears.toString();
+    }
+
+ 
 
     const handleducational_institutionChange = (value) => {
         setEducational_institution(value);
@@ -153,7 +159,7 @@ const Admin = () => {
         FamilyMembersConcerns: family_members_concerns,
         SpecificMedicalCondition: specific_medical_condition,
         Other: other,
-        Activo:true
+        Activo: true
     })
 
     const FormularioAdmin = document.getElementById("FormularioAdmin");
@@ -182,7 +188,7 @@ const Admin = () => {
     return (
 
         <div>
-            
+
             <Headers />
 
             <div className='cont-admin'>
@@ -215,11 +221,11 @@ const Admin = () => {
 
                             <div className="col">
                                 <label htmlFor="validationServer02" className='labelPacienteCC' >Teléfono del padre</label>
-                                <input type="text" className="form-control " id="validationServer02" value={NumPadre} required onChange={handleparent_or_guardian_phone_numberChange} />
+                                <input type="text" className="form-control " id="validationServer02"  required onChange={handleparent_or_guardian_phone_numberChange} />
                             </div>
                             <div className="col">
                                 <label htmlFor="validationServer02" className='labelPacienteCC' >Teléfono de la madre</label>
-                                <input type="text" className="form-control " id="validationServer02" value={NumMadre} required onChange={handlemothers_number} />
+                                <input type="text" className="form-control " id="validationServer02" required onChange={handlemothers_number} />
                             </div>
                         </div>
 
@@ -239,16 +245,16 @@ const Admin = () => {
 
                             <div className="col">
                                 <label htmlFor="validationServer02" className='labelPaciente'>Centro de Estudios</label>
-                                <input type="text" className="form-control " id="validationServer02" required onChange={e => handleducational_institutionChange(e.target.value)} />
+                                <input type="text" className="form-control " id="validationServer02"  required onChange={e => handleducational_institutionChange(e.target.value)} />
                             </div>
 
                             <div className="col">
                                 <label htmlFor="validationServer02" className='labelPaciente'>Curso</label>
-                                <input type="text" className="form-control " id="validationServer02" required onChange={e => handleCurso(e.target.value)} />
+                                <input type="text" className="form-control " id="validationServer02"  required onChange={e => handleCurso(e.target.value)} />
                             </div>
                             <div className="col">
                                 <label htmlFor="validationServer02" className='labelPaciente'>Recomendaciones </label>
-                                <input type="text" className="form-control " id="validationServer02" required onChange={e => handlerecommendationsChange(e.target.value)} />
+                                <input type="text" className="form-control " id="validationServer02" required  onChange={e => handlerecommendationsChange(e.target.value)} />
                             </div>
                         </div>
                         <div className='row' id='terceraFila'>
@@ -263,7 +269,7 @@ const Admin = () => {
                             </div>
                             <div className="col">
                                 <label htmlFor="validationServer02" className='labelPaciente'>Terapias o servicio  </label>
-                                <input type="text" className="form-control " id="validationServer02" required onChange={e => handletherapies_or_service_you_will_receive_at_the_centerChange(e.target.value)} />
+                                <input type="text" className="form-control " id="validationServer02"required onChange={e => handletherapies_or_service_you_will_receive_at_the_centerChange(e.target.value)} />
 
                             </div>
                             <div className="col">
@@ -273,19 +279,19 @@ const Admin = () => {
                             </div>
                             <div className="col">
                                 <label htmlFor="validationServer02" className='labelPaciente'>Condición médica específica </label>
-                                <input type="text" className="form-control " id="validationServer02" required onChange={e => handlespecific_medical_conditionChange(e.target.value)} />
+                                <input type="text" className="form-control " id="validationServer02"  required onChange={e => handlespecific_medical_conditionChange(e.target.value)} />
                             </div>
                         </div>
                         <div className='row'>
                             <div className="col">
                                 <label htmlFor="validationServer02" className='labelPaciente'>Preocupación de los familiares</label>
-                                <input type="text" className="form-control " id="validationServer02" required onChange={e => handlefamily_members_concernsChange(e.target.value)} />
+                                <input type="text" className="form-control " id="validationServer02"  required onChange={e => handlefamily_members_concernsChange(e.target.value)} />
                             </div>
                         </div>
                         <div className='row'>
                             <div className="col">
                                 <label htmlFor="validationServer02">Otro </label>
-                                <textarea id="txtArea" onChange={e => handleotherChange(e.target.value)} rows="10" cols="70"></textarea>
+                                <textarea id="txtArea" onChange={e => handleotherChange(e.target.value)}  rows="10" cols="70"></textarea>
                                 {/*}  <input type="text" className="form-control " id="validationServer02" required onChange={e => handleotherChange(e.target.value)} /> */}
                             </div>
                         </div>

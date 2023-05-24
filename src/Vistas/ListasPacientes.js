@@ -18,7 +18,7 @@ import { set } from 'date-fns';
 import { Label } from 'reactstrap';
 
 
-function ListasPacientes({usuarioLogin}) {
+function ListasPacientes({ usuarioLogin }) {
 
     const [ac, setAc] = useState([])
 
@@ -56,16 +56,24 @@ function ListasPacientes({usuarioLogin}) {
     const [filtroNombre, setFiltroNombre] = useState('');
     const [bsActivo, setBsActivo] = useState(null);
     const [active, setActive] = useState(null);
-
+    const [contador, setContador] = useState(1);
+    const [contadorPacientes, setContadorPacientes] = useState(0);
     let rol = getUsuarioCompleto()
+
     useEffect(() => {
         cargar()
-    }, []);
+        // Cada vez que la lista de pacientes cambie, actualizamos el contador
+        setContador(1); // Reiniciamos el contador a 1
+    }, [listaPaciente]);
 
     const cargar = async => {
 
         axios.get('http://yankisggm-001-site1.ctempurl.com/api/Clinica/Lista')
             .then(res => {
+
+                const numeroPacientes = res.data.length;
+               setContadorPacientes(numeroPacientes)
+               
 
                 res.data.map(item => {
 
@@ -79,6 +87,9 @@ function ListasPacientes({usuarioLogin}) {
                         setlistaPaciente(item.activo = 'no')
 
                     }
+
+                
+
                     setlistaPaciente(res.data)
 
                 })
@@ -145,6 +156,12 @@ function ListasPacientes({usuarioLogin}) {
         const birthDate = new Date(inputValue);
         const differenceMs = currentDate - birthDate;
         const differenceYears = parseFloat((differenceMs / (1000 * 60 * 60 * 24 * 365)).toFixed(2));
+        let SinEdad = "";
+
+        if (isNaN(differenceYears)) {
+            return SinEdad
+        }
+
         return differenceYears.toString();
     }
 
@@ -217,7 +234,7 @@ function ListasPacientes({usuarioLogin}) {
         FamilyMembersConcerns: family_members_concerns,
         SpecificMedicalCondition: specific_medical_condition,
         Other: other,
-        Activo:true
+        Activo: true
     })
 
     const handleGuardar = (e) => {
@@ -454,7 +471,7 @@ function ListasPacientes({usuarioLogin}) {
                         <label htmlFor="check" className="checkbtn">
                             <FaBars id='bar' />
                         </label>
-                  
+
                         <div className='cont-menu'>
                             <ul>
                                 <li>
@@ -560,6 +577,9 @@ function ListasPacientes({usuarioLogin}) {
                             </select>
                             <label>Paciente</label>
                             <input id='txtbuscar' placeholder='Nombre' onChange={handleBuscarNombre} value={filtroNombre} />
+
+                            <label>Total de  Pacientes</label>
+                            <input id='txtbuscar' className="cantidadPaciente" value={contadorPacientes} />
                         </div>
                     </div>
 
@@ -607,6 +627,7 @@ function ListasPacientes({usuarioLogin}) {
                                     :
                                     listaPaciente.filter(item => item.name.toLowerCase().includes(filtroNombre.toLowerCase()))
                                         .map(item => (
+
                                             <tr key={item.idPatients}>
                                                 <td data-label="Nombre"  >{item.name}</td>
                                                 <td data-label="Sexo">{item.sex}</td>
@@ -626,8 +647,9 @@ function ListasPacientes({usuarioLogin}) {
                                 {active ?
 
                                     listaPaciente.filter(item => item.name.toLowerCase().includes(filtroNombre.toLowerCase()))
-                                        .map(item => (
+                                        .map((item, index) => (
                                             <tr key={item.idPatients}>
+                                                <td>{index + 1}</td>
                                                 <td data-label="Nombre"  >{item.name}</td>
                                                 <td data-label="Sexo">{item.sex}</td>
                                                 <td data-label="Nombre De Los Padres">{item.parentsName}</td>

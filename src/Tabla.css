@@ -145,7 +145,10 @@
 
 }
 
-
+.cantidadPaciente{
+    width: 50px;
+    text-align: center;
+}
 
 @media (max-width:405px) {
     .table-container {
