@@ -72,6 +72,7 @@ function ListasPacientes({ usuarioLogin }) {
 
     const cargar = async => {
 
+        // ultimo commit
         axios.get('https://localhost:63958/api/Clinica/ListaTodos')
             .then(res => {
 
