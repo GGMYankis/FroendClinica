@@ -1,3 +1,4 @@
+
 import Cookies from 'universal-cookie';
 import React, { useEffect, useState, useRef } from 'react'
 import axios from 'axios';
@@ -58,8 +59,11 @@ function ListasPacientes({ usuarioLogin }) {
     const [active, setActive] = useState(null);
     const [contador, setContador] = useState(1);
     const [contadorPacientes, setContadorPacientes] = useState(0);
+    const [filteredData, setFilteredData] = useState([]);
+    const [verificarActivo, setVerificarActivo] = useState(false);
+    const [edadEditar, setEdadEditar] = useState(0);
     let rol = getUsuarioCompleto()
-
+    const paciente = useRef(null);
     useEffect(() => {
         cargar()
         // Cada vez que la lista de pacientes cambie, actualizamos el contador
@@ -72,8 +76,8 @@ function ListasPacientes({ usuarioLogin }) {
             .then(res => {
 
                 const numeroPacientes = res.data.length;
-               setContadorPacientes(numeroPacientes)
-               
+                setContadorPacientes(numeroPacientes)
+
 
                 res.data.map(item => {
 
@@ -88,7 +92,7 @@ function ListasPacientes({ usuarioLogin }) {
 
                     }
 
-                
+
 
                     setlistaPaciente(res.data)
 
@@ -131,9 +135,7 @@ function ListasPacientes({ usuarioLogin }) {
 
     const handleparent_or_guardian_phone_numberChange = (value) => {
 
-
         const regex = /^[0-9\b]+$/;
-
 
         if (value.target.value === "" || regex.test(value.target.value)) {
             setNumPadre(value.target.value);
@@ -145,23 +147,27 @@ function ListasPacientes({ usuarioLogin }) {
 
     const handledate_of_birthChange = (event) => {
 
+        setEdadEditar(0)
         setInputValue(event.target.value);
         setDate_of_birth(event.target.value);
 
     }
 
 
-    function calculateAge() {
+    function calculateAge(edad) {
         const currentDate = new Date();
         const birthDate = new Date(inputValue);
         const differenceMs = currentDate - birthDate;
         const differenceYears = parseFloat((differenceMs / (1000 * 60 * 60 * 24 * 365)).toFixed(2));
         let SinEdad = "";
 
+        if (edad != null) {
+            return edad;
+        }
+
         if (isNaN(differenceYears)) {
             return SinEdad
         }
-
         return differenceYears.toString();
     }
 
@@ -304,12 +310,15 @@ function ListasPacientes({ usuarioLogin }) {
 
     const handleEditar = async (e) => {
         e.preventDefault()
+
+
+        console.log(dataEditar)
         const url = 'http://yankisggm-001-site1.ctempurl.com/api/Clinica/EditarPaciente';
         axios.put(url, dataEditar).then((result) => {
 
             const probar = async () => {
-                modalEditar.current.classList.remove('active')
                 cargar()
+                modalEditar.current.classList.remove('active')
                 const ale = await swal({
                     title: "Correcto",
                     text: "Cambio guardado ",
@@ -331,48 +340,6 @@ function ListasPacientes({ usuarioLogin }) {
 
 
 
-    const modaleditar = (e) => {
-
-        modalEditar.current.classList.add('active')
-        setIdPaciente(e)
-        const IdEditarPaciente = listaPaciente.filter(item => item.idPatients == e)
-        console.log(IdEditarPaciente)
-
-        IdEditarPaciente.map(item => {
-            if (item.activo == 'si') {
-
-                setAc(1)
-
-            }
-            if (item.activo == 'no') {
-                setAc(0)
-
-            }
-
-        })
-
-        IdEditarPaciente.map(item => [
-            setName(item.name),
-            setSex(item.sex),
-            setParents_Name(item.parentsName),
-            setParent_or_guardian_phone_number(item.parentOrGuardianPhoneNumber),
-            setDate_of_birth(item.dateOfBirth.substring('', 10)),
-            setAge(item.age),
-            setEducational_institution(item.educationalInstitution),
-            setWho_refers(item.whoRefers),
-            setFamily_settings(item.familySettings),
-            setTherapies_or_service_you_will_receive_at_the_center(item.therapiesOrServiceYouWillReceiveAtTheCenter),
-            setDiagnosis(item.diagnosis),
-            setRecommendations(item.recommendations),
-            setFamily_members_concerns(item.familyMembersConcerns),
-            setSpecific_medical_condition(item.specificMedicalCondition),
-            setOther(item.other),
-            setNumber_Mothers(item.numberMothers),
-            setCourse(item.course),
-            setSex(item.sex),
-
-        ])
-    }
 
 
     const handleEliminar = () => {
@@ -437,245 +404,211 @@ function ListasPacientes({ usuarioLogin }) {
     }
 
 
-    const myElement = useRef(null);
+    // codigo de filtrado 
+    const handleEdit = (e) => {
+
+        setIdPaciente(e)
+        modalEditar.current.classList.add('active')
+        const IdEditarPaciente = listaPaciente.filter(item => item.idPatients == e)
+
+        IdEditarPaciente.map(item => {
+            if (item.activo == 'si') {
+
+                setAc(1)
+
+            }
+            if (item.activo == 'no') {
+                setAc(0)
+
+            }
+
+        })
 
 
-
-    const handleClickOtro = () => {
-        myElement.current.classList.toggle('mi-clase-css');
+        IdEditarPaciente.map(item => [
+            setName(item.name),
+            setSex(item.sex),
+            setParents_Name(item.parentsName),
+            setParent_or_guardian_phone_number(item.parentOrGuardianPhoneNumber),
+            setDate_of_birth(item.dateOfBirth.substring('', 10)),
+            setEdadEditar(item.age),
+            setEducational_institution(item.educationalInstitution),
+            setWho_refers(item.whoRefers),
+            setFamily_settings(item.familySettings),
+            setTherapies_or_service_you_will_receive_at_the_center(item.therapiesOrServiceYouWillReceiveAtTheCenter),
+            setDiagnosis(item.diagnosis),
+            setRecommendations(item.recommendations),
+            setFamily_members_concerns(item.familyMembersConcerns),
+            setSpecific_medical_condition(item.specificMedicalCondition),
+            setOther(item.other),
+            setNumber_Mothers(item.numberMothers),
+            setCourse(item.course),
+            setSex(item.sex),
+        ])
     };
 
-    const handleBuscarNombre = (event) => {
-        setFiltroNombre(event.target.value);
-    }
-    //  .filter(item => item.activo || item.activo == bsActivo)
 
-    const filtrarActivo = (event) => {
+    const columns = [
 
-        if (event == "2") {
-            setActive(2)
+        {
+            name: 'Name',
+            selector: 'name',
+            sortable: true,
+        },
+        {
+            name: 'Sexo',
+            selector: 'sex',
+            sortable: true,
+        },
+        {
+            name: 'Nombre De Los Padres',
+            selector: 'parentsName',
+            sortable: true,
+        },
+        {
+            name: 'Teléfono de los padres o tutores',
+            selector: 'parentOrGuardianPhoneNumber',
+            sortable: true,
+        },
+        {
+            name: 'Fecha de nacimiento',
+            selector: 'dateOfBirth',
+            sortable: true,
+            cell: row => new Date(row.dateOfBirth).toLocaleDateString()
+        },
+        {
+            name: 'Edad',
+            selector: 'age',
+            sortable: true,
+        },
+        {
+            name: 'Activo',
+            selector: 'activo',
+            sortable: true,
+        },
+        {
+            cell: row => (
+                <div className='actions-container'>
+                    <button className='btnEditar' onClick={() => handleEdit(row.idPatients)}>Editar</button>
+                </div>
+            ),
+            ignoreRowClick: true,
+            allowOverflow: true,
+            button: true,
+        },
+        {
+            cell: row => (
+                <div className='actions-container'>
+                    <button className='btnEliminar' onClick={() => modalEliminar(row.idPatients)}>Eliminar</button>
+                </div>
+            ),
+            ignoreRowClick: true,
+            allowOverflow: true,
+            button: true,
+        },
+    ];
+
+
+    const handleFilter = (e) => {
+        const keyword = e.target.value;
+        if (keyword === "") {
+            setFilteredData(listaPaciente);
+            return;
         }
-        setBsActivo(event)
+
+        else if (verificarActivo) {
+            const filteredResults = filteredData.filter(item => {
+                return item.name.toLowerCase().includes(keyword.toLowerCase());
+
+            });
+            setFilteredData(filteredResults);
+        } else {
+            const filteredResults = listaPaciente.filter(item => {
+                return item.name.toLowerCase().includes(keyword.toLowerCase());
+
+            });
+            setFilteredData(filteredResults);
+        }
+    };
 
 
-    }
+
+    const handleFiltroChange = (event) => {
+
+        if (event.target.value == 2) {
+            setVerificarActivo(true)
+            setFilteredData(listaPaciente)
+        }
+
+        if (event.target.value == "si") {
+            setVerificarActivo(true)
+            const res = listaPaciente.filter(p => p.activo == "si")
+            setFilteredData(res)
+        }
+
+        else if (event.target.value == "no") {
+            setVerificarActivo(true)
+
+            const filteredResults = listaPaciente.filter(item => {
+
+                const res = item.activo == "no"
+                setFilteredData(res)
+            });
+
+            const res = listaPaciente.filter(p => p.activo == "no")
+            setFilteredData(res)
+        } else {
+            setVerificarActivo(false)
+        }
+    };
+
+
+
 
     return (
 
         <div>
 
-            <header className='encabezado'>
-                <div>
-                    <nav>
-                        <input type="checkbox" id="check" />
-                        <label htmlFor="check" className="checkbtn">
-                            <FaBars id='bar' />
-                        </label>
+            <Headers paciente={paciente} />
 
-                        <div className='cont-menu'>
-                            <ul>
-                                <li>
-                                    <Link className='letras-menu' to="/admin">Paciente de ingreso</Link>
-                                </li>
-                                <li>
-                                    <Link className='letras-menu' to="/evaluacion">Citas</Link>
-                                </li>
-                                <li>
-                                    <Link className='letras-menu' to="/terapia">Crear terapia</Link>
-                                </li>
+            <div id='table-container' className='table-container' ref={paciente}>
 
-                                {rol == 1 ?
-                                    <span>
-                                        <li>
-                                            <Link className='letras-menu' to="/listasPacientes">Listado de Pacientes</Link>
-                                        </li>
-
-                                        <li>
-                                            <Link className='letras-menu' to="/listasTerapias">Listado de Terapias</Link>
-                                        </li>
-                                    </span>
-                                    :
-                                    ""
-                                }
-                                <li>
-                                    <Link className='letras-menu' to="/asistencias">Asistencia</Link>
-                                </li>
-                                <li>
-                                    <Link className='letras-menu' to="/calendario">Calendario</Link>
-                                </li>
-                                <li>
-                                    <Link className='letras-menu' to="/TerapiaTerapeuta">Asignación</Link>
-                                </li>
-                                <li>
-                                    <Link className='letras-menu' to="/Users">Usuario</Link>
-                                </li>
-
-                                {rol == 1 ?
-                                    <span>
-                                        <li>
-                                            <Link className='letras-menu' to="/gastos">Registro de gastos</Link>
-                                        </li>
-                                        <li>
-                                            <Link className='letras-menu' to="/VerGanancias">Reporte</Link>
-                                        </li>
-                                        <li>
-                                            <Link className='letras-menu' to="/AbonoTerapias">AbonoTerapias</Link>
-                                        </li>
-                                        <li>
-                                            <Link className='letras-menu' to="/PagoTerapeutas">PagoTerapeutas</Link>
-                                        </li>
-                                    </span>
-                                    :
-                                    ""
-                                }
-                                <li>
-                                    <a className='letras-menu' onClick={logout}>Cerra Sesión</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </nav>
-                </div>
-
-                <div className='cont-logo-header'>
-                    <img className='img-admin-logo' src={logo} />
-                    <span className='ver'><span className='gg'>é</span>nfasis</span>
-                </div>
-
-                <div className='contenedor-botones'>
-                    <div className='cont-btn-headers'>
-                        <div className='probarUs'>
-                            <Link className='Link' to="/perfilAdmin">{obtenerUser()}</Link>
-                        </div>
-                    </div>
-                    <div className='cont-nombre-usuario'>
-                        <p className='nombreUsuario'>{getNombreUsuario()}</p>
-                    </div>
-                </div>
-            </header>
-
-
-
-            <div id='table-container' ref={myElement} className='table-container'>
                 <div className='sex-tables'>
-
 
                     <div className='cont-titu-tables'>
                         <h1>Listado de Pacientes</h1>
                     </div>
 
+
                     <div className='cont-action'>
                         <div className='cont-crear-paciente'  >
-                            <button className="btn-crear-Paciente-tabla" onClick={modalCraePaciente}>Crear Paciente</button>
+                            <button className="btn-crear-Paciente-tabla" onClick={modalCraePaciente}> Crear Paciente</button>
                         </div>
 
                         <div className='cont-crear-paciente'  >
                             <label>Status</label>
-                            <select id='txtbuscar' onChange={e => filtrarActivo(e.target.value)}>
+                            <select id='txtbuscar' onChange={handleFiltroChange}>
                                 <option value="2">Todos</option>
                                 <option value="si">Activo</option>
                                 <option value="no">Inactivos</option>
                             </select>
                             <label>Paciente</label>
-                            <input id='txtbuscar' placeholder='Nombre' onChange={handleBuscarNombre} value={filtroNombre} />
-
-                            <label>Total de  Pacientes</label>
-                            <input id='txtbuscar' className="cantidadPaciente" value={contadorPacientes} />
+                            <input id='txtbuscar' placeholder='Nombre' onChange={handleFilter} autocomplete="off" />
                         </div>
                     </div>
 
-                    <hr></hr>
-                    <div className='sub-2'>
-                        <table className='table'>
+                    <DataTable
+                        columns={columns}
+                        data={verificarActivo || filteredData.length > 0 ? filteredData : listaPaciente}
+                        pagination
 
-                            <thead>
-                                <tr>
-                                    <th scope="col">Nombre </th>
-                                    <th scope="col">Sexo</th>
-                                    <th scope="col">Nombre De Los Padres</th>
-                                    <th scope="col">Teléfono de los padres o tutores </th>
-                                    <th scope="col">Fecha de nacimiento</th>
-                                    <th scope="col">Edad</th>
-                                    <th scope="col">Activo</th>
-                                    <th>
+                    />
 
-                                    </th>
-                                </tr>
-                            </thead>
-
-                            <tbody>
-                                {bsActivo ?
-                                    listaPaciente.filter(item => item.name.toLowerCase().includes(filtroNombre.toLowerCase()))
-
-                                        .filter(item => item.activo == bsActivo)
-
-                                        .map(item => (
-                                            <tr key={item.idPatients}>
-                                                <td data-label="Nombre"  >{item.name}</td>
-                                                <td data-label="Sexo">{item.sex}</td>
-                                                <td data-label="Nombre De Los Padres">{item.parentsName}</td>
-                                                <td data-label="Teléfono de los padres o tutores">{item.parentOrGuardianPhoneNumber}</td>
-                                                <td data-label="Fecha de nacimiento">{item.dateOfBirth.substring('', 10)}</td>
-                                                <td data-label="edad">{item.age}</td>
-                                                <td data-label="activo">{item.activo}</td>
-
-                                                <td className='tr-btn'>
-                                                    <button className='btn ' type='button' value={item.idPatients} onClick={e => modaleditar(e.target.value)}>Editar</button>
-                                                    <button className='btn eliminar' type='button' value={item.idPatients} onClick={e => modalEliminar(e.target.value)}>Eliminar</button>
-                                                </td>
-                                            </tr>
-                                        ))
-                                    :
-                                    listaPaciente.filter(item => item.name.toLowerCase().includes(filtroNombre.toLowerCase()))
-                                        .map(item => (
-
-                                            <tr key={item.idPatients}>
-                                                <td data-label="Nombre"  >{item.name}</td>
-                                                <td data-label="Sexo">{item.sex}</td>
-                                                <td data-label="Nombre De Los Padres">{item.parentsName}</td>
-                                                <td data-label="Teléfono de los padres o tutores">{item.parentOrGuardianPhoneNumber}</td>
-                                                <td data-label="Fecha de nacimiento">{item.dateOfBirth.substring('', 10)}</td>
-                                                <td data-label="edad">{item.age}</td>
-                                                <td data-label="activo">{item.activo}</td>
-
-                                                <td className='tr-btn'>
-                                                    <button className='btn ' type='button' value={item.idPatients} onClick={e => modaleditar(e.target.value)}>Editar</button>
-                                                    <button className='btn eliminar' type='button' value={item.idPatients} onClick={e => modalEliminar(e.target.value)}>Eliminar</button>
-                                                </td>
-                                            </tr>
-                                        ))
-                                }
-                                {active ?
-
-                                    listaPaciente.filter(item => item.name.toLowerCase().includes(filtroNombre.toLowerCase()))
-                                        .map((item, index) => (
-                                            <tr key={item.idPatients}>
-                                                <td>{index + 1}</td>
-                                                <td data-label="Nombre"  >{item.name}</td>
-                                                <td data-label="Sexo">{item.sex}</td>
-                                                <td data-label="Nombre De Los Padres">{item.parentsName}</td>
-                                                <td data-label="Teléfono de los padres o tutores">{item.parentOrGuardianPhoneNumber}</td>
-                                                <td data-label="Fecha de nacimiento">{item.dateOfBirth.substring('', 10)}</td>
-                                                <td data-label="edad">{item.age}</td>
-                                                <td data-label="activo">{item.activo}</td>
-
-                                                <td className='tr-btn'>
-                                                    <button className='btn ' type='button' value={item.idPatients} onClick={e => modaleditar(e.target.value)}>Editar</button>
-                                                    <button className='btn eliminar' type='button' value={item.idPatients} onClick={e => modalEliminar(e.target.value)}>Eliminar</button>
-                                                </td>
-                                            </tr>
-                                        ))
-                                    : ""
-                                }
-
-                            </tbody>
-                        </table>
-                    </div>
                 </div>
-
 
             </div>
 
-            <div className='modal-paciente-editar' ref={modalEditar}>
+            <div className='modal-paciente-editar' >
                 <form onSubmit={handleEditar} className='contenedor-cita'>
 
                     <div className='cont-titulo-form'>
@@ -690,7 +623,6 @@ function ListasPacientes({ usuarioLogin }) {
                                 <label htmlFor="validationServer01" className='labelPaciente'>Nombre</label>
                                 <input type="text" className="form-control " value={name} id="validationServer01" onChange={e => handleNameChange(e.target.value)} required />
                             </div>
-
 
                             <div className="col">
                                 <label htmlFor="validationServer01" className='labelPaciente'>Sexo</label>
@@ -708,11 +640,11 @@ function ListasPacientes({ usuarioLogin }) {
 
                             <div className="col">
                                 <label htmlFor="validationServer02" className='labelPacienteCC' >Teléfono del padre</label>
-                                <input type="text" className="form-control " value={parent_or_guardian_phone_number} id="validationServer02" required onChange={e => handleparent_or_guardian_phone_numberChange(e.target.value)} />
+                                <input type="text" className="form-control " value={parent_or_guardian_phone_number} id="validationServer02" required onChange={handleparent_or_guardian_phone_numberChange} />
                             </div>
                             <div className="col">
                                 <label htmlFor="validationServer02" className='labelPacienteCC' >Teléfono de la madre</label>
-                                <input type="text" className="form-control " value={number_Mothers} id="validationServer02" required onChange={e => handlemothers_number(e.target.value)} />
+                                <input type="text" className="form-control " value={number_Mothers} id="validationServer02" required onChange={handlemothers_number} />
                             </div>
                         </div>
 
@@ -722,10 +654,21 @@ function ListasPacientes({ usuarioLogin }) {
                                 <input type="date" className="form-control" value={date_of_birth} id="validationServer02" required onChange={handledate_of_birthChange} />
                             </div>
 
-                            <div className="col">
+                            {edadEditar ? <div className="col">
                                 <label htmlFor="validationServer02" className='labelPaciente'>Edad</label>
-                                <input type="number" className="form-control" value={calculateAge()} id="validationServer02" />
+                                <input type="number" className="form-control" value={edadEditar} id="validationServer02" />
                             </div>
+                                :
+                                <div className="col">
+                                    <label htmlFor="validationServer02" className='labelPaciente'>Edad</label>
+                                    <input type="number" className="form-control" value={calculateAge()} id="validationServer02" />
+                                </div>
+
+                            }
+
+
+
+
 
                             <div className="col">
                                 <label htmlFor="validationServer02" className='labelPaciente'>Centro de Estudios</label>
@@ -813,7 +756,7 @@ function ListasPacientes({ usuarioLogin }) {
                             <div className="col">
                                 <label htmlFor="validationServer01" className='labelPaciente'>Sexo</label>
                                 <select className="form-control" required onChange={e => handleSexChange(e.target.value)}>
-                                    <option defaultValue>seleccione una opción</option>
+                                    <option value=''>seleccione una opción</option>
                                     <option value="Masculino">Masculino</option>
                                     <option value="Femenina">Femenino</option>
                                 </select>

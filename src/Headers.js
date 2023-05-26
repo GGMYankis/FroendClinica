@@ -9,7 +9,7 @@ import { useState, useEffect, useRef } from 'react';
 import { setUsuarioM, obtenerUser, getNombreUsuario, DeleteToken, getUsuarioCompleto } from './auth-helpers'
 
 
-function Headers({calendario,myElement}) {
+function Headers({calendario,myElement,paciente}) {
 
     const navigation = useNavigate();
     obtenerUser()
@@ -22,6 +22,10 @@ function Headers({calendario,myElement}) {
     let rol = getUsuarioCompleto()
 
     const handleClickOtro = () => {
+
+        if(paciente){
+            paciente.current.classList.toggle('mi-clase-css');
+        }
 
         if (calendario) {
            calendario.current.classList.toggle('mi-clase-css');
@@ -125,10 +129,7 @@ function Headers({calendario,myElement}) {
                 </div>
 
             </header>
-
-
-
-
+            
         </div>
     )
 }

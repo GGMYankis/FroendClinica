@@ -221,11 +221,11 @@ const Admin = () => {
 
                             <div className="col">
                                 <label htmlFor="validationServer02" className='labelPacienteCC' >Teléfono del padre</label>
-                                <input type="text" className="form-control " id="validationServer02"  required onChange={handleparent_or_guardian_phone_numberChange} />
+                                <input type="text" className="form-control " id="validationServer02" value={NumPadre}  required onChange={handleparent_or_guardian_phone_numberChange} />
                             </div>
                             <div className="col">
                                 <label htmlFor="validationServer02" className='labelPacienteCC' >Teléfono de la madre</label>
-                                <input type="text" className="form-control " id="validationServer02" required onChange={handlemothers_number} />
+                                <input type="text" className="form-control " id="validationServer02" value={NumMadre} required onChange={handlemothers_number} />
                             </div>
                         </div>
 

@@ -104,12 +104,12 @@ function Login({ setUsuarioLogin }) {
 
                 <div className='cont-email-login' >
                     <FontAwesomeIcon icon={faEnvelope} className='email' />
-                    <input type="text" placeholder='Email' id='emaillogin' onChange={(e) => setEmail(e.target.value)} autoComplete='off' />
+                    <input type="text" placeholder='Email' id='emaillogin' onChange={(e) => setEmail(e.target.value)} autocomplete="off" />
                 </div>
 
                 <div className='cont-email-login' >
                     <FontAwesomeIcon icon={faLock} className='email' />
-                    <input type="password" placeholder='Password' onChange={(e) => setPassword(e.target.value)} autoComplete='off' />
+                    <input type="password" placeholder='Password' onChange={(e) => setPassword(e.target.value)} autocomplete="off" />
                 </div>
                 {mensajeError ?
                     <div class="alert alert-danger" role="alert">

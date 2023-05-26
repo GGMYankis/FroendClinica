@@ -21,6 +21,9 @@
     border: 1px solid white;
 }
 
+.cont-logo-header .ver{
+ padding-top: 15px;
+}
 .encabezado .cont-menu {
     position: fixed;
     width: 220px;
@@ -816,7 +819,7 @@ th {
 }
 
 .contenedor-admin {
-    width: 80%;
+    width: 84%;
     height: 80%;
     background-color: white;
     box-shadow: 0 1rem 2rem rgba(0, 0, 0, .1);
@@ -843,7 +846,7 @@ th {
 */
 
 .contenedor-cita {
-    width: 1200px;
+    width: 83%;
     margin: 10px;
     background-color: white;
     box-shadow: 0 1rem 2rem rgba(0, 0, 0, .1);

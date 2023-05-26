@@ -7,262 +7,390 @@ import './Carrito.css';
 import logo from "./imagenes/New_iPhone_7_Plus_128GB_Red_Edition.jpg";
 import logso from "./imagenes/tv-curvas-1.jpg";
 import iphone from "./imagenes/Iphone-12-Pro-Max.jpg";
-
+import axios from 'axios';
+import DataTable from 'react-data-table-component';
 
 
 function AgeCalculator() {
 
-  const menu = useRef();
-
-  function evento() {
-
-    menu.current.classList.add('active')
-    //  document.body.classList.add('opacity')
-
-  }
-
-
-  function quitar() {
-
-    menu.current.classList.remove('active')
-    document.body.classList.remove('opacity')
-  }
-
-  const miBotonRef = useRef(null);
-
+  const modalCrear = useRef()
+  const modalEditar = useRef()
+  const [listaPaciente, setlistaPaciente] = useState([])
+  const [filteredData, setFilteredData] = useState([]);
+  const [resPacientes, setResPacientes] = useState([]);
+  const [active, setActive] = useState(null);
+  const [verificarActivo, setVerificarActivo] = useState(false);
+  const [filtro, setFiltro] = useState('2');
+  const [name, setName] = useState('');
+  const [sex, setSex] = useState('');
+  const [parents_name, setParents_Name] = useState('');
+  const [parent_or_guardian_phone_number, setParent_or_guardian_phone_number] = useState('');
+  const [date_of_birth, setDate_of_birth] = useState('');
+  const [age, setAge] = useState();
+  const [educational_institution, setEducational_institution] = useState('');
+  const [course, setCourse] = useState('');
+  const [who_refers, setWho_refers] = useState('');
+  const [family_settings, setFamily_settings] = useState('');
+  const [therapies_or_service_you_will_receive_at_the_center, setTherapies_or_service_you_will_receive_at_the_center] = useState('');
+  const [diagnosis, setDiagnosis] = useState('');
+  const [recommendations, setRecommendations] = useState('');
+  const [family_members_concerns, setFamily_members_concerns] = useState('');
+  const [specific_medical_condition, setSpecific_medical_condition] = useState('');
+  const [other, setOther] = useState('');
+  const [number_Mothers, setNumber_Mothers] = useState('');
+  const [ac, setAc] = useState([])
 
   useEffect(() => {
 
-    const ver = (e) => {
-
-      var x, y, x1, x2, y1, y2;
-      let fact = 800 / 400;
-      let opp = 100;
-
-      if (e == null) e = window.event;
-      x = e.clientX
-      y = e.clientY;
-
-      x1 = - opp + (x) * fact;
-      y1 = - opp + (y) * fact;
-      x2 = + opp + (x) * fact;
-      y2 = + opp + (y) * fact;
-
-
-      document.images.grande.style.display = "inline";
-      document.images.grande.style.left = (x) * (1 - fact);
-      document.images.grande.style.top = (y) * (1 - fact);
-      document.images.grande.style.clip = "react(" + y1 + "px," + x2 + "px," + y2 + "px," + x1 + "px)";
-
-
-    };
-
-    document.addEventListener('mousemove', ver);
-
-    return () => {
-      document.removeEventListener('mousemove', ver);
-    };
+    cargar()
   }, []);
 
+  const cargar = async => {
 
-  // ...
+    axios.get('http://yankisggm-001-site1.ctempurl.com/api/Clinica/Lista')
+      .then(res => {
 
-  const [selectedImage, setSelectedImage] = useState(null);
+        res.data.map(item => {
 
-  const handleImageChange = (event) => {
-    const image = event.target.files[0];
-    setSelectedImage(image);
+
+          if (item.activo == true) {
+
+            setlistaPaciente(item.activo = 'si')
+
+          }
+          if (item.activo == false) {
+            setlistaPaciente(item.activo = 'no')
+
+          }
+          setlistaPaciente(res.data)
+
+        })
+
+      });
+  }
+
+  const handleEdit = (e) => {
+    modalEditar.current.classList.add('active')
+    const IdEditarPaciente = listaPaciente.filter(item => item.idPatients == e)
+
+    IdEditarPaciente.map(item => {
+      if (item.activo == 'si') {
+
+        setAc(1)
+
+      }
+      if (item.activo == 'no') {
+        setAc(0)
+
+      }
+
+    })
+
+
+    IdEditarPaciente.map(item => [
+      setName(item.name),
+      setSex(item.sex),
+      setParents_Name(item.parentsName),
+      setParent_or_guardian_phone_number(item.parentOrGuardianPhoneNumber),
+      setDate_of_birth(item.dateOfBirth.substring('', 10)),
+      setAge(item.age),
+      setEducational_institution(item.educationalInstitution),
+      setWho_refers(item.whoRefers),
+      setFamily_settings(item.familySettings),
+      setTherapies_or_service_you_will_receive_at_the_center(item.therapiesOrServiceYouWillReceiveAtTheCenter),
+      setDiagnosis(item.diagnosis),
+      setRecommendations(item.recommendations),
+      setFamily_members_concerns(item.familyMembersConcerns),
+      setSpecific_medical_condition(item.specificMedicalCondition),
+      setOther(item.other),
+      setNumber_Mothers(item.numberMothers),
+      setCourse(item.course),
+      setSex(item.sex),
+
+    ])
   };
 
 
-  // 
-  //<img src={iphone} className='img1' />
-  // <img name="grande" src={iphone} className='img2' />
+  const handleDelete = (id) => {
+    console.log('Eliminar paciente con ID:', id);
+  };
+
+  const columns = [
+
+    {
+      name: 'Name',
+      selector: 'name',
+      sortable: true,
+    },
+    {
+      name: 'Sexo',
+      selector: 'sex',
+      sortable: true,
+    },
+    {
+      name: 'Nombre De Los Padres',
+      selector: 'parentsName',
+      sortable: true,
+    },
+    {
+      name: 'Teléfono de los padres o tutores',
+      selector: 'parentOrGuardianPhoneNumber',
+      sortable: true,
+    },
+    {
+      name: 'Fecha de nacimiento',
+      selector: 'dateOfBirth',
+      sortable: true,
+    },
+    {
+      name: 'Edad',
+      selector: 'age',
+      sortable: true,
+    },
+    {
+      name: 'Activo',
+      selector: 'activo',
+      sortable: true,
+    },
+    {
+      cell: row => (
+        <div className='actions-container'>
+          <button className='btnEditar' onClick={() => handleEdit(row.idPatients)}>Editar</button>
+        </div>
+      ),
+      ignoreRowClick: true,
+      allowOverflow: true,
+      button: true,
+    },
+    {
+      cell: row => (
+        <div className='actions-container'>
+          <button className='btnEliminar' onClick={() => handleDelete(row.idPatients)}>Eliminar</button>
+        </div>
+      ),
+      ignoreRowClick: true,
+      allowOverflow: true,
+      button: true,
+    },
+  ];
+
+
+  const handleFilter = (e) => {
+    const keyword = e.target.value;
+    if (keyword === "") {
+      setFilteredData(listaPaciente);
+      return;
+    }
+
+    else if (verificarActivo) {
+      const filteredResults = filteredData.filter(item => {
+        return item.name.toLowerCase().includes(keyword.toLowerCase());
+
+      });
+      setFilteredData(filteredResults);
+    } else {
+        const filteredResults = listaPaciente.filter(item => {
+        return item.name.toLowerCase().includes(keyword.toLowerCase());
+
+      });
+      setFilteredData(filteredResults);
+    }
+  };
+
+
+
+  const handleFiltroChange = (event) => {
+
+    if (event.target.value == 2) {
+      setVerificarActivo(true)
+      setFilteredData(listaPaciente)
+    }
+
+    if (event.target.value == "si") {
+      setVerificarActivo(true)
+      const res = listaPaciente.filter(p => p.activo == "si")
+      setFilteredData(res)
+    }
+
+    else if (event.target.value == "no") {
+      setVerificarActivo(true)
+
+      const filteredResults = listaPaciente.filter(item => {
+
+        const res = item.activo == "no"
+        setFilteredData(res)
+      });
+
+      const res = listaPaciente.filter(p => p.activo == "no")
+      setFilteredData(res)
+    } else {
+      setVerificarActivo(false)
+    }
+  };
+
+
+
   return (
 
     <div >
 
+      <div id='table-container' className='table-container'>
+        <div className='sex-tables'>
 
-      <input type="file" onChange={handleImageChange} />
-
-
-
-      <div className='iamgenSelecionada'>
-        {selectedImage && (
-          <img src={URL.createObjectURL(selectedImage)} alt="Selected" />
-        )}
-      </div>
-
-
-
-      {/*
-      <div className='cont-padre-detalle'>
-      
-        <div className='cont-img-detalle'>
-          <div className='contImgDetalle'>
-            <img src={iphone} className='img-detalle' />
+          <div className='cont-titu-tables'>
+            <h1>Listado de Pacientes</h1>
           </div>
 
 
-          <div className='cont-detalle'>
-            <div>
-              <p><b>Pulsera Xiaomi Mi Smart Band 5 negra</b></p>
-            </div>
-            <hr></hr>
-
-            <p>Estado: <b>Nuevo: Otro (ver detalles)</b></p>
-            <p>“Producto de exposición revisado por nuestros técnicos y que funciona perfectamente, con 1 año de ”.</p>
-
-            <hr></hr>
-            <div className='cont-footer-detalle'>
-              <p>Precio:<b> 23,95 EUR</b></p>
-              <div className='cont-btn-detalle'>
-                <button className='agregarcarrito detalle'>Agregar carrito</button>
-                <a className='detalleProducto detalle'>Agregar carrito</a>
-              </div>
+          <div className='cont-action'>
+            <div className='cont-crear-paciente'  >
+              <button className="btn-crear-Paciente-tabla">Crear Paciente</button>
             </div>
 
-            <div className='footerdetalle'>
-
-              <p>Este artículo es popular. 1.056 ya se han vendido.</p>
+            <div className='cont-crear-paciente'  >
+              <label>Status</label>
+              <select id='txtbuscar' onChange={handleFiltroChange}>
+                <option value="2">Todos</option>
+                <option value="si">Activo</option>
+                <option value="no">Inactivos</option>
+              </select>
+              <label>Paciente</label>
+              <input id='txtbuscar' placeholder='Nombre' onChange={handleFilter} />
             </div>
-
           </div>
+          <hr></hr>
+
+          <DataTable
+            columns={columns}
+            data={verificarActivo || filteredData.length > 0 ? filteredData : listaPaciente}
+            pagination
+          />
+
         </div>
- </div>
-  */}
-
-
-      {/*
-
-
-        {
-          producto.map(item => [
-
-            <div className='cont-tikes'>
-
-              <div className='boxTikes'>
-                <img src={item.imagen} className='rounded' />
-              </div>
-
-              <div className='box-2-tikes'>
-                <div className='cont-nombre-producto'>
-                  <span className=''>{item.nombre}</span>
-                </div>
-                <div className='cont-precio-producto'>
-                  <span>${item.precio} USD</span>
-                </div>
-                <div className='cont-btn-tikes'>
-                  <button className='agregarcarrito'>Agregar carrito</button>
-                  <a className='detalleProducto'>Agregar carrito</a>
-                </div>
-              </div>
-
-            </div>
-
-          ])
-
-        }
-
- <header className='headers'>
-
-        <nav className='menu'>
-
-          <FaBars className='icoBarra' id='icoBarra' onClick={evento} />
-          <p className='txtNombre'>Cyber Plaza</p>
-
-          <div className='cont-menu' id='icono-menu' ref={menu}>
-            <div className='cont-titu-menu'>
-              <p>Hola Yankis</p>
-              <p onClick={quitar} className='quitar'>X</p>
-            </div>
-            <ul>
-              <li>Home</li>
-              <li>Home</li>
-              <li>Home</li>
-              <li>Home</li>
-              <li>Home</li>
-            </ul>
-          </div>
-
-          <input className='busqueda' placeholder='Buscar un producto' />
-
-          <span className='span2'>
-            <a>Inicia sesion</a>
-            <a className='cont-card'>
-              <FaShoppingCart className='txtcard' />
-              <span class="badge bg-dark text-white ms-1 rounded-pill" id="cantidadcarrito">0</span>
-            </a>
-          </span>
-
-        </nav>
-
-        <nav className='nav-menu' >
-          <ul className='menu-horizontal'>
-            <li><a>Categoria</a>
-              <ul className='menu-vertical'>
-                <li>Tecnologia</li>
-                <li>Deportes</li>
-                <li>Dormitorio</li>
-              </ul>
-            </li>
-          </ul>
-        </nav>
-
-      </header>
-
-
-
-
-
-      <div className='headerLogin'>
-        <p className='txtNombre'>Cyber Plaza</p>
       </div>
 
-      <div className='cont-padreIndex'>
 
-        <div className='prev'>
+      <div className='modal-paciente-editar' ref={modalEditar} >
+        <form className='contenedor-cita'>
 
-
-          <div className='mensaje-error'>
-            <div className='sub-box-mensaje-error'>
-              <p>No pudimos encontrar un conreo electronico</p>
-            </div>
+          <div className='cont-titulo-form'>
+            <h1>Editar Paciente </h1>
           </div>
 
-          <form className='cont-login'>
 
-            <div className='sub-login'>
-              <label>Correo</label>
-              <input />
+          <div className='paddd'>
+
+            <div className="row" id='primeraFila'>
+              <div className="col">
+                <label htmlFor="validationServer01" className='labelPaciente'>Nombre</label>
+                <input type="text" className="form-control " value={name} id="validationServer01" required />
+              </div>
+
+
+              <div className="col">
+                <label htmlFor="validationServer01" className='labelPaciente'>Sexo</label>
+                <select className="form-control" required value={sex} >
+                  <option defaultValue >seleccione una opción</option>
+                  <option value="Masculino">Masculino</option>
+                  <option value="Femenina">Femenino</option>
+                </select>
+              </div>
+
+              <div className="col">
+                <label htmlFor="validationServer02" className='labelPaciente'>Nombre De Los Padres </label>
+                <input type="text" className="form-control " value={parents_name} id="validationServer02" required />
+              </div>
+
+              <div className="col">
+                <label htmlFor="validationServer02" className='labelPacienteCC' >Teléfono del padre</label>
+                <input type="text" className="form-control " value={parent_or_guardian_phone_number} id="validationServer02" required />
+              </div>
+              <div className="col">
+                <label htmlFor="validationServer02" className='labelPacienteCC' >Teléfono de la madre</label>
+                <input type="text" className="form-control " value={number_Mothers} id="validationServer02" required />
+              </div>
             </div>
 
-            <div className='sub-login'>
-              <label>Contraseñas</label>
-              <input />
+            <div className='row' id='segundaFila'>
+              <div className="col">
+                <label htmlFor="validationServer02" className='labelPaciente'>Fecha de nacimiento</label>
+                <input type="date" className="form-control" value={date_of_birth} id="validationServer02" required />
+              </div>
+
+              <div className="col">
+                <label htmlFor="validationServer02" className='labelPaciente'>Edad</label>
+                <input type="number" className="form-control" id="validationServer02" />
+              </div>
+
+              <div className="col">
+                <label htmlFor="validationServer02" className='labelPaciente'>Centro de Estudios</label>
+                <input type="text" className="form-control " value={educational_institution} id="validationServer02" required />
+              </div>
+
+              <div className="col">
+                <label htmlFor="validationServer02" className='labelPaciente'>Curso</label>
+                <input type="text" className="form-control " value={course} id="validationServer02" required />
+              </div>
+              <div className="col">
+                <label htmlFor="validationServer02" className='labelPaciente'>Recomendaciones </label>
+                <input type="text" className="form-control " value={recommendations} id="validationServer02" required />
+              </div>
             </div>
-            <div className='cont-btn-login'>
-              <button >Iniciar Sesion</button>
+
+            <div className='row' id='terceraFila'>
+              <div className="col">
+                <label htmlFor="validationServer02" className='labelPaciente'>Quien refiere</label>
+                <input type="text" className="form-control " value={who_refers} id="validationServer02" required />
+
+              </div>
+              <div className="col">
+                <label htmlFor="validationServer02" className='labelPaciente'>Configuración familiar</label>
+                <input type="text" className="form-control " value={family_settings} id="validationServer02" required />
+              </div>
+
+              <div className="col">
+                <label htmlFor="validationServer02" className='labelPaciente'>Terapias o servicio  </label>
+                <input type="text" className="form-control " value={therapies_or_service_you_will_receive_at_the_center} id="validationServer02" />
+
+              </div>
+              <div className="col">
+                <label htmlFor="validationServer02" className='labelPaciente'>Diagnóstico </label>
+                <input type="text" className="form-control" value={diagnosis} id="validationServer02" required />
+              </div>
+              <div className="col">
+                <label htmlFor="validationServer02" className='labelPaciente'>Condición médica específica </label>
+                <input type="text" className="form-control " value={specific_medical_condition} id="validationServer02" required />
+              </div>
             </div>
-            <div className='cont-mensaje-login'>
-              <a>¿Perdiste tu contraseña?</a>
-              <a>¿No tienes un Cuenta? Resgistrate</a>
+            <div className='row'>
+              <div className="col">
+                <label htmlFor="validationServer02" className='labelPaciente'>Activo</label>
+                <select id="cboactivo" className="form-control" value={ac}  >
+                  <option defaultValue>seleccione una opción</option>
+                  <option value="1">Si</option>
+                  <option value="0">No</option>
+                </select>
+              </div>
             </div>
-
-
-            <div class="linea-con-circulo"></div>
-
-            <div className='cont-btn-login '>
-              <button className='google'>Continuar con Google</button>
+            <div className='row'>
+              <div className="col">
+                <label htmlFor="validationServer02" className='labelPaciente'>Preocupación de los familiares</label>
+                <input type="text" className="form-control " value={family_members_concerns} id="validationServer02" required />
+              </div>
             </div>
-
-          </form>
-        </div>
-
-
+            <div className='row'>
+              <div className="col">
+                <label htmlFor="validationServer02">Otro </label>
+                <textarea id="txtArea" rows="10" cols="70" value={other} ></textarea>
+              </div>
+            </div>
+            <div className="col" id='cont-btn-admin'>
+              <button className="btn-cita">Guardar</button>
+              <button className="btn-cita" type='button'>Cancelar</button>
+            </div>
+          </div>
+        </form>
       </div>
- */}
-
     </div >
 
   );
@@ -270,31 +398,3 @@ function AgeCalculator() {
 
 export default AgeCalculator;
 
-/*             <div class="col-md-6"><img class="card-img-top mb-5 mb-md-0" src="data:imagen/@Html.DisplayTextFor(m => m.Extension);base64,@Html.DisplayTextFor(m => m.Base64)" alt="..." /></div>
-            <div class="col-md-6">
-                <div class="small mb-1">Marca: @Html.DisplayTextFor(m => m.oMarca.Descripcion)</div>
-                <h1 class="display-5 fw-bolder"> @Html.DisplayTextFor(m => m.Nombre)</h1>
-                <div class="fs-5 mb-5">
-                    @*<span class="text-decoration-line-through">$45.00</span>*@
-                    <span>@Html.DisplayTextFor(m => m.Precio) USD</span>
-                </div>
-                <p class="lead">@Html.DisplayTextFor(m => m.Descripcion)</p>
-                <div class="d-flex">
-                    <a href="@Url.Action("Index","Tienda")" class="btn btn-danger w-50 text-center">atras </a>
-
-                    @if (Session["Cliente"] != null)
-                    {
-                        <button class="btn btn-success agregarcarrito flex-shink-0 w-50" type="button" data-idproducto="@Html.DisplayTextFor(m => m.IdProducto)">
-                            <i class="bi-cart-fill me-1"></i>
-                            agregar al carrito
-                        </button>
-                    }
-
-
-                </div>
-
-
-
-
-
-            </div> */
