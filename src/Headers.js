@@ -9,7 +9,7 @@ import { useState, useEffect, useRef } from 'react';
 import { setUsuarioM, obtenerUser, getNombreUsuario, DeleteToken, getUsuarioCompleto } from './auth-helpers'
 
 
-function Headers({calendario,myElement,paciente}) {
+function Headers({ calendario, myElement, paciente }) {
 
     const navigation = useNavigate();
     obtenerUser()
@@ -23,12 +23,12 @@ function Headers({calendario,myElement,paciente}) {
 
     const handleClickOtro = () => {
 
-        if(paciente){
+        if (paciente) {
             paciente.current.classList.toggle('mi-clase-css');
         }
 
         if (calendario) {
-           calendario.current.classList.toggle('mi-clase-css');
+            calendario.current.classList.toggle('mi-clase-css');
         }
         else if (myElement) {
             myElement.current.classList.toggle('mi-clase-css');
@@ -78,15 +78,16 @@ function Headers({calendario,myElement,paciente}) {
                                 <li>
                                     <Link className='letras-menu' to="/calendario">Calendario</Link>
                                 </li>
-                                <li>
-                                    <Link className='letras-menu' to="/TerapiaTerapeuta">Asignación</Link>
-                                </li>
-                                <li>
-                                    <Link className='letras-menu' to="/Users">Usuario</Link>
-                                </li>
+
 
                                 {rol == 1 ?
                                     <span>
+                                        <li>
+                                            <Link className='letras-menu' to="/TerapiaTerapeuta">Asignación</Link>
+                                        </li>
+                                        <li>
+                                            <Link className='letras-menu' to="/Users">Usuario</Link>
+                                        </li>
                                         <li>
                                             <Link className='letras-menu' to="/gastos">Registro de gastos</Link>
                                         </li>
@@ -129,7 +130,7 @@ function Headers({calendario,myElement,paciente}) {
                 </div>
 
             </header>
-            
+
         </div>
     )
 }

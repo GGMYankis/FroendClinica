@@ -58,7 +58,7 @@ function Login({ setUsuarioLogin }) {
 
 
 
-            const url = 'http://yankisggm-001-site1.ctempurl.com/api/Autenticacion/Login';
+            const url = 'https://localhost:63958/api/Autenticacion/Login';
             axios.post(url, data).then((result) => {
 
                 if (result.data.user != null) {

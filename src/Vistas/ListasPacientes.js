@@ -72,12 +72,11 @@ function ListasPacientes({ usuarioLogin }) {
 
     const cargar = async => {
 
-        axios.get('http://yankisggm-001-site1.ctempurl.com/api/Clinica/Lista')
+        axios.get('https://localhost:63958/api/Clinica/ListaTodos')
             .then(res => {
 
                 const numeroPacientes = res.data.length;
                 setContadorPacientes(numeroPacientes)
-
 
                 res.data.map(item => {
 
@@ -313,7 +312,7 @@ function ListasPacientes({ usuarioLogin }) {
 
 
         console.log(dataEditar)
-        const url = 'http://yankisggm-001-site1.ctempurl.com/api/Clinica/EditarPaciente';
+        const url = 'https://localhost:63958/api/Clinica/EditarPaciente';
         axios.put(url, dataEditar).then((result) => {
 
             const probar = async () => {
@@ -452,38 +451,40 @@ function ListasPacientes({ usuarioLogin }) {
 
         {
             name: 'Name',
-            selector: 'name',
+            selector: row => row.name,
             sortable: true,
         },
         {
             name: 'Sexo',
-            selector: 'sex',
+            selector: row => row.sex,
             sortable: true,
         },
         {
             name: 'Nombre De Los Padres',
-            selector: 'parentsName',
+            selector: row => row.parentsName,
             sortable: true,
         },
         {
             name: 'Teléfono de los padres o tutores',
-            selector: 'parentOrGuardianPhoneNumber',
+            selector: row => row.parentOrGuardianPhoneNumber,
             sortable: true,
         },
         {
             name: 'Fecha de nacimiento',
-            selector: 'dateOfBirth',
+            selector: row => row.dateOfBirth,
             sortable: true,
             cell: row => new Date(row.dateOfBirth).toLocaleDateString()
         },
         {
             name: 'Edad',
             selector: 'age',
+            selector: row => row.age,
             sortable: true,
         },
         {
             name: 'Activo',
             selector: 'activo',
+            selector: row => row.activo,
             sortable: true,
         },
         {
@@ -593,7 +594,7 @@ function ListasPacientes({ usuarioLogin }) {
                                 <option value="no">Inactivos</option>
                             </select>
                             <label>Paciente</label>
-                            <input id='txtbuscar' placeholder='Nombre' onChange={handleFilter} autocomplete="off" />
+                            <input id='txtbuscar' placeholder='Nombre' onChange={handleFilter} autoComplete="off" />
                         </div>
                     </div>
 
@@ -608,7 +609,7 @@ function ListasPacientes({ usuarioLogin }) {
 
             </div>
 
-            <div className='modal-paciente-editar' >
+            <div className='modal-paciente-editar' ref={modalEditar} >
                 <form onSubmit={handleEditar} className='contenedor-cita'>
 
                     <div className='cont-titulo-form'>
@@ -654,17 +655,17 @@ function ListasPacientes({ usuarioLogin }) {
                                 <input type="date" className="form-control" value={date_of_birth} id="validationServer02" required onChange={handledate_of_birthChange} />
                             </div>
 
-                            {edadEditar ? <div className="col">
+                             {edadEditar ? <div className="col">
                                 <label htmlFor="validationServer02" className='labelPaciente'>Edad</label>
-                                <input type="number" className="form-control" value={edadEditar} id="validationServer02" />
+                                <input type="number" className="form-control" defaultValue={edadEditar} id="validationServer02"  readOnly/>
                             </div>
                                 :
                                 <div className="col">
                                     <label htmlFor="validationServer02" className='labelPaciente'>Edad</label>
-                                    <input type="number" className="form-control" value={calculateAge()} id="validationServer02" />
+                                    <input type="number" className="form-control" defaultValue={calculateAge()} id="validationServer02"  readOnly/>
                                 </div>
 
-                            }
+                            } 
 
 
 
@@ -786,7 +787,7 @@ function ListasPacientes({ usuarioLogin }) {
 
                             <div className="col">
                                 <label htmlFor="validationServer02" className='labelPaciente'>Edad</label>
-                                <input type="number" className="form-control" value={calculateAge()} id="validationServer02" required />
+                                <input type="number" className="form-control" defaultValue={calculateAge()} id="validationServer02" required  readOnly/>
                             </div>
 
                             <div className="col">

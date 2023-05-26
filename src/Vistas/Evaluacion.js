@@ -50,13 +50,13 @@ function Evaluacion() {
 
         if (rol == 2) {
 
-            axios.post('http://yankisggm-001-site1.ctempurl.com/api/Clinica/BuscarPacientePorTerapeuta', date)
+            axios.post('https://localhost:63958/api/Clinica/BuscarPacientePorTerapeuta', date)
                 .then(responses => {
 
                     setDataPaciente(responses.data)
                 });
         } else {
-            axios.get('http://yankisggm-001-site1.ctempurl.com/api/Clinica/Lista')
+            axios.get('https://localhost:63958/api/Clinica/Lista')
                 .then(responses => {
 
                     setDataPaciente(responses.data)

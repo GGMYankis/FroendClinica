@@ -57,7 +57,7 @@ function App() {
 
             try {
                 if (token) {
-                    axios.post('http://yankisggm-001-site1.ctempurl.com/api/Autenticacion/getUserByToken')
+                    axios.post('https://localhost:63958/api/Autenticacion/getUserByToken')
                         .then(res => {
 
                             setUsuarioLogin(res.data.user)
