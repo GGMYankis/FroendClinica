@@ -35,7 +35,7 @@ function Registration() {
 
         };
 
-        const url = 'https://localhost:44328/api/Test/Registration';
+        const url = 'https://jdeleon-001-site1.btempurl.com/api/Test/Registration';
         axios.post(url, data).then((result) => {
 
             alert(result.data)

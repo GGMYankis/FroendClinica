@@ -43,7 +43,7 @@ function Gastos() {
 
         resportes.current.classList.add('contenedors');
 
-        const url = 'http://yankisggm-001-site1.ctempurl.com/api/Clinica/ContabilidadReportes';
+        const url = 'https://jdeleon-001-site1.btempurl.com/api/Clinica/ContabilidadReportes';
         axios.post(url, dataCrear).then((result) => {
             const probar = async () => {
                 const ale = await swal({

@@ -36,13 +36,13 @@ function Asistencias() {
 
         if (rol == 2) {
 
-            axios.post('https://localhost:63958/api/Clinica/BuscarPacientePorTerapeuta', date)
+            axios.post('https://jdeleon-001-site1.btempurl.com/api/Clinica/BuscarPacientePorTerapeuta', date)
                 .then(responses => {
                     setDataPaciente(responses.data)
                 });
         } else {
 
-            axios.get('https://localhost:63958/api/Clinica/Lista')
+            axios.get('https://jdeleon-001-site1.btempurl.com/api/Clinica/Lista')
                 .then(responses => {
 
                     setDataPaciente(responses.data)
@@ -50,17 +50,17 @@ function Asistencias() {
         }
 
         if (rol == 2) {
-            axios.post('http://yankisggm-001-site1.ctempurl.com/api/Clinica/GetEvaluacionByTerapeuta', date)
+            axios.post('https://jdeleon-001-site1.btempurl.com/api/Clinica/GetEvaluacionByTerapeuta', date)
                 .then(response => {
                     setData(response.data)
                 });
         } else {
-            axios.get('http://yankisggm-001-site1.ctempurl.com/api/Clinica/ListaTerapia')
+            axios.get('https://jdeleon-001-site1.btempurl.com/api/Clinica/ListaTerapia')
                 .then(response => {
                     setData(response.data)
                 });
         }
-        axios.get('http://yankisggm-001-site1.ctempurl.com/api/Clinica/terapeuta')
+        axios.get('https://jdeleon-001-site1.btempurl.com/api/Clinica/terapeuta')
             .then(response => {
 
                 setTerapeuta(response.data.usuarios)
@@ -90,7 +90,7 @@ function Asistencias() {
             dataValor.IdTerapeuta = id
         }
 
-        const url = 'http://yankisggm-001-site1.ctempurl.com/api/Clinica/Asistencias';
+        const url = 'https://jdeleon-001-site1.btempurl.com/api/Clinica/Asistencias';
         axios.post(url, dataValor).then((result) => {
             resportes.current.classList.remove('contenedors');
             swal({

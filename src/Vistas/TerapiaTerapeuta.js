@@ -34,13 +34,13 @@ function TerapiaTerapeuta() {
 
     function cargar() {
 
-        axios.get('http://yankisggm-001-site1.ctempurl.com/api/Clinica/terapeuta')
+        axios.get('https://jdeleon-001-site1.btempurl.com/api/Clinica/terapeuta')
 
             .then(response => {
                 setTerapeuta(response.data.usuarios)
             })
 
-        axios.get('http://yankisggm-001-site1.ctempurl.com/api/Clinica/ListaTerapia')
+        axios.get('https://jdeleon-001-site1.btempurl.com/api/Clinica/ListaTerapia')
             .then(response => {
                 const florw = []
                 response.data.map(tera => {
@@ -64,7 +64,7 @@ function TerapiaTerapeuta() {
         e.preventDefault()
         resportes.current.classList.add('contenedors');
 
-        const url = 'http://yankisggm-001-site1.ctempurl.com/api/Clinica/Post'
+        const url = 'https://jdeleon-001-site1.btempurl.com/api/Clinica/Post'
         axios.post(url, datos).then((result) => {
 
             if (result) {

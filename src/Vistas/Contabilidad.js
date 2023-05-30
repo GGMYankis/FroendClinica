@@ -25,7 +25,7 @@ function Contabilidad() {
 
     useEffect(() => {
 
-        axios.get('http://yankisggm-001-site1.ctempurl.com/api/Clinica/terapeuta')
+        axios.get('https://jdeleon-001-site1.btempurl.com/api/Clinica/terapeuta')
             .then(res => {
                 setTerapeuta(res.data.usuarios)
             });
@@ -64,7 +64,7 @@ function Contabilidad() {
         e.preventDefault()
 
 
-        const url = 'http://yankisggm-001-site1.ctempurl.com/api/Clinica/Buscar'
+        const url = 'https://jdeleon-001-site1.btempurl.com/api/Clinica/Buscar'
         axios.post(url, datas).then((result) => {
 
             console.log(result.data)

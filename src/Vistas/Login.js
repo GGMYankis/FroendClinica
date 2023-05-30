@@ -57,8 +57,7 @@ function Login({ setUsuarioLogin }) {
             }, 4000);
 
 
-
-            const url = 'https://localhost:63958/api/Autenticacion/Login';
+            const url = 'https://jdeleon-001-site1.btempurl.com/api/Autenticacion/Login';
             axios.post(url, data).then((result) => {
 
                 if (result.data.user != null) {

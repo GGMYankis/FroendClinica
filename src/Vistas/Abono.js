@@ -29,12 +29,12 @@ function Abono() {
     useEffect(() => {
 
 
-        axios.get('http://yankisggm-001-site1.ctempurl.com/api/Clinica/Lista')
+        axios.get('https://jdeleon-001-site1.btempurl.com/api/Clinica/Lista')
             .then(responses => {
               //  setDataPaciente(responses.data.lista)
             });
 
-        axios.get('http://yankisggm-001-site1.ctempurl.com/api/Clinica/ListaTerapia')
+        axios.get('https://jdeleon-001-site1.btempurl.com/api/Clinica/ListaTerapia')
             .then(response => {
                // setData(response.data.lista)
             });
@@ -83,7 +83,7 @@ function Abono() {
 
         console.log(dataEvaluacion)
 
-        const url = 'https://yankisggm12ffs-001-site1.dtempurl.com/api/Clinica/CrearAbono';
+        const url = 'https://jdeleon-001-site1.btempurl.com/api/Clinica/CrearAbono';
         axios.post(url, dataEvaluacion).then((resultEvaluacion) => {
 
 

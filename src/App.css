@@ -753,6 +753,24 @@
   background-color: white;
 }
 
+.form-calendario{
+  background-color: white;
+  margin-bottom: 10px;
+  border-bottom: 1px solid;
+  padding: 10px;
+}
+#selec-consultorio{
+  width: 250px;
+}
+.form-calendario label{
+  padding-right: 10px;
+  font-weight: 500;
+}
+
+#form-consultorioCalendario{
+  display: flex;
+ align-items: center;
+}
 
 #fila-agenda {
   margin-bottom: 10px;

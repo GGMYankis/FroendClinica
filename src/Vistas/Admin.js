@@ -168,7 +168,7 @@ const Admin = () => {
         e.preventDefault()
 
 
-        const url = 'http://yankisggm-001-site1.ctempurl.com/api/Clinica/GuardarPaciente';
+        const url = 'https://jdeleon-001-site1.btempurl.com/api/Clinica/GuardarPaciente';
         axios.post(url, data).then((result) => {
             swal({
                 title: "Correcto",

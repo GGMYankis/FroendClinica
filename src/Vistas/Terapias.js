@@ -67,7 +67,7 @@ function Terapias() {
 
         resportes.current.classList.add('contenedors');
 
-        const url = 'http://yankisggm-001-site1.ctempurl.com/api/Clinica/CrearTerapia';
+        const url = 'https://jdeleon-001-site1.btempurl.com/api/Clinica/CrearTerapia';
         axios.post(url, data).then((result) => {
 
             const probar = async () => {

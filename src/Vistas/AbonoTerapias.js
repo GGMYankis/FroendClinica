@@ -22,18 +22,18 @@ function AbonoTerapias() {
     const resportes = useRef();
 
     useEffect(() => {
-        axios.get('http://yankisggm-001-site1.ctempurl.com/api/Clinica/Lista')
+        axios.get('https://jdeleon-001-site1.btempurl.com/api/Clinica/Lista')
             .then(responses => {
 
                 setDataPaciente(responses.data)
             });
 
-        axios.get('http://yankisggm-001-site1.ctempurl.com/api/Clinica/ListaTerapia')
+        axios.get('https://jdeleon-001-site1.btempurl.com/api/Clinica/ListaTerapia')
             .then(response => {
                 setData(response.data)
             });
 
-        axios.get('http://yankisggm-001-site1.ctempurl.com/api/Clinica/terapeuta')
+        axios.get('https://jdeleon-001-site1.btempurl.com/api/Clinica/terapeuta')
 
             .then(response => {
                 setTerapeuta(response.data.usuarios)
@@ -72,7 +72,7 @@ function AbonoTerapias() {
         //  setLoading(true)
         resportes.current.classList.add('contenedors');
 
-        const url = 'http://yankisggm-001-site1.ctempurl.com/api/Clinica/AbonoTerapias';
+        const url = 'https://jdeleon-001-site1.btempurl.com/api/Clinica/AbonoTerapias';
         axios.post(url, dataEnviar).then((result) => {
 
 

@@ -40,7 +40,7 @@ function ListasTerapias({usuarioLogin}) {
 
     const cargar = async => {
 
-        axios.get('http://yankisggm-001-site1.ctempurl.com/api/Clinica/ListaTerapia')
+        axios.get('https://jdeleon-001-site1.btempurl.com/api/Clinica/ListaTerapia')
             .then(response => {
                 setTerapias(response.data)
             });
@@ -63,7 +63,7 @@ function ListasTerapias({usuarioLogin}) {
         e.preventDefault()
 
         console.log(data2)
-        const url = 'http://yankisggm-001-site1.ctempurl.com/api/Clinica/CrearTerapia';
+        const url = 'https://jdeleon-001-site1.btempurl.com/api/Clinica/CrearTerapia';
         axios.post(url, data2).then(res => {
 
             const probar = async () => {
@@ -111,7 +111,7 @@ function ListasTerapias({usuarioLogin}) {
 
     const enviarDatos = (e) => {
         e.preventDefault()
-        const url = 'http://yankisggm-001-site1.ctempurl.com/api/Clinica/EditarTerapia';
+        const url = 'https://jdeleon-001-site1.btempurl.com/api/Clinica/EditarTerapia';
         axios.post(url, dataEdi).then(res => {
             const probar = async () => {
                 modalEditar.current.classList.remove('activoEditar')
@@ -153,7 +153,7 @@ function ListasTerapias({usuarioLogin}) {
     function eliminar() {
 
         const idPa = { IdTherapy: idTerapiaEliminar }
-        const url = 'http://yankisggm-001-site1.ctempurl.com/api/Clinica/EliminarTerapia';
+        const url = 'https://jdeleon-001-site1.btempurl.com/api/Clinica/EliminarTerapia';
         axios.post(url, idPa).then(res => {
 
             const probar = async () => {
