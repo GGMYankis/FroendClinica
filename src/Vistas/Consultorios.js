@@ -203,7 +203,7 @@ function Consultorios() {
                 <thead>
                   <tr>
                     <th>Nombre</th>
-                    <th>Descripcion</th>
+                    <th>Descripción</th>
                     <th> </th>
                   </tr>
                 </thead>
@@ -260,7 +260,7 @@ function Consultorios() {
                 />
               </div>
               <div className="col">
-                <label>Descripcion</label>
+                <label>Descripción</label>
                 <input
                   className="form-users"
                   value={descripcion}
@@ -310,7 +310,7 @@ function Consultorios() {
                 />
               </div>
               <div className="col">
-                <label>Descripcion</label>
+                <label>Descripción</label>
                 <input
                   className="form-users"
                   required

@@ -328,7 +328,7 @@ function Calendario() {
                     />
                   </div>
                 </div>
-                <div className="modal-footer">
+                <div className="modal-footer" id="footerEliminarCalendario">
                   <button
                     id="BotonAgregar"
                     className="btn btn-primary"
@@ -354,19 +354,12 @@ function Calendario() {
         <div className="modal-dialog" role="document">
           <div className="modal-content">
             <div className="modal-header">
-              <h5 className="modal-title">Eliminar evento</h5>
+              <h5 className="modal-title">Eliminar Cita</h5>
             </div>
             <div className="modal-body">
-              {<p>¿Deseas eliminar esta evento?</p>}
+              {<p>¿Deseas eliminar esta Cita?</p>}
             </div>
             <div className="modal-footer">
-              <button
-                type="button"
-                className="btn btn-primary"
-                onClick={modalCerrarEliminarFecha}
-              >
-                No
-              </button>
               <button
                 type="Submit"
                 className="btn btn-danger"
@@ -374,6 +367,13 @@ function Calendario() {
                 onClick={eliminarFecha}
               >
                 Si
+              </button>
+              <button
+                type="button"
+                className="btn btn-primary"
+                onClick={modalCerrarEliminarFecha}
+              >
+                No
               </button>
             </div>
           </div>

@@ -145,9 +145,10 @@ function Evaluacion() {
 
     resportes.current.classList.add("contenedors");
 
-    const url = "https://localhost:63958/api/traerpaciente/CrearEvaluacion";
+    const url =
+      "https://jdeleon-001-site1.btempurl.com/api/traerpaciente/CrearEvaluacion";
     const urlRecurrencia =
-      "https://localhost:63958/api/traerpaciente/CrearRecurrencia";
+      "https://jdeleon-001-site1.btempurl.com/api/traerpaciente/CrearRecurrencia";
 
     axios.post(url, dataEvaluacion).then((resultEvaluacion) => {
       if (resultEvaluacion.data > 0) {
