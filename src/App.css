@@ -1421,9 +1421,7 @@
   width: 80%;
 }
 
-.cont-box-body-gastos {
-  padding: 20px;
-}
+
 
 .cont-box-body-gastos label {
   padding-right: 10px;
@@ -1726,11 +1724,16 @@
 
 .formPagoTerapeuat {
   width: 80%;
-  height: 250px;
+  min-height: 400px;
   margin: 40px 10px 10px 10px;
   background-color: white;
   box-shadow: 0 1rem 2rem rgba(0, 0, 0, .1);
   position: relative;
+}
+
+.cont-box-body-gastos {
+  padding: 20px;
+  background-color: white;
 }
 
 .table-formPagoTerapeuat {

@@ -297,6 +297,11 @@ function Users() {
                         PagoTerapeutas
                       </Link>
                     </li>
+                    <li>
+                      <Link className="letras-menu" to="/Consultorios">
+                        Consultorios
+                      </Link>
+                    </li>
                   </span>
                 ) : (
                   ""
