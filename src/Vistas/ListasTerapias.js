@@ -351,7 +351,7 @@ function ListasTerapias({ usuarioLogin }) {
 
               <tbody>
                 {terapias.map((item) => [
-                  <tr>
+                  <tr key={item.nombreTerapia.idTherapy}>
                     <td data-label="Nombre">{item.nombreTerapia.label}</td>
                     <td data-label="Descripcion">
                       {item.nombreTerapia.description}

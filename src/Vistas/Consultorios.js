@@ -83,7 +83,6 @@ function Consultorios() {
 
   function CrearUsuario(e) {
     e.preventDefault();
-    console.log(dataCrear);
 
     const url =
       "https://jdeleon-001-site1.btempurl.com/api/Clinica/CrearConsultorio";
@@ -108,13 +107,11 @@ function Consultorios() {
   function EditarUsuario(valor) {
     modalEditar.current.classList.add("activeUsers");
 
-    const encontrado = consultorios.filter((e) => e.idUser == valor);
-
-    console.log(encontrado.IdRol);
+    const encontrado = consultorios.filter((e) => e.idConsultorio == valor);
 
     encontrado.map((item) => {
-      setNombre(item.names);
-      setDescripcion(item.apellido);
+      setNombre(item.nombre);
+      setDescripcion(item.descripcion);
     });
     setIdUser(valor);
   }

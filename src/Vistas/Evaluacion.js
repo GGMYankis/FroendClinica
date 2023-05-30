@@ -163,6 +163,8 @@ function Evaluacion() {
             button: "Aceptar",
           });
         });
+      } else {
+        console.log("nada");
       }
     });
   };
@@ -272,7 +274,7 @@ function Evaluacion() {
                   <option value="">Seleccione una paciente</option>
                   {dataPaciente.map((item) => [
                     <option
-                      key={item.nombrePaciente.IdPatients}
+                      key={item.nombrePaciente.idPatients}
                       value={item.nombrePaciente.idPatients}
                     >
                       {item.nombrePaciente.name}
@@ -290,7 +292,7 @@ function Evaluacion() {
                 >
                   <option value="">Seleccione una paciente</option>
                   {dataPaciente.map((item) => [
-                    <option key={item.IdPatients} value={item.idPatients}>
+                    <option key={item.idPatients} value={item.idPatients}>
                       {item.name}
                     </option>,
                   ])}
@@ -308,7 +310,10 @@ function Evaluacion() {
               >
                 <option value="">Seleccione una terapia</option>
                 {data.map((item) => [
-                  <option value={item.nombreTerapia.idTherapy}>
+                  <option
+                    key={item.nombreTerapia.idTherapy}
+                    value={item.nombreTerapia.idTherapy}
+                  >
                     {item.nombreTerapia.label}
                   </option>,
                 ])}
@@ -324,7 +329,7 @@ function Evaluacion() {
               >
                 <option value="">Seleccione un Terapeuta</option>
                 {terapeuta.map((item) => [
-                  <option value={item.idUser}>
+                  <option value={item.idUser} key={item.idUser}>
                     {item.names} {item.apellido}{" "}
                   </option>,
                 ])}
@@ -339,7 +344,9 @@ function Evaluacion() {
                 required
               >
                 {consultorios.map((item) => [
-                  <option value={item.idConsultorio}>{item.nombre} </option>,
+                  <option value={item.idConsultorio} key={item.idConsultorio}>
+                    {item.nombre}{" "}
+                  </option>,
                 ])}
               </select>
             </div>

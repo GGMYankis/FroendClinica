@@ -91,49 +91,39 @@ const Admin = () => {
 
   const handleducational_institutionChange = (value) => {
     setEducational_institution(value);
-    console.log(parents_name);
   };
   const handleCurso = (value) => {
     setCourse(value);
-    console.log(course);
   };
 
   //
   const handlewho_refersChange = (value) => {
     setWho_refers(value);
-    console.log(parents_name);
   };
   //
   const handlefamily_settingsChange = (value) => {
     setFamily_settings(value);
-    console.log(parents_name);
   };
   ///
   const handletherapies_or_service_you_will_receive_at_the_centerChange = (
     value
   ) => {
     setTherapies_or_service_you_will_receive_at_the_center(value);
-    console.log(parents_name);
   };
   const handlediagnosisChange = (value) => {
     setDiagnosis(value);
-    console.log(name);
   };
   const handlerecommendationsChange = (value) => {
     setRecommendations(value);
-    console.log(name);
   };
   const handlefamily_members_concernsChange = (value) => {
     setFamily_members_concerns(value);
-    console.log(name);
   };
   const handlespecific_medical_conditionChange = (value) => {
     setSpecific_medical_condition(value);
-    console.log(name);
   };
   const handleotherChange = (value) => {
     setOther(value);
-    console.log(name);
   };
 
   const data = {

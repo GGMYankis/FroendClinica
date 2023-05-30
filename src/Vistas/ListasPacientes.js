@@ -93,7 +93,6 @@ function ListasPacientes({ usuarioLogin }) {
         const numeroPacientes = res.data.length;
         setContadorPacientes(numeroPacientes);
 
-        console.log(res.data);
         res.data.map((item) => {
           if (item.activo == true) {
             setlistaPaciente((item.activo = "si"));

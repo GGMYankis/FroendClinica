@@ -372,7 +372,7 @@ function Users() {
 
                 <tbody>
                   {terapeuta.map((item) => [
-                    <tr>
+                    <tr key={item.idUser}>
                       <td data-label="Nombre">{item.names}</td>
                       <td data-label="apellido">{item.apellido}</td>
                       <td data-label="telefono">{item.telefono}</td>
