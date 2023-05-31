@@ -1785,6 +1785,9 @@
   width: 200px;
 }
 
+#txtCrearPaciente{
+  width: 50%;
+}
 
 .btn-abono:hover {
   background-color: #0b2e57c4;
@@ -1837,4 +1840,9 @@
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+
+#txtCrearCitas{
+  width:50% ;
 }

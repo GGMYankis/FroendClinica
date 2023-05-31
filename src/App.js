@@ -27,6 +27,7 @@ import PagoTerapeutas from "./Vistas/PagoTerapeutas";
 import AgeCalculator from "./AgeCalculator";
 import PerfilAdmin from "./Vistas/PerfilAdmin";
 import ListasTerapias from "./Vistas/ListasTerapias";
+import ListadodeCItas from "./Vistas/ListadodeCItas";
 import Login from "./Vistas/Login";
 import Terapias from "./Vistas/Terapias";
 import Users from "./Vistas/Users";
@@ -143,6 +144,11 @@ function App() {
                 element={<PagoTerapeutas />}
               />
               <Route exact path="/Consultorios" element={<Consultorios />} />
+              <Route
+                exact
+                path="/listadodeCItas"
+                element={<ListadodeCItas />}
+              />
             </Route>
           </Routes>
         </HashRouter>
