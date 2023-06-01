@@ -37,7 +37,10 @@ function Calendario() {
   const [consul, setConsul] = useState(0);
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
-
+  const [terapeuta, setTerapeuta] = useState("");
+  const [terapia, setTerapia] = useState("");
+  const [consultorioCalendario, setConsultorioCalendario] = useState("");
+  const [hora, setHora] = useState("");
   obtenerUser();
 
   let rol = getUsuarioCompleto();
@@ -58,12 +61,17 @@ function Calendario() {
     axios
       .get("https://jdeleon-001-site1.btempurl.com/api/Clinica/Citas")
       .then((res) => {
-        console.log(res.data);
         setEvent(
           res.data.map((item) => ({
             id: item.idEvaluacion,
-            title: item.paciente,
+            title: item.paciente.name,
             start: new Date(item.fechaInicio),
+            extendedProps: {
+              additionalProperty: item.terapeuta.names, 
+              anotherProperty: item.terapia.label, 
+              description:item.consultorio.nombre
+             // name: item.nombre, 
+            },
           }))
         );
       });
@@ -137,8 +145,35 @@ function Calendario() {
 
   async function handleEventClickFecha(info) {
     $("#eliminarEvento").show();
-    const IdAsistencias = await info.event.id;
-    setId(IdAsistencias);
+
+    
+    const start = info.event.start;
+
+
+    const day = String(start.getDate()).padStart(2, "0");
+    const month = String(start.getMonth() + 1).padStart(2, "0");
+
+    const year = String(start.getFullYear()).padStart(2, "0");
+
+    
+    const fecha = `${year}-${month}-${day}`;
+    const hora = start.getHours();
+  const minutos = start.getMinutes();
+  const segundos = start.getSeconds();
+
+    const reaHora = `${hora}:${minutos}`
+    const titu = info.event.title;
+    setfechaInicio(fecha);
+
+
+    setHora(reaHora);
+
+
+    setDescripcion(titu);
+    setTerapeuta(info.event.extendedProps.additionalProperty);
+    setTerapia(info.event.extendedProps.anotherProperty);
+    setConsultorioCalendario(info.event.extendedProps.description);
+    
   }
 
   const datas = {
@@ -203,12 +238,14 @@ function Calendario() {
       setEvent(
         result.data.map((item) => ({
           id: item.idEvaluacion,
-          title: item.terapeuta,
+          title: item.paciente,
           start: new Date(item.fechaInicio),
-          end: new Date(item.fechaFin),
-          backgroundColor: "yellow",
-          textColor: "#ffffff",
-          borderColor: "#000000",
+          extendedProps: {
+            additionalProperty: item.terapeuta, 
+            anotherProperty: item.terapia, 
+            description:item.consultorio.nombre
+           // name: item.nombre, 
+          },
           editable: true,
         }))
       );
@@ -278,7 +315,7 @@ function Calendario() {
             }}
             eventDrop={handleEventDrop}
             height={"80vh"}
-            dateClick={handleEventClick}
+            // dateClick={handleEventClick}
             eventClick={handleEventClickFecha}
           />
         </div>
@@ -350,31 +387,44 @@ function Calendario() {
           </div>
         </div>
       </div>
+
       <div className="modal" tabIndex="-1" id="eliminarEvento">
         <div className="modal-dialog" role="document">
           <div className="modal-content">
-            <div className="modal-header">
-              <h5 className="modal-title">Eliminar Cita</h5>
+            <div className="modal-header-citas">
+              <h5 className="modal-title">Cita</h5>
             </div>
             <div className="modal-body">
-              {<p>¿Deseas eliminar esta Cita?</p>}
-            </div>
-            <div className="modal-footer">
-              <button
-                type="Submit"
-                className="btn btn-danger"
-                data-dismiss="modal"
-                onClick={eliminarFecha}
-              >
-                Si
-              </button>
-              <button
-                type="button"
-                className="btn btn-primary"
-                onClick={modalCerrarEliminarFecha}
-              >
-                No
-              </button>
+              <p>
+                <span className="infocitas">Fecha de la cita :</span>{" "}
+                {fechaInicio}
+              </p>
+              <p>
+                <span className="infocitas">Hora :</span> {hora}
+              </p>
+              <p>
+                <span className="infocitas">Paciente : </span>
+                {descripcion}
+              </p>
+              <p>
+                <span className="infocitas">Terapia :</span> {terapia}
+              </p>
+              <p>
+                <span className="infocitas">Terapeuta :</span> {terapeuta}
+              </p>
+              <p>
+                <span className="infocitas">Consultorio :</span> {consultorioCalendario}
+              </p>
+              
+              <div className="footerCitas">
+                <button
+                  type="button"
+                  className="btnCitas"
+                  onClick={modalCerrarEliminarFecha}
+                >
+                   Cerrar
+                </button>
+              </div>
             </div>
           </div>
         </div>

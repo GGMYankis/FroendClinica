@@ -291,6 +291,11 @@ function ListasTerapias({ usuarioLogin }) {
                         Consultorios
                       </Link>
                     </li>
+                    <li>
+                      <Link className="letras-menu" to="/ListadodeCItas">
+                       Listado de  Citas
+                      </Link>
+                    </li>
                   </span>
                 ) : (
                   ""

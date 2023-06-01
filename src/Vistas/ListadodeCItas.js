@@ -62,6 +62,7 @@ function ListadodeCItas({ usuarioLogin }) {
   const [nomConsultorio, setNomConsultorio] = useState("");
   const [nomTerapeuta, setNomTerapeuta] = useState("");
   const [precioEditar, setPrecioEditar] = useState("");
+  const [recurrencia, setRecurrencia] = useState(0);
 
   const [visitas, setVisitas] = useState(false);
 
@@ -78,8 +79,7 @@ function ListadodeCItas({ usuarioLogin }) {
 
   const cargar = (async) => {
     // ultimo commit
-    axios.get("https://localhost:63958/api/Clinica/Citas").then((res) => {
-      console.log(res.data);
+    axios.get("https://jdeleon-001-site1.btempurl.com/api/Clinica/Citas").then((res) => {
       setCitas(res.data);
     });
     if (rol == 2) {
@@ -155,22 +155,27 @@ function ListadodeCItas({ usuarioLogin }) {
 
     //resportes.current.classList.add("contenedors");
 
-    const url = "https://localhost:63958/api/traerpaciente/CrearEvaluacion";
+    const url = "https://jdeleon-001-site1.btempurl.com/api/traerpaciente/CrearEvaluacion";
     const urlRecurrencia =
-      "https://localhost:63958/api/traerpaciente/CrearRecurrencia";
+      "https://jdeleon-001-site1.btempurl.com/api/traerpaciente/CrearRecurrencia";
 
     axios.post(url, dataEvaluacion).then((resultEvaluacion) => {
       if (resultEvaluacion.data > 0) {
         dataRecurrencia.IdEvaluation = resultEvaluacion.data;
 
         axios.post(urlRecurrencia, dataRecurrencia).then((resultEvaluacion) => {
-          resportes.current.classList.remove("contenedors");
-          swal({
-            title: "Correcto",
-            text: "Se ha guardado correctamente",
-            icon: "success",
-            button: "Aceptar",
-          });
+          const probar = async () => {
+            cargar();
+            modalCrear.current.classList.remove("active");
+            const ale = await swal({
+              title: "Correcto",
+              text: "Cambio guardado ",
+              icon: "success",
+            });
+          };
+          if (resultEvaluacion) {
+            probar();
+          }
         });
       } else {
         console.log("nada");
@@ -179,6 +184,7 @@ function ListadodeCItas({ usuarioLogin }) {
   };
 
   const dtEditar = {
+    Id: parseInt(idEvaluacion),
     IdPatients: parseInt(idPatients),
     IdTherapy: parseInt(terapia),
     Price: parseInt(priceEvaluacion),
@@ -186,35 +192,27 @@ function ListadodeCItas({ usuarioLogin }) {
     visitas: visitas,
     IdConsultorio: consul,
     IdConsultorioNavigation: null,
-    Recurrencia: [],
+  };
+
+  const dtRecu = {
+    IdRecurrencia: recurrencia,
+    FechaInicio: fechaInicio,
+    Repetir: repetir,
+    Frecuencia: frecuencia,
+    Dias: day,
   };
 
   function EnviarEvaluacionEditada(e) {
     e.preventDefault();
 
-    const url = "https://localhost:63958/api/Clinica/EditarCitas";
-    axios.post(url, dataEvaluacion).then((resultEvaluacion) => {});
-  }
+    const url = "https://jdeleon-001-site1.btempurl.com/api/Clinica/EditarCitas";
+    const urlrecu = "https://jdeleon-001-site1.btempurl.com/api/Clinica/EditarRecurrencia";
+    axios.post(url, dtEditar).then((resultEvaluacion) => {
 
-  const modalCraePaciente = () => {
-    modalCrear.current.classList.add("active");
-  };
-
-  const dataEditar = {};
-
-  const FormularioEditar = document.getElementById("FormularioEditar");
-
-  const handleEditar = async (e) => {
-    e.preventDefault();
-
-    console.log(dataEditar);
-    const url =
-      "https://jdeleon-001-site1.btempurl.com/api/Clinica/EditarPaciente";
-    axios
-      .put(url, dataEditar)
-      .then((result) => {
+      axios.post(urlrecu, dtRecu).then((resultEvaluacion) => {
         const probar = async () => {
           cargar();
+          setFilteredData(citas)
           modalEditar.current.classList.remove("active");
           const ale = await swal({
             title: "Correcto",
@@ -222,16 +220,18 @@ function ListadodeCItas({ usuarioLogin }) {
             icon: "success",
           });
         };
-        if (result) {
+        if (resultEvaluacion) {
           probar();
         }
-
-        FormularioEditar.reset();
-      })
-      .catch((error) => {
-        console.log(error);
       });
+    });
+  }
+
+  const modalCraePaciente = () => {
+    modalCrear.current.classList.add("active");
   };
+
+  const FormularioEditar = document.getElementById("FormularioEditar");
 
   const CancelarPaciente = () => {
     modalCrear.current.classList.remove("active");
@@ -245,36 +245,39 @@ function ListadodeCItas({ usuarioLogin }) {
   const handleEdit = (e) => {
     setIdEvaluacion(e);
     modalEditar.current.classList.add("active");
+
     const IdEvaluacion = citas.filter((item) => item.idEvaluacion == e);
+    console.log(IdEvaluacion)
 
     IdEvaluacion.map((item) => [
-      setNomPaciente(item.paciente),
-      setNomTerapeuta(item.terapeuta),
-      setNomConsultorio(item.consultorio),
-      setNomTerapia(item.terapia),
+      setIdPatients(item.paciente.idPatients),
+      setTerapia(item.terapia.idTherapy),
+      setIdterapeuta(item.terapeuta.idUser),
+      setConsul(item.consultorio.idConsultorio),
       setPriceEvaluacion(item.price),
       setFechaInicio(item.fechaInicio),
       setRepetir(item.repetir),
       setFrecuencia(item.frecuencia),
       setDay(item.dias),
+      setRecurrencia(item.recurrencia.idRecurrencia),
     ]);
   };
 
   const columns = [
     {
       name: "Paciente",
-      selector: (row) => row.paciente,
+      selector: (row) => row.paciente.name,
       sortable: true,
     },
     {
       name: "Terapia",
-      selector: (row) => row.terapia,
+      selector: (row) => row.terapia.label,
       sortable: true,
     },
     ,
     {
       name: "Terapeuta",
-      selector: (row) => row.terapeuta,
+      selector: (row) => row.terapeuta.names,
       sortable: true,
     },
     {
@@ -284,7 +287,7 @@ function ListadodeCItas({ usuarioLogin }) {
     },
     {
       name: "consultorio",
-      selector: (row) => row.consultorio,
+      selector: (row) => row.consultorio.nombre,
       sortable: true,
     },
 
@@ -306,7 +309,9 @@ function ListadodeCItas({ usuarioLogin }) {
     {
       cell: (row) => (
         <div className="actions-container">
-          <button className="btnEliminar">Eliminar</button>
+          <button className="btnEliminar"  onClick={() => modalEliminar(row.idEvaluacion)}>            
+            Eliminar
+            </button>
         </div>
       ),
       ignoreRowClick: true,
@@ -320,14 +325,9 @@ function ListadodeCItas({ usuarioLogin }) {
     if (keyword === "") {
       setFilteredData(citas);
       return;
-    } else if (verificarActivo) {
-      const filteredResults = filteredData.filter((item) => {
-        return item.name.toLowerCase().includes(keyword.toLowerCase());
-      });
-      setFilteredData(filteredResults);
     } else {
       const filteredResults = citas.filter((item) => {
-        return item.name.toLowerCase().includes(keyword.toLowerCase());
+        return item.paciente.name.toLowerCase().includes(keyword.toLowerCase());
       });
       setFilteredData(filteredResults);
     }
@@ -370,6 +370,56 @@ function ListadodeCItas({ usuarioLogin }) {
     setTerapia(e);
   }
 
+
+  const modalCerrarEliminar = () => {
+    alertEliminar.current.classList.remove("activeEli");
+  };
+  
+  const handleEliminar = () => {
+    const idEva = {
+       IdEvaluation: idEvaluacion,
+       IdRecurrencia:recurrencia
+      };
+
+    const url =
+      "https://jdeleon-001-site1.btempurl.com/api/Clinica/EliminarCita";
+     axios
+      .post(url,idEva)
+      .then((result) => {
+        const probar = async () => {
+          alertEliminar.current.classList.remove("activeEli");
+          cargar();
+          setFilteredData(citas)
+          const ale = await swal({
+            title: "Correcto",
+            text: "Cambio guardado ",
+            icon: "success",
+          });
+        };
+
+        if (result) {
+          probar();
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  
+  const modalEliminar = (e) => {
+    const IdEliminarCita = citas.filter(
+      (item) => item.idEvaluacion == e
+    );
+
+    IdEliminarCita.map((item) => {
+      setNomPaciente(item.paciente.name);
+      setRecurrencia(item.recurrencia.idRecurrencia)
+    }); 
+     setIdEvaluacion(e)
+    alertEliminar.current.classList.add("activeEli");
+  };
+
   return (
     <div>
       <Headers />
@@ -392,16 +442,10 @@ function ListadodeCItas({ usuarioLogin }) {
             </div>
 
             <div className="cont-crear-paciente">
-              <label>Status</label>
-              <select id="txtbuscar" onChange={handleFiltroChange}>
-                <option value="2">Todos</option>
-                <option value="si">Activo</option>
-                <option value="no">Inactivos</option>
-              </select>
-              <label>Paciente</label>
+              <label>Citas</label>
               <input
                 id="txtbuscar"
-                placeholder="Nombre"
+                placeholder="Buscar"
                 onChange={handleFilter}
                 autoComplete="off"
               />
@@ -429,150 +473,160 @@ function ListadodeCItas({ usuarioLogin }) {
           </div>
 
           <div className="paddd">
-            <div className="rowCitas">
-              <label htmlFor="validationServer02" className="labelPaciente">
-                Paciente{" "}
-              </label>
-              {rol == 2 ? (
-                <div className="rowCitas">
-                  <p className="titu-barra"> Pacientes </p>
-                  <select
-                    className="form-select"
-                    required
-                    onChange={(e) => setIdPatients(e.target.value)}
-                  >
-                    <option value="">Seleccione una paciente</option>
-                    {dataPaciente.map((item) => [
-                      <option
-                        key={item.nombrePaciente.idPatients}
-                        value={item.nombrePaciente.idPatients}
+            <div className="row">
+              <div className="col">
+                <div className="">
+                  <label htmlFor="validationServer02" className="labelPaciente">
+                    Paciente{" "}
+                  </label>
+                  {rol == 2 ? (
+                    <div className="rowCitas">
+                      <p className="titu-barra"> Pacientes </p>
+                      <select
+                        className="form-select"
+                        required
+                        onChange={(e) => setIdPatients(e.target.value)}
                       >
-                        {item.nombrePaciente.name}
-                      </option>,
-                    ])}
-                  </select>
+                        <option value="">Seleccione una paciente</option>
+                        {dataPaciente.map((item) => [
+                          <option
+                            key={item.nombrePaciente.idPatients}
+                            value={item.nombrePaciente.idPatients}
+                          >
+                            {item.nombrePaciente.name}
+                          </option>,
+                        ])}
+                      </select>
+                    </div>
+                  ) : (
+                    <div className="">
+                      <select
+                        className="form-select"
+                        required
+                        onChange={(e) => setIdPatients(e.target.value)}
+                        value={idPatients}
+                      >
+                        {dataPaciente.map((item) => [
+                          <option key={item.idPatients} value={item.idPatients}>
+                            {item.name}
+                          </option>,
+                        ])}
+                      </select>
+                    </div>
+                  )}
                 </div>
-              ) : (
-                <div className="rowCitas">
+              </div>
+              <div className="col">
+                <div>
+                  <label htmlFor="validationServer02" className="labelPaciente">
+                    Terapia{" "}
+                  </label>
                   <select
                     className="form-select"
+                    onChange={(e) => Fterapia(e.target.value)}
                     required
-                    onChange={(e) => setIdPatients(e.target.value)}
-                    value={nomPaciente}
+                    value={terapia}
                   >
-                    {dataPaciente.map((item) => [
-                      <option key={item.idPatients} value={item.idPatients}>
-                        {item.name}
+                    {datas.map((item) => [
+                      <option
+                        key={item.nombreTerapia.idTherapy}
+                        value={item.nombreTerapia.idTherapy}
+                      >
+                        {item.nombreTerapia.label}
                       </option>,
                     ])}
-                    <option>{nomPaciente}</option>
                   </select>
                 </div>
-              )}
-            </div>
-
-            <div className="rowCitas">
-              <label htmlFor="validationServer02" className="labelPaciente">
-                Terapia{" "}
-              </label>
-              <select
-                className="form-select"
-                onChange={(e) => Fterapia(e.target.value)}
-                required
-              >
-                {datas.map((item) => [
-                  <option
-                    key={item.nombreTerapia.idTherapy}
-                    value={item.nombreTerapia.idTherapy}
-                  >
-                    {item.nombreTerapia.label}
-                  </option>,
-                ])}
-                <option>{nomTerapia}</option>
-              </select>
-            </div>
-
-            {terapia ? (
-              <div className="rowCitas">
-                <label htmlFor="validationServer02" className="labelPaciente">
-                  Precio{" "}
-                </label>
-                <input
-                  onChange={(e) => setPriceEvaluacion(e.target.value)}
-                  required
-                  type="text"
-                />
               </div>
-            ) : (
-              ""
-            )}
-            <div className="rowCitas">
-              <label htmlFor="validationServer02" className="labelPaciente">
-                Precio{" "}
-              </label>
-              <input
-                onChange={(e) => setPriceEvaluacion(e.target.value)}
-                required
-                type="text"
-                value={priceEvaluacion}
-              />
+            </div>
+
+            <div className="row">
+              <div className="col">
+                <div className="rowCitas">
+                  <label htmlFor="validationServer02" className="labelPaciente">
+                    Precio{" "}
+                  </label>
+                  <input
+                    onChange={(e) => setPriceEvaluacion(e.target.value)}
+                    required
+                    type="text"
+                    value={priceEvaluacion}
+                    className="form-control "
+                  />
+                </div>
+              </div>
+              <div className="col">
+                <div className="rowCitas">
+                  <label htmlFor="validationServer02" className="labelPaciente">
+                    Fecha Inicio{" "}
+                  </label>
+                  <input
+                    type="datetime-local"
+                    className="form-control "
+                    id="validationServer02"
+                    required
+                    onChange={(e) => setFechaInicio(e.target.value)}
+                    value={fechaInicio}
+                  />
+                </div>
+              </div>
+            </div>
+
+            <div className="row">
+              <div className="col">
+                {" "}
+                <div className="rowCitas">
+                  <label htmlFor="validationServer02" className="labelPaciente">
+                    Terapeuta{" "}
+                  </label>
+                  <select
+                    className="form-select"
+                    onChange={(e) => setIdterapeuta(e.target.value)}
+                    required
+                    value={nomTerapeuta}
+                  >
+                    {terapeuta.map((item) => [
+                      <option value={item.idUser} key={item.idUser}>
+                        {item.names} {item.apellido}{" "}
+                      </option>,
+                    ])}
+                  </select>
+                </div>
+              </div>
+              <div className="col">
+                {" "}
+                <div className="rowCitas">
+                  <label htmlFor="validationServer02" className="labelPaciente">
+                    Consultorio{" "}
+                  </label>
+                  <select
+                    className="form-select"
+                    onChange={(e) => setConsul(e.target.value)}
+                    required
+                    value={consul}
+                  >
+                    {consultorios.map((item) => [
+                      <option
+                        value={item.idConsultorio}
+                        key={item.idConsultorio}
+                      >
+                        {item.nombre}{" "}
+                      </option>,
+                    ])}
+                  </select>
+                </div>
+              </div>
             </div>
 
             <div className="rowCitas">
               <label htmlFor="validationServer02" className="labelPaciente">
-                Fecha Inicio{" "}
+              Días{" "}
               </label>
-              <input
-                type="datetime-local"
+              <select
+                onChange={(e) => setDay(e.target.value)}
+                value={day}
                 className="form-control "
-                id="validationServer02"
-                required
-                onChange={(e) => setFechaInicio(e.target.value)}
-                value={fechaInicio}
-              />
-            </div>
-
-            <div className="rowCitas">
-              <label htmlFor="validationServer02" className="labelPaciente">
-                Terapeuta{" "}
-              </label>
-              <select
-                className="form-select"
-                onChange={(e) => setIdterapeuta(e.target.value)}
-                required
               >
-                {terapeuta.map((item) => [
-                  <option value={item.idUser} key={item.idUser}>
-                    {item.names} {item.apellido}{" "}
-                  </option>,
-                ])}
-                <option>{nomTerapeuta}</option>
-              </select>
-            </div>
-
-            <div className="rowCitas">
-              <label htmlFor="validationServer02" className="labelPaciente">
-                Consultorio{" "}
-              </label>
-              <select
-                className="form-select"
-                onChange={(e) => setConsul(e.target.value)}
-                required
-              >
-                {consultorios.map((item) => [
-                  <option value={item.idConsultorio} key={item.idConsultorio}>
-                    {item.nombre}{" "}
-                  </option>,
-                ])}
-                <option>{nomConsultorio}</option>
-              </select>
-            </div>
-
-            <div className="rowCitas">
-              <label htmlFor="validationServer02" className="labelPaciente">
-                Dias{" "}
-              </label>
-              <select onChange={(e) => setDay(e.target.value)} value={day}>
                 <option value="lunes">Lunes</option>
                 <option value="martes">Martes</option>
                 <option value="miercoles">Miercoles</option>
@@ -582,35 +636,41 @@ function ListadodeCItas({ usuarioLogin }) {
                 <option value="domingo">Domingo</option>
               </select>
             </div>
-
-            <div className="rowCitas">
-              <label htmlFor="validationServer02" className="labelPaciente">
-                Repetir{" "}
-              </label>
-              <input
-                type="number"
-                className="recu-repe"
-                required
-                min="1"
-                onChange={(e) => setRepetir(e.target.value)}
-                value={repetir}
-              />
-            </div>
-
-            <div className="rowCitas">
-              <label htmlFor="validationServer02" className="labelPaciente">
-                Frecuencia{" "}
-              </label>
-              <select
-                className="recu-select"
-                required
-                onChange={(e) => setFrecuencia(e.target.value)}
-                value={frecuencia}
-              >
-                <option>Diario</option>
-                <option>Semanal</option>
-                <option>Mensual</option>
-              </select>
+            <div className="row" id="ulticita">
+              <div className="col">
+                {" "}
+                <div className="rowCitas">
+                  <label htmlFor="validationServer02" className="labelPaciente">
+                    Repetir{" "}
+                  </label>
+                  <input
+                    type="number"
+                    className="repeti-citas"
+                    required
+                    min="1"
+                    onChange={(e) => setRepetir(e.target.value)}
+                    value={repetir}
+                  />
+                </div>
+              </div>
+              <div className="col">
+                {" "}
+                <div className="rowCitas">
+                  <label htmlFor="validationServer02" className="labelPaciente">
+                    Frecuencia{" "}
+                  </label>
+                  <select
+                    className="recu-select"
+                    required
+                    onChange={(e) => setFrecuencia(e.target.value)}
+                    value={frecuencia}
+                  >
+                    <option>Diario</option>
+                    <option>Semanal</option>
+                    <option>Mensual</option>
+                  </select>
+                </div>
+              </div>
             </div>
 
             <div className="col" id="cont-btn-admin">
@@ -627,7 +687,7 @@ function ListadodeCItas({ usuarioLogin }) {
         </form>
       </div>
 
-      {/*   <div className="modal-paciente" ref={modalCrear}>
+      <div className="modal-paciente" ref={modalCrear}>
         <form
           onSubmit={EnviarEvaluacion}
           className="contenedor-cita"
@@ -638,66 +698,113 @@ function ListadodeCItas({ usuarioLogin }) {
           </div>
 
           <div className="paddd">
-            <div className="rowCitas">
-              <label htmlFor="validationServer02" className="labelPaciente">
-                Paciente{" "}
-              </label>
-              {rol == 2 ? (
+            <div className="row">
+              <div className="col">
                 <div className="rowCitas">
-                  <p className="titu-barra"> Pacientes </p>
-                  <select
-                    className="form-select"
-                    required
-                    onChange={(e) => setIdPatients(e.target.value)}
-                  >
-                    <option value="">Seleccione una paciente</option>
-                    {dataPaciente.map((item) => [
-                      <option
-                        key={item.nombrePaciente.idPatients}
-                        value={item.nombrePaciente.idPatients}
+                  <label htmlFor="validationServer02" className="labelPaciente">
+                    Paciente{" "}
+                  </label>
+                  {rol == 2 ? (
+                    <div className="rowCitas">
+                      <p className="titu-barra"> Pacientes </p>
+                      <select
+                        className="form-select"
+                        required
+                        onChange={(e) => setIdPatients(e.target.value)}
                       >
-                        {item.nombrePaciente.name}
-                      </option>,
-                    ])}
-                  </select>
+                        <option value="">Seleccione una paciente</option>
+                        {dataPaciente.map((item) => [
+                          <option
+                            key={item.nombrePaciente.idPatients}
+                            value={item.nombrePaciente.idPatients}
+                          >
+                            {item.nombrePaciente.name}
+                          </option>,
+                        ])}
+                      </select>
+                    </div>
+                  ) : (
+                    <div className="rowCitas">
+                      <select
+                        className="form-select"
+                        required
+                        onChange={(e) => setIdPatients(e.target.value)}
+                      >
+                        <option value="">Seleccione una paciente</option>
+                        {dataPaciente.map((item) => [
+                          <option key={item.idPatients} value={item.idPatients}>
+                            {item.name}
+                          </option>,
+                        ])}
+                      </select>
+                    </div>
+                  )}
                 </div>
-              ) : (
+              </div>
+              <div className="col">
                 <div className="rowCitas">
+                  <label htmlFor="validationServer02" className="labelPaciente">
+                    Terapia{" "}
+                  </label>
                   <select
                     className="form-select"
+                    onChange={(e) => Fterapia(e.target.value)}
                     required
-                    onChange={(e) => setIdPatients(e.target.value)}
                   >
-                    <option value="">Seleccione una paciente</option>
-                    {dataPaciente.map((item) => [
-                      <option key={item.idPatients} value={item.idPatients}>
-                        {item.name}
+                    <option value="">Seleccione una terapia</option>
+                    {datas.map((item) => [
+                      <option
+                        key={item.nombreTerapia.idTherapy}
+                        value={item.nombreTerapia.idTherapy}
+                      >
+                        {item.nombreTerapia.label}
                       </option>,
                     ])}
                   </select>
                 </div>
-              )}
+              </div>
             </div>
 
-            <div className="rowCitas">
-              <label htmlFor="validationServer02" className="labelPaciente">
-                Terapia{" "}
-              </label>
-              <select
-                className="form-select"
-                onChange={(e) => Fterapia(e.target.value)}
-                required
-              >
-                <option value="">Seleccione una terapia</option>
-                {datas.map((item) => [
-                  <option
-                    key={item.nombreTerapia.idTherapy}
-                    value={item.nombreTerapia.idTherapy}
+            <div className="row">
+              <div className="col">
+                {" "}
+                <div className="rowCitas">
+                  <label htmlFor="validationServer02" className="labelPaciente">
+                    Fecha Inicio{" "}
+                  </label>
+                  <input
+                    type="datetime-local"
+                    className="form-control "
+                    id="validationServer02"
+                    required
+                    onChange={(e) => setFechaInicio(e.target.value)}
+                  />
+                </div>
+              </div>
+              <div className="col">
+                <div className="rowCitas">
+                  <label htmlFor="validationServer02" className="labelPaciente">
+                    Terapeuta{" "}
+                  </label>
+                  <select
+                    className="form-select"
+                    onChange={(e) => setIdterapeuta(e.target.value)}
+                    required
                   >
-                    {item.nombreTerapia.label}
-                  </option>,
-                ])}
-              </select>
+                    <option value="">Seleccione un Terapeuta</option>
+                    {terapeuta.map((item) => [
+                      <option value={item.idUser} key={item.idUser}>
+                        {item.names} {item.apellido}{" "}
+                      </option>,
+                    ])}
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <div className="row">
+              <div className="col"></div>
+              <div className="col"></div>
             </div>
 
             {terapia ? (
@@ -709,42 +816,12 @@ function ListadodeCItas({ usuarioLogin }) {
                   onChange={(e) => setPriceEvaluacion(e.target.value)}
                   required
                   type="text"
+                  className="form-select"
                 />
               </div>
             ) : (
               ""
             )}
-
-            <div className="rowCitas">
-              <label htmlFor="validationServer02" className="labelPaciente">
-                Fecha Inicio{" "}
-              </label>
-              <input
-                type="datetime-local"
-                className="form-control "
-                id="validationServer02"
-                required
-                onChange={(e) => setFechaInicio(e.target.value)}
-              />
-            </div>
-
-            <div className="rowCitas">
-              <label htmlFor="validationServer02" className="labelPaciente">
-                Terapeuta{" "}
-              </label>
-              <select
-                className="form-select"
-                onChange={(e) => setIdterapeuta(e.target.value)}
-                required
-              >
-                <option value="">Seleccione un Terapeuta</option>
-                {terapeuta.map((item) => [
-                  <option value={item.idUser} key={item.idUser}>
-                    {item.names} {item.apellido}{" "}
-                  </option>,
-                ])}
-              </select>
-            </div>
 
             <div className="rowCitas">
               <label htmlFor="validationServer02" className="labelPaciente">
@@ -763,47 +840,144 @@ function ListadodeCItas({ usuarioLogin }) {
               </select>
             </div>
 
-            <div className="rowCitas">
+            <div className="rowCitas" id="ultidias">
               <label htmlFor="validationServer02" className="labelPaciente">
-                Dias{" "}
+               Días{" "}
               </label>
-              <select onChange={(e) => setDay(e.target.value)}>
-                <option>Lunes</option>
-                <option>Martes</option>
-                <option>Miercoles</option>
-                <option>Jueves</option>
-                <option>Viernes</option>
-                <option>Sabado</option>
-                <option>Domingo</option>
-              </select>
+              <div >
+                <input
+                  type="checkbox"
+                  id="diasCheckD"
+                  className="check"
+                  value="domingo"
+                  onChange={(e) => setDay(e.target.value)}
+                />
+                <label
+                  htmlFor="diasCheckD"
+                  id="labeldiasCheckD"
+                  className="labelCheck"
+                >
+                  D
+                </label>
+                <input
+                  type="checkbox"
+                  id="diasCheckL"
+                  value="lunes"
+                  className="check"
+                  onChange={(e) => setDay(e.target.value)}
+                />
+                <label
+                  htmlFor="diasCheckL"
+                  id="labeldiasCheckL"
+                  className="labelCheck"
+                >
+                  L
+                </label>
+                <input
+                  type="checkbox"
+                  id="diasCheckM"
+                  value="martes"
+                  className="check"
+                  onChange={(e) => setDay(e.target.value)}
+                />
+                <label
+                  htmlFor="diasCheckM"
+                  id="labeldiasCheckM"
+                  className="labelCheck"
+                >
+                  M
+                </label>
+                <input
+                  type="checkbox"
+                  id="diasCheckMM"
+                  value="miercoles"
+                  className="check"
+                  onChange={(e) => setDay(e.target.value)}
+                />
+                <label
+                  htmlFor="diasCheckMM"
+                  id="labeldiasCheckMM"
+                  className="labelCheck"
+                >
+                  M
+                </label>
+                <input
+                  type="checkbox"
+                  id="diasCheckJ"
+                  value="jueves"
+                  className="check"
+                  onChange={(e) => setDay(e.target.value)}
+                />
+                <label
+                  htmlFor="diasCheckJ"
+                  id="labediasCheckJ"
+                  className="labelCheck"
+                >
+                  J
+                </label>
+                <input
+                  type="checkbox"
+                  id="diasCheckV"
+                  value="viernes"
+                  className="check"
+                  onChange={(e) => setDay(e.target.value)}
+                />
+                <label
+                  htmlFor="diasCheckV"
+                  id="labeldiasCheckV"
+                  className="labelCheck"
+                >
+                  V
+                </label>
+                <input
+                  type="checkbox"
+                  id="diasCheckS"
+                  value="sabado"
+                  className="check"
+                  onChange={(e) => setDay(e.target.value)}
+                />
+                <label
+                  htmlFor="diasCheckS"
+                  id="labeldiasCheckS"
+                  className="labelCheck"
+                >
+                  S
+                </label>
+              </div>
             </div>
 
-            <div className="rowCitas">
-              <label htmlFor="validationServer02" className="labelPaciente">
-                Repetir{" "}
-              </label>
-              <input
-                type="number"
-                className="recu-repe"
-                required
-                min="1"
-                onChange={(e) => setRepetir(e.target.value)}
-              />
-            </div>
-
-            <div className="rowCitas">
-              <label htmlFor="validationServer02" className="labelPaciente">
-                Frecuencia{" "}
-              </label>
-              <select
-                className="recu-select"
-                required
-                onChange={(e) => setFrecuencia(e.target.value)}
-              >
-                <option>Diario</option>
-                <option>Semanal</option>
-                <option>Mensual</option>
-              </select>
+            <div className="row" id="ulticita">
+              <div className="col">
+                <div className="rowCitas">
+                  <label htmlFor="validationServer02" className="labelPaciente">
+                    Repetir{" "}
+                  </label>
+                  <input
+                    type="number"
+                    className="recu-repe"
+                    required
+                    min="1"
+                    onChange={(e) => setRepetir(e.target.value)}
+                  />
+                </div>
+              </div>
+              <div className="col">
+                {" "}
+                <div className="rowCitas">
+                  <label htmlFor="validationServer02" className="labelPaciente">
+                    Frecuencia{" "}
+                  </label>
+                  <select
+                    className="recu-select"
+                    required
+                    onChange={(e) => setFrecuencia(e.target.value)}
+                  >
+                    <option>Diario</option>
+                    <option>Semanal</option>
+                    <option>Mensual</option>
+                  </select>
+                </div>
+              </div>
             </div>
 
             <div className="col" id="cont-btn-admin">
@@ -818,58 +992,47 @@ function ListadodeCItas({ usuarioLogin }) {
             </div>
           </div>
         </form>
-      </div> */}
+      </div>
 
-      <div
-        id="FormModal"
-        className="modal"
-        data-bs-backdrop="static"
-        data-bs-keyboard="false"
-        tabIndex="-1"
-        aria-labelledby="staticBackdropLabel"
-      >
-        <div className="modal-dialog">
-          <div className="modal-content">
-            <div className="modal-header bg-dark text-white">
-              <h1 className="modal-title fs-5" id="staticBackdropLabel">
-                Terapia
-              </h1>
+    
+      <div className="modal-usuario-eliminar" ref={alertEliminar}>
+        <div className="modal-dialog-usuario" role="document">
+          <div className="modal-content-usuario">
+            <div className="modal-header">
+              <h5 className="modal-title">Eliminar Cita</h5>
             </div>
-
-            <div className="modal-body ">
-              <div className="row  g-2">
-                <div className="">
-                  <input
-                    type="checkbox"
-                    value="visitas"
-                    onChange={(e) => setVisitas(e.target.value)}
-                  />
-                  Visitas<br></br>
-                  <label htmlFor="txtnombres" className="form-label">
-                    Precio de la Terapia
-                  </label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    id="txtnombres"
-                    onChange={(e) => setPriceEvaluacion(e.target.value)}
-                    autoComplete="off"
-                  />
-                </div>
+            <div className="sub-box-usuario">
+              <div className="modal-body">
+                {
+                  <p>
+                    ¿Deseas eliminar la cita con : 
+                    <span className="text-eliminar"> {nomPaciente} </span> ?
+                  </p>
+                }
               </div>
-
-              <div className="cont-btn-evaluacion">
-                <button className="btn-Guardar" onClick={modal}>
-                  Guardar
+              <hr></hr>
+              <div className="modal-footer">
+                <button
+                  type="button"
+                  className="btn si"
+                  data-dismiss="modal"
+                  onClick={handleEliminar}
+                >
+                  Si
                 </button>
-                <button className="btn-Cancelar" onClick={cancelarModal}>
-                  Cancelar
+                <button
+                  type="button"
+                  className="btn no"
+                  onClick={modalCerrarEliminar}
+                >
+                  No
                 </button>
               </div>
             </div>
           </div>
         </div>
       </div>
+
     </div>
   );
 }
