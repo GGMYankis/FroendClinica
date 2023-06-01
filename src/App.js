@@ -54,7 +54,7 @@ import Headers from "./Headers";
 initAxiosInterceptors();
 
 function App() {
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const [usuarioLogin, setUsuarioLogin] = useState([]);
   const [tokenHook, setTokenHook] = useState("");
 

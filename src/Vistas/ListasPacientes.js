@@ -892,7 +892,7 @@ function ListasPacientes({ usuarioLogin }) {
         <form
           onSubmit={handleGuardar}
           className="contenedor-cita"
-          id="txtCrearPaciente"
+          
         >
           <div className="cont-titulo-form">
             <h1>Pacientes de nuevo ingreso </h1>

@@ -21,9 +21,10 @@
     border: 1px solid white;
 }
 
-.cont-logo-header .ver{
- padding-top: 15px;
+.cont-logo-header .ver {
+    padding-top: 15px;
 }
+
 .encabezado .cont-menu {
     position: fixed;
     width: 220px;

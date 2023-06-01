@@ -235,21 +235,23 @@ function Calendario() {
       "https://jdeleon-001-site1.btempurl.com/api/Clinica/FiltrarConsultorios";
     axios.post(urls, consultorio).then((result) => {
       console.log(result.data);
-      setEvent(
+
+
+     setEvent(
         result.data.map((item) => ({
           id: item.idEvaluacion,
-          title: item.paciente,
+          title: item.paciente.name,
           start: new Date(item.fechaInicio),
           extendedProps: {
-            additionalProperty: item.terapeuta, 
-            anotherProperty: item.terapia, 
+            additionalProperty: item.terapeuta.names, 
+            anotherProperty: item.terapia.label, 
             description:item.consultorio.nombre
            // name: item.nombre, 
-          },
-          editable: true,
+          }
         }))
-      );
+      ); 
     });
+
   };
 
   return (

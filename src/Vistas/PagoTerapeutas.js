@@ -77,8 +77,8 @@ function PagoTerapeutas() {
               <tbody>
                 {dataPaciente.map((x) => [
                   <tr>
-                    <td>{x.terapeuta}</td>
-                    <td>{x.terapia}</td>
+                    <td>{x.terapeuta.names}</td>
+                    <td>{x.terapia.label}</td>
                     <td>{x.fechaInicio.substring("", 10)}</td>
                   </tr>,
                 ])}
