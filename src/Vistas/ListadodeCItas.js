@@ -38,7 +38,7 @@ function ListadodeCItas({ usuarioLogin }) {
   const currentDate = new Date(); // Obtener la fecha actual
   const formattedDate = format(currentDate, "yyyy/MM/dd");
   let rol = getUsuarioCompleto();
-  const paciente = useRef(null);
+  const RefCitas = useRef(null);
 
   const [pacienteN, setPacienteN] = useState("");
   const [terapia, setTerapia] = useState(0);
@@ -422,9 +422,9 @@ function ListadodeCItas({ usuarioLogin }) {
 
   return (
     <div>
-      <Headers />
+      <Headers RefCitas={RefCitas} />
 
-      <div id="table-container" className="table-container" ref={paciente}>
+      <div id="table-container" className="table-container" ref={RefCitas}>
         <div className="sex-tables">
           <div className="cont-titu-tables">
             <h1>Listado de Citas</h1>
@@ -816,7 +816,7 @@ function ListadodeCItas({ usuarioLogin }) {
                   onChange={(e) => setPriceEvaluacion(e.target.value)}
                   required
                   type="text"
-                  className="form-select"
+                  className="barraInput"
                 />
               </div>
             ) : (

@@ -13,7 +13,7 @@ import {
   getUsuarioCompleto,
 } from "./auth-helpers";
 
-function Headers({ calendario, myElement, paciente }) {
+function Headers({ calendario, myElement, paciente,myElementTerapia,RefCitas,myElementUsuario ,pagotera}) {
   const navigation = useNavigate();
   obtenerUser();
 
@@ -34,6 +34,26 @@ function Headers({ calendario, myElement, paciente }) {
     } else if (myElement) {
       myElement.current.classList.toggle("mi-clase-css");
     }
+    if(myElementTerapia){
+      myElementTerapia.current.classList.toggle("mi-clase-css");
+
+    }
+    if(RefCitas){
+      RefCitas.current.classList.toggle("mi-clase-css");
+
+    }
+    if(myElementUsuario){
+      myElementUsuario.current.classList.toggle("mi-clase-css");
+
+    }
+
+    if(pagotera){
+      pagotera.current.classList.toggle("mi-clase-css2");
+
+    }
+
+
+    
   };
 
   return (
@@ -82,6 +102,11 @@ function Headers({ calendario, myElement, paciente }) {
                         Listado de Terapias
                       </Link>
                     </li>
+                    <li>
+                      <Link className="letras-menu" to="/ListadodeCItas">
+                       Listado de  Citas
+                      </Link>
+                    </li>
                   </span>
                 ) : (
                   ""
@@ -122,12 +147,12 @@ function Headers({ calendario, myElement, paciente }) {
                     </li>
                     <li>
                       <Link className="letras-menu" to="/AbonoTerapias">
-                        AbonoTerapias
+                        Abono Terapias
                       </Link>
                     </li>
                     <li>
                       <Link className="letras-menu" to="/PagoTerapeutas">
-                        PagoTerapeutas
+                        Pago Terapeutas
                       </Link>
                     </li>
                     <li>
@@ -135,11 +160,7 @@ function Headers({ calendario, myElement, paciente }) {
                         Consultorios
                       </Link>
                     </li>
-                    <li>
-                      <Link className="letras-menu" to="/ListadodeCItas">
-                       Listado de  Citas
-                      </Link>
-                    </li>
+                  
                   </span>
                 ) : (
                   ""

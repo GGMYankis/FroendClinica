@@ -301,6 +301,8 @@ function ListasPacientes({ usuarioLogin }) {
       .then((result) => {
         const probar = async () => {
           cargar();
+          setFilteredData(listaPaciente)
+          
           modalEditar.current.classList.remove("active");
           const ale = await swal({
             title: "Correcto",
@@ -330,6 +332,8 @@ function ListasPacientes({ usuarioLogin }) {
         const probar = async () => {
           alertEliminar.current.classList.remove("activeEli");
           cargar();
+          setFilteredData(listaPaciente)
+
           const ale = await swal({
             title: "Correcto",
             text: "Cambio guardado ",

@@ -1904,3 +1904,15 @@
   margin-top: 10px;
   margin-bottom: 10px;
 }
+
+.barraInput {
+  width: 100%;
+  padding: 0.375rem 2.25rem 0.375rem 0.75rem;
+  border: 1px solid #ced4da;
+  border-radius: 0.375rem;
+}
+
+.dateI {
+  width: 500px;
+  padding: 5px;
+}

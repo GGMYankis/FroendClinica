@@ -107,10 +107,12 @@
     display: none;
 }
 
-
-
 .mi-clase-css {
     margin-left: 220px;
+}
+
+.mi-clase-css2 {
+    margin-left: 100px;
 }
 
 @media (max-width:1150px) {
@@ -839,7 +841,7 @@ th {
     }
 
     .cont-admin {
-        margin-top: 55px;
+        margin-top: 55px;mi-clase-css
     }
 
 }

@@ -61,6 +61,7 @@ function Calendario() {
     axios
       .get("https://jdeleon-001-site1.btempurl.com/api/Clinica/Citas")
       .then((res) => {
+        console.log(res.data)
         setEvent(
           res.data.map((item) => ({
             id: item.idEvaluacion,
@@ -255,6 +256,7 @@ function Calendario() {
   };
 
   return (
+
     <div>
       <Headers calendario={calendario} />
 
@@ -290,10 +292,12 @@ function Calendario() {
                   id="selec-consultorio"
                 >
                   <option value="">Seleccione un Consultorio</option>
+                  <option value="0">Todos los Consultorio</option>
                   {consultorios.map((item) => [
                     <option value={item.idConsultorio}>{item.nombre} </option>,
                   ])}
                 </select>
+             
               </div>
 
               <div className="col">
