@@ -13,7 +13,7 @@ import {
   getUsuarioCompleto,
 } from "./auth-helpers";
 
-function Headers({ calendario, myElement, paciente,myElementTerapia,RefCitas,myElementUsuario ,pagotera}) {
+function Headers({ calendario, myElement, paciente,myElementTerapia,RefCitas,myElementUsuario ,pagotera, consultorio}) {
   const navigation = useNavigate();
   obtenerUser();
 
@@ -51,6 +51,13 @@ function Headers({ calendario, myElement, paciente,myElementTerapia,RefCitas,myE
       pagotera.current.classList.toggle("mi-clase-css2");
 
     }
+
+    if(consultorio){
+      consultorio.current.classList.toggle("mi-clase-css");
+
+    }
+
+    
 
 
     
@@ -107,6 +114,11 @@ function Headers({ calendario, myElement, paciente,myElementTerapia,RefCitas,myE
                        Listado de  Citas
                       </Link>
                     </li>
+                    <li>
+                      <Link className="letras-menu" to="/Consultorios">
+                      Listado de Consultorios
+                      </Link>
+                    </li>
                   </span>
                 ) : (
                   ""
@@ -155,18 +167,14 @@ function Headers({ calendario, myElement, paciente,myElementTerapia,RefCitas,myE
                         Pago Terapeutas
                       </Link>
                     </li>
-                    <li>
-                      <Link className="letras-menu" to="/Consultorios">
-                        Consultorios
-                      </Link>
-                    </li>
+                  
                   
                   </span>
                 ) : (
                   ""
                 )}
                 <li>
-                  <a className="letras-menu" onClick={logout}>
+                  <a className="letras-menu" id="Cerra-Sesion-ul" onClick={logout}>
                     Cerra Sesión
                   </a>
                 </li>

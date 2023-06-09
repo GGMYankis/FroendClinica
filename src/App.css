@@ -1915,4 +1915,14 @@
 .dateI {
   width: 500px;
   padding: 5px;
+
+}
+
+.filtrarCitastables {
+  display: flex;
+  align-items: center;
+}
+
+.fe {
+  background-color: red;
 }

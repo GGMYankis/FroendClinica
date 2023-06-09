@@ -166,17 +166,17 @@ function Consultorios() {
     navigation("/login");
   };
 
-  const myElement = useRef(null);
+  const consultorio = useRef(null);
 
   const handleClickOtro = () => {
-    myElement.current.classList.toggle("mi-clase-css");
+    consultorio.current.classList.toggle("mi-clase-css");
   };
 
   return (
     <div>
-      <Headers />
+      <Headers consultorio={consultorio} />
 
-      <div className="contCard" ref={myElement}>
+      <div className="contCard" ref={consultorio}>
         <div className="card-box ">
           <div className="card-body">
             <div className="contTituUsuario">

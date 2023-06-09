@@ -51,6 +51,7 @@ function ListasTerapias({ usuarioLogin }) {
       .get("https://jdeleon-001-site1.btempurl.com/api/Clinica/ListaTerapia")
       .then((response) => {
         setTerapias(response.data);
+        console.log(response.data)
       });
   };
 
@@ -223,6 +224,7 @@ function ListasTerapias({ usuarioLogin }) {
                   <th>Descripcion</th>
                   <th>Precio</th>
                   <th>Porcentaje</th>
+                  <th>PorcentajeCentro</th>    
                   <th></th>
                 </tr>
               </thead>
@@ -236,6 +238,8 @@ function ListasTerapias({ usuarioLogin }) {
                     </td>
                     <td data-label="Price">{item.nombreTerapia.price}</td>
                     <td data-label="Price">{item.nombreTerapia.porcentaje}</td>
+                    <td data-label="Price">{item.nombreTerapia.porcentajeCentro}</td>
+                    
                     <td className="tr-btn">
                       <button
                         className="btn "

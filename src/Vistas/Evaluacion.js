@@ -43,7 +43,7 @@ function Evaluacion() {
   const [idterapeuta, setIdterapeuta] = useState(0);
   const [consul, setConsul] = useState(0);
   const [loading, setLoading] = useState(false);
-
+  const [dayEnviar, setDayEnviar] = useState([]);
   let id = getDatosUsuario();
   let rol = getUsuarioCompleto();
   const resportes = useRef();
@@ -135,10 +135,22 @@ function Evaluacion() {
     FechaInicio: fechaInicio,
     Repetir: repetir,
     Frecuencia: frecuencia,
-    Dias: day,
+    DiasA: dayEnviar,
     IdTerapeuta: idterapeuta,
     IdEvaluation: 0,
   };
+
+  function handle(selectedItems) {
+
+    const diasEnviar = [];
+  
+    diasEnviar.push(selectedItems.target.value);
+    setDayEnviar(diasEnviar);
+    
+    setDay(selectedItems.target.value);
+
+}
+  
 
   const EnviarEvaluacion = (e) => {
     e.preventDefault();
@@ -154,6 +166,7 @@ function Evaluacion() {
       if (resultEvaluacion.data > 0) {
         dataRecurrencia.IdEvaluation = resultEvaluacion.data;
 
+        console.log(dataRecurrencia)
         axios.post(urlRecurrencia, dataRecurrencia).then((resultEvaluacion) => {
           resportes.current.classList.remove("contenedors");
           swal({
@@ -393,7 +406,7 @@ function Evaluacion() {
                   id="diasCheckD"
                   className="check"
                   value="domingo"
-                  onChange={(e) => dia(e.target.value)}
+                  onChange={(e) => handle(e)}
                 />
                 <label
                   htmlFor="diasCheckD"
@@ -407,7 +420,7 @@ function Evaluacion() {
                   id="diasCheckL"
                   value="lunes"
                   className="check"
-                  onChange={(e) => dia(e.target.value)}
+                  onChange={(e) => handle(e)}
                 />
                 <label
                   htmlFor="diasCheckL"
@@ -421,7 +434,7 @@ function Evaluacion() {
                   id="diasCheckM"
                   value="martes"
                   className="check"
-                  onChange={(e) => dia(e.target.value)}
+                  onChange={(e) => handle(e)}
                 />
                 <label
                   htmlFor="diasCheckM"
@@ -435,7 +448,7 @@ function Evaluacion() {
                   id="diasCheckMM"
                   value="miercoles"
                   className="check"
-                  onChange={(e) => dia(e.target.value)}
+                  onChange={(e) => handle(e)}
                 />
                 <label
                   htmlFor="diasCheckMM"
@@ -449,7 +462,7 @@ function Evaluacion() {
                   id="diasCheckJ"
                   value="jueves"
                   className="check"
-                  onChange={(e) => dia(e.target.value)}
+                  onChange={(e) => handle(e)}
                 />
                 <label
                   htmlFor="diasCheckJ"
@@ -463,7 +476,7 @@ function Evaluacion() {
                   id="diasCheckV"
                   value="viernes"
                   className="check"
-                  onChange={(e) => dia(e.target.value)}
+                  onChange={(e) => handle(e)}
                 />
                 <label
                   htmlFor="diasCheckV"
@@ -477,7 +490,7 @@ function Evaluacion() {
                   id="diasCheckS"
                   value="sabado"
                   className="check"
-                  onChange={(e) => dia(e.target.value)}
+                  onChange={(e) => handle(e)}
                 />
                 <label
                   htmlFor="diasCheckS"

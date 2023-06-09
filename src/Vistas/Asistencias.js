@@ -5,8 +5,13 @@ import Headers from "../Headers";
 import swal from "sweetalert";
 import "../responsive.css";
 import { getDatosUsuario, getUsuarioCompleto } from "../auth-helpers";
+import DatePicker, { DateObject } from "react-multi-date-picker";
+import TimePicker from "react-multi-date-picker/plugins/time_picker";
+import DatePanel from "react-multi-date-picker/plugins/date_panel";
+import Toolbar from "react-multi-date-picker/plugins/toolbar"
 
 function Asistencias() {
+
   const [paciente, setPaciente] = useState();
   const [terapia, setTerapia] = useState();
   const [fecha, setFecha] = useState();
@@ -17,10 +22,6 @@ function Asistencias() {
   const [dataPaciente, setDataPaciente] = useState([]);
   const [justificaciones, setJustificaciones] = useState("");
   const resportes = useRef();
-
-  const Fobser = (e) => {
-    setFecha(e);
-  };
 
   let id = getDatosUsuario();
 
@@ -75,7 +76,7 @@ function Asistencias() {
     idPatients: paciente,
     idTherapy: terapia,
     IdTerapeuta: idTerapeuta,
-    FechaInicio: fecha,
+    FechaInicio: [],
     TipoAsistencias: justificaciones,
     remarks: observaciones,
   };
@@ -84,6 +85,13 @@ function Asistencias() {
 
   const enviar = (e) => {
     e.preventDefault();
+
+    
+
+    const fechas = values.map((date) => date.format("YYYY-MM-DDTHH:mm:ss"));
+
+
+    dataValor.FechaInicio = fechas
 
     resportes.current.classList.add("contenedors");
     if (rol == 2) {
@@ -111,6 +119,25 @@ function Asistencias() {
         console.log(error);
       });
   };
+
+
+
+  const [values, setValues] = useState(
+    [1, 2, 3].map((number) =>
+      new DateObject().set({
+        day: number,
+        hour: number,
+        minute: number,
+        second: number,
+      })
+    )
+  );
+
+  const handleDateChange = (newValues) => {
+    console.log(newValues); // Muestra las fechas seleccionadas en la consola
+    setValues(newValues);
+  };
+
 
   return (
     <div>
@@ -211,12 +238,19 @@ function Asistencias() {
             )}
             <div className="box-asistencia">
               <label className="label-asistencia">Fecha</label>
-              <input
-                type="datetime-local"
-                required
-                onChange={(e) => Fobser(e.target.value)}
-                className="select-asistencia"
-              />
+              <DatePicker
+                  value={values}
+                  onChange={handleDateChange}
+                  format="MM/DD/YYYY HH:mm:ss"
+                  multiple
+                  plugins={[<TimePicker position="bottom" />, <DatePanel markFocused />,
+                  <Toolbar 
+                  position="bottom" 
+                  sort={["deselect", "close", "today"]} 
+                />,
+                 ]}
+                 style={{ height: '50px', width: '100%' }}
+                />
             </div>
             <div className="box-asistencia">
               <label className="label-asistencia">Observaciones</label>

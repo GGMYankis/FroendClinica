@@ -225,19 +225,13 @@
 
 /* #0b2f57 */
 
-.Cerra-Sesion-ul {
-    padding: 8px;
-    border-radius: 5px;
-    text-decoration: none;
-    color: white;
+#Cerra-Sesion-ul {
+
     cursor: pointer;
-    font-weight: bolder;
-    transition: all .2s;
+
 }
 
-.Cerra-Sesion-ul:hover {
-    color: orange;
-}
+
 
 .Cerra-Sesion {
     padding: 8px;

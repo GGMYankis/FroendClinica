@@ -31,17 +31,18 @@ function PagoTerapeutas() {
     FechaInicio: startDate,
     FechaFinal: endDate,
     IdTerapeuta:idterapeuta
-  };
+  }; 
 
   const enviars = (e) => {
     e.preventDefault();
 
     resportes.current.classList.add("contenedors");
+    console.log(data)
 
     const urls =
       "https://jdeleon-001-site1.btempurl.com/api/Clinica/ListaEvaluacions";
     axios.post(urls, data).then((result) => {
-
+      
       setDataPaciente(result.data)
 
   /*      let obj = [];
@@ -103,7 +104,7 @@ function PagoTerapeutas() {
                 />
               </div>
 
-<div className="col">    
+      <div className="col">    
               <select
                 className="form-select"
                 onChange={(e) => Fterapeuta(e.target.value)}
@@ -139,7 +140,7 @@ function PagoTerapeutas() {
               <tbody>
                 {dataPaciente.map((x) => [
                   <tr>
-                    <td>{x.terapeuta.names}</td>
+                    <td>{x.terapeuta.names}  {x.terapeuta.apellido}</td>
                     <td>{x.terapia.label}</td>
                     <td>{x.price}</td>
                     <td>{x.fechaInicio.substring("", 10)}</td>

@@ -41,6 +41,7 @@ function Calendario() {
   const [terapia, setTerapia] = useState("");
   const [consultorioCalendario, setConsultorioCalendario] = useState("");
   const [hora, setHora] = useState("");
+  const [apellido, setApellido] = useState("");
   obtenerUser();
 
   let rol = getUsuarioCompleto();
@@ -61,17 +62,17 @@ function Calendario() {
     axios
       .get("https://jdeleon-001-site1.btempurl.com/api/Clinica/Citas")
       .then((res) => {
-        console.log(res.data)
+       
         setEvent(
           res.data.map((item) => ({
             id: item.idEvaluacion,
             title: item.paciente.name,
             start: new Date(item.fechaInicio),
             extendedProps: {
-              additionalProperty: item.terapeuta.names, 
+              additionalProperty: item.terapeuta.names , 
               anotherProperty: item.terapia.label, 
-              description:item.consultorio.nombre
-             // name: item.nombre, 
+              description:item.consultorio.nombre,
+            name:item.terapeuta.apellido, 
             },
           }))
         );
@@ -120,10 +121,7 @@ function Calendario() {
     });
   };
 
-  const logout = () => {
-    DeleteToken();
-    navigation("/login");
-  };
+
 
   const modalCerrarEliminar = () => {
     $("#eliminarPaciente").hide();
@@ -159,14 +157,15 @@ function Calendario() {
     
     const fecha = `${year}-${month}-${day}`;
     const hora = start.getHours();
-  const minutos = start.getMinutes();
-  const segundos = start.getSeconds();
+    const minutos = start.getMinutes();
+    const amPM = (hora >= 12) ? 'PM' : 'AM';
 
-    const reaHora = `${hora}:${minutos}`
+
+    const reaHora = `${hora}:${minutos} ${amPM}`
     const titu = info.event.title;
     setfechaInicio(fecha);
-
-
+    
+    
     setHora(reaHora);
 
 
@@ -174,6 +173,7 @@ function Calendario() {
     setTerapeuta(info.event.extendedProps.additionalProperty);
     setTerapia(info.event.extendedProps.anotherProperty);
     setConsultorioCalendario(info.event.extendedProps.description);
+    setApellido(info.event.extendedProps.name);
     
   }
 
@@ -232,28 +232,28 @@ function Calendario() {
   };
 
   const enviars = (e) => {
+    e.preventDefault()
     const urls =
       "https://jdeleon-001-site1.btempurl.com/api/Clinica/FiltrarConsultorios";
     axios.post(urls, consultorio).then((result) => {
-      console.log(result.data);
-
-
      setEvent(
         result.data.map((item) => ({
           id: item.idEvaluacion,
           title: item.paciente.name,
           start: new Date(item.fechaInicio),
           extendedProps: {
-            additionalProperty: item.terapeuta.names, 
+            additionalProperty: item.terapeuta.names + " " + item.terapeuta.apellido, 
             anotherProperty: item.terapia.label, 
             description:item.consultorio.nombre
-           // name: item.nombre, 
+           
           }
         }))
       ); 
     });
 
   };
+
+  
 
   return (
 
@@ -416,7 +416,7 @@ function Calendario() {
                 <span className="infocitas">Terapia :</span> {terapia}
               </p>
               <p>
-                <span className="infocitas">Terapeuta :</span> {terapeuta}
+                <span className="infocitas">Terapeuta :</span> {terapeuta} {apellido}
               </p>
               <p>
                 <span className="infocitas">Consultorio :</span> {consultorioCalendario}

@@ -25,7 +25,7 @@ import {
 import { set } from "date-fns";
 import { Label } from "reactstrap";
 import { format } from "date-fns";
-
+import Select from 'react-select';
 function ListadodeCItas({ usuarioLogin }) {
   const [ac, setAc] = useState([]);
   const modalCrear = useRef();
@@ -52,7 +52,7 @@ function ListadodeCItas({ usuarioLogin }) {
   const [idterapeuta, setIdterapeuta] = useState(0);
   const [consul, setConsul] = useState(0);
   const [repetir, setRepetir] = useState(null);
-  const [day, setDay] = useState("");
+  const [day, setDay] = useState([]);
   const [frecuencia, setFrecuencia] = useState("");
   const [priceEvaluacion, setPriceEvaluacion] = useState(0);
   const [idEvaluacion, setIdEvaluacion] = useState(0);
@@ -63,8 +63,10 @@ function ListadodeCItas({ usuarioLogin }) {
   const [nomTerapeuta, setNomTerapeuta] = useState("");
   const [precioEditar, setPrecioEditar] = useState("");
   const [recurrencia, setRecurrencia] = useState(0);
-
+  const [dayEnviar, setDayEnviar] = useState([]);
   const [visitas, setVisitas] = useState(false);
+  const [fechaInicioF, setFechaInicioF] = useState('');
+  const [fechaFinF, setFechaFinF] = useState('');
 
   let id = getDatosUsuario();
   const resportes = useRef();
@@ -72,16 +74,30 @@ function ListadodeCItas({ usuarioLogin }) {
   const date = {
     Idterapeuta: id,
   };
+  const objDias = [
+
+    {label:"lunes", value:"Lunes"},
+    {label:"martes", value:"Martes"},
+    {label:"miercoles", value:"Miercoles"},
+    {label:"jueves", value:"Jueves"},
+    {label:"viernes", value:"Viernes"},
+    {label:"sabado", value:"sabado"},
+    {label:"domingo", value:"domingo"}
+  ]
+
 
   useEffect(() => {
     cargar();
   }, []);
 
   const cargar = (async) => {
-    // ultimo commit
     axios.get("https://jdeleon-001-site1.btempurl.com/api/Clinica/Citas").then((res) => {
-      setCitas(res.data);
+
+
+    setCitas(res.data)
+
     });
+
     if (rol == 2) {
       axios
         .post(
@@ -145,7 +161,7 @@ function ListadodeCItas({ usuarioLogin }) {
     FechaInicio: fechaInicio,
     Repetir: repetir,
     Frecuencia: frecuencia,
-    Dias: day,
+    DiasA: dayEnviar,
     IdTerapeuta: idterapeuta,
     IdEvaluation: 0,
   };
@@ -159,6 +175,7 @@ function ListadodeCItas({ usuarioLogin }) {
     const urlRecurrencia =
       "https://jdeleon-001-site1.btempurl.com/api/traerpaciente/CrearRecurrencia";
 
+      console.log(dataRecurrencia)
     axios.post(url, dataEvaluacion).then((resultEvaluacion) => {
       if (resultEvaluacion.data > 0) {
         dataRecurrencia.IdEvaluation = resultEvaluacion.data;
@@ -199,16 +216,46 @@ function ListadodeCItas({ usuarioLogin }) {
     FechaInicio: fechaInicio,
     Repetir: repetir,
     Frecuencia: frecuencia,
-    Dias: day,
+    DiasA: dayEnviar,
+    IdEvaluation:parseInt(idEvaluacion),
   };
+
+  function handle(selectedItems) {
+
+    const diasEnviar = []
+
+    selectedItems.map(item => {
+  
+    diasEnviar.push(item.value)
+    setDayEnviar(diasEnviar)
+ 
+ })
+
+   setDay(selectedItems)
+
+}
+
+
+/*   function handle(selectedItems) {
+    let dias = [];
+
+    selectedItems.map(item => {
+        dias.push(item.value)
+      setDay(dias)
+    })
+
+} */
+
 
   function EnviarEvaluacionEditada(e) {
     e.preventDefault();
 
     const url = "https://jdeleon-001-site1.btempurl.com/api/Clinica/EditarCitas";
-    const urlrecu = "https://jdeleon-001-site1.btempurl.com/api/Clinica/EditarRecurrencia";
+    const urlrecu = "https://jdeleon-001-site1.btempurl.com/api/traerpaciente/CrearRecurrencia";
+    console.log(dtRecu)
     axios.post(url, dtEditar).then((resultEvaluacion) => {
 
+    
       axios.post(urlrecu, dtRecu).then((resultEvaluacion) => {
         const probar = async () => {
           cargar();
@@ -247,10 +294,21 @@ function ListadodeCItas({ usuarioLogin }) {
     modalEditar.current.classList.add("active");
 
     const IdEvaluacion = citas.filter((item) => item.idEvaluacion == e);
-    console.log(IdEvaluacion)
 
-    IdEvaluacion.map((item) => [
-      setIdPatients(item.paciente.idPatients),
+    const dias = [];
+
+    IdEvaluacion.map((item) => {
+      const dia = {
+        label: item.dias,
+        value:item.dias
+      };
+
+      dias.push(dia)
+    });
+   setDay(dias)
+   
+    IdEvaluacion.map((item) => [ 
+       setIdPatients(item.paciente.idPatients),
       setTerapia(item.terapia.idTherapy),
       setIdterapeuta(item.terapeuta.idUser),
       setConsul(item.consultorio.idConsultorio),
@@ -258,8 +316,8 @@ function ListadodeCItas({ usuarioLogin }) {
       setFechaInicio(item.fechaInicio),
       setRepetir(item.repetir),
       setFrecuencia(item.frecuencia),
-      setDay(item.dias),
-      setRecurrencia(item.recurrencia.idRecurrencia),
+     // setDay([{label:item.dias.label, value:item.dias.value}]),
+      setRecurrencia(item.recurrencia.idRecurrencia),   
     ]);
   };
 
@@ -277,16 +335,17 @@ function ListadodeCItas({ usuarioLogin }) {
     ,
     {
       name: "Terapeuta",
-      selector: (row) => row.terapeuta.names,
+      selector: (row) => row.terapeuta.names + " " +row.terapeuta.apellido,
       sortable: true,
     },
     {
       name: "Fecha Inicio",
       selector: (row) => row.fechaInicio,
       sortable: true,
+      cell: (row) => new Date(row.fechaInicio).toLocaleDateString(),
     },
     {
-      name: "consultorio",
+      name: "Consultorio",
       selector: (row) => row.consultorio.nombre,
       sortable: true,
     },
@@ -420,6 +479,20 @@ function ListadodeCItas({ usuarioLogin }) {
     alertEliminar.current.classList.add("activeEli");
   };
 
+
+
+
+ function filtrarCitasFechas () {
+  setCitas([])
+    const fechaConHora = citas.filter(cita => cita.fechaInicio.substring(0, 10) >= fechaInicioF
+      &&
+      cita.fechaInicio.substring(0, 10) < fechaFinF )
+      setCitas(fechaConHora)
+
+ }
+
+
+
   return (
     <div>
       <Headers RefCitas={RefCitas} />
@@ -439,6 +512,8 @@ function ListadodeCItas({ usuarioLogin }) {
                 {" "}
                 Crear Cita
               </button>
+         
+              
             </div>
 
             <div className="cont-crear-paciente">
@@ -450,6 +525,39 @@ function ListadodeCItas({ usuarioLogin }) {
                 autoComplete="off"
               />
             </div>
+
+            <form onSubmit={filtrarCitasFechas} className="filtrarCitastables">            
+            <div className="cont-crear-paciente">
+              <label>Fecha Inicio</label>   
+              <input
+                id="txtbuscar"
+                placeholder="Buscar"
+                onChange={e => setFechaInicioF(e.target.value)}
+                autoComplete="off"
+                type="date" 
+                required
+              />
+            </div>
+            <div className="cont-crear-paciente">
+              <label>Fecha Fin</label>   
+              <input
+                id="txtbuscar"
+                placeholder="Buscar"
+                onChange={e => setFechaFinF(e.target.value)}
+                autoComplete="off"
+                type="date"
+                required
+              />
+            </div>
+
+            <button
+                className="btn-crear-Paciente-tabla"
+                
+              >
+                {" "}
+                buscar
+              </button>
+              </form>
           </div>
 
           <DataTable
@@ -622,7 +730,15 @@ function ListadodeCItas({ usuarioLogin }) {
               <label htmlFor="validationServer02" className="labelPaciente">
               Días{" "}
               </label>
-              <select
+              <Select
+                                        isMulti
+                                        options={objDias}
+                                        onChange={(e) => handle(e)}
+                                        value={day} 
+                                        required
+                                        placeholder = "Seleccione una Terapia"
+                                    />
+            {/*   <select
                 onChange={(e) => setDay(e.target.value)}
                 value={day}
                 className="form-control "
@@ -634,7 +750,7 @@ function ListadodeCItas({ usuarioLogin }) {
                 <option value="viernes">Viernes</option>
                 <option value="sabado">Sabado</option>
                 <option value="domingo">Domingo</option>
-              </select>
+              </select> */}
             </div>
             <div className="row" id="ulticita">
               <div className="col">
@@ -687,7 +803,7 @@ function ListadodeCItas({ usuarioLogin }) {
         </form>
       </div>
 
-      <div className="modal-paciente" ref={modalCrear}>
+    <div className="modal-paciente" ref={modalCrear}>
         <form
           onSubmit={EnviarEvaluacion}
           className="contenedor-cita"
@@ -844,13 +960,21 @@ function ListadodeCItas({ usuarioLogin }) {
               <label htmlFor="validationServer02" className="labelPaciente">
                Días{" "}
               </label>
-              <div >
+              <Select
+                                        isMulti
+                                        options={objDias}
+                                        onChange={(e) => handle(e)}
+                                       /*  value={day} */
+                                        required
+                                        placeholder = "Seleccione una Terapia"
+                                    />
+             {/*  <div >
                 <input
                   type="checkbox"
                   id="diasCheckD"
                   className="check"
                   value="domingo"
-                  onChange={(e) => setDay(e.target.value)}
+                  onChange={(e) => handle(e)}
                 />
                 <label
                   htmlFor="diasCheckD"
@@ -864,7 +988,7 @@ function ListadodeCItas({ usuarioLogin }) {
                   id="diasCheckL"
                   value="lunes"
                   className="check"
-                  onChange={(e) => setDay(e.target.value)}
+                  onChange={(e) => handle(e)}
                 />
                 <label
                   htmlFor="diasCheckL"
@@ -878,7 +1002,7 @@ function ListadodeCItas({ usuarioLogin }) {
                   id="diasCheckM"
                   value="martes"
                   className="check"
-                  onChange={(e) => setDay(e.target.value)}
+                  onChange={(e) => handle(e)}
                 />
                 <label
                   htmlFor="diasCheckM"
@@ -892,7 +1016,7 @@ function ListadodeCItas({ usuarioLogin }) {
                   id="diasCheckMM"
                   value="miercoles"
                   className="check"
-                  onChange={(e) => setDay(e.target.value)}
+                  onChange={(e) => handle(e)}
                 />
                 <label
                   htmlFor="diasCheckMM"
@@ -906,7 +1030,7 @@ function ListadodeCItas({ usuarioLogin }) {
                   id="diasCheckJ"
                   value="jueves"
                   className="check"
-                  onChange={(e) => setDay(e.target.value)}
+                  onChange={(e) => handle(e)}
                 />
                 <label
                   htmlFor="diasCheckJ"
@@ -920,7 +1044,7 @@ function ListadodeCItas({ usuarioLogin }) {
                   id="diasCheckV"
                   value="viernes"
                   className="check"
-                  onChange={(e) => setDay(e.target.value)}
+                  onChange={(e) => handle(e.target.value)}
                 />
                 <label
                   htmlFor="diasCheckV"
@@ -934,7 +1058,7 @@ function ListadodeCItas({ usuarioLogin }) {
                   id="diasCheckS"
                   value="sabado"
                   className="check"
-                  onChange={(e) => setDay(e.target.value)}
+                  onChange={(e) => handle(e.target.value)}
                 />
                 <label
                   htmlFor="diasCheckS"
@@ -943,7 +1067,7 @@ function ListadodeCItas({ usuarioLogin }) {
                 >
                   S
                 </label>
-              </div>
+              </div> */}
             </div>
 
             <div className="row" id="ulticita">
@@ -994,7 +1118,7 @@ function ListadodeCItas({ usuarioLogin }) {
         </form>
       </div>
 
-    
+      
       <div className="modal-usuario-eliminar" ref={alertEliminar}>
         <div className="modal-dialog-usuario" role="document">
           <div className="modal-content-usuario">
@@ -1031,7 +1155,7 @@ function ListadodeCItas({ usuarioLogin }) {
             </div>
           </div>
         </div>
-      </div>
+      </div> 
 
     </div>
   );
