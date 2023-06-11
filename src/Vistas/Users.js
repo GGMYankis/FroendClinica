@@ -368,6 +368,7 @@ function Users() {
                   <option value="1">Administrador</option>
                   <option value="2">Terapeuta</option>
                   <option value="3">Asistente</option>
+                  <option value="4">Usuario</option>
                 </select>
               </div>
             </div>
@@ -473,6 +474,8 @@ function Users() {
                   <option value="1">Administrador</option>
                   <option value="2">Terapeuta</option>
                   <option value="3">Asistente</option>
+                  <option value="4">Usuario</option>
+
                 </select>
               </div>
             </div>

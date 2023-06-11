@@ -104,19 +104,17 @@ function PagoTerapeutas() {
                 />
               </div>
 
-      <div className="col">    
-              <select
-                className="form-select"
-                onChange={(e) => Fterapeuta(e.target.value)}
-                
-              >
-                <option value="">Seleccione un Terapeuta</option>
-                {terapeuta.map((item) => [
-                  <option value={item.idUser} key={item.idUser}>
-                    {item.names} {item.apellido}{" "}
-                  </option>,
-                ])}
-              </select></div>
+             <div className="col">    
+                <select className="form-select" onChange={(e) => Fterapeuta(e.target.value)}  required  >
+                     
+                  <option value="">Seleccione un Terapeuta</option>
+                  {terapeuta.map((item) => [
+                    <option value={item.idUser} key={item.idUser}>
+                      {item.names} {item.apellido}{" "}
+                    </option>,
+                  ])}
+                  </select>
+              </div>
            
 
 

@@ -9,6 +9,8 @@ import DatePicker, { DateObject } from "react-multi-date-picker";
 import TimePicker from "react-multi-date-picker/plugins/time_picker";
 import DatePanel from "react-multi-date-picker/plugins/date_panel";
 import Toolbar from "react-multi-date-picker/plugins/toolbar"
+import transition from "react-element-popper/animations/transition"
+import opacity from "react-element-popper/animations/opacity"
 
 function Asistencias() {
 
@@ -239,7 +241,7 @@ function Asistencias() {
             <div className="box-asistencia">
               <label className="label-asistencia">Fecha</label>
               <DatePicker
-                  value={values}
+             value={values}
                   onChange={handleDateChange}
                   format="MM/DD/YYYY HH:mm:ss"
                   multiple
@@ -247,9 +249,11 @@ function Asistencias() {
                   <Toolbar 
                   position="bottom" 
                   sort={["deselect", "close", "today"]} 
+                  
                 />,
                  ]}
                  style={{ height: '50px', width: '100%' }}
+                 
                 />
             </div>
             <div className="box-asistencia">

@@ -1,63 +1,32 @@
-import React, { useState } from "react";
-import DatePicker, { DateObject } from "react-multi-date-picker";
-import TimePicker from "react-multi-date-picker/plugins/time_picker";
-import DatePanel from "react-multi-date-picker/plugins/date_panel";
+import DatePicker from "react-multi-date-picker";
+import transition from "react-element-popper/animations/transition";
+import opacity from "react-element-popper/animations/opacity";
+import { useEffect } from "react";
 
 function AgeCalculator() {
-  const [values, setValues] = useState(
-    [1, 2, 3].map((number) =>
-      new DateObject().set({
-        day: number,
-        hour: number,
-        minute: number,
-        second: number,
-      })
-    )
-  );
 
-  const handleDateChange = (newValues) => {
-    console.log(newValues); // Muestra las fechas seleccionadas en la consola
-    setValues(newValues);
-  };
+  useEffect(() => {
 
+    let si  = document.querySelector("#root > div.App > div.probarAge > div.rmdp-container > :nth-child(2) ");
+    si.style.transform = "translate(118.277px, 377.053px)";
+    si.style.left = "auto";
+    si.style.right = "auto";
+    si.style.bottom = "0px";
+  },[])
 
-  const handleSendDates = () => {
-    const fechas = values.map((date) => date.format("YYYY-MM-DDTHH:mm:ss"));
-
-    const data = {
-      fechas: fechas
-    };
-    
-    
-    fetch("https://localhost:63958/api/Clinica/fechas", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        console.log(data);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-  };
-  return (
-    <div>
   
-    <DatePicker
-      value={values}
-      onChange={handleDateChange}
-      format="MM/DD/YYYY HH:mm:ss"
-      multiple
-      plugins={[<TimePicker position="bottom" />, <DatePanel markFocused />]}
-    />
-    <button onClick={handleSendDates}>Enviar</button>
-        
+  
+
+
+   return (
+    <div className="probarAge" id="he">
+      <DatePicker />
+    
+      
     </div>
-  );
+
+  )
+
 }
 
 export default AgeCalculator;
