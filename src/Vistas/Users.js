@@ -17,6 +17,7 @@ import {
 } from "../auth-helpers";
 import { useNavigate } from "react-router-dom";
 import logo from "../imagenes/IMG-20230221-WA0009.png";
+import { set } from "date-fns";
 
 function Users() {
   let rol = getUsuarioCompleto();
@@ -32,13 +33,18 @@ function Users() {
   const [direccion, setDireccion] = useState("");
   const [correo, setCorreo] = useState("");
   const [contraseñas, setContraseñas] = useState("");
-  const [idRol, setIdRol] = useState(0);
+  const [idRol, setIdRol] = useState();
+  const [ediRol, setEdiRol] = useState();
+
   const FormularioTherapy = document.getElementById("txtCrearUusario");
   const navigation = useNavigate();
 
   const modalEditar = useRef();
   const modalCrear = useRef();
   const modalEliminar = useRef();
+
+  const [ac, setAc] = useState();
+
 
   const cargar = (async) => {
     axios
@@ -67,7 +73,7 @@ function Users() {
     Direccion: direccion,
     Email: correo,
     Password: contraseñas,
-    IdRol: parseInt(idRol),
+    IdRol: parseInt(ac),
   };
 
   function enviar(e) {
@@ -138,12 +144,23 @@ function Users() {
   }
 
   function EditarUsuario(valor) {
+    setIdRol(null)
     modalEditar.current.classList.add("activeUsers");
 
     const encontrado = terapeuta.filter((e) => e.idUser == valor);
 
-    console.log(encontrado.IdRol);
+    encontrado.map((item) => {
+      if (item.idRol == "Administrador") {
+        setAc(1);
 
+      }
+      else if(item.idRol == "Terapeuta") {
+        setAc(0);
+      }else{
+        setAc(3)
+      }
+    });
+   
     encontrado.map((item) => {
       setNombre(item.names);
       setApellido(item.apellido);
@@ -151,7 +168,6 @@ function Users() {
       setDireccion(item.direccion);
       setCorreo(item.email);
       setContraseñas(item.password);
-      setIdRol(item.idRol);
     });
     setIdUser(valor);
   }
@@ -209,6 +225,10 @@ function Users() {
 
   const handleClickOtro = () => {
     myElementUsuario.current.classList.toggle("mi-clase-css");
+  };
+
+  const FActivo = (value) => {
+  setAc(value)
   };
 
   return (
@@ -358,17 +378,16 @@ function Users() {
 
             <div className="row">
               <div className="col">
-                <select
-                  onChange={(e) => setIdRol(e.target.value)}
-                  values={idRol}
-                  className="form-select-usuario"
-                  required
+              <select
+                  id="cboactivo"
+                  className="form-control"
+                  value={ac}
+                  onChange={(e) => FActivo(e.target.value)}
                 >
-                  <option defaultValue> seleccione un Rol</option>
+                  <option defaultValue>seleccione una opción</option>
                   <option value="1">Administrador</option>
-                  <option value="2">Terapeuta</option>
+                  <option value="0">Terapeuta</option>
                   <option value="3">Asistente</option>
-                  <option value="4">Usuario</option>
                 </select>
               </div>
             </div>

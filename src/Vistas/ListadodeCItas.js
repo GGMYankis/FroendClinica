@@ -294,18 +294,21 @@ function ListadodeCItas({ usuarioLogin }) {
     modalEditar.current.classList.add("active");
 
     const IdEvaluacion = citas.filter((item) => item.idEvaluacion == e);
+    console.log(IdEvaluacion)
 
     const dias = [];
+    const diasEDITAR = [];
 
     IdEvaluacion.map((item) => {
       const dia = {
         label: item.dias,
         value:item.dias
       };
-
+      diasEDITAR.push(item.dias)
       dias.push(dia)
     });
-   setDay(dias)
+        setDay(dias)
+        setDayEnviar(diasEDITAR)
    
     IdEvaluacion.map((item) => [ 
        setIdPatients(item.paciente.idPatients),
@@ -316,7 +319,6 @@ function ListadodeCItas({ usuarioLogin }) {
       setFechaInicio(item.fechaInicio),
       setRepetir(item.repetir),
       setFrecuencia(item.frecuencia),
-     // setDay([{label:item.dias.label, value:item.dias.value}]),
       setRecurrencia(item.recurrencia.idRecurrencia),   
     ]);
   };
@@ -492,7 +494,6 @@ function ListadodeCItas({ usuarioLogin }) {
  }
 
 
-
   return (
     <div>
       <Headers RefCitas={RefCitas} />
@@ -551,7 +552,7 @@ function ListadodeCItas({ usuarioLogin }) {
             </div>
 
             <button
-                className="btn-crear-Paciente-tabla"
+                className="btn-gastos"
                 
               >
                 {" "}

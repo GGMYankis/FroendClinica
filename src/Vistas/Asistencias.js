@@ -34,6 +34,11 @@ function Asistencias() {
   let rol = getUsuarioCompleto();
 
   useEffect(() => {
+
+    let no = document.querySelector("div.rmdp-container > :nth-child(2)");
+    no.style.transform = "translate(7.20215e-6px, 185.406px)";;
+    no.style.left = "auto";
+  
     if (rol == 2) {
       axios
         .post(
@@ -136,7 +141,7 @@ function Asistencias() {
   );
 
   const handleDateChange = (newValues) => {
-    console.log(newValues); // Muestra las fechas seleccionadas en la consola
+    console.log(newValues);
     setValues(newValues);
   };
 

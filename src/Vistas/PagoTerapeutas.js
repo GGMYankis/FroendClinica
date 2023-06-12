@@ -131,7 +131,7 @@ function PagoTerapeutas() {
                 <tr>
                   <th>Terapeuta</th>
                   <th>Terapia</th>
-                  <th>Precio</th>
+                  <th>Monto</th>
                   <th>Fecha</th>
                 </tr>
               </thead>

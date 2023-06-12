@@ -148,7 +148,6 @@ function Calendario() {
     
     const start = info.event.start;
 
-
     const day = String(start.getDate()).padStart(2, "0");
     const month = String(start.getMonth() + 1).padStart(2, "0");
 
@@ -157,11 +156,17 @@ function Calendario() {
     
     const fecha = `${year}-${month}-${day}`;
     const hora = start.getHours();
+    let hora12 = hora;
     const minutos = start.getMinutes();
     const amPM = (hora >= 12) ? 'PM' : 'AM';
 
+    if (hora > 12) {
+      hora12 = hora - 12;
+    } else if (hora === 0) {
+      hora12 = 12;
+    }
 
-    const reaHora = `${hora}:${minutos} ${amPM}`
+    const reaHora = `${hora12}:${minutos < 10 ? '0' + minutos : minutos} ${amPM}`;
     const titu = info.event.title;
     setfechaInicio(fecha);
     
