@@ -51,7 +51,7 @@ function ListadodeCItas({ usuarioLogin }) {
   const [idPatients, setIdPatients] = useState(0);
   const [idterapeuta, setIdterapeuta] = useState(0);
   const [consul, setConsul] = useState(0);
-  const [repetir, setRepetir] = useState(null);
+  const [repetir, setRepetir] = useState(0);
   const [day, setDay] = useState([]);
   const [frecuencia, setFrecuencia] = useState("");
   const [priceEvaluacion, setPriceEvaluacion] = useState(0);
@@ -90,13 +90,18 @@ function ListadodeCItas({ usuarioLogin }) {
     cargar();
   }, []);
 
-  const cargar = (async) => {
-    axios.get("https://jdeleon-001-site1.btempurl.com/api/Clinica/Citas").then((res) => {
+  const cargar = async () => {
+
+    
+    try {
+      const res = await axios.get("https://localhost:63958/api/Clinica/Citas");
+      setCitas(res.data);
+    } catch (error) {
+      console.error("el error es : " + error);
+    }
+   
 
 
-    setCitas(res.data)
-
-    });
 
     if (rol == 2) {
       axios
@@ -168,14 +173,13 @@ function ListadodeCItas({ usuarioLogin }) {
 
   const EnviarEvaluacion = (e) => {
     e.preventDefault();
-
+    
     //resportes.current.classList.add("contenedors");
 
     const url = "https://jdeleon-001-site1.btempurl.com/api/traerpaciente/CrearEvaluacion";
     const urlRecurrencia =
       "https://jdeleon-001-site1.btempurl.com/api/traerpaciente/CrearRecurrencia";
 
-      console.log(dataRecurrencia)
     axios.post(url, dataEvaluacion).then((resultEvaluacion) => {
       if (resultEvaluacion.data > 0) {
         dataRecurrencia.IdEvaluation = resultEvaluacion.data;
@@ -252,14 +256,13 @@ function ListadodeCItas({ usuarioLogin }) {
 
     const url = "https://jdeleon-001-site1.btempurl.com/api/Clinica/EditarCitas";
     const urlrecu = "https://jdeleon-001-site1.btempurl.com/api/traerpaciente/CrearRecurrencia";
-    console.log(dtRecu)
     axios.post(url, dtEditar).then((resultEvaluacion) => {
 
     
       axios.post(urlrecu, dtRecu).then((resultEvaluacion) => {
         const probar = async () => {
           cargar();
-          setFilteredData(citas)
+          // setFilteredData(res.data)
           modalEditar.current.classList.remove("active");
           const ale = await swal({
             title: "Correcto",
@@ -294,7 +297,6 @@ function ListadodeCItas({ usuarioLogin }) {
     modalEditar.current.classList.add("active");
 
     const IdEvaluacion = citas.filter((item) => item.idEvaluacion == e);
-    console.log(IdEvaluacion)
 
     const dias = [];
     const diasEDITAR = [];
@@ -449,8 +451,10 @@ function ListadodeCItas({ usuarioLogin }) {
       .then((result) => {
         const probar = async () => {
           alertEliminar.current.classList.remove("activeEli");
+
+          setFilteredData([]);
           cargar();
-          setFilteredData(citas)
+
           const ale = await swal({
             title: "Correcto",
             text: "Cambio guardado ",
@@ -490,7 +494,6 @@ function ListadodeCItas({ usuarioLogin }) {
       &&
       cita.fechaInicio.substring(0, 10) < fechaFinF )
       setCitas(fechaConHora)
-
  }
 
 
@@ -556,7 +559,7 @@ function ListadodeCItas({ usuarioLogin }) {
                 
               >
                 {" "}
-                buscar
+                Buscar
               </button>
               </form>
           </div>
@@ -739,19 +742,7 @@ function ListadodeCItas({ usuarioLogin }) {
                                         required
                                         placeholder = "Seleccione una Terapia"
                                     />
-            {/*   <select
-                onChange={(e) => setDay(e.target.value)}
-                value={day}
-                className="form-control "
-              >
-                <option value="lunes">Lunes</option>
-                <option value="martes">Martes</option>
-                <option value="miercoles">Miercoles</option>
-                <option value="jueves">Jueves</option>
-                <option value="viernes">Viernes</option>
-                <option value="sabado">Sabado</option>
-                <option value="domingo">Domingo</option>
-              </select> */}
+         
             </div>
             <div className="row" id="ulticita">
               <div className="col">

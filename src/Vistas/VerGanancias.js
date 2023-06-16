@@ -162,7 +162,8 @@ function VerGanancias() {
                     <tr>
                       <td data-label="Descripcion">{item.nombre}</td>
                       <td data-label="Descripcion">{item.descripcion}</td>
-                      <td data-label="Monto">{item.amount}</td>
+                     <td data-label="Monto">RD${parseFloat(item.amount).toLocaleString('es-DO', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</td>
+
                       <td data-label="Fecha">
                         {item.dateOfInvestment.substring("", 10)}
                       </td>
@@ -188,11 +189,12 @@ function VerGanancias() {
                     <th>Fecha</th>
                   </tr>
                 </thead>
-                <tbody className="body-table-gastos">
+                <tbody className="body-table-gastos"> 
                   {tera.map((item) => [
                     <tr>
                       <td data-label="Descripcion">{item.label}</td>
-                      <td data-label="Descripcion">{item.price}</td>
+                    
+                      <td data-label="Descripcion">RD${parseFloat(item.price).toLocaleString('es-DO', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</td>
                       <td data-label="Descripcion">
                         {item.fechaInicio.substring("", 10)}
                       </td>
@@ -200,6 +202,7 @@ function VerGanancias() {
                   ])}
                 </tbody>
               </table>
+
 
               {mostrarVacio ? (
                 <div className="mostrarMensaje">

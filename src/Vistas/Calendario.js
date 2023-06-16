@@ -20,8 +20,6 @@ import {
   getToken,
   initAxiosInterceptors,
   setUsuarioM,
-  obtenerUser,
-  getNombreUsuario,
   getUsuarioCompleto,
 } from "../auth-helpers";
 
@@ -42,7 +40,6 @@ function Calendario() {
   const [consultorioCalendario, setConsultorioCalendario] = useState("");
   const [hora, setHora] = useState("");
   const [apellido, setApellido] = useState("");
-  obtenerUser();
 
   let rol = getUsuarioCompleto();
 

@@ -16,7 +16,6 @@ import {
   getToken,
   initAxiosInterceptors,
   setUsuarioM,
-  obtenerUser,
   getNombreUsuario,
   getUsuarioCompleto,
   getDatosUsuario,
@@ -25,7 +24,6 @@ import "../Tabla.css";
 import { useCookies } from "react-cookie";
 
 function ListasTerapias({ usuarioLogin }) {
-  obtenerUser();
   const [terapias, setTerapias] = useState([]);
   const [nmTerapias, setNmTerapias] = useState("  ");
   const [descripcion, setDescripcion] = useState("  ");
@@ -51,7 +49,7 @@ function ListasTerapias({ usuarioLogin }) {
       .get("https://jdeleon-001-site1.btempurl.com/api/Clinica/ListaTerapia")
       .then((response) => {
         setTerapias(response.data);
-        console.log(response.data)
+        
       });
   };
 
@@ -236,7 +234,7 @@ function ListasTerapias({ usuarioLogin }) {
                     <td data-label="Descripcion">
                       {item.nombreTerapia.description}
                     </td>
-                    <td data-label="Price">{item.nombreTerapia.price}</td>
+                    <td data-label="Price">RD${parseFloat(item.nombreTerapia.price).toLocaleString('es-DO', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</td>
                     <td data-label="Price">{item.nombreTerapia.porcentaje}</td>
                     <td data-label="Price">{item.nombreTerapia.porcentajeCentro}</td>
                     
@@ -361,7 +359,7 @@ function ListasTerapias({ usuarioLogin }) {
               <label>Precio</label>
               <input
                 placeholder="Precio"
-                value={price}
+                value={parseFloat(price).toLocaleString('es-DO', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                 onChange={(e) => setPrice(e.target.value)}
               />
             </div>

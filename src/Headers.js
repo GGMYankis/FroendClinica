@@ -7,21 +7,26 @@ import { useNavigate } from "react-router-dom";
 import { useState, useEffect, useRef } from "react";
 import {
   setUsuarioM,
-  obtenerUser,
-  getNombreUsuario,
   DeleteToken,
   getUsuarioCompleto,
 } from "./auth-helpers";
+import useAuth from "./components/Auth/LoginForm/hook/useAuth";
 
 function Headers({ calendario, myElement, paciente,myElementTerapia,RefCitas,myElementUsuario ,pagotera, consultorio}) {
   const navigation = useNavigate();
-  obtenerUser();
 
-  const logout = () => {
-    DeleteToken();
-    navigation("/login");
-  };
+    
 
+  const {auth,setUser} = useAuth()
+  let user = auth.nameid[1]
+  let PrimeraL = user.substr(0, 1)
+  
+  function StateUser(){
+    setUser(null)
+    DeleteToken()
+  }
+ 
+  
   let rol = getUsuarioCompleto();
 
   const handleClickOtro = () => {
@@ -80,51 +85,19 @@ function Headers({ calendario, myElement, paciente,myElementTerapia,RefCitas,myE
 
             <div className="cont-menu">
               <ul>
-                <li>
-                  <Link className="letras-menu" to="/admin">
-                    Paciente de ingreso
-                  </Link>
-                </li>
-                <li>
-                  <Link className="letras-menu" to="/evaluacion">
-                    Citas
-                  </Link>
-                </li>
-                <li>
-                  <Link className="letras-menu" to="/terapia">
-                    Crear terapia
-                  </Link>
-                </li>
 
-                {rol == 1 ? (
-                  <span>
-                    <li>
-                      <Link className="letras-menu" to="/listasPacientes">
-                        Listado de Pacientes
+                   <li>
+                      <Link className="letras-menu" to="/AbonoTerapias">
+                        Abono Terapias
                       </Link>
                     </li>
 
                     <li>
-                      <Link className="letras-menu" to="/listasTerapias">
-                        Listado de Terapias
+                      <Link className="letras-menu" to="/TerapiaTerapeuta">
+                        Asignación
                       </Link>
                     </li>
                     <li>
-                      <Link className="letras-menu" to="/ListadodeCItas">
-                       Listado de  Citas
-                      </Link>
-                    </li>
-                    <li>
-                      <Link className="letras-menu" to="/Consultorios">
-                      Listado de Consultorios
-                      </Link>
-                    </li>
-                  </span>
-                ) : (
-                  ""
-                )}
-
-                <li>
                   <Link className="letras-menu" to="/asistencias">
                     Asistencia
                   </Link>
@@ -134,19 +107,53 @@ function Headers({ calendario, myElement, paciente,myElementTerapia,RefCitas,myE
                     Calendario
                   </Link>
                 </li>
+                <li>
+                  <Link className="letras-menu" to="/evaluacion">
+                    Citas
+                  </Link>
+                </li>
 
-                {rol == 1 ? (
-                  <span>
-                    <li>
-                      <Link className="letras-menu" to="/TerapiaTerapeuta">
-                        Asignación
+                <li>
+                  <Link className="letras-menu" to="/terapia">
+                    Crear terapia
+                  </Link>
+                </li>
+             
+                <li>
+                      <Link className="letras-menu" to="/ListadodeCItas">
+                       Listado de  Citas
                       </Link>
                     </li>
+               
                     <li>
-                      <Link className="letras-menu" to="/Users">
-                        Usuario
+                      <Link className="letras-menu" to="/Consultorios">
+                      Listado de Consultorios
                       </Link>
                     </li>
+
+                    <li>
+                      <Link className="letras-menu" to="/listasPacientes">
+                        Listado de Pacientes
+                      </Link>
+                    </li>
+                    
+                    <li>
+                      <Link className="letras-menu" to="/listasTerapias">
+                        Listado de Terapias
+                      </Link>
+                    </li>
+                
+                    <li>
+                  <Link className="letras-menu" to="/">
+                    Paciente de ingreso
+                  </Link>
+                </li>
+                <li>
+                      <Link className="letras-menu" to="/PagoTerapeutas">
+                        Pago Terapeutas
+                      </Link>
+                    </li>
+              
                     <li>
                       <Link className="letras-menu" to="/gastos">
                         Registro de gastos
@@ -157,24 +164,16 @@ function Headers({ calendario, myElement, paciente,myElementTerapia,RefCitas,myE
                         Reportes
                       </Link>
                     </li>
+
+                  
                     <li>
-                      <Link className="letras-menu" to="/AbonoTerapias">
-                        Abono Terapias
+                      <Link className="letras-menu" to="/Users">
+                        Usuario
                       </Link>
                     </li>
-                    <li>
-                      <Link className="letras-menu" to="/PagoTerapeutas">
-                        Pago Terapeutas
-                      </Link>
-                    </li>
-                  
-                  
-                  </span>
-                ) : (
-                  ""
-                )}
+   
                 <li>
-                  <a className="letras-menu" id="Cerra-Sesion-ul" onClick={logout}>
+                  <a className="letras-menu" id="Cerra-Sesion-ul" onClick={StateUser} >
                     Cerra Sesión
                   </a>
                 </li>
@@ -193,12 +192,12 @@ function Headers({ calendario, myElement, paciente,myElementTerapia,RefCitas,myE
           <div className="cont-btn-headers">
             <div className="probarUs">
               <Link className="Link" to="/perfilAdmin">
-                {obtenerUser()}
+                {PrimeraL}
               </Link>
             </div>
           </div>
           <div className="cont-nombre-usuario">
-            <p className="nombreUsuario">{getNombreUsuario()}</p>
+            <p className="nombreUsuario">{user}</p>
           </div>
         </div>
       </header>
@@ -208,10 +207,17 @@ function Headers({ calendario, myElement, paciente,myElementTerapia,RefCitas,myE
 
 export default Headers;
 
-{
-  /* <input type="checkbox" id="checkOtro" onClick={handleClickOtro} />
 
-<label htmlFor="checkOtro" className="checkbtnOtro">
-<FaBars id='bar' />
-</label> */
-}
+
+
+/* 
+{rol == 1 ? (
+  <span>
+
+
+   
+   
+  </span>
+) : (
+  ""
+)} */

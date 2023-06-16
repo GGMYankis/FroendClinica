@@ -166,7 +166,6 @@ function Evaluacion() {
       if (resultEvaluacion.data > 0) {
         dataRecurrencia.IdEvaluation = resultEvaluacion.data;
 
-        console.log(dataRecurrencia)
         axios.post(urlRecurrencia, dataRecurrencia).then((resultEvaluacion) => {
           resportes.current.classList.remove("contenedors");
           swal({

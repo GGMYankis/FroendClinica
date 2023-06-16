@@ -1,6 +1,5 @@
 import React, { useRef, useEffect, useState } from "react";
 import axios from "axios";
-//import { Navigate, Outlet } from "react-router-dom";
 import {
   BrowserRouter,
   Routes,
@@ -72,18 +71,17 @@ function Login({ setUsuarioLogin }) {
 
       resportes.current.classList.add("contenedorsL");
 
-      const url =
-        "https://jdeleon-001-site1.btempurl.com/api/Autenticacion/Login";
-      axios
-        .post(url, data)
+      const url =   "https://jdeleon-001-site1.btempurl.com/api/Autenticacion/Login";
+      
+      axios .post(url, data)
         .then((result) => {
           if (result.data.user != null) {
             setToken(result.data.tokencreado);
             navigation("/admin");
             const user = result.data.user.names.substring("", 1);
-            setUsuarioM(user);
+        //    setUsuarioM(user);
             idUser(result.data.user.idUser);
-            nombreUsuario(result.data.user.names);
+           // nombreUsuario(result.data.user.names);
             setUsuarioCompleto(result.data.user.idRol);
             login.reset();
           } else {

@@ -68,11 +68,11 @@ function ListasPacientes({ usuarioLogin }) {
   const [filtroNombre, setFiltroNombre] = useState("");
   const [bsActivo, setBsActivo] = useState(null);
   const [active, setActive] = useState(null);
-  const [contador, setContador] = useState(1);
   const [contadorPacientes, setContadorPacientes] = useState(0);
   const [filteredData, setFilteredData] = useState([]);
   const [verificarActivo, setVerificarActivo] = useState(false);
   const [edadEditar, setEdadEditar] = useState(0);
+  const [refresh, setRefresh] = useState(false);
   let rol = getUsuarioCompleto();
   const paciente = useRef(null);
 
@@ -81,12 +81,9 @@ function ListasPacientes({ usuarioLogin }) {
 
   useEffect(() => {
     cargar();
-    // Cada vez que la lista de pacientes cambie, actualizamos el contador
-    setContador(1); // Reiniciamos el contador a 1
-  }, [listaPaciente]);
+  }, [refresh]);
 
   const cargar = (async) => {
-    // ultimo commit
     axios
       .get("https://jdeleon-001-site1.btempurl.com/api/Clinica/ListaTodos")
       .then((res) => {
@@ -96,17 +93,20 @@ function ListasPacientes({ usuarioLogin }) {
         res.data.map((item) => {
           if (item.activo == true) {
             setlistaPaciente((item.activo = "si"));
+            setFilteredData((item.activo = "si"));
           }
           if (item.activo == false) {
             setlistaPaciente((item.activo = "no"));
+            setFilteredData((item.activo = "no"));
           }
 
           setlistaPaciente(res.data);
+          setFilteredData(res.data)
+
         });
       });
   };
 
-  obtenerUser();
 
   const handleNameChange = (value) => {
     setName(value);
@@ -293,16 +293,16 @@ function ListasPacientes({ usuarioLogin }) {
   const handleEditar = async (e) => {
     e.preventDefault();
 
-    console.log(dataEditar);
     const url =
       "https://jdeleon-001-site1.btempurl.com/api/Clinica/EditarPaciente";
     axios
       .put(url, dataEditar)
       .then((result) => {
-        const probar = async () => {
+
+        const probar = async () => {    
+
+          setlistaPaciente([]);   
           cargar();
-          setFilteredData(listaPaciente)
-          
           modalEditar.current.classList.remove("active");
           const ale = await swal({
             title: "Correcto",
@@ -581,10 +581,9 @@ function ListasPacientes({ usuarioLogin }) {
 
           <DataTable
             columns={columns}
-            data={
-              verificarActivo || filteredData.length > 0
-                ? filteredData
-                : listaPaciente
+            data={ 
+              verificarActivo || filteredData.length > 0 ? filteredData  : listaPaciente
+                   
             }
             pagination
           />

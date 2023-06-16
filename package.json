@@ -27,6 +27,7 @@
     "datatables.net": "^1.13.4",
     "datatables.net-dt": "^1.13.4",
     "date-fns": "^2.30.0",
+    "formik": "^2.4.2",
     "github-pages": "^3.0.2",
     "jquery": "^3.6.4",
     "js-cookie": "^3.0.1",
@@ -50,11 +51,13 @@
     "react-select": "^5.7.2",
     "react-time-picker": "^6.2.0",
     "reactstrap": "^9.1.9",
+    "semantic-ui-react": "^2.1.4",
     "styled-components": "^5.3.8",
     "sweetalert": "^2.1.2",
     "universal-cookie": "^4.0.4",
     "web-vitals": "^2.1.4",
-    "yarn": "^1.22.19"
+    "yarn": "^1.22.19",
+    "yup": "^1.2.0"
   },
   "homepage": "https://clinica14.000webhostapp.com/",
   "scripts": {

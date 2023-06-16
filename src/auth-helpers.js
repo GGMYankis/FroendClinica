@@ -1,9 +1,9 @@
 import { useNavigate } from 'react-router-dom';
+import useAuth from './components/Auth/LoginForm/hook/useAuth';
 import Cookies from 'universal-cookie';
 import axios from 'axios';
+
 const cookies = new Cookies();
-
-
 
 export function setToken(token) {
 
@@ -11,60 +11,33 @@ export function setToken(token) {
 }
 
 export function setUsuarioCompleto(users) {
-
-    return cookies.set('UsuarioCompleto', users, { path: '/' });
+    return cookies.set('rxu', users, { path: '/' });
 }
 
-export function setUsuarioM(usuario) {
 
-    return cookies.set('PrimeraLetra', usuario, { path: '/' });
-}
-export function nombreUsuario(name) {
-
-    return cookies.set('Nombre', name, { path: '/' });
-}
 
 export function idUser(idUser) {
     
-
-    return cookies.set('idUser', idUser, { path: '/' });
+    return cookies.set('ius^', idUser, { path: '/' });
 }
 
 export function getDatosUsuario() {
-
-    return cookies.get('idUser');
+    return cookies.get('ius^');
 }
-
-export function getNombreUsuario() {
-
-    return cookies.get('Nombre');
-}
-
 
 export function getUsuarioCompleto() {
-
-    return cookies.get('UsuarioCompleto');
+    return cookies.get('rxu');
 }
 
-
-export function obtenerUser() {
-
-    return cookies.get('PrimeraLetra');
-}
 export function getToken() {
-
-    return cookies.get('Token')
+    return cookies.get('Token');
 }
 
-
-export function DeleteToken() {
-
-    cookies.remove('Token')
-    cookies.remove('Nombre')
-    cookies.remove('UsuarioId')
-    cookies.remove('PrimeraLetra')
-    cookies.remove('idUser')
-    return;
+export function DeleteToken(){
+    cookies.remove('Token');
+    cookies.remove('Nombre');
+    cookies.remove('rxu');
+    cookies.remove('ius^');
 }
 
 export function initAxiosInterceptors() {
@@ -73,7 +46,6 @@ export function initAxiosInterceptors() {
         if (token) {
             config.headers.Authorization = `bearer ${token}`
         }
-
         return config;
     })
     axios.interceptors.response.use(

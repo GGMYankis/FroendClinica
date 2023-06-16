@@ -2,29 +2,34 @@ import DatePicker from "react-multi-date-picker";
 import transition from "react-element-popper/animations/transition";
 import opacity from "react-element-popper/animations/opacity";
 import { useEffect ,useState} from "react";
+import axios from "axios";
 
 function AgeCalculator() {
-  const [idRol, setIdRol] = useState("2");
 
 
-   useEffect(() => {
-
-    let si  = document.querySelector("#root > div.App > div.probarAge > div.rmdp-container > :nth-child(2) ");
-    si.style.transform = "translate(-8.05664e-6px, 418.826px)";
-    si.style.left = "auto";
-    si.style.right = "auto";
-    si.style.bottom = "0px";
-  },[])
-  
-  
-
+ 
+    const data = {
+      Fecha: "2023-06-15",
+      DiasSemana: [1, 2,3],
+      FechaInicio: "2023-06-15",
+      Repetir: 2,
+      Frecuencia: "mensual",
+      IdEvaluation: 250,
+    }
+    
+    function enviar(){
+      const url =   "https://localhost:63958/api/traerpaciente/buscarPrimerLunes";
+      axios .post(url, data)
+      .then((result) => {
+          console.log(result.data)
+      })
+    }
 
    return (
     <div className="probarAge" id="he">
-       <DatePicker /> 
-    
+            
      
-      
+      <button onClick={enviar}>enviar</button>
     </div>
 
   )

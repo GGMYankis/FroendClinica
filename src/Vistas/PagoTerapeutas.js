@@ -140,7 +140,7 @@ function PagoTerapeutas() {
                   <tr>
                     <td>{x.terapeuta.names}  {x.terapeuta.apellido}</td>
                     <td>{x.terapia.label}</td>
-                    <td>{x.price}</td>
+                    <td>RD${parseFloat(x.price).toLocaleString('es-DO', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</td>
                     <td>{x.fechaInicio.substring("", 10)}</td>
                   </tr>,
                 ])}
