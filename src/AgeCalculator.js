@@ -5,16 +5,16 @@ import { useEffect ,useState} from "react";
 import axios from "axios";
 
 function AgeCalculator() {
+  const [repetir , setRepetir] = useState();
+  const [frecuencia , setFrecuencia] = useState();
 
-
- 
     const data = {
-      Fecha: "2023-06-15",
+      Fecha: "2023-06-16",
       DiasSemana: [1, 2,3],
-      FechaInicio: "2023-06-15",
-      Repetir: 2,
-      Frecuencia: "mensual",
-      IdEvaluation: 250,
+      FechaInicio: "2023-06-16",
+      Repetir: repetir,
+      Frecuencia: frecuencia,
+      IdEvaluation: 336,
     }
     
     function enviar(){
@@ -26,12 +26,22 @@ function AgeCalculator() {
     }
 
    return (
-    <div className="probarAge" id="he">
-            
-     
-      <button onClick={enviar}>enviar</button>
-    </div>
-
+    <>
+        <div className="probarAge" id="he">  
+          <button className="buttos" onClick={enviar}>enviar</button>
+          <select  className="buttos" onChange={e => setRepetir(e.target.value)}>
+              <option value="1">1</option>
+              <option value="2">2</option>   
+              <option value="3">3</option>   
+              <option value="4">4</option>   
+            </select>
+            <select  className="buttos" onChange={e => setFrecuencia(e.target.value)}>
+              <option value="diario">diario</option>
+              <option value="semanal">semanal</option>   
+              <option value="mensual">mensual</option>   
+            </select>
+        </div>      
+   </>
   )
 
 }

@@ -1927,12 +1927,21 @@
 }
 
 .probarAge {
-  width: 100%;
+  width: 40%;
   height: 100vh;
   display: flex;
-  justify-content: center;
-  align-items: center;
+  flex-direction: column;
+  margin: auto;
+  margin-top: 100px;
+  border: 1px solid red;
+  padding: 20px;
+  height: 400px;
 }
+
+.buttos {
+  margin-bottom: 20px;
+}
+
 
 
 

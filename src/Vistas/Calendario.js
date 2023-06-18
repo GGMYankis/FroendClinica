@@ -59,10 +59,12 @@ function Calendario() {
     axios
       .get("https://jdeleon-001-site1.btempurl.com/api/Clinica/Citas")
       .then((res) => {
+        
+        console.log(res.data)
        
         setEvent(
-          res.data.map((item) => ({
-            id: item.idEvaluacion,
+          res.data.map((item, index) => ({
+            id:`event-${item.idEvaluacion}-${index}`,
             title: item.paciente.name,
             start: new Date(item.fechaInicio),
             extendedProps: {

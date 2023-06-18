@@ -1,6 +1,7 @@
 import React, { Fragment, useState } from 'react';
 import axios from 'axios';
-//import logo from "./imagenes/Login-rafiki.png"
+
+ //import logo from "./imagenes/Login-rafiki.png"
 
 function Registration() {
 
@@ -49,7 +50,7 @@ function Registration() {
     return (
 
         <Fragment>
-      <div className='cont-login'>
+         <div className='cont-login'>
 
                 <div className='logo'>Registration</div>
 

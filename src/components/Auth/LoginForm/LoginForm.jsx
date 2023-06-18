@@ -27,7 +27,7 @@ function LoginForm() {
     }),
     onSubmit:(formValue) => {
 
-        const url = "https://localhost:63958/api/Autenticacion/Login";
+        const url = "https://jdeleon-001-site1.btempurl.com/api/Autenticacion/Login";
         axios .post(url, formValue)
         .then((result) => {
           setToken(result.data.tokencreado);

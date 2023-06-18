@@ -127,18 +127,14 @@ function Evaluacion() {
     IdTerapeuta: parseInt(idterapeuta),
     visitas: true,
     IdConsultorio: consul,
-    IdConsultorioNavigation: null,
-    Recurrencia: [],
-  };
-
-  const dataRecurrencia = {
     FechaInicio: fechaInicio,
     Repetir: repetir,
     Frecuencia: frecuencia,
-    DiasA: dayEnviar,
+    Dias: dayEnviar,
     IdTerapeuta: idterapeuta,
-    IdEvaluation: 0,
   };
+
+  
 
   function handle(selectedItems) {
 
@@ -152,34 +148,23 @@ function Evaluacion() {
 }
   
 
-  const EnviarEvaluacion = (e) => {
-    e.preventDefault();
-
-    resportes.current.classList.add("contenedors");
-
-    const url =
-      "https://jdeleon-001-site1.btempurl.com/api/traerpaciente/CrearEvaluacion";
-    const urlRecurrencia =
-      "https://jdeleon-001-site1.btempurl.com/api/traerpaciente/CrearRecurrencia";
-
-    axios.post(url, dataEvaluacion).then((resultEvaluacion) => {
-      if (resultEvaluacion.data > 0) {
-        dataRecurrencia.IdEvaluation = resultEvaluacion.data;
-
-        axios.post(urlRecurrencia, dataRecurrencia).then((resultEvaluacion) => {
-          resportes.current.classList.remove("contenedors");
-          swal({
-            title: "Correcto",
-            text: "Se ha guardado correctamente",
-            icon: "success",
-            button: "Aceptar",
-          });
-        });
-      } else {
-        console.log("nada");
-      }
-    });
-  };
+const CrearCitas = async (e) => {
+  e.preventDefault();
+  try{
+     //resportes.current.classList.add("contenedors");
+     const res = await axios.post("https://jdeleon-001-site1.btempurl.com/api/traerpaciente/CrearEvaluacion",dataEvaluacion);
+     if(res.status == 200){
+         const ale = await swal({
+           title: "Correcto",
+           text: "Cambio guardado ",
+           icon: "success",
+         });
+     }
+  }catch(error){    
+    swal(error.response.data, "Intentelo mas tarde", "error");
+  }
+ 
+};
 
   function cancelarModal() {
     $("#FormModal").hide();
@@ -265,7 +250,7 @@ function Evaluacion() {
       <div className="contenedor-evaluacion">
         <form
           className="form-select-evaluacion"
-          onSubmit={EnviarEvaluacion}
+          onSubmit={CrearCitas}
           ref={resportes}
         >
           {loading ? <Loading /> : ""}
@@ -355,6 +340,8 @@ function Evaluacion() {
                 onChange={(e) => setConsul(e.target.value)}
                 required
               >
+                <option value="">Seleccione un Consultorio</option>
+
                 {consultorios.map((item) => [
                   <option value={item.idConsultorio} key={item.idConsultorio}>
                     {item.nombre}{" "}

@@ -81,7 +81,6 @@ function App() {
                setAuth(decodeToken(token))
             }).catch((error) => {
                  setAuth(null)
-                 console.log("el token vencio")
              });
         }
 
