@@ -156,11 +156,8 @@ function Asistencias() {
             <h1>Asistencias</h1>
           </div>
 
-          <form
-            onSubmit={enviar}
-            className="form-asistencia"
-            id="formAsistencia"
-          >
+          <form  onSubmit={enviar} className="form-asistencia" id="formAsistencia" >
+ 
             <div
               className="box-asistencia"
               onChange={(e) => setJustificaciones(e.target.value)}
@@ -271,7 +268,7 @@ function Asistencias() {
             </div>
             <div className="box-asistencia">
               <div className="col">
-                <button type="submit" className="btn-asistencia">
+                <button type="submit" className="btnWeb">
                   Guardar
                 </button>
               </div>

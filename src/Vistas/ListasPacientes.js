@@ -485,7 +485,7 @@ function ListasPacientes({ usuarioLogin }) {
       cell: (row) => (
         <div className="actions-container">
           <button
-            className="btnEliminar"
+            className="btn-tabla-usuario-eliminar"
             onClick={() => modalEliminar(row.idPatients)}
           >
             Eliminar
@@ -878,9 +878,9 @@ function ListasPacientes({ usuarioLogin }) {
               </div>
             </div>
             <div className="col" id="cont-btn-admin">
-              <button className="btn-cita">Guardar</button>
+              <button className="btnWeb">Guardar</button>
               <button
-                className="btn-cita"
+                className="btnWeb"
                 type="button"
                 onClick={CancelarPacienteEditar}
               >
@@ -1138,9 +1138,9 @@ function ListasPacientes({ usuarioLogin }) {
             </div>
 
             <div className="col" id="cont-btn-admin">
-              <button className="btn-cita">Guardar</button>
+              <button className="btnWeb">Guardar</button>
               <button
-                className="btn-cita"
+                className="btnWeb"
                 type="button"
                 onClick={CancelarPaciente}
               >

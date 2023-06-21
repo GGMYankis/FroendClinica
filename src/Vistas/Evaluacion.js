@@ -380,6 +380,7 @@ const CrearCitas = async (e) => {
                   onChange={(e) => Ffrecuencia(e.target.value)}
                   required
                 >
+                  <option value="">Frecuencia</option>
                   <option>Diario</option>
                   <option>Semanal</option>
                   <option>Mensual</option>
@@ -487,7 +488,7 @@ const CrearCitas = async (e) => {
                 </label>
               </div>
             </div>
-            <button className="btn-evaluacion" type="submit">
+            <button className="btnWeb" type="submit">
               Guadar
             </button>
           </div>

@@ -211,7 +211,7 @@ function Consultorios() {
                       <td data-label="Nombre">{item.nombre}</td>
                       <td data-label="apellido">{item.descripcion}</td>
 
-                      <td className="tr-btn">
+                      <div className="tr-btn">
                         <button
                           className="btn-tabla-usuario"
                           type="button"
@@ -228,7 +228,7 @@ function Consultorios() {
                         >
                           Eliminar
                         </button>
-                      </td>
+                      </div>
                     </tr>,
                   ])}
                 </tbody>

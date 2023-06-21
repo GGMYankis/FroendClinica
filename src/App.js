@@ -37,6 +37,9 @@ import Contabilidad from "./Vistas/Contabilidad";
 import ListasPacientes from "./Vistas/ListasPacientes";
 import Asistencias from "./Vistas/Asistencias";
 import Calendario from "./Vistas/Calendario";
+import ReportesPago from "./Vistas/ReportesPago";
+
+
 import { Protect } from "./components/Protect";
 import Autenticacion from "./components/Autenticacion";
 import {
@@ -135,6 +138,7 @@ function App() {
                 <Route exact path="/PagoTerapeutas" element={<PagoTerapeutas />} />
                 <Route exact path="/Consultorios" element={<Consultorios />} />
                 <Route exact path="/listadodeCItas" element={<ListadodeCItas />} />
+                <Route exact path="/reportesPago" element={<ReportesPago />} />
               </Route>
             </Routes>
           </HashRouter>

@@ -27,7 +27,7 @@
 
 .encabezado .cont-menu {
     position: fixed;
-    width: 220px;
+    width: 240px;
     height: 100vh;
     background-color: #0b2f57;
     top: 55px;
@@ -35,6 +35,30 @@
     transition: all .5s;
     left: -100%;
     overflow: auto;
+}
+
+.dropdown_link {
+    position: relative;
+    background-color: red;
+}
+
+.dropdown-check {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+}
+
+.dropdown_content {}
+
+.dropdown_sub {
+    overflow: hidden;
+}
+
+.dropdown_li {
+    width: 85%;
+    background-color: red;
+    margin-left: auto;
 }
 
 .encabezado .cont-menu::-webkit-scrollbar {
@@ -50,7 +74,6 @@
 
 .cont-menu {
     transition: all .5s;
-
 }
 
 .cont-menu ul li {
@@ -67,7 +90,7 @@
     color: white;
 }
 
-.letras-menu {
+.cont-menu ul li a {
     text-decoration: none;
     color: white;
     padding-right: 10px;
@@ -76,6 +99,7 @@
     text-align: left;
     width: 100%;
 }
+
 
 .cont-nombre-usuario {
     padding-right: 20px;
@@ -108,6 +132,10 @@
 }
 
 .mi-clase-css {
+    margin-left: 220px;
+}
+
+.reportesAnimation {
     margin-left: 220px;
 }
 
@@ -166,13 +194,13 @@
     right: 0;
     top: 0;
     display: flex;
-    background-color: #0b2f57;
     justify-content: space-between;
     align-items: center;
     padding: 10px;
     color: white;
     position: fixed;
     height: 55px;
+    background-color: #0b2f57;
 }
 
 
@@ -846,7 +874,7 @@ th {
 .contenedor-cita {
     width: 83%;
     margin: 10px;
-    background-color: white;
+    background-color: red;
     box-shadow: 0 1rem 2rem rgba(0, 0, 0, .1);
     border-radius: 10px;
 }

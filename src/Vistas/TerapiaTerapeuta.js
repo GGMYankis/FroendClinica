@@ -148,7 +148,7 @@ function TerapiaTerapeuta() {
                                     />
                                 </div>
                             </div>
-                            <button className='btn-buscar-citas' type='submit'>Guardar</button>
+                            <button className='btnWeb' type='submit'>Guardar</button>
                         </form>
 
                     </div>

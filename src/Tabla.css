@@ -91,13 +91,16 @@
     color: #FF1046;
 }
 
-body {
-    padding: 20px;
+.table .tr-btn {
+    background-color: white;
 }
 
 .tr-btn {
     display: flex;
+    justify-content: left;
+    padding: 10px;
 }
+
 
 .actions-container .btnEditar {
     width: 90px;
@@ -114,31 +117,10 @@ body {
     border-radius: 5px;
     border: 3px solid #0b2f57;
 }
-.actions-container .btnEliminar {
-    background-color: #FF1046;
-    width: 90px;
-    height: 40px;
-    text-decoration: none;
-    line-height: 35px;
-    display: inline-block;
-    color: white;
-    padding: 10px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 5px;
-    border: 3px solid  #FF1046;
 
-}
-.actions-container .btnEditar:hover {
-    background-color: #0b2e57c4;
-}
 
-.actions-container .btnEliminar:hover {
-    background-color: #ff1048a7;
-}
-.actions-container  {
-    background-color:white;
+.actions-container {
+    background-color: white;
     padding: 5px;
 }
 
@@ -305,6 +287,10 @@ body {
         padding-left: 15px;
         font-weight: 600;
         text-align: left;
+    }
+
+    .tr-btn {
+        justify-content: space-between;
     }
 
 }

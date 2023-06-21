@@ -93,7 +93,7 @@ function Gastos() {
                                 <label>Descripcion</label>
                                 <textarea className='txtdescripciongastos' onChange={(e) => setDescipcion(e.target.value)} required></textarea>
                             </div>
-                            <button className='btn-terapia' type='submit'>Guardar</button>
+                            <button className='btnWeb' type='submit'>Guardar</button>
                         </div>
                     </div>
 

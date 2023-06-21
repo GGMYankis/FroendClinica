@@ -419,7 +419,7 @@ const Admin = () => {
               </div>
             </div>
             <div className="col" id="cont-btn-admin">
-              <button className="btn-cita">Guardar</button>
+              <button className="btnWeb">Guardar</button>
             </div>
           </div>
         </form>

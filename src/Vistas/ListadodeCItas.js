@@ -346,7 +346,7 @@ function ListadodeCItas({ usuarioLogin }) {
     {
       cell: (row) => (
         <div className="actions-container">
-          <button className="btnEliminar"  onClick={() => modalEliminar(row.idEvaluacion)}>            
+          <button className="btn-tabla-usuario-eliminar"  onClick={() => modalEliminar(row.idEvaluacion)}>            
             Eliminar
             </button>
         </div>
@@ -929,6 +929,8 @@ function ListadodeCItas({ usuarioLogin }) {
                 required
                 name="idConsultorio"
               >
+                    <option value="">Seleccione un Consultorio</option>
+
                 {consultorios.map((item) => [
                   <option value={item.idConsultorio} key={item.idConsultorio}>
                     {item.nombre}{" "}
@@ -947,6 +949,7 @@ function ListadodeCItas({ usuarioLogin }) {
                                         onChange={e => handle(e)}                                       
                                         placeholder = "Seleccione una Terapia"
                                         name="dias"
+                                        required
                                     />
             
             </div>
@@ -988,9 +991,9 @@ function ListadodeCItas({ usuarioLogin }) {
             </div>
 
             <div className="col" id="cont-btn-admin">
-              <button className="btn-cita">Guardar</button>
+              <button className="btnWeb">Guardar</button>
               <button
-                className="btn-cita"
+                className="btnWeb"
                 type="button"
                 onClick={CancelarPaciente}
               >

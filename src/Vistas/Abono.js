@@ -138,7 +138,7 @@ function Abono() {
                 required
               />
             </div>
-            <button className="btnAbono" onClick={EnviarAbono}>
+            <button className="btnWeb" onClick={EnviarAbono}>
               Guardar
             </button>
           </div>

@@ -136,7 +136,7 @@ function Terapias() {
                   onChange={(e) => handleDescripcion(e.target.value)}
                 ></textarea>
               </div>
-              <button className="btn-terapia">Guardar</button>
+              <button className="btnWeb">Guardar</button>
             </div>
           </div>
         </form>

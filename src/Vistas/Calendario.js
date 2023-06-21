@@ -266,9 +266,11 @@ function Calendario() {
 
       <div className="cont-padre">
         <div className="calendario" ref={calendario}>
-          <form onSubmit={enviars} className="form-calendario">
-            <div className="row" id="cont-input-gastos">
-              <div className="col">
+          <form onSubmit={enviars} className="form-calendario-option ">
+            <div className="padre-box-calendara-option" >
+
+             
+              <div className="option-box">
                 <label>Fecha Inicio</label>
                 <input
                   type="date"
@@ -277,7 +279,7 @@ function Calendario() {
                   required
                 />
               </div>
-              <div className="col">
+              <div className="option-box">
                 <label>Fecha Fin</label>
                 <input
                   type="date"
@@ -287,7 +289,7 @@ function Calendario() {
                 />
               </div>
 
-              <div className="col" id="form-consultorioCalendario">
+              <div className="option-box" >
                 <label>Consultorio</label>
                 <select
                   className="form-select"
@@ -304,8 +306,9 @@ function Calendario() {
              
               </div>
 
-              <div className="col">
-                <button className="btn-gastos" type="submit">
+              <div className="option-box">
+                <label className="visilibi-buscar-calendar">sdw</label>
+                <button className="btn-gastos" id="calendar-btn" type="submit">
                   Buscar
                 </button>
               </div>

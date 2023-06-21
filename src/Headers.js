@@ -12,10 +12,8 @@ import {
 } from "./auth-helpers";
 import useAuth from "./components/Auth/LoginForm/hook/useAuth";
 
-function Headers({ calendario, myElement, paciente,myElementTerapia,RefCitas,myElementUsuario ,pagotera, consultorio}) {
+function Headers({ reportesPagos, calendario, myElement, paciente,myElementTerapia,RefCitas,myElementUsuario ,pagotera, consultorio}) {
   const navigation = useNavigate();
-
-    
 
   const {auth,setUser} = useAuth()
   let user = auth.nameid[1]
@@ -62,6 +60,11 @@ function Headers({ calendario, myElement, paciente,myElementTerapia,RefCitas,myE
 
     }
 
+    if(reportesPagos){
+      reportesPagos.current.classList.toggle("reportesAnimation");
+
+    }
+    
     
 
 
@@ -83,6 +86,7 @@ function Headers({ calendario, myElement, paciente,myElementTerapia,RefCitas,myE
               <FaBars id="bar" />
             </label>
 
+
             <div className="cont-menu">
               <ul>
 
@@ -90,6 +94,7 @@ function Headers({ calendario, myElement, paciente,myElementTerapia,RefCitas,myE
                       <Link className="letras-menu" to="/AbonoTerapias">
                         Abono Terapias
                       </Link>
+                      
                     </li>
 
                     <li>
@@ -169,6 +174,11 @@ function Headers({ calendario, myElement, paciente,myElementTerapia,RefCitas,myE
                     <li>
                       <Link className="letras-menu" to="/Users">
                         Usuario
+                      </Link>
+                    </li>
+                    <li>
+                      <Link className="letras-menu" to="/reportesPago">
+                        Reportes de Pagos
                       </Link>
                     </li>
    

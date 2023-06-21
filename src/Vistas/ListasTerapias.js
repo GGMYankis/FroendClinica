@@ -238,9 +238,9 @@ function ListasTerapias({ usuarioLogin }) {
                     <td data-label="Price">{item.nombreTerapia.porcentaje}</td>
                     <td data-label="Price">{item.nombreTerapia.porcentajeCentro}</td>
                     
-                    <td className="tr-btn">
+                    <div className="tr-btn">
                       <button
-                        className="btn "
+                        className="btn-tabla-usuario "
                         type="button"
                         value={item.nombreTerapia.idTherapy}
                         onClick={(e) => editar(e.target.value)}
@@ -248,14 +248,14 @@ function ListasTerapias({ usuarioLogin }) {
                         Editar
                       </button>
                       <button
-                        className="btn eliminar"
+                        className="btn-tabla-usuario-eliminar"
                         type="button"
                         value={item.nombreTerapia.idTherapy}
                         onClick={(e) => modalEliminar(e.target.value)}
                       >
                         Eliminar
                       </button>
-                    </td>
+                    </div>
                   </tr>,
                 ])}
               </tbody>

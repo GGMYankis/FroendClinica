@@ -413,18 +413,16 @@ function Users() {
       {/* MODAL CREAR USUARIO */}
 
       <div className="cont-modal-crear-usuario" ref={modalCrear}>
-        <form
-          className="form-crear-usuario"
-          onSubmit={CrearUsuario}
-          id="txtCrearUusario"
-        >
+        <form className="form-crear-usuario" onSubmit={CrearUsuario}id="txtCrearUusario">
+
           <div className="cont-titu-crear-usuario">
             <h1>Crear Usuario</h1>
           </div>
 
           <div className="box-con-usuario">
-            <div className="row">
-              <div className="col">
+            
+            <div className="one-user-form">
+              <div className="box-user">
                 <label>Nombre</label>
                 <input
                   className="form-users"
@@ -432,7 +430,7 @@ function Users() {
                   onChange={(e) => setNombre(e.target.value)}
                 />
               </div>
-              <div className="col">
+              <div className="box-user">
                 <label>Apellido</label>
                 <input
                   className="form-users"
@@ -442,8 +440,8 @@ function Users() {
               </div>
             </div>
 
-            <div className="row">
-              <div className="col">
+            <div className="one-user-form">
+            <div className="box-user">
                 <label>Telefono</label>
                 <input
                   className="form-users"
@@ -451,7 +449,7 @@ function Users() {
                   onChange={(e) => setTelefono(e.target.value)}
                 />
               </div>
-              <div className="col">
+              <div className="box-user">
                 <label>Direccion</label>
                 <input
                   className="form-users"
@@ -461,17 +459,16 @@ function Users() {
               </div>
             </div>
 
-            <div className="row">
-              <div className="col">
+            <div className="one-user-form">
+            <div className="box-user">
                 <label>Correo</label>
-                <br></br>
                 <input
                   className="form-users"
                   onChange={(e) => setCorreo(e.target.value)}
                   required
                 />
               </div>
-              <div className="col">
+              <div className="box-user">
                 <label>contraseñas</label>
                 <input
                   className="form-users"
@@ -482,8 +479,8 @@ function Users() {
               </div>
             </div>
 
-            <div className="row">
-              <div className="col">
+            <div className="one-user-form">
+            <div className="box-user">
                 <select
                   onChange={(e) => setIdRol(e.target.value)}
                   className="form-select-usuario"

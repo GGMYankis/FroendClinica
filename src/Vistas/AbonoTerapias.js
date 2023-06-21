@@ -147,7 +147,7 @@ function AbonoTerapias() {
                             <input type='text' className='form-control' placeholder='monto' name='montoPagado' onChange={e => setMontoPagado(e.target.value)} required />
                         </div>
 
-                        <button type='submit' className='btn-abono'>Guardar</button>
+                        <button type='submit' className='btnWeb'>Guardar</button>
                     </div>
                 </form>
             </div>
