@@ -34,7 +34,7 @@ function ReportesPago() {
     const enviar = async (e) => {
         e.preventDefault();
 
-         const res = await axios.post("https://jdeleon-001-site1.btempurl.com/api/Clinica/ReportesPago",data)
+         const res = await axios.post("https://localhost:63958/api/Clinica/ReportesPago",data)
          setFiltrado(res.data)
          console.log(res.data)
     }
@@ -96,7 +96,7 @@ function ReportesPago() {
                     {
                         filtrado.map(v => [
                             <tr>
-                            <td>{v.paciente.name  + "" +v.terapia.label }</td>
+                            <td>{v.paciente.name  + " " +"("+v.terapia.description+")" + " " + v.terapia.label }</td>
                             <td>{v.fechas}</td>
                             <td>RD${parseFloat(v.terapia.price).toLocaleString('es-DO', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</td>
                             <td>{v.cantidadAsistencia}</td>                         
