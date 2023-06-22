@@ -56,7 +56,6 @@ function Consultorios() {
   function enviar(e) {
     e.preventDefault();
 
-    console.log(data);
     const url =
       "https://jdeleon-001-site1.btempurl.com/api/Clinica/EditarConsultorio";
     axios.post(url, data).then((result) => {
@@ -128,7 +127,6 @@ function Consultorios() {
   }
 
   function EliminarUsuario(valor) {
-    console.log(valor);
     const encontrado = consultorios.filter((e) => e.idConsultorio == valor);
     encontrado.map((n) => {
       setNombre(n.nombre);
@@ -173,6 +171,7 @@ function Consultorios() {
   };
 
   return (
+    
     <div>
       <Headers consultorio={consultorio} />
 

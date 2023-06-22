@@ -63,7 +63,7 @@ function LoginForm() {
               />
                   <Form.Input
               type='password'
-              placeholder="Contrasena"
+              placeholder="Contraseña"
               name="password"
               value={formik.values.password}
               onChange={formik.handleChange}

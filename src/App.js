@@ -9,6 +9,7 @@ import {
   Route,
   Link,
   HashRouter,
+  useNavigate
 } from "react-router-dom";
 import { Redirect } from "react-router-dom";
 import "./App.css";
@@ -38,6 +39,7 @@ import ListasPacientes from "./Vistas/ListasPacientes";
 import Asistencias from "./Vistas/Asistencias";
 import Calendario from "./Vistas/Calendario";
 import ReportesPago from "./Vistas/ReportesPago";
+import ErrorPage from "./Vistas/ErrorPage";
 
 
 import { Protect } from "./components/Protect";
@@ -50,6 +52,7 @@ import {
   idUser,
   getDatosUsuario,
   nombreUsuario,
+  getUsuarioCompleto
 } from "./auth-helpers";
 import { Loading, LoaLogin, LoaAll } from "./components/Loading";
 import Headers from "./Headers";
@@ -65,6 +68,7 @@ function App() {
   const [usuarioLogin, setUsuarioLogin] = useState([]);
   const [tokenHook, setTokenHook] = useState("");
   const [auth, setAuth] = useState(undefined);
+
 
   useEffect(() => {
     
@@ -93,7 +97,9 @@ function App() {
 
   }, []);
 
+  let rol = getUsuarioCompleto();
 
+  console.log(rol)
 
 
   const setUser =  (user) => {
@@ -121,15 +127,15 @@ function App() {
               <Route >
                 <Route exact path="/evaluacion" element={<Evaluacion />} />
                 <Route exact path="/perfilAdmin" element={<PerfilAdmin />} />
-                <Route exact path="/listasTerapias"element={<ListasTerapias usuarioLogin={usuarioLogin} />}/>
-                <Route exact path="/listasPacientes"element={<ListasPacientes usuarioLogin={usuarioLogin} />}/>  
+                <Route exact path="/listasTerapias" element={rol == 1 ? <ListasTerapias /> : <ErrorPage />} />
+                <Route exact path="/listasPacientes" element={ rol == 1 ? <ListasPacientes  /> :  <ErrorPage />} />
+                <Route exact path="/Users" element={ rol == 1 ? <Users /> :  <ErrorPage />} />
                 <Route exact path="/terapia" element={<Terapias />} />
                 <Route exact path="/" element={<Admin />} />
                 <Route exact path="/asistencias" element={<Asistencias />} />
                 <Route exact path="/calendario" element={<Calendario />} />
                 <Route exact path="/contabilidad" element={<Contabilidad />} />
                 <Route exact path="/AgeCalculator" element={<AgeCalculator />} />
-                <Route exact path="/Users" element={<Users />} />
                 <Route exact path="/abono" element={<Abono />} />
                 <Route exact path="/TerapiaTerapeuta" element={<TerapiaTerapeuta />}/>           
                 <Route exact path="/gastos" element={<Gastos />} />
@@ -139,6 +145,7 @@ function App() {
                 <Route exact path="/Consultorios" element={<Consultorios />} />
                 <Route exact path="/listadodeCItas" element={<ListadodeCItas />} />
                 <Route exact path="/reportesPago" element={<ReportesPago />} />
+                <Route path="*" element={<ErrorPage />} />
               </Route>
             </Routes>
           </HashRouter>

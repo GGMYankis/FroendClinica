@@ -66,7 +66,6 @@ function ListasTerapias({ usuarioLogin }) {
   const enviarDatosCrear = (e) => {
     e.preventDefault();
 
-    console.log(data2);
     const url =
       "https://jdeleon-001-site1.btempurl.com/api/Clinica/CrearTerapia";
     axios.post(url, data2).then((res) => {
@@ -136,7 +135,6 @@ function ListasTerapias({ usuarioLogin }) {
 
     setId(e);
     const res = terapias.filter((item) => item.nombreTerapia.idTherapy == e);
-    console.log(res);
     res.map((item) => [
       setNmTerapias(item.nombreTerapia.label),
       setDescripcion(item.nombreTerapia.description),
@@ -219,24 +217,24 @@ function ListasTerapias({ usuarioLogin }) {
               <thead>
                 <tr>
                   <th>Nombre</th>
-                  <th>Descripcion</th>
+                  <th>Descripción</th>
                   <th>Precio</th>
                   <th>Porcentaje</th>
-                  <th>PorcentajeCentro</th>    
+                  <th>Porcentaje del Centro</th>    
                   <th></th>
                 </tr>
               </thead>
 
               <tbody>
-                {terapias.map((item) => [
-                  <tr key={item.nombreTerapia.idTherapy}>
+                {terapias.map((item ,index) => [
+                  <tr key={index}>
                     <td data-label="Nombre">{item.nombreTerapia.label}</td>
                     <td data-label="Descripcion">
                       {item.nombreTerapia.description}
                     </td>
                     <td data-label="Price">RD${parseFloat(item.nombreTerapia.price).toLocaleString('es-DO', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</td>
-                    <td data-label="Price">{item.nombreTerapia.porcentaje}</td>
-                    <td data-label="Price">{item.nombreTerapia.porcentajeCentro}</td>
+                    <td data-label="Price">{item.nombreTerapia.porcentaje}%</td>
+                    <td data-label="Price">{item.nombreTerapia.porcentajeCentro}%</td>
                     
                     <div className="tr-btn">
                       <button

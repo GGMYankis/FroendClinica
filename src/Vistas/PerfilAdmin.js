@@ -130,7 +130,6 @@ function PerfilAdmin() {
 
     function eliminarCuenta(e) {
         e.preventDefault()
-        console.log(user)
         const url = 'https://jdeleon-001-site1.btempurl.com/api/Clinica/EliminarUsuario';
         axios.post(url, user).then((result) => {
 

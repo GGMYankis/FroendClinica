@@ -67,7 +67,6 @@ function Contabilidad() {
         const url = 'https://jdeleon-001-site1.btempurl.com/api/Clinica/Buscar'
         axios.post(url, datas).then((result) => {
 
-            console.log(result.data)
             if (result.data != null) {
                 setCitas(result.data)
             }

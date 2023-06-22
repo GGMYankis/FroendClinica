@@ -60,7 +60,6 @@ function Calendario() {
       .get("https://jdeleon-001-site1.btempurl.com/api/Clinica/Citas")
       .then((res) => {
         
-        console.log(res.data)
        
         setEvent(
           res.data.map((item, index) => ({
@@ -223,7 +222,6 @@ function Calendario() {
   };
 
   const enviarOtra = () => {
-    console.log(datass);
     const url =
       "https://jdeleon-001-site1.btempurl.com/traerpaciente/AgregarEvento";
     axios.post(url, datass).then((result) => {});

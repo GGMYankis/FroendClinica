@@ -136,23 +136,47 @@ function Headers({ reportesPagos, calendario, myElement, paciente,myElementTerap
                       </Link>
                     </li>
 
-                    <li>
-                      <Link className="letras-menu" to="/listasPacientes">
-                        Listado de Pacientes
-                      </Link>
-                    </li>
+                    {rol == 1 ?
+                        <span>
+
+                          <li>
+                          <Link className="letras-menu" to="/listasPacientes">
+                            Listado de Pacientes
+                          </Link>
+                        </li>
+                        </span>
+                    :
+                    ""
+                    }
+                 
                     
-                    <li>
-                      <Link className="letras-menu" to="/listasTerapias">
-                        Listado de Terapias
-                      </Link>
-                    </li>
-                
-                    <li>
-                  <Link className="letras-menu" to="/">
-                    Paciente de ingreso
-                  </Link>
-                </li>
+                 {rol == 1 ?
+                     <span>
+                        <li>
+                          <Link className="letras-menu" to="/listasTerapias">
+                            Listado de Terapias
+                          </Link>
+                        </li>
+                        </span>
+                        :
+                        ""
+
+                    }
+                    {rol == 1 ?
+                      <span>          
+                      <li>
+                        <Link className="letras-menu" to="/">
+                          Paciente de ingreso
+                        </Link>
+                      </li>
+                      </span>
+
+                :
+                        ""
+
+                    }
+                  
+
                 <li>
                       <Link className="letras-menu" to="/PagoTerapeutas">
                         Pago Terapeutas
@@ -170,12 +194,19 @@ function Headers({ reportesPagos, calendario, myElement, paciente,myElementTerap
                       </Link>
                     </li>
 
-                  
+                    {rol == 1 ?
+                    <span> 
                     <li>
                       <Link className="letras-menu" to="/Users">
                         Usuario
                       </Link>
                     </li>
+                    </span>
+
+              :
+                      ""
+
+                  }
                     <li>
                       <Link className="letras-menu" to="/reportesPago">
                         Reportes de Pagos

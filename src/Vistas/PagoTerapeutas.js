@@ -37,7 +37,6 @@ function PagoTerapeutas() {
     e.preventDefault();
 
     resportes.current.classList.add("contenedors");
-    console.log(data)
 
     const urls =
       "https://jdeleon-001-site1.btempurl.com/api/Clinica/ListaEvaluacions";

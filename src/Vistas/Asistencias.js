@@ -141,7 +141,6 @@ function Asistencias() {
   );
 
   const handleDateChange = (newValues) => {
-    console.log(newValues);
     setValues(newValues);
   };
 

@@ -65,7 +65,6 @@ function Abono() {
   const EnviarAbono = (e) => {
     e.preventDefault();
 
-    console.log(dataEvaluacion);
 
     const url = "https://jdeleon-001-site1.btempurl.com/api/Clinica/CrearAbono";
     axios.post(url, dataEvaluacion).then((resultEvaluacion) => {

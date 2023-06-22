@@ -82,7 +82,6 @@ function TerapiaTerapeuta() {
     }
 
     function handleTerapeuta(e) {
-        console.log(e)
         setIdTerapeuta(e)
     }
 

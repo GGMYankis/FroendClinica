@@ -2128,3 +2128,36 @@ td {
 .td-reportes-pagos tr:nth-child(even) {
   background-color: white;
 }
+
+.pageErro {
+  background-color: #0b2f57;
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.pageErro p,
+h1 {
+  color: white;
+}
+
+.pageErro a {
+  background-color: white;
+  padding: 10px 5px;
+  border-radius: 8px;
+  width: 200px;
+  text-align: center;
+  text-decoration: none;
+  font-weight: bold;
+  color: black;
+  border: 2px solid white;
+}
+
+.pageErro a:hover {
+  background-color: #0b2f57;
+  border: 2px solid white;
+  color: white;
+}

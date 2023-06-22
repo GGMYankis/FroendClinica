@@ -88,7 +88,6 @@ function Users() {
         }
         */
 
-    console.log(data);
     const url =
       "https://jdeleon-001-site1.btempurl.com/api/Clinica/GuardarUsers";
     axios.post(url, data).then((result) => {
@@ -121,7 +120,6 @@ function Users() {
 
   function CrearUsuario(e) {
     e.preventDefault();
-    console.log(dataCrear);
 
     const url =
       "https://jdeleon-001-site1.btempurl.com/api/Clinica/CrearUsuario";

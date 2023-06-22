@@ -874,7 +874,7 @@ th {
 .contenedor-cita {
     width: 83%;
     margin: 10px;
-    background-color: red;
+    background-color: white;
     box-shadow: 0 1rem 2rem rgba(0, 0, 0, .1);
     border-radius: 10px;
 }
