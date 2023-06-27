@@ -1,0 +1,66 @@
+  @import url('https://fonts.googleapis.com/css2?family=Caprasimo&family=Playfair+Display&display=swap');
+
+  .header {
+      background-color: #0b2f57;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0px 20px;
+      height: 55px;
+      position: fixed;
+      left: 0;
+      right: 0;
+      top: 0;
+  }
+
+  .header div {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+  }
+
+  .header #bar {
+      color: white;
+      font-size: 30px;
+      cursor: pointer;
+  }
+
+  .header .logo {
+      color: white;
+      font-size: 20px;
+      font-family: 'Caprasimo', cursive;
+      font-family: 'Playfair Display', serif;
+      margin: 0;
+      text-decoration: none;
+  }
+
+  .Colum3 div {
+      margin: 0px 10px;
+  }
+
+  .Colum3 .Initial--header {
+      background-color: white;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      border: 2px solid white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-decoration: none;
+      font-weight: 600;
+      color: #0b2f57;
+
+  }
+
+
+
+  .Colum3 .Initial--header:hover {
+      background-color: transparent;
+      color: white;
+  }
+
+  .NomCm-header {
+      color: white;
+      font-weight: 600;
+  }

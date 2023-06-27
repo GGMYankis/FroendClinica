@@ -12,6 +12,7 @@ import {
 } from "./auth-helpers";
 import useAuth from "./components/Auth/LoginForm/hook/useAuth";
 import arrow from "./imagenes/arrow.svg";
+import "./Headers.css";
 
 function Headers({ reportesPagos, calendario, myElement, paciente,myElementTerapia,RefCitas,myElementUsuario ,pagotera, consultorio}) {
  
@@ -102,7 +103,6 @@ function Headers({ reportesPagos, calendario, myElement, paciente,myElementTerap
     
   };
 
-
   function ver (){
     let menu = document.querySelector('#menu');
 
@@ -151,41 +151,18 @@ function Headers({ reportesPagos, calendario, myElement, paciente,myElementTerap
   return (
     <div>
 
-       <header className="encabezado">
-          <div>
-            <nav>
-              <input type="checkbox" id="check" />
-
-              <label
-                htmlFor="check"
-                className="checkbtn"
-                onClick={ver}
-              >
-                <FaBars id="bar" />
-              </label>         
-            </nav>
-          </div>
-
-          <div className="cont-logo-header">
-            <img className="img-admin-logo" src={logo} />
-            <span className="ver">
-              <span className="gg">é</span>nfasis
-            </span>
-          </div>
-          <div className="contenedor-botones">
-            <div className="cont-btn-headers">
-              <div className="probarUs">
-                <Link className="Link" to="/perfilAdmin">
-                  {PrimeraL}
-                </Link>
-              </div>
-            </div>
-            <div className="cont-nombre-usuario">
-              <p className="nombreUsuario">{user}</p>
-            </div>
-          </div>
-        </header>
-      
+          <nav className="header">
+            <label onClick={ver}> <FaBars id="bar" /></label>                      
+                <div>
+                  <img className="img-admin-logo" src={logo} />
+                  <Link to="/"className="logo" >énfasis</Link>
+                </div>
+              <div className="Colum3">
+                  <Link className="Initial--header"to="/perfilAdmin" >{PrimeraL}</Link>
+                  {/* <div className="NomCm-header"> {user}</div> */}
+              </div>      
+          </nav>
+ 
         <nav className="navsd activef" id="menu">
           <ul className="list" id="lista">
 

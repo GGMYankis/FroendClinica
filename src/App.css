@@ -2139,10 +2139,15 @@ td {
   align-items: center;
 }
 
-.pageErro p,
-h1 {
+.pageErro h1 {
   color: white;
 }
+
+.Comen-Error {
+  color: white;
+
+}
+
 
 .pageErro a {
   background-color: white;

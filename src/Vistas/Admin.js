@@ -8,7 +8,7 @@ import { FaCaretDown } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import { BrowserRouter, Routes, Route, Link, Redirect } from "react-router-dom";
 import swal from "sweetalert";
-import Headers from "../components/Headers/Headers"
+import Headers from "../Headers"
 import "../responsive.css";
 
 const Admin = () => {

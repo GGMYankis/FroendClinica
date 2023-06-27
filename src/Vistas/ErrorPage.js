@@ -7,7 +7,7 @@ function ErrorPage() {
 
         <div className='pageErro'> 
                      <h1>No podemos encontrar la página que estás buscando.</h1>    
-                     <p>Asegúrese de escribir bien la ruta.</p>
+                     <p className='Comen-Error'>Asegúrese de escribir bien la ruta.</p>
                     <Link to="/">Volver a Énfasis</Link>
         </div>
       
