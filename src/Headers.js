@@ -16,9 +16,7 @@ import arrow from "./imagenes/arrow.svg";
 function Headers({ reportesPagos, calendario, myElement, paciente,myElementTerapia,RefCitas,myElementUsuario ,pagotera, consultorio}) {
  
   useEffect(() => {
-    if (window.location.protocol === 'http:' && window.location.hostname !== 'localhost') {
-      window.location.href = `https://${window.location.host}${window.location.pathname}`;
-    }
+   
 
     let listElements = document.querySelectorAll('.list__button--click');
     let checkbtn = document.querySelector('.checkbtn');
@@ -48,15 +46,14 @@ function Headers({ reportesPagos, calendario, myElement, paciente,myElementTerap
 },[])
 
 
-  const navigation = useNavigate();
-
-  const {auth,setUser} = useAuth()
-  let user = auth.nameid[1]
-  let PrimeraL = user.substr(0, 1)
+  const navigation = useNavigate();  
+   const {auth,setUser, deleteTokenC} = useAuth()
+   let user = auth.nameid[1]
+   let PrimeraL = user.substr(0, 1) 
   
   function StateUser(){
     setUser(null)
-    DeleteToken()
+    deleteTokenC();
   }
  
   let rol = getUsuarioCompleto();

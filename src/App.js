@@ -40,8 +40,6 @@ import Asistencias from "./Vistas/Asistencias";
 import Calendario from "./Vistas/Calendario";
 import ReportesPago from "./Vistas/ReportesPago";
 import ErrorPage from "./Vistas/ErrorPage";
-
-
 import { Protect } from "./components/Protect";
 import Autenticacion from "./components/Autenticacion";
 import {
@@ -62,6 +60,8 @@ import { error } from "jquery";
 import { decodeToken } from "./components/Auth/LoginForm/Utils/token";
 
 initAxiosInterceptors();
+const cookies = new Cookies();
+
 
 function App() {
   const [isLoading, setIsLoading] = useState(false);
@@ -76,9 +76,6 @@ function App() {
       setIsLoading(false);
     }, 1000);
     let token = getToken();
-
-      try {
-
         if (!token) {
           setAuth(null)
         }else{
@@ -88,28 +85,34 @@ function App() {
                setAuth(decodeToken(token))
             }).catch((error) => {
                  setAuth(null)
+                 deleteTokenC();
+                 
              });
         }
 
-      } catch (error) {
-        console.log(error);
-      }
+        if (window.location.protocol === 'http:' && window.location.hostname !== 'localhost') {
+          window.location.href = `https://${window.location.host}${window.location.pathname}`;
+        }
+    
+   
 
   }, []);
 
   let rol = getUsuarioCompleto();
 
-  console.log(rol)
-
 
   const setUser =  (user) => {
     setAuth(user)
+  }
+  const deleteTokenC = () => {
+    cookies.remove('Token');
   }
 
   const authData = useMemo(
     () => ({
       auth,
-      setUser
+      setUser,
+      deleteTokenC
     }),
     [auth]
   )
