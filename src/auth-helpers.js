@@ -34,7 +34,7 @@ export function getToken() {
 }
 
 export function DeleteToken(){
-    cookies.remove('Token');
+ //  cookies.remove('Token');
     cookies.remove('Nombre');
     cookies.remove('rxu');
     cookies.remove('ius^');
@@ -42,24 +42,27 @@ export function DeleteToken(){
 
 export function initAxiosInterceptors() {
     axios.interceptors.request.use(function (config) {
-        const token = getToken();
+    const token = getToken();
+    //  const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c";
         if (token) {
             config.headers.Authorization = `bearer ${token}`
         }
         return config;
     })
-    axios.interceptors.response.use(
+   /*  axios.interceptors.response.use(
         function (response) {
             return response;
         }
         ,
         function (error) {
-            if (error.response.status === 401) {
-                DeleteToken();
+           if (error.response.status === 401) {
+               // DeleteToken();
+            //    console.log("El token expiro en auth-helpers")
+
             } else {
                 return Promise.reject(error)
-            }
+            } 
         }
-    )
+    ) */
 
 }

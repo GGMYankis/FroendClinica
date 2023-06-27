@@ -11,8 +11,43 @@ import {
   getUsuarioCompleto,
 } from "./auth-helpers";
 import useAuth from "./components/Auth/LoginForm/hook/useAuth";
+import arrow from "./imagenes/arrow.svg";
 
 function Headers({ reportesPagos, calendario, myElement, paciente,myElementTerapia,RefCitas,myElementUsuario ,pagotera, consultorio}) {
+ 
+  useEffect(() => {
+    if (window.location.protocol === 'http:' && window.location.hostname !== 'localhost') {
+      window.location.href = `https://${window.location.host}${window.location.pathname}`;
+    }
+
+    let listElements = document.querySelectorAll('.list__button--click');
+    let checkbtn = document.querySelector('.checkbtn');
+    let nav = document.querySelector('.nav');
+    let lista = document.querySelector('#lista');
+    
+
+    listElements.forEach(listElement => {
+        listElement.addEventListener('click',() => {
+            listElement.classList.toggle('arrow');
+            let height = 0;
+            let menu = listElement.nextElementSibling;
+ 
+            if(menu.clientHeight == "0"){
+             height= menu.scrollHeight;
+            }
+            menu.style.height = `${height}px`;
+            lista.style.background = "#0b2f57";
+        });
+    });
+
+    return () => {
+        window.removeEventListener("click", () => {         
+        })
+    }
+ 
+},[])
+
+
   const navigation = useNavigate();
 
   const {auth,setUser} = useAuth()
@@ -24,7 +59,6 @@ function Headers({ reportesPagos, calendario, myElement, paciente,myElementTerap
     DeleteToken()
   }
  
-  
   let rol = getUsuarioCompleto();
 
   const handleClickOtro = () => {
@@ -71,177 +105,196 @@ function Headers({ reportesPagos, calendario, myElement, paciente,myElementTerap
     
   };
 
+
+  function ver (){
+    let menu = document.querySelector('#menu');
+
+   menu.classList.toggle("activef");
+
+
+  if (paciente) {
+      paciente.current.classList.toggle("mi-clase-css");
+    }
+
+    if (calendario) {
+      calendario.current.classList.toggle("mi-clase-css");
+    } else if (myElement) {
+      myElement.current.classList.toggle("mi-clase-css");
+    }
+    if(myElementTerapia){
+      myElementTerapia.current.classList.toggle("mi-clase-css");
+
+    }
+    if(RefCitas){
+      RefCitas.current.classList.toggle("mi-clase-css");
+
+    }
+    if(myElementUsuario){
+      myElementUsuario.current.classList.toggle("mi-clase-css");
+
+    }
+
+    if(pagotera){
+      pagotera.current.classList.toggle("mi-clase-css2");
+
+    }
+
+    if(consultorio){
+      consultorio.current.classList.toggle("mi-clase-css");
+
+    }
+
+    if(reportesPagos){
+      reportesPagos.current.classList.toggle("reportesAnimation");
+
+    }
+    
+  }
+
   return (
     <div>
-      <header className="encabezado">
-        <div>
-          <nav>
-            <input type="checkbox" id="check" />
 
-            <label
-              htmlFor="check"
-              className="checkbtn"
-              onClick={handleClickOtro}
-            >
-              <FaBars id="bar" />
-            </label>
+       <header className="encabezado">
+          <div>
+            <nav>
+              <input type="checkbox" id="check" />
 
+              <label
+                htmlFor="check"
+                className="checkbtn"
+                onClick={ver}
+              >
+                <FaBars id="bar" />
+              </label>         
+            </nav>
+          </div>
 
-            <div className="cont-menu">
-              <ul>
+          <div className="cont-logo-header">
+            <img className="img-admin-logo" src={logo} />
+            <span className="ver">
+              <span className="gg">é</span>nfasis
+            </span>
+          </div>
+          <div className="contenedor-botones">
+            <div className="cont-btn-headers">
+              <div className="probarUs">
+                <Link className="Link" to="/perfilAdmin">
+                  {PrimeraL}
+                </Link>
+              </div>
+            </div>
+            <div className="cont-nombre-usuario">
+              <p className="nombreUsuario">{user}</p>
+            </div>
+          </div>
+        </header>
+      
+        <nav className="navsd activef" id="menu">
+          <ul className="list" id="lista">
 
-                   <li>
-                      <Link className="letras-menu" to="/AbonoTerapias">
-                        Abono Terapias
-                      </Link>
-                      
-                    </li>
+              <li className="list__item">
+                  <div className="list__button">
+                  {/*    <img src={reportes} className="list__img"/> */}
+                      <Link className="nav__link"  to="/AbonoTerapias">  Abono Terapias</Link>
+                  </div>
+              </li>
+              <li className="list__item">
+                  <div className="list__button">
+                      <Link className="nav__link" to="/TerapiaTerapeuta">Asignación</Link>
+                  </div>
+              </li>
+              <li className="list__item">
+                  <div className="list__button">
+                      <Link className="nav__link" to="/asistencias">Asistencia</Link>
+                  </div>
+              </li>
+              <li className="list__item">
+                  <div className="list__button">
+                      <Link className="nav__link"  to="/calendario">Calendario</Link>
+                  </div>
+              </li>
+              <li className="list__item">
+                  <div className="list__button">
+                      <Link className="nav__link"  to="/evaluacion">Citas</Link>
+                  </div>
+              </li>
+              <li className="list__item">
+                  <div className="list__button">
+                      <Link className="nav__link" to="/terapia"> Crear terapia</Link>
+                  </div>
+              </li>
 
-                    <li>
-                      <Link className="letras-menu" to="/TerapiaTerapeuta">
-                        Asignación
-                      </Link>
-                    </li>
-                    <li>
-                  <Link className="letras-menu" to="/asistencias">
-                    Asistencia
-                  </Link>
-                </li>
-                <li>
-                  <Link className="letras-menu" to="/calendario">
-                    Calendario
-                  </Link>
-                </li>
-                <li>
-                  <Link className="letras-menu" to="/evaluacion">
-                    Citas
-                  </Link>
-                </li>
+              <li className="list__item list__item--click">
+                  <div className="list__button list__button--click">
+                          <Link  className="nav__link"   >Listados</Link>
+                          <img src={arrow} className="list__img"/>
+                  </div>
 
-                <li>
-                  <Link className="letras-menu" to="/terapia">
-                    Crear terapia
-                  </Link>
-                </li>
-             
-                <li>
-                      <Link className="letras-menu" to="/ListadodeCItas">
-                       Listado de  Citas
-                      </Link>
-                    </li>
-               
-                    <li>
-                      <Link className="letras-menu" to="/Consultorios">
-                      Listado de Consultorios
-                      </Link>
-                    </li>
-
-                    {rol == 1 ?
-                        <span>
-
-                          <li>
-                          <Link className="letras-menu" to="/listasPacientes">
-                            Listado de Pacientes
-                          </Link>
-                        </li>
-                        </span>
-                    :
-                    ""
-                    }
-                 
-                    
-                 {rol == 1 ?
-                     <span>
-                        <li>
-                          <Link className="letras-menu" to="/listasTerapias">
-                            Listado de Terapias
-                          </Link>
-                        </li>
-                        </span>
-                        :
-                        ""
-
-                    }
-                    {rol == 1 ?
-                      <span>          
-                      <li>
-                        <Link className="letras-menu" to="/">
-                          Paciente de ingreso
-                        </Link>
+                  <ul className="list__show">
+                      <li className="list__inside">
+                          <Link class="nav__link nav__link--inside" to="/ListadodeCItas">Listado de  Citas</Link>
                       </li>
-                      </span>
 
-                :
-                        ""
+                      <li className="list__inside">
+                          <Link class="nav__link nav__link--inside" to="/Consultorios">Listado de Consultorios</Link>
+                      </li>
+                      <li className="list__inside">
+                          <Link class="nav__link nav__link--inside" to="/listasPacientes">Listado de Pacientes</Link>
+                      </li>
+                      <li className="list__inside">
+                          <Link class="nav__link nav__link--inside" to="/listasTerapias"> Listado de Terapias</Link>
+                      </li>
+                  </ul>
 
-                    }
-                  
+              </li>
 
-                <li>
-                      <Link className="letras-menu" to="/PagoTerapeutas">
-                        Pago Terapeutas
-                      </Link>
-                    </li>
-              
-                    <li>
-                      <Link className="letras-menu" to="/gastos">
-                        Registro de gastos
-                      </Link>
-                    </li>
-                    <li>
-                      <Link className="letras-menu" to="/VerGanancias">
-                        Reportes
-                      </Link>
-                    </li>
+              <li className="list__item">
+                  <div className="list__button">
+                      <Link className="nav__link" to="/">Paciente de ingreso</Link>
+                  </div>
+              </li>
+              <li className="list__item">
+                  <div className="list__button">
+                      <Link className="nav__link" to="/PagoTerapeutas">  Pago Terapeutas</Link>
+                  </div>
+              </li>
+              <li className="list__item">
+                  <div className="list__button">
+                      <Link className="nav__link"to="/gastos"> Registro de gastos</Link>
+                  </div>
+              </li>
 
-                    {rol == 1 ?
-                    <span> 
-                    <li>
-                      <Link className="letras-menu" to="/Users">
-                        Usuario
-                      </Link>
-                    </li>
-                    </span>
+              <li className="list__item list__item--click">
+                  <div className="list__button list__button--click">
+                          <Link  className="nav__link" >Reportes</Link>
+                          <img src={arrow} className="list__img"/>
+                  </div>
 
-              :
-                      ""
+                  <ul className="list__show">
+                      <li className="list__inside">
+                          <Link class="nav__link nav__link--inside"  to="/reportesPago">Reportes de Pagos</Link>
+                      </li>
 
-                  }
-                    <li>
-                      <Link className="letras-menu" to="/reportesPago">
-                        Reportes de Pagos
-                      </Link>
-                    </li>
-   
-                <li>
-                  <a className="letras-menu" id="Cerra-Sesion-ul" onClick={StateUser} >
-                    Cerra Sesión
-                  </a>
-                </li>
-              </ul>
-            </div>
-          </nav>
-        </div>
+                      <li className="list__inside">
+                          <Link class="nav__link nav__link--inside"  to="/VerGanancias">Reportes</Link>
+                      </li>                      
+                  </ul>
 
-        <div className="cont-logo-header">
-          <img className="img-admin-logo" src={logo} />
-          <span className="ver">
-            <span className="gg">é</span>nfasis
-          </span>
-        </div>
-        <div className="contenedor-botones">
-          <div className="cont-btn-headers">
-            <div className="probarUs">
-              <Link className="Link" to="/perfilAdmin">
-                {PrimeraL}
-              </Link>
-            </div>
-          </div>
-          <div className="cont-nombre-usuario">
-            <p className="nombreUsuario">{user}</p>
-          </div>
-        </div>
-      </header>
+              </li>
+              <li className="list__item">
+                  <div className="list__button">
+                      <Link className="nav__link" to="/Users">Usuario</Link>
+                  </div>
+              </li>
+
+              <li className="list__item">
+                  <div className="list__button">
+                      <Link className="nav__link" to="/Users" onClick={StateUser}>Cerra Sesión</Link>
+                  </div>
+              </li>
+          </ul>
+        </nav>
+
     </div>
   );
 }
@@ -250,15 +303,3 @@ export default Headers;
 
 
 
-
-/* 
-{rol == 1 ? (
-  <span>
-
-
-   
-   
-  </span>
-) : (
-  ""
-)} */

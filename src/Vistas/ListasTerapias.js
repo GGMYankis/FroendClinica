@@ -7,7 +7,7 @@ import { FaUser } from "react-icons/fa";
 import { FaCaretDown } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import { BrowserRouter, Routes, Route, Link, Redirect } from "react-router-dom";
-import $ from "jquery";
+import $, { error } from "jquery";
 import { findDOMNode } from "react-dom";
 import swal from "sweetalert";
 import Headers from "../Headers";
@@ -34,6 +34,12 @@ function ListasTerapias({ usuarioLogin }) {
   const [id, setId] = useState();
   const navigation = useNavigate();
 
+  const [input1Value, setInput1Value] = useState('');
+  const [input2Value, setInput2Value] = useState('');
+  const [porcentaje1, setPorcentaje1] = useState('');
+  const [porcentaje2, setPorcentaje2] = useState('');
+
+
   const modal = useRef();
   const modalEditar = useRef();
   const alertEliminar = useRef();
@@ -44,6 +50,7 @@ function ListasTerapias({ usuarioLogin }) {
     cargar();
   }, []);
 
+  
   const cargar = (async) => {
     axios
       .get("https://jdeleon-001-site1.btempurl.com/api/Clinica/ListaTerapia")
@@ -58,8 +65,8 @@ function ListasTerapias({ usuarioLogin }) {
     Value: nmTerapias,
     Description: descripcion,
     Price: price,
-    Porcentaje: porcentaje,
-    PorcentajeCentro: porcentajeCentro,
+    Porcentaje: porcentaje1.toString().replace("%", ""),
+    PorcentajeCentro: porcentaje2.toString().replace("%", ""),
   };
 
   const FormularioTherapy = document.getElementById("FormularioTherapy");
@@ -105,30 +112,32 @@ function ListasTerapias({ usuarioLogin }) {
     Label: nmTerapias,
     Description: descripcion,
     Price: price,
-    Porcentaje: porcentaje,
-    PorcentajeCentro: porcentajeCentro,
+    Porcentaje: parseInt(porcentaje1.toString().replace("%", "")),
+    PorcentajeCentro:parseInt(porcentaje2.toString().replace("%", "")),
   };
 
   const enviarDatos = (e) => {
     e.preventDefault();
-    const url =
-      "https://jdeleon-001-site1.btempurl.com/api/Clinica/EditarTerapia";
+    const url ="https://jdeleon-001-site1.btempurl.com/api/Clinica/EditarTerapia";
     axios.post(url, dataEdi).then((res) => {
-      const probar = async () => {
+      
+      if(res.status === 200){
         modalEditar.current.classList.remove("activoEditar");
         cargar();
-        const ale = await swal({
+           swal({
           title: "Correcto",
           text: "Cambio guardado ",
           icon: "success",
         });
-      };
-
-      if (res) {
-        probar();
       }
-    });
+      
+     
+    }).catch((error) => {
+      swal(error.response.data, "Intentelo mas tarde", "error");
+    }) ;
   };
+
+
 
   function editar(e) {
     modalEditar.current.classList.add("activoEditar");
@@ -139,7 +148,8 @@ function ListasTerapias({ usuarioLogin }) {
       setNmTerapias(item.nombreTerapia.label),
       setDescripcion(item.nombreTerapia.description),
       setPrice(item.nombreTerapia.price),
-      setPorcentaje(item.nombreTerapia.porcentaje),
+      setInput1Value(item.nombreTerapia.porcentaje),
+      setInput2Value(item.nombreTerapia.porcentajeCentro),
     ]);
   }
 
@@ -197,6 +207,52 @@ function ListasTerapias({ usuarioLogin }) {
     myElementTerapia.current.classList.toggle("mi-clase-css");
   };
 
+
+  const handleInput1Change = (event) => {
+    const inputValue = event.target.value;
+    if (inputValue.length <= 2) {
+    if (!isNaN(parseFloat(inputValue))) { 
+      const porcentaje1 = parseFloat(inputValue);
+      const porcentajeRestante = 100 - porcentaje1;
+
+      setInput1Value(inputValue);
+      setInput2Value(porcentajeRestante + '%');
+      setPorcentaje1(inputValue);
+      setPorcentaje2(porcentajeRestante + '%');
+    } else {
+      setInput1Value(inputValue);
+      setInput2Value('');
+      setPorcentaje1('');
+      setPorcentaje2('');
+      
+    }
+  }
+  };
+
+  const handleInput2Change = (event) => {
+  const inputValue = event.target.value;
+
+  if (inputValue.length <= 2) { 
+      if (!isNaN(parseFloat(inputValue))) { // Verificar si es un número válido
+        const porcentaje2 = parseFloat(inputValue);
+        const porcentajeRestante = 100 - porcentaje2;
+
+        setInput2Value(inputValue); // Mantener el valor sin el signo de porcentaje
+        setInput1Value(porcentajeRestante + '%');
+        setPorcentaje1(porcentajeRestante + '%');
+        setPorcentaje2(inputValue + '%');
+      } else {
+        setInput2Value(inputValue);
+        setInput1Value('');
+        setPorcentaje1('');
+        setPorcentaje2('');
+      }
+}
+};
+
+  
+  
+  
   return (
     <div>
       <Headers myElementTerapia={myElementTerapia} />
@@ -217,7 +273,7 @@ function ListasTerapias({ usuarioLogin }) {
               <thead>
                 <tr>
                   <th>Nombre</th>
-                  <th>Descripción</th>
+                  <th>Descripcion</th>
                   <th>Precio</th>
                   <th>Porcentaje</th>
                   <th>Porcentaje del Centro</th>    
@@ -261,6 +317,8 @@ function ListasTerapias({ usuarioLogin }) {
           </div>
         </div>
       </div>
+      
+   
 
       <div className="cont-modal-lista-terapia" ref={modal}>
         <form
@@ -297,20 +355,25 @@ function ListasTerapias({ usuarioLogin }) {
                 onChange={(e) => setPrice(e.target.value)}
               />
             </div>
+
+        
+
             <div className="con-input-terapia">
-              <label>Porcentaje del Terapeuta</label>
+              <label>Porcentaje </label>
               <input
-                placeholder="Precio"
+                placeholder="Porcentaje del Terapeuta"
                 id="precio"
                 required
-                onChange={(e) => setPorcentaje(e.target.value)}
+                value={input1Value}
+                onChange={handleInput1Change}
               />
             </div>
             <div className="con-input-terapia">
               <label>Porcentaje del Centro</label>
               <input
-                type="text"
-                onChange={(e) => setPorcentajeCentro(e.target.value)}
+                placeholder="Porcentaje del Centro"
+                value={input2Value}
+                onChange={handleInput2Change}
                 required
               />
             </div>
@@ -362,13 +425,23 @@ function ListasTerapias({ usuarioLogin }) {
               />
             </div>
             <div className="con-input-terapia">
-              <label>Porcentaje</label>
+              <label>Porcentaje </label>
               <input
-                placeholder="Precio"
+                placeholder="Porcentaje del Terapeuta"
                 id="precio"
-                value={porcentaje}
                 required
-                onChange={(e) => setPorcentaje(e.target.value)}
+                value={input1Value}
+                onChange={handleInput1Change}
+              />
+             
+            </div>
+            <div className="con-input-terapia">
+              <label>Porcentaje del Centro</label>
+              <input
+                placeholder="Porcentaje del Centro"
+                value={input2Value}
+                onChange={handleInput2Change}
+                required
               />
             </div>
             <button className="btn-editar-terapia" onClick={enviarDatos}>
@@ -379,7 +452,7 @@ function ListasTerapias({ usuarioLogin }) {
             </button>
           </div>
         </form>
-      </div>
+      </div> 
 
       <div className="modal-usuario-eliminar" ref={alertEliminar}>
         <div className="modal-dialog-usuario" role="document">
@@ -418,6 +491,8 @@ function ListasTerapias({ usuarioLogin }) {
           </div>
         </div>
       </div>
+
+    
     </div>
   );
 }

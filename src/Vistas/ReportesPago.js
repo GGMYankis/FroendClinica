@@ -80,19 +80,21 @@ function ReportesPago() {
 
             <table className='td-reportes-pagos'>
                 <thead>
-                     <tr>
+                <tr>
                         <th>Pacientes</th>
                         <th>Fechas</th>
                         <th>Precio</th>
                         <th>Sesiones Realizadas</th>
                         <th>A pagar</th>
                         <th>Abono</th>
-                        <th>Especialista</th>
+                        <th>Cobrar</th>
+                        <th>A favor</th>
+                       <th>Especialista</th> 
                      </tr>
                 </thead>
                 <tbody>
 
-                    {
+                {
                         filtrado.map((v , index) => [
                             <tr key={index}>
                             <td>{v.paciente.name  + " " +"("+v.terapia.description+")" + " " + v.terapia.label }</td>
@@ -101,8 +103,10 @@ function ReportesPago() {
                             <td>{v.cantidadAsistencia}</td>                         
                             <td>RD${parseFloat(v.aPagar).toLocaleString('es-DO', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</td>
                             <td>RD${parseFloat(v.abono).toLocaleString('es-DO', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</td>
+                            <td>{ v.abono <  v.aPagar  ?"RD$"+parseFloat(Math.abs(v.aPagar - v.abono)).toLocaleString('es-DO', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) :""   }</td>
+                            <td>{ v.abono >  v.aPagar  ?"RD$"+parseFloat( Math.abs(v.aPagar - v.abono)).toLocaleString('es-DO', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) :  ""  }</td>
                             
-                            <td>{v.terapeuta.names + " " + v.terapeuta.apellido}</td>
+                           <td>{v.terapeuta.names + " " + v.terapeuta.apellido}</td>
                           
                          </tr>
                         ])
