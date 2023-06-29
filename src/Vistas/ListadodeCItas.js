@@ -112,7 +112,7 @@ function ListadodeCItas({ usuarioLogin }) {
   const cargar = async () => {
 
     try {
-      const res = await axios.get("https://jdeleon-001-site1.btempurl.com/api/Clinica/Citas");
+      const res = await axios.get("https://jdeleon-001-site1.btempurl.com/api/Citas/Citas");
       setCitas(res.data);
     } catch (error) {
       console.error("el error es : " + error);

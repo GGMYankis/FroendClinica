@@ -10,7 +10,6 @@ import swal from "sweetalert";
 import Headers from "../Headers";
 import { Loading, LoaLogin } from "../components/Loading";
 
-//
 function Terapias() {
   const [label, setLabel] = useState("");
   const [description, setDescription] = useState("");

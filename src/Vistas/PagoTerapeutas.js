@@ -83,17 +83,13 @@ function PagoTerapeutas() {
           </div>
 
           <div className="cont-box-body-gastos">
-            <div className="row" id="cont-input-gastos">
-              <div className="col">
+
+            <div className="padrePagoTerapeuta" id="cont-input-gastos">
+
+              <div>
                 <label>Fecha Inicio</label>
-                <input
-                  type="date"
-                  className="inputgastos"
-                  onChange={(e) => setStartDate(e.target.value)}
-                  required
-                />
-              </div>
-              <div className="col">
+                  <input required type="date" className="inputgastos"onChange={(e) => setStartDate(e.target.value)}/>                  
+                
                 <label>Fecha Fin</label>
                 <input
                   type="date"
@@ -103,8 +99,8 @@ function PagoTerapeutas() {
                 />
               </div>
 
-             <div className="col">    
-                <select className="form-select" onChange={(e) => Fterapeuta(e.target.value)}  required  >
+             <div >    
+                <select className="inputgastos" onChange={(e) => Fterapeuta(e.target.value)}  required  >
                      
                   <option value="">Seleccione un Terapeuta</option>
                   {terapeuta.map((item) => [
@@ -117,7 +113,7 @@ function PagoTerapeutas() {
            
 
 
-              <div className="col">
+              <div >
                 <button className="btn-gastos" type="submit">
                   Buscar
                 </button>

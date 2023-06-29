@@ -290,9 +290,3 @@ function VerGanancias() {
 
 export default VerGanancias;
 
-/* {mensaje ?
-    <div className="alert alert-danger" role="alert">
-        No se encontraron registros
-    </div>
-    : ""
-} */

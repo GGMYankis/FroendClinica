@@ -57,7 +57,7 @@ function Calendario() {
 
   useEffect(() => {
     axios
-      .get("https://jdeleon-001-site1.btempurl.com/api/Clinica/Citas")
+      .get("https://jdeleon-001-site1.btempurl.com/api/Citas/Citas")
       .then((res) => {
         
        

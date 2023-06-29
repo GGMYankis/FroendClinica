@@ -54,8 +54,7 @@ function PerfilAdmin() {
             }else{
                 setTipoRol("Terapeuta")
             }
-          
-
+        
             setusuarioPerfil(result.data.users.names)
             setcorreoPerfil(result.data.users.email)
 

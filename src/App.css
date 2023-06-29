@@ -23,10 +23,21 @@
 
 }
 
+
+
+
 .btnWeb:hover {
   background-color: white;
   color: #0b2f57;
 }
+
+
+@media (max-width:600px) {
+  .btnWeb {
+    width: 100%;
+  }
+}
+
 
 /* FOOTER DE LA WEB */
 
@@ -221,6 +232,11 @@
   margin: 40px 10px 10px 10px;
 }
 
+@media (max-width:600px) {
+  .form-terapias {
+    width: 90%;
+  }
+}
 
 .sub-box-Terapia {
   padding: 20px;
@@ -1559,13 +1575,12 @@
 #cont-input-gastos {
   display: flex;
   align-items: center;
-
 }
 
 .btn-gastos {
   background-color: #0b2f57;
   border: 3px solid #0b2f57;
-  border-radius: 5px;
+  border-radius: 0.375rem;
   color: white;
   width: 100px;
   padding: 5px;
@@ -1573,8 +1588,8 @@
 
 .btn-gastos:hover {
 
-  background-color: #0b2e57c4;
-
+  background-color: transparent;
+  color: #0b2f57;
 
 }
 
@@ -1839,6 +1854,15 @@
   position: relative;
 }
 
+.padrePagoTerapeuta {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+
+
 .cont-box-body-gastos {
   padding: 20px;
   background-color: white;
@@ -1880,6 +1904,37 @@
   .formAbonoTerapias {
     width: 100%;
   }
+}
+
+@media(max-width:1146px) {
+  .padrePagoTerapeuta {
+    flex-direction: column;
+    padding: 10px;
+  }
+
+  .formPagoTerapeuat .cont-titu-gastos h1 {
+    font-size: 20px;
+  }
+
+  .padrePagoTerapeuta div .inputgastos {
+    width: 100%;
+  }
+
+  .padrePagoTerapeuta div button {
+    display: block;
+    margin: auto;
+    width: 100%;
+  }
+
+  .cont-box-body-gastos {
+    padding: 0px;
+  }
+
+  .padrePagoTerapeuta div {
+    width: 100%;
+  }
+
+
 }
 
 .cont-box-abono {

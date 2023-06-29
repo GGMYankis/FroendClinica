@@ -1,27 +1,18 @@
 import Cookies from "universal-cookie";
 import { useState, useEffect,useMemo } from "react";
 import axios from "axios";
-import logo from "./imagenes/IMG-20230221-WA0009.png";
-import { FaBars } from "react-icons/fa";
 import {
-  BrowserRouter,
   Routes,
   Route,
   Link,
   HashRouter,
-  useNavigate
 } from "react-router-dom";
-import { Redirect } from "react-router-dom";
 import "./App.css";
-import { useDispatch } from "react-redux";
-import { addUser } from "./redux/userSlice";
-import jwt_decode from "jwt-decode";
 import Admin from "./Vistas/Admin";
 import Gastos from "./Vistas/Gastos";
 import AbonoTerapias from "./Vistas/AbonoTerapias";
 import Evaluacion from "./Vistas/Evaluacion";
 import Consultorios from "./Vistas/Consultorios";
-import { Spinner } from "reactstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import VerGanancias from "./Vistas/VerGanancias";
 import PagoTerapeutas from "./Vistas/PagoTerapeutas";
@@ -29,7 +20,6 @@ import AgeCalculator from "./AgeCalculator";
 import PerfilAdmin from "./Vistas/PerfilAdmin";
 import ListasTerapias from "./Vistas/ListasTerapias";
 import ListadodeCItas from "./Vistas/ListadodeCItas";
-import Login from "./Vistas/Login";
 import Terapias from "./Vistas/Terapias";
 import Users from "./Vistas/Users";
 import Abono from "./Vistas/Abono";
@@ -40,33 +30,22 @@ import Asistencias from "./Vistas/Asistencias";
 import Calendario from "./Vistas/Calendario";
 import ReportesPago from "./Vistas/ReportesPago";
 import ErrorPage from "./Vistas/ErrorPage";
-import { Protect } from "./components/Protect";
-import Autenticacion from "./components/Autenticacion";
 import {
-  deleteToken,
   getToken,
   initAxiosInterceptors,
-  setUsuarioM,
-  idUser,
-  getDatosUsuario,
-  nombreUsuario,
   getUsuarioCompleto
 } from "./auth-helpers";
 import { Loading, LoaLogin, LoaAll } from "./components/Loading";
-import Headers from "./Headers";
 import  Auth from "./pages/Auth/Auth"
 import AuthContext from "./context/AuthContext";
-import { error } from "jquery";
 import { decodeToken } from "./components/Auth/LoginForm/Utils/token";
+import './pages/admin.css';
 
 initAxiosInterceptors();
 const cookies = new Cookies();
 
-
 function App() {
-  const [isLoading, setIsLoading] = useState(false);
-  const [usuarioLogin, setUsuarioLogin] = useState([]);
-  const [tokenHook, setTokenHook] = useState("");
+  const [isLoading, setIsLoading] = useState(true);
   const [auth, setAuth] = useState(undefined);
 
 
@@ -115,7 +94,8 @@ function App() {
       deleteTokenC
     }),
     [auth]
-  )
+
+    )
 
   if(auth === undefined) return null;
 
@@ -125,6 +105,10 @@ function App() {
         {
           auth ?  
           <HashRouter>
+            {
+              isLoading ? 
+              <LoaAll/>
+              :           
             <Routes>
         
               <Route >
@@ -151,6 +135,7 @@ function App() {
                 <Route path="*" element={<ErrorPage />} />
               </Route>
             </Routes>
+             }
           </HashRouter>
           :
           <Auth/>

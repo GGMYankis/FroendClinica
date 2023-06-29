@@ -1,5 +1,6 @@
   @import url('https://fonts.googleapis.com/css2?family=Caprasimo&family=Playfair+Display&display=swap');
 
+
   .header {
       background-color: #0b2f57;
       display: flex;
@@ -28,8 +29,6 @@
   .header .logo {
       color: white;
       font-size: 20px;
-      font-family: 'Caprasimo', cursive;
-      font-family: 'Playfair Display', serif;
       margin: 0;
       text-decoration: none;
   }
@@ -50,10 +49,7 @@
       text-decoration: none;
       font-weight: 600;
       color: #0b2f57;
-
   }
-
-
 
   .Colum3 .Initial--header:hover {
       background-color: transparent;
@@ -63,4 +59,10 @@
   .NomCm-header {
       color: white;
       font-weight: 600;
+  }
+
+  .img-admin-logo {
+      width: 40px;
+      height: 40px;
+      border-radius: 500px;
   }

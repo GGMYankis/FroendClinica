@@ -6,103 +6,8 @@
     transition: all .5s linear;
 }
 
-.checkbtn {
-    font-size: 30px;
-    color: white;
-    width: 40px;
-    height: 40px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 5px;
-}
-
-
 ul {
     padding-left: 0px;
-}
-
-.checkbtn:hover {
-    border: 1px solid white;
-}
-
-.cont-logo-header .ver {
-    padding-top: 15px;
-}
-
-.encabezado .cont-menu {
-    position: fixed;
-    width: 240px;
-    height: 100vh;
-    background-color: #0b2f57;
-    top: 55px;
-    text-align: center;
-    transition: all .5s;
-    left: -100%;
-    overflow: auto;
-}
-
-.dropdown_link {
-    position: relative;
-    background-color: red;
-}
-
-.dropdown-check {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    cursor: pointer;
-}
-
-.dropdown_content {}
-
-.dropdown_sub {
-    overflow: hidden;
-}
-
-.dropdown_li {
-    width: 85%;
-    background-color: red;
-    margin-left: auto;
-}
-
-.encabezado .cont-menu::-webkit-scrollbar {
-    background-color: #0b2f57;
-    width: 8px;
-}
-
-.encabezado .cont-menu::-webkit-scrollbar-thumb {
-    background-color: orange;
-    border-radius: 5px;
-    width: 0px;
-}
-
-.cont-menu {
-    transition: all .5s;
-}
-
-.cont-menu ul li {
-    display: block;
-    line-height: 30px;
-    color: red;
-    padding-left: 10px;
-    display: flex;
-    justify-content: center;
-}
-
-/* .letras-menu:hover {
-    transition: all .1s;
-    color: white;
-}
- */
-.cont-menu ul li a {
-    text-decoration: none;
-    color: white;
-    padding-right: 10px;
-    transition: all .2s;
-    font-size: 15px;
-    text-align: left;
-    width: 100%;
 }
 
 
@@ -124,16 +29,6 @@ ul {
     margin-top: 100px;
 }
 
-#check:checked~.cont-menu {
-    left: 0;
-    width: 220px;
-    transition: all .5s;
-}
-
-#check {
-    display: none;
-}
-
 .mi-clase-css {
     margin-left: 220px;
 }
@@ -147,8 +42,6 @@ ul {
 }
 
 @media (max-width:1150px) {
-
-
     .checkbtnOtro {
         display: block;
     }
@@ -183,59 +76,25 @@ ul {
     border-top-left-radius: 10px;
 }
 
-
 .cont-titulo-form h1 {
 
     font-size: 25px;
     color: white;
     margin-bottom: 0px;
-
 }
 
-.encabezado {
-    left: 0;
-    right: 0;
-    top: 0;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px;
-    color: white;
-    position: fixed;
-    height: 55px;
-    background-color: #0b2f57;
+@media(max-width:678px) {
+    .cont-titulo-form h1 {
+        font-size: 20px;
+    }
 }
 
-
-.cont-menu a:hover a {
-    color: red;
+@media(max-width:450px) {
+    .cont-titulo-form h1 {
+        font-size: 15px;
+    }
 }
 
-
-.img-admin-logo {
-    width: 40px;
-    height: 40px;
-    border-radius: 500px;
-}
-
-
-.nom-logo {
-    font-size: 20px;
-}
-
-.ver .gg {
-
-    color: white;
-    font-size: 20px;
-
-}
-
-
-.ver {
-    margin-top: 70px;
-    color: white;
-    font-size: 20px;
-}
 
 
 .perfilBoll {
@@ -254,34 +113,7 @@ ul {
     color: #0b2f57;
 }
 
-/* #0b2f57 */
 
-#Cerra-Sesion-ul {
-
-    cursor: pointer;
-    margin-top: 20px;
-
-}
-
-
-
-.Cerra-Sesion {
-    padding: 8px;
-    border-radius: 5px;
-    text-decoration: none;
-    color: white;
-    margin-top: 60px;
-    cursor: pointer;
-    font-weight: bolder;
-    transition: all .2s;
-}
-
-.Cerra-Sesion:hover {
-    transform: scale(1.1);
-    transition: all .2s;
-    color: white;
-    background-image: linear-gradient(to bottom right, #134074, aqua);
-}
 
 
 @media(max-width:525px) {
@@ -582,20 +414,6 @@ th {
     text-align: left;
 }
 
-
-
-/*
-
-.mi-clase
--css {
-    padding-right: 0;
-    padding-left: 0;
-    position: absolute;
-    right: 0;
-    transform: translate(70px);
-    transition: all .5s;
-}
-*/
 
 .cont-Button {
     width: 200px;
@@ -1048,9 +866,7 @@ th {
     margin-top: 60px;
 }
 
-
 /* NUEVO HEADER */
-
 
 
 .navsd {
@@ -1067,6 +883,12 @@ th {
     padding-bottom: 150px;
 }
 
+.list {
+    background-color: #0b2f57;
+    position: absolute;
+    top: 0;
+    width: 100%;
+}
 
 .activef {
 

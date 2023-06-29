@@ -546,7 +546,9 @@ function ListasPacientes({ usuarioLogin }) {
       <Headers paciente={paciente} />
 
       <div id="table-container" className="table-container" ref={paciente}>
+        
         <div className="sex-tables">
+
           <div className="cont-titu-tables">
             <h1>Listado de Pacientes</h1>
           </div>
@@ -569,7 +571,11 @@ function ListasPacientes({ usuarioLogin }) {
                 <option value="si">Activo</option>
                 <option value="no">Inactivos</option>
               </select>
-              <label>Paciente</label>
+            
+            </div>
+
+            <div className="cont-crear-paciente">
+            <label>Paciente</label>
               <input
                 id="txtbuscar"
                 placeholder="Nombre"
