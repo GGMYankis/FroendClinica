@@ -459,9 +459,6 @@ function ListadodeCItas({ usuarioLogin }) {
     alertEliminar.current.classList.add("activeEli");
   };
 
-
-
-
  function filtrarCitasFechas () {
   setCitas([])
     const fechaConHora = citas.filter(cita => cita.fechaInicio.substring(0, 10) >= fechaInicioF
@@ -469,6 +466,8 @@ function ListadodeCItas({ usuarioLogin }) {
       cita.fechaInicio.substring(0, 10) < fechaFinF )
       setCitas(fechaConHora)
  }
+
+
  function getCurrentDateTime() {
   const now = new Date();
   let month = (now.getMonth() + 1).toString();

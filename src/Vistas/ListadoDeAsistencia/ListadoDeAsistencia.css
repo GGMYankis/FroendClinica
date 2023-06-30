@@ -1,0 +1,114 @@
+.container-padre {
+    margin-top: 55px;
+    padding: 40px 20px 20px 20px;
+}
+
+.header-attendance {
+    background-color: #0b2f57;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    color: #fff;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 5px;
+}
+
+.header-attendance h1 {
+    font-size: 25px;
+    margin: 0;
+}
+
+.cont-modal {
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, .7);
+    position: absolute;
+    top: -100%;
+    position: fixed;
+}
+
+
+.active {
+    top: 0;
+}
+
+.modalEditar {
+    background-color: white;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.modalEditar .cajas {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+    justify-content: center;
+    width: 100%;
+}
+
+
+.modalEditar div input,
+select {
+    background-color: #fff;
+    border: 1px solid #ced4da;
+    border-radius: 0.375rem;
+    color: #212529;
+    padding: 0.375rem 0.75rem;
+    font-size: 1rem;
+    font-weight: 400;
+    width: 100%;
+}
+
+
+.footer-attendance {
+    display: flex;
+}
+
+.footer-attendance button {
+    border-radius: 5px;
+    padding: 10px 20px;
+    border: 2px solid #0b2f57;
+    color: white;
+    font-weight: 700;
+}
+
+
+.footer-attendance button:hover {
+    background-color: transparent;
+    color: #0b2f57;
+}
+
+
+.footer-attendance .btn-guardar {
+    margin-right: auto;
+    background-color: #0b2f57;
+}
+
+.footer-attendance .btn-cancelar {
+    background-color: #0b2f57;
+}
+
+.cont-titu-modal {
+    background-color: #0b2f57;
+    color: white;
+    display: flex;
+    justify-content: center;
+    padding: 5px;
+}
+
+.cont-titu-modal h1 {
+    margin: 0;
+    font-size: 25px;
+}
+
+.box-modal-asistencia {
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}

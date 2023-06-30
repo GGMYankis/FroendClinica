@@ -14,7 +14,7 @@ import useAuth from "./components/Auth/LoginForm/hook/useAuth";
 import arrow from "./imagenes/arrow.svg";
 import "./Headers.css";
 
-function Headers({ reportesPagos, calendario, myElement, paciente,myElementTerapia,RefCitas,myElementUsuario ,pagotera, consultorio}) {
+function Headers({ citas,reportesPagos, calendario, myElement, paciente,myElementTerapia,RefCitas,myElementUsuario ,pagotera, consultorio}) {
  
   useEffect(() => {
    
@@ -109,7 +109,7 @@ function Headers({ reportesPagos, calendario, myElement, paciente,myElementTerap
    menu.classList.toggle("activef");
 
 
-  if (paciente) {
+    if (paciente) {
       paciente.current.classList.toggle("mi-clase-css");
     }
 
@@ -145,6 +145,11 @@ function Headers({ reportesPagos, calendario, myElement, paciente,myElementTerap
       reportesPagos.current.classList.toggle("reportesAnimation");
 
     }
+
+    if(citas){
+      citas.current.classList.toggle("reportesAnimation");
+
+    }
     
   }
 
@@ -172,11 +177,19 @@ function Headers({ reportesPagos, calendario, myElement, paciente,myElementTerap
                       <Link className="nav__link"  to="/AbonoTerapias">  Abono Terapias</Link>
                   </div>
               </li>
-              <li className="list__item">
-                  <div className="list__button">
-                      <Link className="nav__link" to="/TerapiaTerapeuta">Asignación</Link>
-                  </div>
-              </li>
+              {rol == 1 ? 
+
+              <span>
+                <li className="list__item">
+                    <div className="list__button">
+                        <Link className="nav__link" to="/TerapiaTerapeuta">Asignación</Link>
+                    </div>
+                </li>
+              </span>
+
+              :
+              ""
+            }
               <li className="list__item">
                   <div className="list__button">
                       <Link className="nav__link" to="/asistencias">Asistencia</Link>
@@ -209,15 +222,27 @@ function Headers({ reportesPagos, calendario, myElement, paciente,myElementTerap
                           <Link class="nav__link nav__link--inside" to="/ListadodeCItas">Listado de  Citas</Link>
                       </li>
 
-                      <li className="list__inside">
-                          <Link class="nav__link nav__link--inside" to="/Consultorios">Listado de Consultorios</Link>
-                      </li>
-                      <li className="list__inside">
-                          <Link class="nav__link nav__link--inside" to="/listasPacientes">Listado de Pacientes</Link>
-                      </li>
-                      <li className="list__inside">
-                          <Link class="nav__link nav__link--inside" to="/listasTerapias"> Listado de Terapias</Link>
-                      </li>
+                  {rol == 1 ? 
+
+                  <span>
+                  <li className="list__inside">
+                                            <Link class="nav__link nav__link--inside" to="/Consultorios">Listado de Consultorios</Link>
+                                        </li>
+                                        <li className="list__inside">
+                                            <Link class="nav__link nav__link--inside" to="/listasPacientes">Listado de Pacientes</Link>
+                                        </li>
+                                        <li className="list__inside">
+                                            <Link class="nav__link nav__link--inside" to="/listasTerapias"> Listado de Terapias</Link>
+                                        </li>
+                                        <li className="list__inside">
+                                            <Link class="nav__link nav__link--inside" to="/listadoAsistencia"> Listado de Asistencias</Link>
+                                        </li>
+                  </span>
+                  :
+                  ""
+
+                  }
+                  
                   </ul>
 
               </li>

@@ -59,7 +59,7 @@ function Asistencias() {
     if (rol == 2) {
       axios
         .post(
-          "https://jdeleon-001-site1.btempurl.com/api/Clinica/GetEvaluacionByTerapeuta",
+          "https://localhost:63958/api/Clinica/GetEvaluacionByTerapeuta",
           date
         )
         .then((response) => {
@@ -212,8 +212,8 @@ function Asistencias() {
                 <option value="">Seleccione una Terapia</option>
                 {data.map((item) => [
                   //<option key={item.value} value={item.value}>{item.value}</option>
-                  <option value={item.nombreTerapia.idTherapy}>
-                    {item.nombreTerapia.label}
+                  <option value={item.idTherapy}>
+                    {item.label}
                   </option>,
                 ])}
               </select>
