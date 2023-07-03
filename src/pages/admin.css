@@ -913,7 +913,7 @@ th {
 }
 
 .list__show {
-    width: 80%;
+    width: 100%;
     margin-left: auto;
     border-left: 2px;
     list-style: none;

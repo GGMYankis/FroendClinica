@@ -86,7 +86,7 @@ function ListadoAsistencia() {
     const columns = [
         {
           name: "Terapeuta",
-          selector: (row) => row.therapeua.names,
+          selector: (row) => row.therapeua.names + " " + row.therapeua.apellido,
           sortable: true,
         },
         {
@@ -213,7 +213,7 @@ function ListadoAsistencia() {
 
       function elimibarApi(e){
 
-        const url = "https://localhost:63958/api/Clinica/EliminarAsistencia";
+        const url = "https://jdeleon-001-site1.btempurl.com/api/Clinica/EliminarAsistencia";
         
            axios.post(url, dataEliminar)
            .then(res => {
@@ -262,8 +262,7 @@ function ListadoAsistencia() {
                 <h1>Listado de Asistencias</h1>
                 </div>
 
-                <div className="cont-action">
-                
+                <form className="cont-action" onSubmit={filtrarAsistencias}>      
                         <div className="cont-crear-paciente">
                             <label>Fecha Inicio</label>
                             <input
@@ -272,6 +271,7 @@ function ListadoAsistencia() {
                                 autoComplete="off"
                                 type="date"
                                 onChange={(e) => setfechaInicio(e.target.value)}
+                                required
                             />
                             </div>
 
@@ -283,16 +283,13 @@ function ListadoAsistencia() {
                                 autoComplete="off"
                                 type="date"
                                 onChange={(e) => setFechaFin(e.target.value)}
-
+                                required
                             />
                             </div>
                             <div className="cont-crear-paciente">
-                            <button className="btn-gastos" type="submit" onClick={filtrarAsistencias}> Buscar  </button>
-                            </div>
-                        
-                    
-                
-                    </div>
+                            <button className="btn-gastos" type="submit" > Buscar  </button>
+                            </div>             
+                    </form>
 
                 <DataTable
                         columns={columns}
@@ -309,8 +306,9 @@ function ListadoAsistencia() {
                     </div>
                     <div className='box-modal-asistencia'>
 
-                                <div className='cajas'>
-
+                            <div className='cajas'>
+                              <div>
+                              <label className="label-asistencia">Lista de Terapeuta</label>
                                         <select
                                                 className="form-select"
                                                 onChange={(e) => setTerapeuta(e.target.value)}
@@ -323,7 +321,9 @@ function ListadoAsistencia() {
                                                 </option>,
                                                 ])}
                                       </select>
-
+                              </div>
+                              <div>
+                              <label className="label-asistencia">Lista de Pacientes</label>
                                     <select value={paciente} onChange={(e) => setPaciente(e.target.value)}>
                                     {dataPaciente.map((item) => [
                                         <option key={item.idPatients} value={item.idPatients}>
@@ -331,9 +331,14 @@ function ListadoAsistencia() {
                                         </option>
                                         ])}
                                     </select>
+                              </div>
+                               
+                                      
                                 </div>
 
                                 <div className='cajas'>
+                                  <div>
+                                  <label className="label-asistencia">Lista de Terapias</label>
                                 <select
                                    
                                     onChange={(e) => setTerapia(e.target.value)}
@@ -348,18 +353,35 @@ function ListadoAsistencia() {
                                         {item.nombreTerapia.label}
                                     </option>,
                                     ])}
+                                    
                                 </select>
-                                    <input type="date" value={fechaInicio.substring(0, 10)} onChange={e => setfechaInicio(e.target.value)} />
+                                  </div>
+
+                                  <div>
+                                  <label className="label-asistencia">Fecha</label>
+
+                                  <input type="date" value={fechaInicio.substring(0, 10)} onChange={e => setfechaInicio(e.target.value)} />
+                                    
+                                    </div>     
                                 </div>
 
                                 <div className='cajas'>
-                                   <input value={remark}  onChange={e => setRemark(e.target.value)} required />
 
+<div>
+<label className="label-asistencia">Observaciones</label>
+                                   <input value={remark}  onChange={e => setRemark(e.target.value)} required />
+</div>
+                                  <div>
+                                  
+
+                                   <label className="label-asistencia">Razón Asistencia</label>
                                     <select   value={razon}  onChange={e => setRazon(e.target.value)}required >
                                         <option value="asistio">Asistencia</option>
                                         <option value="falta">Falta</option>
                                         <option value="Justificada">Justificada</option>
                                     </select>
+                                  </div>
+                            
                                 </div>
 
                                 <footer className='footer-attendance'>

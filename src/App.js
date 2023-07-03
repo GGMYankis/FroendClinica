@@ -65,8 +65,7 @@ function App() {
                setAuth(decodeToken(token))
             }).catch((error) => {
                  setAuth(null)
-                 deleteTokenC();
-                 
+                 deleteTokenC();           
              });
         }
 
@@ -74,16 +73,14 @@ function App() {
           window.location.href = `https://${window.location.host}${window.location.pathname}`;
         }
     
-   
-
   }, []);
 
   let rol = getUsuarioCompleto();
 
-
   const setUser =  (user) => {
     setAuth(user)
   }
+
   const deleteTokenC = () => {
     cookies.remove('Token');
   }

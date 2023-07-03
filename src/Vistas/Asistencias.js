@@ -59,17 +59,19 @@ function Asistencias() {
     if (rol == 2) {
       axios
         .post(
-          "https://localhost:63958/api/Clinica/GetEvaluacionByTerapeuta",
+          "https://jdeleon-001-site1.btempurl.com/api/Clinica/GetEvaluacionByTerapeuta",
           date
         )
         .then((response) => {
           setData(response.data);
+          
         });
     } else {
       axios
         .get("https://jdeleon-001-site1.btempurl.com/api/Clinica/ListaTerapia")
         .then((response) => {
           setData(response.data);
+          
         });
     }
     axios
@@ -204,19 +206,34 @@ function Asistencias() {
 
             <div className="box-asistencia">
               <label className="label-asistencia">Lista de Terapias</label>
-              <select
+              { rol == 2 ? 
+                <select
                 onChange={(e) => setTerapia(e.target.value)}
                 required
                 className="select-asistencia"
               >
                 <option value="">Seleccione una Terapia</option>
                 {data.map((item) => [
-                  //<option key={item.value} value={item.value}>{item.value}</option>
                   <option value={item.idTherapy}>
                     {item.label}
                   </option>,
                 ])}
               </select>
+              :
+              <select
+              onChange={(e) => setTerapia(e.target.value)}
+              required
+              className="select-asistencia"
+            >
+              <option value="">Seleccione una Terapia</option>
+              {data.map((item) => [
+                <option value={item.nombreTerapia.idTherapy}>
+                  {item.nombreTerapia.label}
+                </option>,
+              ])}
+            </select>
+              }
+            
             </div>
 
             {rol == 1 ? (

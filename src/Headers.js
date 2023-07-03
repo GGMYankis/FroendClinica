@@ -219,29 +219,29 @@ function Headers({ citas,reportesPagos, calendario, myElement, paciente,myElemen
 
                   <ul className="list__show">
                       <li className="list__inside">
-                          <Link class="nav__link nav__link--inside" to="/ListadodeCItas">Listado de  Citas</Link>
+                          <Link className="nav__link nav__link--inside" to="/ListadodeCItas">Listado de  Citas</Link>
                       </li>
+ 
+                       {rol == 1 ? 
+ 
+                      <span>
+                       <li className="list__inside">
+                                                <Link className="nav__link nav__link--inside" to="/Consultorios">Listado de Consultorios</Link>
+                                            </li>
+                                            <li className="list__inside">
+                                                <Link className="nav__link nav__link--inside" to="/listasPacientes">Listado de Pacientes</Link>
+                                            </li>
+                                            <li className="list__inside">
+                                                <Link className="nav__link nav__link--inside" to="/listasTerapias"> Listado de Terapias</Link>
+                                            </li>
+                                            <li className="list__inside">
+                                                <Link className="nav__link nav__link--inside" to="/listadoAsistencia"> Listado de Asistencias</Link>
+                                            </li>
+                          </span>
+                        :
+                        ""
 
-                  {rol == 1 ? 
-
-                  <span>
-                  <li className="list__inside">
-                                            <Link class="nav__link nav__link--inside" to="/Consultorios">Listado de Consultorios</Link>
-                                        </li>
-                                        <li className="list__inside">
-                                            <Link class="nav__link nav__link--inside" to="/listasPacientes">Listado de Pacientes</Link>
-                                        </li>
-                                        <li className="list__inside">
-                                            <Link class="nav__link nav__link--inside" to="/listasTerapias"> Listado de Terapias</Link>
-                                        </li>
-                                        <li className="list__inside">
-                                            <Link class="nav__link nav__link--inside" to="/listadoAsistencia"> Listado de Asistencias</Link>
-                                        </li>
-                  </span>
-                  :
-                  ""
-
-                  }
+                        }
                   
                   </ul>
 
@@ -271,11 +271,11 @@ function Headers({ citas,reportesPagos, calendario, myElement, paciente,myElemen
 
                   <ul className="list__show">
                       <li className="list__inside">
-                          <Link class="nav__link nav__link--inside"  to="/reportesPago">Reportes de Pagos</Link>
+                          <Link className="nav__link nav__link--inside"  to="/reportesPago">Reportes de Pagos</Link>
                       </li>
 
                       <li className="list__inside">
-                          <Link class="nav__link nav__link--inside"  to="/VerGanancias">Reportes</Link>
+                          <Link className="nav__link nav__link--inside"  to="/VerGanancias">Reportes</Link>
                       </li>                      
                   </ul>
 
