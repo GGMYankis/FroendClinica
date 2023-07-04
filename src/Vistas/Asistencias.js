@@ -16,7 +16,6 @@ function Asistencias() {
 
   const [paciente, setPaciente] = useState();
   const [terapia, setTerapia] = useState();
-  const [fecha, setFecha] = useState();
   const [idTerapeuta, setIdTerapeuta] = useState();
   const [observaciones, setObservaciones] = useState("");
   const [terapeuta, setTerapeuta] = useState([]);
@@ -180,9 +179,9 @@ function Asistencias() {
                   className="select-asistencia"
                 >
                   <option value="">Seleccione un Paciente</option>
-                  {dataPaciente.map((item) => [
+                  {dataPaciente.map((item,index) => [
                     //<option key={item.value} value={item.value}>{item.value}</option>
-                    <option value={item.nombrePaciente.idPatients}>
+                    <option key={index} value={item.nombrePaciente.idPatients}>
                       {item.nombrePaciente.name}
                     </option>,
                   ])}
@@ -197,8 +196,8 @@ function Asistencias() {
                   className="select-asistencia"
                 >
                   <option value="">Seleccione un Paciente</option>
-                  {dataPaciente.map((item) => [
-                    <option value={item.idPatients}>{item.name}</option>,
+                  {dataPaciente.map((item, index) => [
+                    <option  key={index}  value={item.idPatients}>{item.name}</option>,
                   ])}
                 </select>
               </div>
@@ -212,9 +211,9 @@ function Asistencias() {
                 required
                 className="select-asistencia"
               >
-                <option value="">Seleccione una Terapia</option>
-                {data.map((item) => [
-                  <option value={item.idTherapy}>
+                <option  value="">Seleccione una Terapia</option>
+                {data.map((item, index) => [
+                  <option key={index}  value={item.idTherapy}>
                     {item.label}
                   </option>,
                 ])}
@@ -226,8 +225,8 @@ function Asistencias() {
               className="select-asistencia"
             >
               <option value="">Seleccione una Terapia</option>
-              {data.map((item) => [
-                <option value={item.nombreTerapia.idTherapy}>
+              {data.map((item,index) => [
+                <option key={index}  value={item.nombreTerapia.idTherapy}>
                   {item.nombreTerapia.label}
                 </option>,
               ])}
@@ -245,9 +244,9 @@ function Asistencias() {
                   className="select-asistencia"
                 >
                   <option value="">Seleccione un Terapeuta</option>
-                  {terapeuta.map((item) => [
+                  {terapeuta.map((item, index) => [
                     //<option key={item.value} value={item.value}>{item.value}</option>
-                    <option value={item.idUser}>
+                    <option key={index}  value={item.idUser}>
                       {item.names} {item.apellido}
                     </option>,
                   ])}
@@ -297,6 +296,3 @@ function Asistencias() {
 }
 
 export default Asistencias;
-
-/* 
-{rol == 2 ? */

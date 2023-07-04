@@ -20,7 +20,7 @@ function ListadoAsistencia() {
   const [listadoTerapeuta, setListadoTerapeuta] = useState([]);
   const [listadoConsultorio, setListadoConsultorio] = useState([]);
 
-  
+  const [filteredData, setFilteredData] = useState([]);
   
   
   const [fechaFin, setFechaFin] = useState("");
@@ -157,8 +157,7 @@ function ListadoAsistencia() {
                 setfechaInicio(a.asistencias.fechaInicio)
                 setRemark(a.asistencias.remarks)
                 setRazon(a.asistencias.tipoAsistencias)
-                setAsistencia(a.asistencias.idAsistencias) 
-                
+                setAsistencia(a.asistencias.idAsistencias)               
         })
       }
 
@@ -252,6 +251,30 @@ function ListadoAsistencia() {
         })
       }
 
+
+
+      const handleFilter = (e) => {
+        const keyword = e.target.value;
+        if (keyword === "") {
+          setFilteredData(attendance);
+          return;
+
+        } else {
+            const filteredResults = attendance.filter((item) => {
+
+              const fullName = item.pacientes.name + " " + item.therapeua.names + " " + item.asistencias.tipoAsistencias
+
+              const keywordLower = keyword.toLowerCase();
+              const fullNameLower = fullName.toLowerCase();
+              
+              return fullNameLower.includes(keywordLower);
+
+          });
+        setFilteredData(filteredResults);
+        }
+      };
+
+
   return (
     <>
 
@@ -262,7 +285,17 @@ function ListadoAsistencia() {
                 <h1>Listado de Asistencias</h1>
                 </div>
 
-                <form className="cont-action" onSubmit={filtrarAsistencias}>      
+                <form className="cont-action" onSubmit={filtrarAsistencias}>  
+
+               
+
+
+                <div className="cont-crear-paciente">
+
+                    <label>Paciente</label>
+                       <input id="txtbuscar"  placeholder="Nombre"onChange={handleFilter} autoComplete="off" />        
+                    </div>
+
                         <div className="cont-crear-paciente">
                             <label>Fecha Inicio</label>
                             <input
@@ -293,7 +326,8 @@ function ListadoAsistencia() {
 
                 <DataTable
                         columns={columns}
-                            data={ attendance  }    
+                            data={ filteredData.length > 0 ? filteredData :  attendance  }    
+
                         pagination
                     />
                 </div>
@@ -360,17 +394,17 @@ function ListadoAsistencia() {
                                   <div>
                                   <label className="label-asistencia">Fecha</label>
 
-                                  <input type="date" value={fechaInicio.substring(0, 10)} onChange={e => setfechaInicio(e.target.value)} />
-                                    
+                                  <input type="datetime-local" value={fechaInicio} onChange={e => setfechaInicio(e.target.value)} />
+                                  
                                     </div>     
                                 </div>
 
                                 <div className='cajas'>
 
-<div>
-<label className="label-asistencia">Observaciones</label>
-                                   <input value={remark}  onChange={e => setRemark(e.target.value)} required />
-</div>
+                                      <div>
+                                      <label className="label-asistencia">Observaciones</label>
+                                                                        <input value={remark}  onChange={e => setRemark(e.target.value)} required />
+                                      </div>
                                   <div>
                                   
 

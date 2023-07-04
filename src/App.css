@@ -465,6 +465,21 @@
   margin: 20px;
 }
 
+.cont-recurrence--inside-visitas {
+  margin-bottom: 10px;
+}
+
+.cont-recurrence--inside-visitas label {
+  padding-left: 10px;
+}
+
+.cont-recurrence--inside input {
+  width: 100%;
+}
+
+.cont-recurrence--inside label {
+  color: #0b2f57;
+}
 
 @media(max-width:450px) {
   #recu-fecha {
@@ -514,7 +529,6 @@
 .text-recu {
   margin-top: 11px;
   margin-right: 10px;
-  font-weight: bold;
   color: #0b2f57;
 }
 
@@ -649,7 +663,7 @@
 
 .cont-select-evaluacion1 {
   width: 100%;
-  padding: 10px;
+  padding: 10px 0px;
   display: flex;
   flex-direction: column;
   justify-content: left;
@@ -2056,11 +2070,22 @@
   border: 1px solid #ced4da;
   border-radius: 0.375rem;
   margin-left: 10px;
+
 }
+
+
 
 #ulticita {
   margin-top: 10px;
   margin-bottom: 65px;
+  display: flex;
+  justify-content: space-between;
+}
+
+#ulticita div {
+  width: 50%;
+  display: flex;
+  align-items: center;
 }
 
 #ultidias {

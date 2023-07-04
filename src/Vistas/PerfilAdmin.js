@@ -1,16 +1,9 @@
 
-import Cookies from 'universal-cookie';
 import { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
-import { FaBars } from 'react-icons/fa'
-import { FaUser } from 'react-icons/fa'
 import React from 'react'
-import { BrowserRouter, Routes, Route, Link, Redirect } from 'react-router-dom'
-import logo from "../imagenes/IMG-20230221-WA0009.png"
 import { useNavigate } from 'react-router-dom';
-import { setUsuarioM, obtenerUser, getDatosUsuario, setUsuario, DeleteToken } from '../auth-helpers'
-import $ from 'jquery';
-import { findDOMNode } from 'react-dom'
+import { getDatosUsuario, DeleteToken } from '../auth-helpers'
 import Headers from '../Headers'
 
 
@@ -111,10 +104,8 @@ function PerfilAdmin() {
 
         const url = 'https://jdeleon-001-site1.btempurl.com/api/Clinica/EditarAdmin';
         axios.put(url, editarInfoUser).then((result) => {
-
             resetForm()
             setMensaje(true)
-
         });
     }
 
@@ -125,7 +116,6 @@ function PerfilAdmin() {
     const user = {
         IdUser: id
     }
-
 
     function eliminarCuenta(e) {
         e.preventDefault()
@@ -148,16 +138,13 @@ function PerfilAdmin() {
 
             <div className='contenedorPadre'>
 
-                {mensaje ? <div class="alertPerfilActualiazado" id='mensaje' role="alert">
+                {mensaje ? <div className="alertPerfilActualiazado" id='mensaje' role="alert">
                     Perfil actualizado.
 
                     <button className='close' onClick={quitar} >x</button>
                 </div>
                     : ""
                 }
-
-
-
 
                 {/*Primer CONTENEDOR */}
 
@@ -172,11 +159,6 @@ function PerfilAdmin() {
                                 <label>Email</label><br></br>
                                 <input className='barra-perfil' type='text' value={correoPerfil} onChange={e => setcorreoPerfil(e.target.value)} />
                             </div>
-
-
-
-
-
 
                             <div className='con-barra'>
                                 <label>Nombre</label><br></br>

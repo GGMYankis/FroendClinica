@@ -13,41 +13,24 @@ import "../responsive.css";
 
 const Admin = () => {
   const [name, setName] = useState("");
-  const [sex, setSex] = useState("");
-  const [parents_name, setParents_Name] = useState("");
-  const [parent_or_guardian_phone_number, setParent_or_guardian_phone_number] =
-    useState("");
+  const [sex, setSexo] = useState("");
+  const [parents_name, setPadreMadreNombre] = useState("");
+  const [parent_or_guardian_phone_number, setParent_or_guardian_phone_number] = useState("");
   const [date_of_birth, setDate_of_birth] = useState("");
-  const [educational_institution, setEducational_institution] = useState("");
-  const [course, setCourse] = useState("");
-  const [who_refers, setWho_refers] = useState("");
-  const [family_settings, setFamily_settings] = useState("");
-  const [
-    therapies_or_service_you_will_receive_at_the_center,
-    setTherapies_or_service_you_will_receive_at_the_center,
-  ] = useState("");
-  const [diagnosis, setDiagnosis] = useState("");
-  const [recommendations, setRecommendations] = useState("");
-  const [family_members_concerns, setFamily_members_concerns] = useState("");
-  const [specific_medical_condition, setSpecific_medical_condition] =
-    useState("");
-  const [other, setOther] = useState("");
+  const [educational_institution, setCentroEstudio] = useState("");
+  const [course, setCurso] = useState("");
+  const [who_refers, setQuienRefiere] = useState("");
+  const [family_settings, setCongiracionFamilia] = useState("");
+  const [therapies_or_service_you_will_receive_at_the_center,setTerapiaServicio,] = useState("");
+  const [diagnosis, setDiagnóstico] = useState("");
+  const [recommendations, setRecomendaciones] = useState("");
+  const [family_members_concerns, setPreocupacionFamiliar] = useState("");
+  const [specific_medical_condition, setCondicionMedica] =useState("");
+  const [other, setOtro] = useState("");
   const [numberMothers, setNumberMothers] = useState("");
   const [inputValue, setInputValue] = useState("");
   const [NumPadre, setNumPadre] = useState("");
   const [NumMadre, setNumMadre] = useState("");
-
-  const handleNameChange = (value) => {
-    setName(value);
-  };
-
-  const handleSexChange = (value) => {
-    setSex(value);
-  };
-
-  const handleParents_NameChange = (value) => {
-    setParents_Name(value);
-  };
 
   const handlemothers_number = (value) => {
     const regex = /^[0-9\b]+$/;
@@ -57,6 +40,9 @@ const Admin = () => {
 
     setNumberMothers(value.target.value);
   };
+
+
+  
 
   const handleparent_or_guardian_phone_numberChange = (value) => {
     const regex = /^[0-9\b]+$/;
@@ -89,43 +75,7 @@ const Admin = () => {
     return differenceYears.toString();
   }
 
-  const handleducational_institutionChange = (value) => {
-    setEducational_institution(value);
-  };
-  const handleCurso = (value) => {
-    setCourse(value);
-  };
-
-  //
-  const handlewho_refersChange = (value) => {
-    setWho_refers(value);
-  };
-  //
-  const handlefamily_settingsChange = (value) => {
-    setFamily_settings(value);
-  };
-  ///
-  const handletherapies_or_service_you_will_receive_at_the_centerChange = (
-    value
-  ) => {
-    setTherapies_or_service_you_will_receive_at_the_center(value);
-  };
-  const handlediagnosisChange = (value) => {
-    setDiagnosis(value);
-  };
-  const handlerecommendationsChange = (value) => {
-    setRecommendations(value);
-  };
-  const handlefamily_members_concernsChange = (value) => {
-    setFamily_members_concerns(value);
-  };
-  const handlespecific_medical_conditionChange = (value) => {
-    setSpecific_medical_condition(value);
-  };
-  const handleotherChange = (value) => {
-    setOther(value);
-  };
-
+ 
   const data = {
     Name: name,
     Sex: sex,
@@ -194,7 +144,7 @@ const Admin = () => {
                   type="text"
                   className="form-control "
                   id="validationServer01"
-                  onChange={(e) => handleNameChange(e.target.value)}
+                  onChange={(e) => setName(e.target.value)}
                   required
                 />
               </div>
@@ -206,7 +156,7 @@ const Admin = () => {
                 <select
                   className="form-control"
                   required
-                  onChange={(e) => handleSexChange(e.target.value)}
+                  onChange={(e) => setSexo(e.target.value)}
                 >
                   <option>seleccione una opción</option>
                   <option value="Masculino">Masculino</option>
@@ -222,7 +172,7 @@ const Admin = () => {
                   type="text"
                   className="form-control "
                   id="validationServer02"
-                  onChange={(e) => handleParents_NameChange(e.target.value)}
+                  onChange={(e) => setPadreMadreNombre(e.target.value)}
                   required
                 />
               </div>
@@ -292,7 +242,7 @@ const Admin = () => {
                   id="validationServer02"
                   required
                   onChange={(e) =>
-                    handleducational_institutionChange(e.target.value)
+                    setCentroEstudio(e.target.value)
                   }
                 />
               </div>
@@ -306,7 +256,7 @@ const Admin = () => {
                   className="form-control "
                   id="validationServer02"
                   required
-                  onChange={(e) => handleCurso(e.target.value)}
+                  onChange={(e) => setCurso(e.target.value)}
                 />
               </div>
               <div className="col">
@@ -318,7 +268,7 @@ const Admin = () => {
                   className="form-control "
                   id="validationServer02"
                   required
-                  onChange={(e) => handlerecommendationsChange(e.target.value)}
+                  onChange={(e) => setRecomendaciones(e.target.value)}
                 />
               </div>
             </div>
@@ -332,7 +282,7 @@ const Admin = () => {
                   className="form-control "
                   id="validationServer02"
                   required
-                  onChange={(e) => handlewho_refersChange(e.target.value)}
+                  onChange={(e) => setQuienRefiere(e.target.value)}
                 />
               </div>
               <div className="col">
@@ -344,7 +294,7 @@ const Admin = () => {
                   className="form-control "
                   id="validationServer02"
                   required
-                  onChange={(e) => handlefamily_settingsChange(e.target.value)}
+                  onChange={(e) => setCongiracionFamilia(e.target.value)}
                 />
               </div>
               <div className="col">
@@ -357,7 +307,7 @@ const Admin = () => {
                   id="validationServer02"
                   required
                   onChange={(e) =>
-                    handletherapies_or_service_you_will_receive_at_the_centerChange(
+                    setTerapiaServicio(
                       e.target.value
                     )
                   }
@@ -372,7 +322,7 @@ const Admin = () => {
                   className="form-control"
                   id="validationServer02"
                   required
-                  onChange={(e) => handlediagnosisChange(e.target.value)}
+                  onChange={(e) => setDiagnóstico(e.target.value)}
                 />
               </div>
               <div className="col">
@@ -385,7 +335,7 @@ const Admin = () => {
                   id="validationServer02"
                   required
                   onChange={(e) =>
-                    handlespecific_medical_conditionChange(e.target.value)
+                    setCondicionMedica(e.target.value)
                   }
                 />
               </div>
@@ -401,7 +351,7 @@ const Admin = () => {
                   id="validationServer02"
                   required
                   onChange={(e) =>
-                    handlefamily_members_concernsChange(e.target.value)
+                    setPreocupacionFamiliar(e.target.value)
                   }
                 />
               </div>
@@ -411,11 +361,10 @@ const Admin = () => {
                 <label htmlFor="validationServer02">Otro </label>
                 <textarea
                   id="txtArea"
-                  onChange={(e) => handleotherChange(e.target.value)}
+                  onChange={(e) => setOtro(e.target.value)}
                   rows="10"
                   cols="70"
                 ></textarea>
-                {/*}  <input type="text" className="form-control " id="validationServer02" required onChange={e => handleotherChange(e.target.value)} /> */}
               </div>
             </div>
             <div className="col" id="cont-btn-admin">

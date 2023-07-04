@@ -292,7 +292,7 @@ function ListasTerapias({ usuarioLogin }) {
                     <td data-label="Price">{item.nombreTerapia.porcentaje}%</td>
                     <td data-label="Price">{item.nombreTerapia.porcentajeCentro}%</td>
                     
-                    <div className="tr-btn">
+                    <td className="tr-btn">
                       <button
                         className="btn-tabla-usuario "
                         type="button"
@@ -309,7 +309,7 @@ function ListasTerapias({ usuarioLogin }) {
                       >
                         Eliminar
                       </button>
-                    </div>
+                    </td>
                   </tr>,
                 ])}
               </tbody>

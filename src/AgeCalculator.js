@@ -21,7 +21,6 @@ function AgeCalculator() {
       const url =   "https://localhost:63958/api/traerpaciente/buscarPrimerLunes";
       axios .post(url, data)
       .then((result) => {
-          console.log(result.data)
       })
     }
 

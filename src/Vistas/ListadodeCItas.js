@@ -67,6 +67,8 @@ function ListadodeCItas({ usuarioLogin }) {
   const [visitas, setVisitas] = useState(false);
   const [fechaInicioF, setFechaInicioF] = useState('');
   const [fechaFinF, setFechaFinF] = useState('');
+  const [pricePrimeraEvaluacion, setPricePrimeraEvaluacion] = useState(0);
+
 
   const [dataCrear, setDataCrear] = useState({
     idPatients:"",
@@ -74,6 +76,7 @@ function ListadodeCItas({ usuarioLogin }) {
     fechaInicio:"",
     idTerapeuta:"",
     price:"",
+    firstPrice:"",
     idConsultorio:"",
     dias:[],
     repetir:"",
@@ -114,6 +117,7 @@ function ListadodeCItas({ usuarioLogin }) {
     try {
       const res = await axios.get("https://jdeleon-001-site1.btempurl.com/api/Citas/Citas");
       setCitas(res.data);
+     
     } catch (error) {
       console.error("el error es : " + error);
     }
@@ -191,6 +195,7 @@ function ListadodeCItas({ usuarioLogin }) {
     IdPatients: parseInt(idPatients),
     IdTherapy: parseInt(terapia),
     Price: parseInt(priceEvaluacion),
+    FirstPrice: parseInt(pricePrimeraEvaluacion),
     IdTerapeuta: parseInt(idterapeuta),
     visitas: visitas,
     IdConsultorio: consul,
@@ -296,6 +301,7 @@ function ListadodeCItas({ usuarioLogin }) {
       setRepetir(item.repetir),
       setFrecuencia(item.frecuencia),
       setRecurrencia(item.recurrencia.idRecurrencia),   
+    setPricePrimeraEvaluacion(item.firstPrice),   
     ]);
   };
 
@@ -640,6 +646,7 @@ function ListadodeCItas({ usuarioLogin }) {
             </div>
 
             <div className="row">
+
               <div className="col">
                 <div className="rowCitas">
                   <label htmlFor="validationServer02" className="labelPaciente">
@@ -654,6 +661,7 @@ function ListadodeCItas({ usuarioLogin }) {
                   />
                 </div>
               </div>
+
               <div className="col">
                 <div className="rowCitas">
                   <label htmlFor="validationServer02" className="labelPaciente">
@@ -731,6 +739,23 @@ function ListadodeCItas({ usuarioLogin }) {
                                     />
          
             </div>
+
+              <div className="row">
+                       <div className="rowCitas">
+                            <label htmlFor="validationServer02" className="labelPaciente">
+                            Precio de la primera Evaluación{" "}
+                            </label>
+                            <input
+                           onChange={(e) => setPricePrimeraEvaluacion(e.target.value)}
+                              required
+                              type="text"
+                              value={pricePrimeraEvaluacion}
+                              className="form-control "
+                            />
+                          </div>
+                 </div>
+
+
             <div className="row" id="ulticita">
               <div className="col">
                 {" "}
@@ -917,7 +942,19 @@ function ListadodeCItas({ usuarioLogin }) {
                   name="price"
                 />
               </div>
-
+              <div className="rowCitas">
+                <label htmlFor="validationServer02" className="labelPaciente">
+                Precio de la primera Evaluación{" "}
+                </label>
+                <input
+                 onChange={handleChange} 
+                  required
+                  type="text"
+                  className="barraInput"
+                  name="firstPrice"
+                />
+              </div>
+              
             <div className="rowCitas">
               <label htmlFor="validationServer02" className="labelPaciente">
                 Consultorio{" "}
@@ -953,8 +990,7 @@ function ListadodeCItas({ usuarioLogin }) {
             
             </div>
 
-            <div className="row" id="ulticita">
-              <div className="col">
+            <div id="ulticita">
                 <div className="rowCitas">
                   <label htmlFor="validationServer02" className="labelPaciente">
                     Repetir{" "}
@@ -968,8 +1004,6 @@ function ListadodeCItas({ usuarioLogin }) {
                     name="repetir"
                   />
                 </div>
-              </div>
-              <div className="col">
                 {" "}
                 <div className="rowCitas">
                   <label htmlFor="validationServer02" className="labelPaciente">
@@ -985,7 +1019,7 @@ function ListadodeCItas({ usuarioLogin }) {
                     <option>Semanal</option>
                     <option>Mensual</option>
                   </select>
-                </div>
+
               </div>
             </div>
 

@@ -26,12 +26,14 @@ import { set } from "date-fns";
 import { Label } from "reactstrap";
 import { format } from "date-fns";
 
-function ListasPacientes({ usuarioLogin }) {
-  const [ac, setAc] = useState([]);
+function ListasPacientes() {
+  const [ac, setAc] = useState('');
 
   const modalCrear = useRef();
   const modalEditar = useRef();
   const alertEliminar = useRef();
+
+  
   const [idPaciente, setIdPaciente] = useState();
   const [idPacienteEliminar, setIdPacienteEliminar] = useState();
   const navigation = useNavigate();
@@ -57,7 +59,6 @@ function ListasPacientes({ usuarioLogin }) {
   const [specific_medical_condition, setSpecific_medical_condition] =
     useState("");
   const [other, setOther] = useState("");
-  const [idEditar, setIdEditar] = useState([]);
   const [activos, setActivo] = useState(false);
   const [inputValue, setInputValue] = useState("");
   const [value, setValue] = useState("");
@@ -65,9 +66,7 @@ function ListasPacientes({ usuarioLogin }) {
   const [NumPadre, setNumPadre] = useState("");
   const [NumMadre, setNumMadre] = useState("");
   const FormularioTherapy = document.getElementById("txtCrearPaciente");
-  const [filtroNombre, setFiltroNombre] = useState("");
-  const [bsActivo, setBsActivo] = useState(null);
-  const [active, setActive] = useState(null);
+
   const [contadorPacientes, setContadorPacientes] = useState(0);
   const [filteredData, setFilteredData] = useState([]);
   const [verificarActivo, setVerificarActivo] = useState(false);
@@ -76,8 +75,7 @@ function ListasPacientes({ usuarioLogin }) {
   let rol = getUsuarioCompleto();
   const paciente = useRef(null);
 
-  const currentDate = new Date(); // Obtener la fecha actual
-  const formattedDate = format(currentDate, "yyyy/MM/dd");
+
 
   useEffect(() => {
     cargar();
@@ -87,9 +85,8 @@ function ListasPacientes({ usuarioLogin }) {
     axios
       .get("https://jdeleon-001-site1.btempurl.com/api/Clinica/ListaTodos")
       .then((res) => {
-        const numeroPacientes = res.data.length;
-        setContadorPacientes(numeroPacientes);
 
+    
         res.data.map((item) => {
           if (item.activo == true) {
             setlistaPaciente((item.activo = "si"));
@@ -223,16 +220,15 @@ function ListasPacientes({ usuarioLogin }) {
     Course: course,
     WhoRefers: who_refers,
     FamilySettings: family_settings,
-    TherapiesOrServiceYouWillReceiveAtTheCenter:
-      therapies_or_service_you_will_receive_at_the_center,
+    TherapiesOrServiceYouWillReceiveAtTheCenter:therapies_or_service_you_will_receive_at_the_center,
     Diagnosis: diagnosis,
     Recommendations: recommendations,
     FamilyMembersConcerns: family_members_concerns,
     SpecificMedicalCondition: specific_medical_condition,
     Other: other,
     Activo: true,
-    FechaIngreso: formattedDate,
   };
+ 
 
   const handleGuardar = (e) => {
     e.preventDefault();
@@ -255,7 +251,6 @@ function ListasPacientes({ usuarioLogin }) {
         if (result) {
           probar();
         }
-        FormularioTherapy.reset();
       })
       .catch((error) => {
         console.log(error);
@@ -279,8 +274,7 @@ function ListasPacientes({ usuarioLogin }) {
     Course: course,
     WhoRefers: who_refers,
     FamilySettings: family_settings,
-    TherapiesOrServiceYouWillReceiveAtTheCenter:
-      therapies_or_service_you_will_receive_at_the_center,
+    TherapiesOrServiceYouWillReceiveAtTheCenter: therapies_or_service_you_will_receive_at_the_center, 
     Diagnosis: diagnosis,
     Recommendations: recommendations,
     FamilyMembersConcerns: family_members_concerns,
@@ -288,7 +282,7 @@ function ListasPacientes({ usuarioLogin }) {
     Other: other,
     Activo: activos,
   };
-  const FormularioEditar = document.getElementById("FormularioEditar");
+
 
   const handleEditar = async (e) => {
     e.preventDefault();
@@ -314,18 +308,17 @@ function ListasPacientes({ usuarioLogin }) {
           probar();
         }
 
-        FormularioEditar.reset();
       })
       .catch((error) => {
         console.log(error);
       });
   };
 
+
   const handleEliminar = () => {
     const idPa = { IdPatients: idPacienteEliminar };
 
-    const url =
-      "https://jdeleon-001-site1.btempurl.com/api/Clinica/EliminarPaciente";
+    const url ="https://jdeleon-001-site1.btempurl.com/api/Clinica/EliminarPaciente";
     axios
       .post(url, idPa)
       .then((result) => {
@@ -368,17 +361,13 @@ function ListasPacientes({ usuarioLogin }) {
 
   const CancelarPaciente = () => {
     modalCrear.current.classList.remove("active");
-    FormularioTherapy.reset();
   };
 
   const CancelarPacienteEditar = () => {
     modalEditar.current.classList.remove("active");
   };
 
-  const logout = () => {
-    DeleteToken();
-    navigation("/login");
-  };
+ 
 
   // codigo de filtrado
   const handleEdit = (e) => {
@@ -454,12 +443,18 @@ function ListasPacientes({ usuarioLogin }) {
       selector: (row) => row.age,
       sortable: true,
     },
-    {
-      name: "Fecha de Ingreso",
-      selector: "fechaIngreso",
-      selector: (row) => row.fechaIngreso,
-      sortable: true,
-    },
+   {
+  name: "Fecha de Ingreso",
+  selector: (row) => {
+    if (row.fechaIngreso) {
+      return new Date(row.fechaIngreso).toLocaleDateString();
+    } else {
+      return "";
+    }
+  },
+  sortable: true,
+}
+,
     {
       name: "Activo",
       selector: "activo",
@@ -508,10 +503,20 @@ function ListasPacientes({ usuarioLogin }) {
         return item.name.toLowerCase().includes(keyword.toLowerCase());
       });
       setFilteredData(filteredResults);
+
     } else {
+
+  
       const filteredResults = listaPaciente.filter((item) => {
-        return item.name.toLowerCase().includes(keyword.toLowerCase());
+
+        const fullName = item.name + " " + item.numberMothers + " " +  item.parentOrGuardianPhoneNumber;
+
+        const keywordLower = keyword.toLowerCase();
+        const fullNameLower = fullName.toLowerCase();
+
+        return fullNameLower.includes(keywordLower);
       });
+
       setFilteredData(filteredResults);
     }
   };
@@ -588,8 +593,7 @@ function ListasPacientes({ usuarioLogin }) {
           <DataTable
             columns={columns}
             data={ 
-              verificarActivo || filteredData.length > 0 ? filteredData  : listaPaciente
-                   
+                verificarActivo || filteredData.length > 0 ? filteredData  : listaPaciente             
             }
             pagination
           />

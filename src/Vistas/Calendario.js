@@ -297,8 +297,8 @@ function Calendario() {
                 >
                   <option value="">Seleccione un Consultorio</option>
                   <option value="0">Todos los Consultorio</option>
-                  {consultorios.map((item) => [
-                    <option value={item.idConsultorio}>{item.nombre} </option>,
+                  {consultorios.map((item,index) => [
+                    <option key={index} value={item.idConsultorio}>{item.nombre} </option>,
                   ])}
                 </select>
              

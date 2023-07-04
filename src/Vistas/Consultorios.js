@@ -3,23 +3,11 @@ import React, { useEffect, useState, useRef } from "react";
 import axios from "axios";
 import Headers from "../Headers";
 import swal from "sweetalert";
-import { FaUser, FaUsers, FaTrash, FaEdit } from "react-icons/fa";
-import { FaBars } from "react-icons/fa";
-import { BrowserRouter, Routes, Route, Link, Redirect } from "react-router-dom";
-import {
-  DeleteToken,
-  getToken,
-  initAxiosInterceptors,
-  setUsuarioM,
-  obtenerUser,
-  getNombreUsuario,
-  getUsuarioCompleto,
-} from "../auth-helpers";
+import {DeleteToken,getUsuarioCompleto} from "../auth-helpers";
 import { useNavigate } from "react-router-dom";
-import logo from "../imagenes/IMG-20230221-WA0009.png";
 
 function Consultorios() {
-  let rol = getUsuarioCompleto();
+
   useEffect(() => {
     cargar();
   }, []);
@@ -28,7 +16,6 @@ function Consultorios() {
   const [idUser, setIdUser] = useState(0);
   const [nombre, setNombre] = useState("");
   const [descripcion, setDescripcion] = useState("");
-  const [idRol, setIdRol] = useState(0);
   const FormularioTherapy = document.getElementById("txtCrearUusario");
   const navigation = useNavigate();
 
@@ -159,16 +146,9 @@ function Consultorios() {
     });
   }
 
-  const logout = () => {
-    DeleteToken();
-    navigation("/login");
-  };
-
+  
   const consultorio = useRef(null);
 
-  const handleClickOtro = () => {
-    consultorio.current.classList.toggle("mi-clase-css");
-  };
 
   return (
     
@@ -205,29 +185,29 @@ function Consultorios() {
                 </thead>
 
                 <tbody>
-                  {consultorios.map((item) => [
-                    <tr>
+                  {consultorios.map((item, index) => [
+                    <tr key={index}>
                       <td data-label="Nombre">{item.nombre}</td>
                       <td data-label="apellido">{item.descripcion}</td>
 
-                      <div className="tr-btn">
-                        <button
+                      <td className="tr-btn">
+                        <a
                           className="btn-tabla-usuario"
                           type="button"
                           value={item.idConsultorio}
                           onClick={(e) => EditarUsuario(e.target.value)}
                         >
                           Editar
-                        </button>
-                        <button
+                        </a>
+                        <a
                           className="btn-tabla-usuario-eliminar "
                           type="button"
                           value={item.idConsultorio}
                           onClick={(e) => EliminarUsuario(e.target.value)}
                         >
                           Eliminar
-                        </button>
-                      </div>
+                        </a>
+                      </td>
                     </tr>,
                   ])}
                 </tbody>

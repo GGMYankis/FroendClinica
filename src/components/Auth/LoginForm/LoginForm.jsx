@@ -13,10 +13,11 @@ import jwt_decode from "jwt-decode";
 import { set } from 'date-fns';
 import useAuth from './hook/useAuth';
 import { decodeToken } from './Utils/token';
+
+
 function LoginForm() {
 
   const [error, setError] = useState("")
-
   const  {setUser} = useAuth()
   
   const formik = useFormik({
@@ -69,9 +70,8 @@ function LoginForm() {
               onChange={formik.handleChange}
               error={formik.errors.password }
               />
-              <Button type='submit' className='btn'>Iniciar Sesion</Button>
+              <button className='btn'>Iniciar Sesion</button>
               {error && <p className='submit-error'>{error}</p>}
-
         </Form>
           </div>
     </div>

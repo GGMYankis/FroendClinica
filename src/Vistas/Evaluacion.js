@@ -1,45 +1,25 @@
 import React, { useEffect, useState, useRef } from "react";
-import { BrowserRouter, Routes, Route, Link, Redirect } from "react-router-dom";
-import logo from "../imagenes/IMG-20230221-WA0009.png";
-import doctor from "../imagenes/undraw_medicine_b1ol.png";
-import { FaBars } from "react-icons/fa";
 import axios from "axios";
-import Select from "react-select";
 import swal from "sweetalert";
 import Headers from "../Headers";
-import Cookies from "universal-cookie";
-import { useNavigate } from "react-router-dom";
-import $ from "jquery";
-import { findDOMNode } from "react-dom";
-import { FaUser } from "react-icons/fa";
-import {
-  deleteToken,
-  getToken,
-  initAxiosInterceptors,
-  setUsuarioM,
-  setUsuario,
-  getDatosUsuario,
-  getUsuarioCompleto,
-} from "../auth-helpers";
-import { Loading, LoaLogin } from "../components/Loading";
+import {getDatosUsuario , getUsuarioCompleto} from "../auth-helpers";
+import { Loading } from "../components/Loading";
 
 function Evaluacion() {
+
   const [data, setData] = useState([]);
   const [dataPaciente, setDataPaciente] = useState([]);
-  const [listapacientes, setListaPasientes] = useState([]);
-  const [listaTerapia, setListaTerapia] = useState([]);
-  const cookies = new Cookies();
-  const navigation = useNavigate();
   const [day, setDay] = useState("");
+  const [visitas, setVisitas] = useState(false);
   const [frecuencia, setFrecuencia] = useState("");
   const [repetir, setRepetir] = useState(null);
   const [fechaInicio, setFechaInicio] = useState(null);
-  const [nom, setNom] = useState("");
   const [terapeuta, setTerapeuta] = useState([]);
   const [consultorios, setconsultorios] = useState([]);
   const [idPatients, setIdPatients] = useState(0);
   const [idTherapy, setIdTherapy] = useState(0);
   const [priceEvaluacion, setPriceEvaluacion] = useState(0);
+  const [pricePrimeraEvaluacion, setPricePrimeraEvaluacion] = useState(0);
   const [idterapeuta, setIdterapeuta] = useState(0);
   const [consul, setConsul] = useState(0);
   const [loading, setLoading] = useState(false);
@@ -101,31 +81,15 @@ function Evaluacion() {
       });
   }, []);
 
-  const pasientes = (e) => {
-    setIdPatients(e);
-  };
-
-  const Fterapeuta = (e) => {
-    setIdterapeuta(e);
-  };
-
-  const terapias = (e) => {
-    if (e != null) {
-      $("#FormModal").show();
-      setIdTherapy(e);
-    }
-  };
-
-  const precioModal = (e) => {
-    setPriceEvaluacion(e);
-  };
+ 
 
   const dataEvaluacion = {
     IdPatients: parseInt(idPatients),
     IdTherapy: parseInt(idTherapy),
     Price: parseInt(priceEvaluacion),
+    FirstPrice: parseInt(pricePrimeraEvaluacion),
     IdTerapeuta: parseInt(idterapeuta),
-    visitas: true,
+    visitas: visitas,
     IdConsultorio: consul,
     FechaInicio: fechaInicio,
     Repetir: repetir,
@@ -137,9 +101,7 @@ function Evaluacion() {
   
 
   function handle(selectedItems) {
-
     const diasEnviar = [];
-  
     diasEnviar.push(selectedItems.target.value);
     setDayEnviar(diasEnviar);
     
@@ -151,7 +113,6 @@ function Evaluacion() {
 const CrearCitas = async (e) => {
   e.preventDefault();
   try{
-     //resportes.current.classList.add("contenedors");
      const res = await axios.post("https://jdeleon-001-site1.btempurl.com/api/traerpaciente/CrearEvaluacion",dataEvaluacion);
      if(res.status == 200){
          const ale = await swal({
@@ -164,86 +125,10 @@ const CrearCitas = async (e) => {
     swal(error.response.data, "Intentelo mas tarde", "error");
   }
  
-};
-
-  function cancelarModal() {
-    $("#FormModal").hide();
-  }
-
-  function modal() {
-    $("#FormModal").hide();
-  }
-
-  function dia(e) {
-    setDay(e);
-  }
-
-  function Ffrecuencia(e) {
-    setFrecuencia(e);
-  }
-
-  function FRepetir(e) {
-    setRepetir(e);
-  }
-  function FFechaInicio(e) {
-    setFechaInicio(e);
-  }
-
-  function Fviistas(e) {
-    setNom(e);
-  }
+};  
   return (
     <div>
-      <div
-        id="FormModal"
-        className="modal"
-        data-bs-backdrop="static"
-        data-bs-keyboard="false"
-        tabIndex="-1"
-        aria-labelledby="staticBackdropLabel"
-      >
-        <div className="modal-dialog">
-          <div className="modal-content">
-            <div className="modal-header bg-dark text-white">
-              <h1 className="modal-title fs-5" id="staticBackdropLabel">
-                Terapia
-              </h1>
-            </div>
-
-            <div className="modal-body ">
-              <div className="row  g-2">
-                <div className="">
-                  <input
-                    type="checkbox"
-                    value="visitas"
-                    onChange={(e) => Fviistas(e.target.value)}
-                  />
-                  Visitas<br></br>
-                  <label htmlFor="txtnombres" className="form-label">
-                    Precio de la Terapia
-                  </label>
-                  <input
-                    type="text"
-                    className="form-control"
-                    id="txtnombres"
-                    onChange={(e) => precioModal(e.target.value)}
-                    autoComplete="off"
-                  />
-                </div>
-              </div>
-
-              <div className="cont-btn-evaluacion">
-                <button className="btn-Guardar" onClick={modal}>
-                  Guardar
-                </button>
-                <button className="btn-Cancelar" onClick={cancelarModal}>
-                  Cancelar
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+     
 
       <Headers />
 
@@ -266,7 +151,7 @@ const CrearCitas = async (e) => {
                 <select
                   className="form-select"
                   required
-                  onChange={(e) => pasientes(e.target.value)}
+                  onChange={(e) => setIdPatients(e.target.value)}
                 >
                   <option value="">Seleccione una paciente</option>
                   {dataPaciente.map((item) => [
@@ -285,7 +170,7 @@ const CrearCitas = async (e) => {
                 <select
                   className="form-select"
                   required
-                  onChange={(e) => pasientes(e.target.value)}
+                  onChange={(e) => setIdPatients(e.target.value)}
                 >
                   <option value="">Seleccione una paciente</option>
                   {dataPaciente.map((item) => [
@@ -302,7 +187,7 @@ const CrearCitas = async (e) => {
 
               <select
                 className="form-select"
-                onChange={(e) => terapias(e.target.value)}
+                onChange={(e) => setIdTherapy(e.target.value)}
                 required
               >
                 <option value="">Seleccione una terapia</option>
@@ -321,7 +206,7 @@ const CrearCitas = async (e) => {
               <p className="titu-barra"> Terapeuta </p>
               <select
                 className="form-select"
-                onChange={(e) => Fterapeuta(e.target.value)}
+                onChange={(e) => setIdterapeuta(e.target.value)}
                 required
               >
                 <option value="">Seleccione un Terapeuta</option>
@@ -350,18 +235,58 @@ const CrearCitas = async (e) => {
               </select>
             </div>
 
-            <hr></hr>
             <div>
+
+        
+              
+       
+                           
+              <div className="cont-recurrence--inside-visitas">
+
+              <input type="checkbox"value="true" onChange={() => setVisitas(true)}/>
+             <label htmlFor="txtnombres" className="form-label">Visitas</label>
+            </div>
+
+            <div className="cont-recurrence--inside">
+                        <label htmlFor="txtnombres" className="form-label">
+                                Precio de la Terapia
+                              </label>
+                              <input
+                                type="text"
+                                className="form-control"
+                                id="txtnombres"
+                                onChange={(e) => setPriceEvaluacion(e.target.value)}
+                                autoComplete="off"
+                              />
+                        </div>
+                        <div className="cont-recurrence--inside">
+                        <label htmlFor="txtnombres" className="form-label">
+                        Precio de la primera Evaluación
+                              </label>
+                              <input
+                                type="text"
+                                className="form-control"
+                                id="txtnombres"
+                                onChange={(e) => setPricePrimeraEvaluacion(e.target.value)}
+                                autoComplete="off"
+                              />
+                        </div>
+
+            <hr></hr>
+
+
+                
               <div className="cont-recurrence">
-                <p className="tite-recu">Recurrencia</p>
+                   <p className="tite-recu">Recurrencia</p>
               </div>
+
               <div className="cont-recurrence" id="recu-fecha">
                 <p className="text-recu">Fecha de Inicio</p>
                 <input
                   type="datetime-local"
                   className="recu-fecha-inicio"
                   min="2023-03-24"
-                  onChange={(e) => FFechaInicio(e.target.value)}
+                  onChange={(e) => setFechaInicio(e.target.value)}
                   required
                 />
               </div>
@@ -371,13 +296,13 @@ const CrearCitas = async (e) => {
                 <input
                   type="number"
                   className="recu-repe"
-                  onChange={(e) => FRepetir(e.target.value)}
+                  onChange={(e) => setRepetir(e.target.value)}
                   required
                   min="1"
                 />
                 <select
                   className="recu-select"
-                  onChange={(e) => Ffrecuencia(e.target.value)}
+                  onChange={(e) => setFrecuencia(e.target.value)}
                   required
                 >
                   <option value="">Frecuencia</option>
