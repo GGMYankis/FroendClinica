@@ -1,35 +1,15 @@
-import Cookies from "universal-cookie";
 import React, { useEffect, useState, useRef } from "react";
 import axios from "axios";
-import logo from "../imagenes/IMG-20230221-WA0009.png";
-import { FaBars } from "react-icons/fa";
-import { FaUser, FaUsers, FaTrash, FaEdit } from "react-icons/fa";
-import { FaCaretDown } from "react-icons/fa";
-import { useNavigate } from "react-router-dom";
-import { BrowserRouter, Routes, Route, Link, Redirect } from "react-router-dom";
-import $, { error } from "jquery";
-import { findDOMNode } from "react-dom";
 import swal from "sweetalert";
 import "bootstrap/dist/css/bootstrap.min.css";
 import DataTable from "react-data-table-component";
 import Headers from "../Headers";
-import {
-  deleteToken,
-  getToken,
-  initAxiosInterceptors,
-  setUsuarioM,
-  setUsuario,
-  getDatosUsuario,
-  getUsuarioCompleto,
-} from "../auth-helpers";
-import { set } from "date-fns";
-import { Label } from "reactstrap";
-import { format } from "date-fns";
+import {getDatosUsuario,getUsuarioCompleto} from "../auth-helpers";
 import Select from 'react-select';
-import * as Yup from "yup";
-import { useFormik } from 'formik';
-function ListadodeCItas({ usuarioLogin }) {
-  const [ac, setAc] = useState([]);
+import {Loading} from "../components/Loading"
+
+function ListadodeCItas() {
+
   const modalCrear = useRef();
   const modalEditar = useRef();
   const alertEliminar = useRef();
@@ -37,13 +17,9 @@ function ListadodeCItas({ usuarioLogin }) {
   const [citas, setCitas] = useState([]);
   const [filteredData, setFilteredData] = useState([]);
   const [verificarActivo, setVerificarActivo] = useState(false);
-  const currentDate = new Date(); // Obtener la fecha actual
-  const formattedDate = format(currentDate, "yyyy/MM/dd");
   let rol = getUsuarioCompleto();
   const RefCitas = useRef(null);
-  const [pacienteN, setPacienteN] = useState("");
   const [terapia, setTerapia] = useState(0);
-  const [consultorio, setConsultorio] = useState("");
   const [fechaInicio, setFechaInicio] = useState("");
   const [dataPaciente, setDataPaciente] = useState([]);
   const [datas, setData] = useState([]);
@@ -58,16 +34,14 @@ function ListadodeCItas({ usuarioLogin }) {
   const [priceEvaluacion, setPriceEvaluacion] = useState(0);
   const [idEvaluacion, setIdEvaluacion] = useState(0);
   const [nomPaciente, setNomPaciente] = useState("");
-  const [nomTerapia, setNomTerapia] = useState("");
-  const [nomConsultorio, setNomConsultorio] = useState("");
   const [nomTerapeuta, setNomTerapeuta] = useState("");
-  const [precioEditar, setPrecioEditar] = useState("");
   const [recurrencia, setRecurrencia] = useState(0);
   const [dayEnviar, setDayEnviar] = useState([]);
   const [visitas, setVisitas] = useState(false);
   const [fechaInicioF, setFechaInicioF] = useState('');
   const [fechaFinF, setFechaFinF] = useState('');
   const [pricePrimeraEvaluacion, setPricePrimeraEvaluacion] = useState(0);
+  const [loading, setLoading] = useState(false);
 
 
   const [dataCrear, setDataCrear] = useState({
@@ -78,9 +52,10 @@ function ListadodeCItas({ usuarioLogin }) {
     price:"",
     firstPrice:"",
     idConsultorio:"",
-    dias:[],
-    repetir:"",
-    frecuencia:"",
+    Dias:[],
+    Visitas:true,
+   /*  repetir:"",
+    frecuencia:"", */
   });
 
   function handleChange(e) {
@@ -91,18 +66,17 @@ function ListadodeCItas({ usuarioLogin }) {
   }
 
   let id = getDatosUsuario();
-  const resportes = useRef();
 
   const date = {
     Idterapeuta: id,
   };
 
   const objDias = [
-    {label:"lunes", value:"Lunes"},
-    {label:"martes", value:"Martes"},
-    {label:"miercoles", value:"Miercoles"},
-    {label:"jueves", value:"Jueves"},
-    {label:"viernes", value:"Viernes"},
+    {label:"lunes", value:"lunes"},
+    {label:"martes", value:"martes"},
+    {label:"miercoles", value:"miercoles"},
+    {label:"jueves", value:"jueves"},
+    {label:"viernes", value:"viernes"},
     {label:"sabado", value:"sabado"},
     {label:"domingo", value:"domingo"}
   ];
@@ -115,6 +89,7 @@ function ListadodeCItas({ usuarioLogin }) {
   const cargar = async () => {
 
     try {
+
       const res = await axios.get("https://jdeleon-001-site1.btempurl.com/api/Citas/Citas");
       setCitas(res.data);
      
@@ -174,8 +149,11 @@ function ListadodeCItas({ usuarioLogin }) {
   const CrearCitas = async (e) => {
     e.preventDefault();
     try{
+      setLoading(true)
+      console.log(dataCrear)
       const res = await axios.post("https://jdeleon-001-site1.btempurl.com/api/traerpaciente/CrearEvaluacion",dataCrear);
       if(res.status == 200){
+        setLoading(false)
         cargar();
           modalCrear.current.classList.remove("active");
           const ale = await swal({
@@ -184,7 +162,8 @@ function ListadodeCItas({ usuarioLogin }) {
             icon: "success",
           });
       }
-    }catch(error){    
+    }catch(error){   
+      setLoading(false)
       swal(error.response.data, "Intentelo mas tarde", "error");
     }
      
@@ -219,7 +198,7 @@ function ListadodeCItas({ usuarioLogin }) {
   
     diasEnviar.push(item.value);
     setDayEnviar(diasEnviar);
-    dataCrear.dias = diasEnviar
+   dataCrear.Dias = diasEnviar
 
  
  })
@@ -227,17 +206,6 @@ function ListadodeCItas({ usuarioLogin }) {
    setDay(selectedItems)
 
 }
-
-
-/*   function handle(selectedItems) {
-    let dias = [];
-
-    selectedItems.map(item => {
-        dias.push(item.value)
-      setDay(dias)
-    })
-
-} */
 
 
   const  EnviarEvaluacionEditada = async(e) =>{
@@ -260,7 +228,6 @@ function ListadodeCItas({ usuarioLogin }) {
     modalCrear.current.classList.add("active");
   };
 
-  const FormularioEditar = document.getElementById("FormularioEditar");
 
   const CancelarPaciente = () => {
     modalCrear.current.classList.remove("active");
@@ -376,39 +343,8 @@ function ListadodeCItas({ usuarioLogin }) {
     }
   };
 
-  const handleFiltroChange = (event) => {
-    if (event.target.value == 2) {
-      setVerificarActivo(true);
-      setFilteredData(citas);
-    }
-
-    if (event.target.value == "si") {
-      setVerificarActivo(true);
-      const res = citas.filter((p) => p.activo == "si");
-      setFilteredData(res);
-    } else if (event.target.value == "no") {
-      setVerificarActivo(true);
-
-      const filteredResults = citas.filter((item) => {
-        const res = item.activo == "no";
-        setFilteredData(res);
-      });
-
-      const res = citas.filter((p) => p.activo == "no");
-      setFilteredData(res);
-    } else {
-      setVerificarActivo(false);
-    }
-  };
-
-  function cancelarModal() {
-    $("#FormModal").hide();
-  }
-
-  function modal() {
-    $("#FormModal").hide();
-  }
-
+ 
+ 
   function Fterapia(e) {
     setTerapia(e);
   }
@@ -566,6 +502,240 @@ function ListadodeCItas({ usuarioLogin }) {
           />
         </div>
       </div>
+
+
+
+      <div className="modal-paciente" ref={modalCrear}>
+        <form onSubmit={CrearCitas} className="contenedor-cita"id="txtCrearCita">
+
+          {
+            loading ? <Loading/> : ""
+          }
+          
+          <div className="cont-titulo-form">
+            <h1>Nuevas Citas </h1>
+          </div>
+
+          <div className="paddd">
+            <div className="row">
+              <div className="col">
+                <div className="rowCitas">
+                  <label htmlFor="validationServer02" className="labelPaciente">
+                    Paciente{" "}
+                  </label>
+                  {rol == 2 ? (
+                    <div className="rowCitas">
+                      <p className="titu-barra"> Pacientes </p>
+                      <select
+                        className="form-select"
+                        required
+                        onChange={handleChange} 
+                        name="idPatients"
+                      >
+                        <option value="">Seleccione una paciente</option>
+                        {dataPaciente.map((item) => [
+                          <option
+                            key={item.nombrePaciente.idPatients}
+                            value={item.nombrePaciente.idPatients}
+                          >
+                            {item.nombrePaciente.name}
+                          </option>,
+                        ])}
+                      </select>
+                    </div>
+                  ) : (
+                    <div className="rowCitas">
+                      <select
+                        className="form-select"
+                        required
+                        onChange={handleChange} 
+                        name="idPatients"
+
+                      >
+                        <option value="">Seleccione una paciente</option>
+                        {dataPaciente.map((item) => [
+                          <option key={item.idPatients} value={item.idPatients}>
+                            {item.name}
+                          </option>,
+                        ])}
+                      </select>
+                    </div>
+                  )}
+                </div>
+              </div>
+              <div className="col">
+                <div className="rowCitas">
+                  <label htmlFor="validationServer02" className="labelPaciente">
+                    Terapia{" "}
+                  </label>
+                  <select
+                    className="form-select"
+                    onChange={handleChange} 
+                    required
+                    name="idTherapy"
+
+                  >
+                    <option value="">Seleccione una terapia</option>
+                    {datas.map((item) => [
+                      <option
+                        key={item.nombreTerapia.idTherapy}
+                        value={item.nombreTerapia.idTherapy}
+                      >
+                        {item.nombreTerapia.label}
+                      </option>,
+                    ])}
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <div className="row">
+              <div className="col">
+                {" "}
+                <div className="rowCitas">
+                  <label htmlFor="validationServer02" className="labelPaciente">
+                    Fecha Inicio{" "}
+                  </label>
+                  <input
+                    type="datetime-local"
+                    className="form-control "
+                    id="validationServer02"
+                    required
+                    onChange={handleChange} 
+                    min={getCurrentDateTime()}
+                    name="fechaInicio"
+                  />
+                </div>
+              </div>
+              <div className="col">
+                <div className="rowCitas">
+                  <label htmlFor="validationServer02" className="labelPaciente">
+                    Terapeuta{" "}
+                  </label>
+                  <select
+                    className="form-select"
+                    onChange={handleChange} 
+                    required
+                    name="idTerapeuta"
+                  >
+                    <option value="">Seleccione un Terapeuta</option>
+                    {terapeuta.map((item) => [
+                      <option value={item.idUser} key={item.idUser}>
+                        {item.names} {item.apellido}{" "}
+                      </option>,
+                    ])}
+                  </select>
+                </div>
+              </div>
+            </div>
+
+              <div className="rowCitas">
+                <label htmlFor="validationServer02" className="labelPaciente">
+                  Precio{" "}
+                </label>
+                <input
+                 onChange={handleChange} 
+                  required
+                  type="text"
+                  className="barraInput"
+                  name="price"
+                />
+              </div>
+              <div className="rowCitas">
+                <label htmlFor="validationServer02" className="labelPaciente">
+                Precio de la primera Evaluación{" "}
+                </label>
+                <input
+                 onChange={handleChange} 
+                  required
+                  type="text"
+                  className="barraInput"
+                  name="firstPrice"
+                />
+              </div>
+              
+            <div className="rowCitas">
+              <label htmlFor="validationServer02" className="labelPaciente">
+                Consultorio{" "}
+              </label>
+              <select
+                className="form-select"
+                onChange={handleChange} 
+                required
+                name="idConsultorio"
+              >
+                    <option value="">Seleccione un Consultorio</option>
+
+                {consultorios.map((item) => [
+                  <option value={item.idConsultorio} key={item.idConsultorio}>
+                    {item.nombre}{" "}
+                  </option>,
+                ])}
+              </select>
+            </div>
+
+            <div className="rowCitas" id="ultidias">
+              <label htmlFor="validationServer02" className="labelPaciente">
+               Días{" "}
+              </label>
+              <Select
+                                        isMulti
+                                        options={objDias}
+                                        onChange={e => handle(e)}                                       
+                                        placeholder = "Seleccione una Terapia"
+                                        name="dias"
+                                        required
+                                    />
+            
+            </div>
+
+           {/*  <div id="ulticita">
+                <div className="rowCitas">
+                  <label htmlFor="validationServer02" className="labelPaciente">
+                    Repetir{" "}
+                  </label>
+                  <input
+                    type="number"
+                    className="recu-repe"
+                    required
+                    min="1"
+                    onChange={handleChange} 
+                    name="repetir"
+                  />
+                </div>
+                {" "}
+                <div className="rowCitas">
+                  <label htmlFor="validationServer02" className="labelPaciente">
+                    Frecuencia{" "}
+                  </label>
+                  <select
+                    className="recu-select"
+                    required
+                    onChange={handleChange} 
+                    name="frecuencia"
+                  >
+                    <option>Diario</option>
+                    <option>Semanal</option>
+                    <option>Mensual</option>
+                  </select>
+
+              </div>
+            </div> */}
+
+            <div className="col" id="cont-btn-admin">
+              <button className="btnWeb">Guardar</button>
+              <button
+                className="btnWeb"
+                type="button"
+                onClick={CancelarPaciente}
+              >
+                Cancelar
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+
 
       <div className="modal-paciente" ref={modalEditar}>
         <form
@@ -759,7 +929,7 @@ function ListadodeCItas({ usuarioLogin }) {
             <div className="row" id="ulticita">
               <div className="col">
                 {" "}
-                <div className="rowCitas">
+             {/*    <div className="rowCitas">
                   <label htmlFor="validationServer02" className="labelPaciente">
                     Repetir{" "}
                   </label>
@@ -771,11 +941,11 @@ function ListadodeCItas({ usuarioLogin }) {
                     onChange={(e) => setRepetir(e.target.value)}
                     value={repetir}
                   />
-                </div>
+                </div> */}
               </div>
               <div className="col">
                 {" "}
-                <div className="rowCitas">
+             {/*    <div className="rowCitas">
                   <label htmlFor="validationServer02" className="labelPaciente">
                     Frecuencia{" "}
                   </label>
@@ -789,7 +959,7 @@ function ListadodeCItas({ usuarioLogin }) {
                     <option>Semanal</option>
                     <option>Mensual</option>
                   </select>
-                </div>
+                </div> */}
               </div>
             </div>
 
@@ -807,239 +977,7 @@ function ListadodeCItas({ usuarioLogin }) {
         </form>
       </div>
       
-      <div className="modal-paciente" ref={modalCrear}>
-        <form
-          onSubmit={CrearCitas}
-          className="contenedor-cita"
-          id="txtCrearPaciente"
-        >
-          <div className="cont-titulo-form">
-            <h1>Nuevas Citas </h1>
-          </div>
-
-          <div className="paddd">
-            <div className="row">
-              <div className="col">
-                <div className="rowCitas">
-                  <label htmlFor="validationServer02" className="labelPaciente">
-                    Paciente{" "}
-                  </label>
-                  {rol == 2 ? (
-                    <div className="rowCitas">
-                      <p className="titu-barra"> Pacientes </p>
-                      <select
-                        className="form-select"
-                        required
-                        onChange={handleChange} 
-                        name="idPatients"
-                      >
-                        <option value="">Seleccione una paciente</option>
-                        {dataPaciente.map((item) => [
-                          <option
-                            key={item.nombrePaciente.idPatients}
-                            value={item.nombrePaciente.idPatients}
-                          >
-                            {item.nombrePaciente.name}
-                          </option>,
-                        ])}
-                      </select>
-                    </div>
-                  ) : (
-                    <div className="rowCitas">
-                      <select
-                        className="form-select"
-                        required
-                        onChange={handleChange} 
-                        name="idPatients"
-
-                      >
-                        <option value="">Seleccione una paciente</option>
-                        {dataPaciente.map((item) => [
-                          <option key={item.idPatients} value={item.idPatients}>
-                            {item.name}
-                          </option>,
-                        ])}
-                      </select>
-                    </div>
-                  )}
-                </div>
-              </div>
-              <div className="col">
-                <div className="rowCitas">
-                  <label htmlFor="validationServer02" className="labelPaciente">
-                    Terapia{" "}
-                  </label>
-                  <select
-                    className="form-select"
-                    onChange={handleChange} 
-                    required
-                    name="idTherapy"
-
-                  >
-                    <option value="">Seleccione una terapia</option>
-                    {datas.map((item) => [
-                      <option
-                        key={item.nombreTerapia.idTherapy}
-                        value={item.nombreTerapia.idTherapy}
-                      >
-                        {item.nombreTerapia.label}
-                      </option>,
-                    ])}
-                  </select>
-                </div>
-              </div>
-            </div>
-
-            <div className="row">
-              <div className="col">
-                {" "}
-                <div className="rowCitas">
-                  <label htmlFor="validationServer02" className="labelPaciente">
-                    Fecha Inicio{" "}
-                  </label>
-                  <input
-                    type="datetime-local"
-                    className="form-control "
-                    id="validationServer02"
-                    required
-                    onChange={handleChange} 
-                    min={getCurrentDateTime()}
-                    name="fechaInicio"
-                  />
-                </div>
-              </div>
-              <div className="col">
-                <div className="rowCitas">
-                  <label htmlFor="validationServer02" className="labelPaciente">
-                    Terapeuta{" "}
-                  </label>
-                  <select
-                    className="form-select"
-                    onChange={handleChange} 
-                    required
-                    name="idTerapeuta"
-                  >
-                    <option value="">Seleccione un Terapeuta</option>
-                    {terapeuta.map((item) => [
-                      <option value={item.idUser} key={item.idUser}>
-                        {item.names} {item.apellido}{" "}
-                      </option>,
-                    ])}
-                  </select>
-                </div>
-              </div>
-            </div>
-
-              <div className="rowCitas">
-                <label htmlFor="validationServer02" className="labelPaciente">
-                  Precio{" "}
-                </label>
-                <input
-                 onChange={handleChange} 
-                  required
-                  type="text"
-                  className="barraInput"
-                  name="price"
-                />
-              </div>
-              <div className="rowCitas">
-                <label htmlFor="validationServer02" className="labelPaciente">
-                Precio de la primera Evaluación{" "}
-                </label>
-                <input
-                 onChange={handleChange} 
-                  required
-                  type="text"
-                  className="barraInput"
-                  name="firstPrice"
-                />
-              </div>
-              
-            <div className="rowCitas">
-              <label htmlFor="validationServer02" className="labelPaciente">
-                Consultorio{" "}
-              </label>
-              <select
-                className="form-select"
-                onChange={handleChange} 
-                required
-                name="idConsultorio"
-              >
-                    <option value="">Seleccione un Consultorio</option>
-
-                {consultorios.map((item) => [
-                  <option value={item.idConsultorio} key={item.idConsultorio}>
-                    {item.nombre}{" "}
-                  </option>,
-                ])}
-              </select>
-            </div>
-
-            <div className="rowCitas" id="ultidias">
-              <label htmlFor="validationServer02" className="labelPaciente">
-               Días{" "}
-              </label>
-              <Select
-                                        isMulti
-                                        options={objDias}
-                                        onChange={e => handle(e)}                                       
-                                        placeholder = "Seleccione una Terapia"
-                                        name="dias"
-                                        required
-                                    />
-            
-            </div>
-
-            <div id="ulticita">
-                <div className="rowCitas">
-                  <label htmlFor="validationServer02" className="labelPaciente">
-                    Repetir{" "}
-                  </label>
-                  <input
-                    type="number"
-                    className="recu-repe"
-                    required
-                    min="1"
-                    onChange={handleChange} 
-                    name="repetir"
-                  />
-                </div>
-                {" "}
-                <div className="rowCitas">
-                  <label htmlFor="validationServer02" className="labelPaciente">
-                    Frecuencia{" "}
-                  </label>
-                  <select
-                    className="recu-select"
-                    required
-                    onChange={handleChange} 
-                    name="frecuencia"
-                  >
-                    <option>Diario</option>
-                    <option>Semanal</option>
-                    <option>Mensual</option>
-                  </select>
-
-              </div>
-            </div>
-
-            <div className="col" id="cont-btn-admin">
-              <button className="btnWeb">Guardar</button>
-              <button
-                className="btnWeb"
-                type="button"
-                onClick={CancelarPaciente}
-              >
-                Cancelar
-              </button>
-            </div>
-          </div>
-        </form>
-      </div>
-
-    
-
-      
+        
       <div className="modal-usuario-eliminar" ref={alertEliminar}>
         <div className="modal-dialog-usuario" role="document">
           <div className="modal-content-usuario">

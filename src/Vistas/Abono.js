@@ -1,19 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { BrowserRouter, Routes, Route, Link, Redirect } from "react-router-dom";
-import logo from "../imagenes/IMG-20230221-WA0009.png";
-import doctor from "../imagenes/undraw_medicine_b1ol.png";
-import { FaBars } from "react-icons/fa";
 import axios from "axios";
-import Select from "react-select";
 import swal from "sweetalert";
 import Headers from "../Headers";
-import Cookies from "universal-cookie";
-import { useNavigate } from "react-router-dom";
-import $ from "jquery";
-import { findDOMNode } from "react-dom";
-import { FaUser } from "react-icons/fa";
 
-// irannysdd
+
 function Abono() {
   const [data, setData] = useState([]);
   const [dataPaciente, setDataPaciente] = useState([]);
@@ -21,7 +11,6 @@ function Abono() {
   const [idTherapy, setIdTherapy] = useState(0);
   const [idPatients, setIdPatients] = useState(0);
   const [fecha, setFecha] = useState("");
-  const [monto, setMonto] = useState(0);
   const [description, setDescription] = useState("");
 
   useEffect(() => {

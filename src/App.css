@@ -813,6 +813,7 @@
   width: 80%;
   box-shadow: 0 1rem 2rem rgba(0, 0, 0, .1);
   background-color: white;
+  position: relative;
 }
 
 .form-calendario-option {
@@ -1975,6 +1976,13 @@
   width: 50%;
 }
 
+
+#txtCrearCita {
+  width: 50%;
+  position: relative;
+}
+
+
 .btn-abono:hover {
   background-color: #0b2e57c4;
 }
@@ -2987,4 +2995,9 @@ td {
 
 .loadin {
   background-color: #0b2f57;
+}
+
+
+.txtCrearCita {
+  width: 50%;
 }

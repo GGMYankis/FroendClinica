@@ -4,6 +4,7 @@ import swal from "sweetalert";
 import Headers from "../Headers";
 import {getDatosUsuario , getUsuarioCompleto} from "../auth-helpers";
 import { Loading } from "../components/Loading";
+import Select from 'react-select';
 
 function Evaluacion() {
 
@@ -82,6 +83,15 @@ function Evaluacion() {
   }, []);
 
  
+  const objDias = [
+    {label:"lunes", value:"lunes"},
+    {label:"martes", value:"martes"},
+    {label:"miercoles", value:"miercoles"},
+    {label:"jueves", value:"jueves"},
+    {label:"viernes", value:"viernes"},
+    {label:"sabado", value:"sabado"},
+    {label:"domingo", value:"domingo"}
+  ];
 
   const dataEvaluacion = {
     IdPatients: parseInt(idPatients),
@@ -94,12 +104,26 @@ function Evaluacion() {
     FechaInicio: fechaInicio,
     Repetir: repetir,
     Frecuencia: frecuencia,
-    Dias: dayEnviar,
+    Dias: [],
     IdTerapeuta: idterapeuta,
   };
 
+  const [dataCrear, setDataCrear] = useState({
+    idPatients:"",
+    idTherapy:"",
+    fechaInicio:"",
+    idTerapeuta:"",
+    price:"",
+    firstPrice:"",
+    idConsultorio:"",
+    Dias:[],
+    Visitas:true,
+   /*  repetir:"",
+    frecuencia:"", */
+  });
   
 
+/* 
   function handle(selectedItems) {
     const diasEnviar = [];
     diasEnviar.push(selectedItems.target.value);
@@ -107,13 +131,30 @@ function Evaluacion() {
     
     setDay(selectedItems.target.value);
 
+} */
+
+ 
+function handle(selectedItems) {
+
+  const diasEnviar = []
+
+  selectedItems.map(item => {
+
+  diasEnviar.push(item.value);
+  setDayEnviar(diasEnviar);
+ dataCrear.Dias = diasEnviar
+
+})
+
+
 }
   
 
 const CrearCitas = async (e) => {
   e.preventDefault();
   try{
-     const res = await axios.post("https://jdeleon-001-site1.btempurl.com/api/traerpaciente/CrearEvaluacion",dataEvaluacion);
+    console.log(dataCrear)
+     const res = await axios.post("https://jdeleon-001-site1.btempurl.com/api/traerpaciente/CrearEvaluacion",dataCrear);
      if(res.status == 200){
          const ale = await swal({
            title: "Correcto",
@@ -126,6 +167,14 @@ const CrearCitas = async (e) => {
   }
  
 };  
+
+    function handleChange(e) {
+      setDataCrear({
+          ...dataCrear,
+          [e.target.name]: e.target.value
+      })
+    }
+
   return (
     <div>
      
@@ -133,16 +182,14 @@ const CrearCitas = async (e) => {
       <Headers />
 
       <div className="contenedor-evaluacion">
-        <form
-          className="form-select-evaluacion"
-          onSubmit={CrearCitas}
-          ref={resportes}
-        >
+        <form className="form-select-evaluacion" onSubmit={CrearCitas} ref={resportes} >
+           
           {loading ? <Loading /> : ""}
           <div className="cont-titu-select">
             <h1>Citas</h1>
             <i className="bi bi-person-circle"></i>
           </div>
+        
 
           <div className="sub-cont-evaluacion">
             {rol == 2 ? (
@@ -151,7 +198,8 @@ const CrearCitas = async (e) => {
                 <select
                   className="form-select"
                   required
-                  onChange={(e) => setIdPatients(e.target.value)}
+                  name="idPatients"
+                  onChange={handleChange}
                 >
                   <option value="">Seleccione una paciente</option>
                   {dataPaciente.map((item) => [
@@ -169,8 +217,9 @@ const CrearCitas = async (e) => {
                 <p className="titu-barra"> Lista de Pacientes </p>
                 <select
                   className="form-select"
+                  name="idPatients"
                   required
-                  onChange={(e) => setIdPatients(e.target.value)}
+                  onChange={handleChange}
                 >
                   <option value="">Seleccione una paciente</option>
                   {dataPaciente.map((item) => [
@@ -187,8 +236,9 @@ const CrearCitas = async (e) => {
 
               <select
                 className="form-select"
-                onChange={(e) => setIdTherapy(e.target.value)}
+                onChange={handleChange}
                 required
+                name="idTherapy"
               >
                 <option value="">Seleccione una terapia</option>
                 {data.map((item) => [
@@ -206,8 +256,9 @@ const CrearCitas = async (e) => {
               <p className="titu-barra"> Terapeuta </p>
               <select
                 className="form-select"
-                onChange={(e) => setIdterapeuta(e.target.value)}
+                onChange={handleChange}
                 required
+                name="idTerapeuta"
               >
                 <option value="">Seleccione un Terapeuta</option>
                 {terapeuta.map((item) => [
@@ -222,8 +273,9 @@ const CrearCitas = async (e) => {
               <p className="titu-barra"> Consultorio </p>
               <select
                 className="form-select"
-                onChange={(e) => setConsul(e.target.value)}
+                onChange={handleChange}
                 required
+                name="idConsultorio"
               >
                 <option value="">Seleccione un Consultorio</option>
 
@@ -255,8 +307,9 @@ const CrearCitas = async (e) => {
                                 type="text"
                                 className="form-control"
                                 id="txtnombres"
-                                onChange={(e) => setPriceEvaluacion(e.target.value)}
+                                onChange={handleChange}
                                 autoComplete="off"
+                                name="price"
                               />
                         </div>
                         <div className="cont-recurrence--inside">
@@ -267,8 +320,9 @@ const CrearCitas = async (e) => {
                                 type="text"
                                 className="form-control"
                                 id="txtnombres"
-                                onChange={(e) => setPricePrimeraEvaluacion(e.target.value)}
+                                onChange={handleChange}
                                 autoComplete="off"
+                                name="firstPrice"
                               />
                         </div>
 
@@ -286,12 +340,13 @@ const CrearCitas = async (e) => {
                   type="datetime-local"
                   className="recu-fecha-inicio"
                   min="2023-03-24"
-                  onChange={(e) => setFechaInicio(e.target.value)}
+                  onChange={handleChange}
                   required
+                  name="fechaInicio"
                 />
               </div>
 
-              <div className="cont-recurrence">
+             {/*  <div className="cont-recurrence">
                 <p className="text-recu">Repetir</p>
                 <input
                   type="number"
@@ -310,9 +365,9 @@ const CrearCitas = async (e) => {
                   <option>Semanal</option>
                   <option>Mensual</option>
                 </select>
-              </div>
+              </div> */}
 
-              <div className="cont-recurrence check-select">
+           {/*    <div className="cont-recurrence check-select">
                 <input
                   type="checkbox"
                   id="diasCheckD"
@@ -411,7 +466,19 @@ const CrearCitas = async (e) => {
                 >
                   S
                 </label>
-              </div>
+              </div> */}
+ <div className="cont-recurrence check-select">
+
+ 
+<Select
+                                        isMulti
+                                        options={objDias}
+                                        onChange={e => handle(e)}                                       
+                                        placeholder = "Seleccione una Terapia"
+                                        name="dias"
+                                        required
+                                    />
+                                    </div>
             </div>
             <button className="btnWeb" type="submit">
               Guadar

@@ -10,7 +10,6 @@ import swal from "sweetalert";
 import DataTable from "react-data-table-component";
 import Headers from "../../Headers";
 import "./ListadoDeAsistencia.css";
-import ModalAsistencia from "./ModalAsistencia";    
 
 function ListadoAsistencia() {
 
