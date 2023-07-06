@@ -290,9 +290,7 @@ const CrearCitas = async (e) => {
             <div>
 
         
-              
-       
-                           
+                                 
               <div className="cont-recurrence--inside-visitas">
 
               <input type="checkbox"value="true" onChange={() => setVisitas(true)}/>

@@ -3,7 +3,6 @@ import { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import Headers from "../Headers";
 import { Loading, LoaLogin } from "../components/Loading";
-import { te } from "date-fns/locale";
 
 function PagoTerapeutas() {
   const [startDate, setStartDate] = useState(null);
@@ -131,8 +130,8 @@ function PagoTerapeutas() {
                 </tr>
               </thead>
               <tbody>
-                {dataPaciente.map((x) => [
-                  <tr>
+                {dataPaciente.map((x, c) => [
+                  <tr key={c}>
                     <td>{x.terapeuta.names}  {x.terapeuta.apellido}</td>
                     <td>{x.terapia.label}</td>
                     <td>RD${parseFloat(x.price).toLocaleString('es-DO', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</td>

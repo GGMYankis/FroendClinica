@@ -3,7 +3,6 @@ import React, { useEffect, useState, useRef } from "react";
 import axios from "axios";
 import Headers from "../Headers";
 import swal from "sweetalert";
-import {DeleteToken,getUsuarioCompleto} from "../auth-helpers";
 import { useNavigate } from "react-router-dom";
 
 function Consultorios() {
@@ -23,15 +22,11 @@ function Consultorios() {
   const modalCrear = useRef();
   const modalEliminar = useRef();
 
-  const cargar = (async) => {
-    axios
-      .get("https://jdeleon-001-site1.btempurl.com/api/Clinica/Consultorios")
+  const cargar = async () => {
 
-      .then((response) => {
-        response.data.lista.map((a) => {
+    const response = await axios.get("https://jdeleon-001-site1.btempurl.com/api/Clinica/Consultorios")
+  
           setConsultorio(response.data.lista);
-        });
-      });
   };
 
   const data = {
@@ -191,22 +186,22 @@ function Consultorios() {
                       <td data-label="apellido">{item.descripcion}</td>
 
                       <td className="tr-btn">
-                        <a
+                        <button
                           className="btn-tabla-usuario"
                           type="button"
                           value={item.idConsultorio}
                           onClick={(e) => EditarUsuario(e.target.value)}
                         >
                           Editar
-                        </a>
-                        <a
+                        </button>
+                        <button
                           className="btn-tabla-usuario-eliminar "
                           type="button"
                           value={item.idConsultorio}
                           onClick={(e) => EliminarUsuario(e.target.value)}
                         >
                           Eliminar
-                        </a>
+                        </button>
                       </td>
                     </tr>,
                   ])}

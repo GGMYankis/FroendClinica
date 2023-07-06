@@ -63,9 +63,12 @@ function App() {
             .post("https://jdeleon-001-site1.btempurl.com/api/Autenticacion/getUserByToken")               
             .then((res) => {
                setAuth(decodeToken(token))
+             
             }).catch((error) => {
                  setAuth(null)
-                 deleteTokenC();           
+                 deleteTokenC();  
+                 console.clear() 
+
              });
         }
 

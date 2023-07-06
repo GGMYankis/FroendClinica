@@ -60,7 +60,9 @@ function Calendario() {
                       }
           });
 
-        setCitas(res.data);
+       
+          
+      setCitas(res.data);
 
       } catch (error) {
         console.log(error)
@@ -165,22 +167,36 @@ function Calendario() {
 
   const enviars = (e) => {
     e.preventDefault()
-    const urls =
-      "https://jdeleon-001-site1.btempurl.com/api/Clinica/FiltrarConsultorios";
+    const urls = "https://jdeleon-001-site1.btempurl.com/api/Clinica/FiltrarConsultorios";
+      
     axios.post(urls, consultorio).then((result) => {
-     setEvent(
-        result.data.map((item) => ({
-          id: item.idEvaluacion,
-          title: item.paciente.name,
-          start: new Date(item.fechaInicio),
-          extendedProps: {
-            additionalProperty: item.terapeuta.names + " " + item.terapeuta.apellido, 
-            anotherProperty: item.terapia.label, 
-            description:item.consultorio.nombre
-           
+      result.data.map(x => {
+        if(x.dias == "domingo"){
+          x.dias = 0
+        }
+        if(x.dias == "lunes"){
+            x.dias = 1
           }
-        }))
-      ); 
+        if(x.dias == "martes"){
+            x.dias = 2
+          }
+          if(x.dias == "miercoles"){
+            x.dias = 3
+          }
+          if(x.dias == "jueves"){
+              x.dias = 4
+            }
+            if(x.dias == "viernes"){
+                x.dias = 5
+              }
+              if(x.dias == "sabado"){
+                  x.dias = 6
+                }
+      });
+
+       setCitas([]);
+       setCitas(result.data)
+
     });
 
   };
@@ -231,7 +247,7 @@ function Calendario() {
                   id="selec-consultorio"
                 >
                   <option value="">Seleccione un Consultorio</option>
-                  <option value="0">Todos los Consultorio</option>
+                  <option value="0">Todos los Consultorios</option>
                   {consultorios.map((item,index) => [
                     <option key={index} value={item.idConsultorio}>{item.nombre} </option>,
                   ])}

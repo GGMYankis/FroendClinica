@@ -6,10 +6,8 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import Headers from "../Headers";
 import { Loading, LoaLogin } from "../components/Loading";
 import { useRef } from "react";
-import $ from "jquery";
 
 import { DatePicker } from "antd";
-import moment from "moment";
 
 const { RangePicker } = DatePicker;
 
@@ -158,8 +156,8 @@ function VerGanancias() {
                   </tr>
                 </thead>
                 <tbody className="body-table-gastos">
-                  {citas.map((item) => [
-                    <tr>
+                  {citas.map((item,index) => [
+                    <tr key={index}>
                       <td data-label="Descripcion">{item.nombre}</td>
                       <td data-label="Descripcion">{item.descripcion}</td>
                      <td data-label="Monto">RD${parseFloat(item.amount).toLocaleString('es-DO', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</td>
@@ -190,8 +188,8 @@ function VerGanancias() {
                   </tr>
                 </thead>
                 <tbody className="body-table-gastos"> 
-                  {tera.map((item) => [
-                    <tr>
+                  {tera.map((item,index) => [
+                   <tr key={index}>
                       <td data-label="Descripcion">{item.label}</td>
                     
                       <td data-label="Descripcion">RD${parseFloat(item.price).toLocaleString('es-DO', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</td>
