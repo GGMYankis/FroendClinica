@@ -5,7 +5,7 @@ import { Routes,Route,HashRouter,} from "react-router-dom";
 import "./App.css";
 import Home from "./Vistas/Home";
 import Gastos from "./Vistas/Gastos";
-import AbonoTerapias from "./Vistas/AbonoTerapias";
+import AbonoTerapias from "./Vistas/AbonosTerapias/AbonosTerapias";
 import Evaluacion from "./Vistas/Evaluacion";
 import Consultorios from "./Vistas/Consultorios";
 import "bootstrap/dist/css/bootstrap.min.css";

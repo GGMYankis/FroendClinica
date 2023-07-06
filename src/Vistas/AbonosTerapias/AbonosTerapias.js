@@ -1,10 +1,10 @@
 
 import React, { useEffect, useState, useRef } from 'react'
-import { Loading, LoaLogin } from '../components/Loading';
+import { Loading, LoaLogin } from '../../components/Loading';
 import swal from 'sweetalert';
 import axios from 'axios';
-import {getUsuarioCompleto } from '../auth-helpers'
-import Headers from "../components/Headers/Headers"
+import {getUsuarioCompleto } from '../../auth-helpers'
+import Headers from "../../components/Headers/Headers";
 
 
 function AbonoTerapias() {
