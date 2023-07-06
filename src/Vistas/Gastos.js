@@ -1,6 +1,7 @@
 
 
-import Headers from '../Headers'
+import Headers from "../components/Headers/Headers"
+
 import 'bootstrap/dist/css/bootstrap.min.css';
 import React, { useEffect, useState, useRef } from 'react'
 import axios from 'axios'

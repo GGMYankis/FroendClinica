@@ -1,7 +1,8 @@
 import React from "react";
 import { useState, useEffect, useRef } from "react";
 import axios from "axios";
-import Headers from "../Headers";
+import Headers from "../components/Headers/Headers"
+
 import { Loading, LoaLogin } from "../components/Loading";
 
 function PagoTerapeutas() {

@@ -1,7 +1,8 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import React, { useEffect, useState, useRef } from "react";
 import axios from "axios";
-import Headers from "../Headers";
+import Headers from "../components/Headers/Headers"
+
 import swal from "sweetalert";
 import { FaUser, FaUsers, FaTrash, FaEdit } from "react-icons/fa";
 import { FaBars } from "react-icons/fa";

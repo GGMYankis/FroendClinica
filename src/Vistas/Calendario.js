@@ -4,7 +4,8 @@ import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction";
-import Headers from "../Headers";
+import Headers from "../components/Headers/Headers"
+
 import "bootstrap/dist/css/bootstrap.min.css";
 import $ from "jquery";
 import {Loading} from "../components/Loading"

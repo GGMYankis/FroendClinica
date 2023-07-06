@@ -1,27 +1,21 @@
 import React from "react";
-import { BrowserRouter, Routes, Route, Link, Redirect } from "react-router-dom";
+import { Link,  } from "react-router-dom";
 import { FaBars } from "react-icons/fa";
 import logo from "../../imagenes/IMG-20230221-WA0009.png";
-import { FaUser, FaUsers, FaTrash, FaEdit } from "react-icons/fa";
-import { useNavigate } from "react-router-dom";
-import { useState, useEffect, useRef } from "react";
-import {
-  setUsuarioM,
-  DeleteToken,
-  getUsuarioCompleto,
-} from "../../auth-helpers";
-import useAuth from "../Auth/LoginForm/hook/useAuth";
+import {  useEffect } from "react";
+import {getUsuarioCompleto,} from "../../auth-helpers";
+import useAuth from "../../components/Auth/LoginForm/hook/useAuth";
 import arrow from "../../imagenes/arrow.svg";
 import "./Headers.css";
 
-function Headers({ reportesPagos, calendario, myElement, paciente,myElementTerapia,RefCitas,myElementUsuario ,pagotera, consultorio}) {
+
+
+function Headers({ citas,reportesPagos, calendario, myElement, paciente,myElementTerapia,RefCitas,myElementUsuario ,pagotera, consultorio}) {
  
   useEffect(() => {
-    
+   
 
     let listElements = document.querySelectorAll('.list__button--click');
-    let checkbtn = document.querySelector('.checkbtn');
-    let nav = document.querySelector('.nav');
     let lista = document.querySelector('#lista');
     
 
@@ -47,20 +41,25 @@ function Headers({ reportesPagos, calendario, myElement, paciente,myElementTerap
 },[])
 
 
-  const navigation = useNavigate();
-
-  const {auth,setUser} = useAuth()
-  let user = auth.nameid[1]
-  let PrimeraL = user.substr(0, 1)
+   const {auth,setUser, deleteTokenC} = useAuth()
+   let user = auth.nameid[1]
+   let PrimeraL = user.substr(0, 1) 
   
   function StateUser(){
     setUser(null)
-    DeleteToken()
+    deleteTokenC();
   }
  
   let rol = getUsuarioCompleto();
 
-  const handleClickOtro = () => {
+ 
+
+  function ver (){
+    let menu = document.querySelector('#menu');
+
+   menu.classList.toggle("activef");
+
+
     if (paciente) {
       paciente.current.classList.toggle("mi-clase-css");
     }
@@ -97,54 +96,9 @@ function Headers({ reportesPagos, calendario, myElement, paciente,myElementTerap
       reportesPagos.current.classList.toggle("reportesAnimation");
 
     }
-    
-    
 
-
-    
-  };
-
-
-  function ver (){
-    let menu = document.querySelector('#menu');
-
-   menu.classList.toggle("activef");
-
-
-  if (paciente) {
-      paciente.current.classList.toggle("mi-clase-css");
-    }
-
-    if (calendario) {
-      calendario.current.classList.toggle("mi-clase-css");
-    } else if (myElement) {
-      myElement.current.classList.toggle("mi-clase-css");
-    }
-    if(myElementTerapia){
-      myElementTerapia.current.classList.toggle("mi-clase-css");
-
-    }
-    if(RefCitas){
-      RefCitas.current.classList.toggle("mi-clase-css");
-
-    }
-    if(myElementUsuario){
-      myElementUsuario.current.classList.toggle("mi-clase-css");
-
-    }
-
-    if(pagotera){
-      pagotera.current.classList.toggle("mi-clase-css2");
-
-    }
-
-    if(consultorio){
-      consultorio.current.classList.toggle("mi-clase-css");
-
-    }
-
-    if(reportesPagos){
-      reportesPagos.current.classList.toggle("reportesAnimation");
+    if(citas){
+      citas.current.classList.toggle("reportesAnimation");
 
     }
     
@@ -153,41 +107,18 @@ function Headers({ reportesPagos, calendario, myElement, paciente,myElementTerap
   return (
     <div>
 
-       <header className="encabezado">
-          <div>
-            <nav>
-              <input type="checkbox" id="check" />
-
-              <label
-                htmlFor="check"
-                className="checkbtn"
-                onClick={ver}
-              >
-                <FaBars id="bar" />
-              </label>         
-            </nav>
-          </div>
-
-          <div className="cont-logo-header">
-            <img className="img-admin-logo" src={logo} />
-            <span className="ver">
-              <span className="gg">é</span>nfasis
-            </span>
-          </div>
-          <div className="contenedor-botones">
-            <div className="cont-btn-headers">
-              <div className="probarUs">
-                <Link className="Link" to="/perfilAdmin">
-                  {PrimeraL}
-                </Link>
-              </div>
-            </div>
-            <div className="cont-nombre-usuario">
-              <p className="nombreUsuario">{user}</p>
-            </div>
-          </div>
-        </header>
-      
+          <nav className="header">
+            <label onClick={ver}> <FaBars id="bar" /></label>                      
+                <div>
+                  <img className="img-admin-logo" src={logo} />
+                  <Link to="/"className="logo" >énfasis</Link>
+                </div>
+              <div className="Colum3">
+                  <Link className="Initial--header"to="/perfilAdmin" >{PrimeraL}</Link>
+                  {/* <div className="NomCm-header"> {user}</div> */}
+              </div>      
+          </nav>
+ 
         <nav className="navsd activef" id="menu">
           <ul className="list" id="lista">
 
@@ -197,11 +128,19 @@ function Headers({ reportesPagos, calendario, myElement, paciente,myElementTerap
                       <Link className="nav__link"  to="/AbonoTerapias">  Abono Terapias</Link>
                   </div>
               </li>
-              <li className="list__item">
-                  <div className="list__button">
-                      <Link className="nav__link" to="/TerapiaTerapeuta">Asignación</Link>
-                  </div>
-              </li>
+              {rol == 1 ? 
+
+              <span>
+                <li className="list__item">
+                    <div className="list__button">
+                        <Link className="nav__link" to="/TerapiaTerapeuta">Asignación</Link>
+                    </div>
+                </li>
+              </span>
+
+              :
+              ""
+            }
               <li className="list__item">
                   <div className="list__button">
                       <Link className="nav__link" to="/asistencias">Asistencia</Link>
@@ -231,18 +170,30 @@ function Headers({ reportesPagos, calendario, myElement, paciente,myElementTerap
 
                   <ul className="list__show">
                       <li className="list__inside">
-                          <Link class="nav__link nav__link--inside" to="/ListadodeCItas">Listado de  Citas</Link>
+                          <Link className="nav__link nav__link--inside" to="/ListadodeCItas">Listado de  Citas</Link>
                       </li>
+ 
+                       {rol == 1 ? 
+ 
+                      <span>
+                       <li className="list__inside">
+                                                <Link className="nav__link nav__link--inside" to="/Consultorios">Listado de Consultorios</Link>
+                                            </li>
+                                            <li className="list__inside">
+                                                <Link className="nav__link nav__link--inside" to="/listasPacientes">Listado de Pacientes</Link>
+                                            </li>
+                                            <li className="list__inside">
+                                                <Link className="nav__link nav__link--inside" to="/listasTerapias"> Listado de Terapias</Link>
+                                            </li>
+                                            <li className="list__inside">
+                                                <Link className="nav__link nav__link--inside" to="/listadoAsistencia"> Listado de Asistencias</Link>
+                                            </li>
+                          </span>
+                        :
+                        ""
 
-                      <li className="list__inside">
-                          <Link class="nav__link nav__link--inside" to="/Consultorios">Listado de Consultorios</Link>
-                      </li>
-                      <li className="list__inside">
-                          <Link class="nav__link nav__link--inside" to="/listasPacientes">Listado de Pacientes</Link>
-                      </li>
-                      <li className="list__inside">
-                          <Link class="nav__link nav__link--inside" to="/listasTerapias"> Listado de Terapias</Link>
-                      </li>
+                        }
+                  
                   </ul>
 
               </li>
@@ -252,17 +203,8 @@ function Headers({ reportesPagos, calendario, myElement, paciente,myElementTerap
                       <Link className="nav__link" to="/">Paciente de ingreso</Link>
                   </div>
               </li>
-              <li className="list__item">
-                  <div className="list__button">
-                      <Link className="nav__link" to="/PagoTerapeutas">  Pago Terapeutas</Link>
-                  </div>
-              </li>
-              <li className="list__item">
-                  <div className="list__button">
-                      <Link className="nav__link"to="/gastos"> Registro de gastos</Link>
-                  </div>
-              </li>
-
+             
+            
               <li className="list__item list__item--click">
                   <div className="list__button list__button--click">
                           <Link  className="nav__link" >Reportes</Link>
@@ -271,12 +213,21 @@ function Headers({ reportesPagos, calendario, myElement, paciente,myElementTerap
 
                   <ul className="list__show">
                       <li className="list__inside">
-                          <Link class="nav__link nav__link--inside"  to="/reportesPago">Reportes de Pagos</Link>
+                          <Link className="nav__link nav__link--inside"  to="/reportesPago">Reportes de Pagos</Link>
                       </li>
 
                       <li className="list__inside">
-                          <Link class="nav__link nav__link--inside"  to="/VerGanancias">Reportes</Link>
-                      </li>                      
+                      <Link className="nav__link nav__link--inside" to="/PagoTerapeutas">  Pago Terapeutas</Link>
+                      </li>
+
+                      <li className="list__inside">
+                          <Link className="nav__link nav__link--inside"  to="/VerGanancias">Reportes</Link>
+                      </li>    
+                      <li className="list__inside">
+                      <Link className="nav__link nav__link--inside"to="/gastos"> Registro de gastos</Link>     
+                      </li>         
+
+                               
                   </ul>
 
               </li>

@@ -3,8 +3,8 @@ import React, { useEffect, useState, useRef } from 'react'
 import { Loading, LoaLogin } from '../components/Loading';
 import swal from 'sweetalert';
 import axios from 'axios';
-import { deleteToken, getToken, initAxiosInterceptors, setUsuarioM, setUsuario, getDatosUsuario, getUsuarioCompleto } from '../auth-helpers'
-import Headers from '../Headers'
+import {getUsuarioCompleto } from '../auth-helpers'
+import Headers from "../components/Headers/Headers"
 
 
 function AbonoTerapias() {

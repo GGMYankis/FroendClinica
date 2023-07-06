@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import swal from "sweetalert";
-import Headers from "../Headers";
-
+import Headers from "../components/Headers/Headers"
 
 function Abono() {
   const [data, setData] = useState([]);
@@ -139,4 +138,3 @@ function Abono() {
 export default Abono;
 
 
-// coment

@@ -8,7 +8,7 @@ import $ from "jquery";
 import { findDOMNode } from "react-dom";
 import swal from "sweetalert";
 import DataTable from "react-data-table-component";
-import Headers from "../../Headers";
+import Headers from "../../components/Headers/Headers";
 import "./ListadoDeAsistencia.css";
 
 function ListadoAsistencia() {

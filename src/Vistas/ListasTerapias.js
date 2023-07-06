@@ -10,7 +10,8 @@ import { BrowserRouter, Routes, Route, Link, Redirect } from "react-router-dom";
 import $, { error } from "jquery";
 import { findDOMNode } from "react-dom";
 import swal from "sweetalert";
-import Headers from "../Headers";
+import Headers from "../components/Headers/Headers"
+
 import {
   DeleteToken,
   getToken,

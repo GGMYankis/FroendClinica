@@ -4,7 +4,8 @@ import axios from 'axios';
 import React from 'react'
 import { useNavigate } from 'react-router-dom';
 import { getDatosUsuario, DeleteToken } from '../auth-helpers'
-import Headers from '../Headers'
+import Headers from "../components/Headers/Headers"
+
 
 
 function PerfilAdmin() {

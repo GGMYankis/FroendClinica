@@ -1,14 +1,9 @@
 import Cookies from "universal-cookie";
 import { useState, useEffect,useMemo } from "react";
 import axios from "axios";
-import {
-  Routes,
-  Route,
-  Link,
-  HashRouter,
-} from "react-router-dom";
+import { Routes,Route,HashRouter,} from "react-router-dom";
 import "./App.css";
-import Admin from "./Vistas/Admin";
+import Home from "./Vistas/Home";
 import Gastos from "./Vistas/Gastos";
 import AbonoTerapias from "./Vistas/AbonoTerapias";
 import Evaluacion from "./Vistas/Evaluacion";
@@ -31,11 +26,7 @@ import Asistencias from "./Vistas/Asistencias";
 import Calendario from "./Vistas/Calendario";
 import ReportesPago from "./Vistas/ReportesPago";
 import ErrorPage from "./Vistas/ErrorPage";
-import {
-  getToken,
-  initAxiosInterceptors,
-  getUsuarioCompleto
-} from "./auth-helpers";
+import {getToken, initAxiosInterceptors,getUsuarioCompleto} from "./auth-helpers";
 import { Loading, LoaLogin, LoaAll } from "./components/Loading";
 import  Auth from "./pages/Auth/Auth"
 import AuthContext from "./context/AuthContext";
@@ -43,9 +34,11 @@ import { decodeToken } from "./components/Auth/LoginForm/Utils/token";
 import './pages/admin.css';
 
 initAxiosInterceptors();
+
 const cookies = new Cookies();
 
 function App() {
+
   const [isLoading, setIsLoading] = useState(true);
   const [auth, setAuth] = useState(undefined);
 
@@ -119,7 +112,7 @@ function App() {
                 <Route exact path="/listasPacientes" element={ rol == 1 ? <ListasPacientes  /> :  <ErrorPage />} />
                 <Route exact path="/Users" element={ rol == 1 ? <Users /> :  <ErrorPage />} />
                 <Route exact path="/terapia" element={<Terapias />} />
-                <Route exact path="/" element={<Admin />} />
+                <Route exact path="/" element={<Home />} />
                 <Route exact path="/asistencias" element={<Asistencias />} />
                 <Route exact path="/calendario" element={<Calendario />} />
                 <Route exact path="/contabilidad" element={<Contabilidad />} />

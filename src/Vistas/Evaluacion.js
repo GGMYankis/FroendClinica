@@ -1,7 +1,8 @@
 import React, { useEffect, useState, useRef } from "react";
 import axios from "axios";
 import swal from "sweetalert";
-import Headers from "../Headers";
+import Headers from "../components/Headers/Headers"
+
 import {getDatosUsuario , getUsuarioCompleto} from "../auth-helpers";
 import { Loading } from "../components/Loading";
 import Select from 'react-select';

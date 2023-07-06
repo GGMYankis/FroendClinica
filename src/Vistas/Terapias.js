@@ -7,7 +7,8 @@ import axios from "axios";
 import Cookies from "universal-cookie";
 import { useNavigate } from "react-router-dom";
 import swal from "sweetalert";
-import Headers from "../Headers";
+import Headers from "../components/Headers/Headers"
+
 import { Loading, LoaLogin } from "../components/Loading";
 
 function Terapias() {

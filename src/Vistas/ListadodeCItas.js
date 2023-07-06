@@ -3,7 +3,8 @@ import axios from "axios";
 import swal from "sweetalert";
 import "bootstrap/dist/css/bootstrap.min.css";
 import DataTable from "react-data-table-component";
-import Headers from "../Headers";
+import Headers from "../components/Headers/Headers"
+
 import {getDatosUsuario,getUsuarioCompleto} from "../auth-helpers";
 import Select from 'react-select';
 import {Loading} from "../components/Loading"

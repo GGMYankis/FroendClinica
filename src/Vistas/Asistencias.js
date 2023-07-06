@@ -1,7 +1,8 @@
 import { error } from "jquery";
 import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
-import Headers from "../Headers";
+import Headers from "../components/Headers/Headers"
+
 import swal from "sweetalert";
 import "../responsive.css";
 import { getDatosUsuario, getUsuarioCompleto } from "../auth-helpers";

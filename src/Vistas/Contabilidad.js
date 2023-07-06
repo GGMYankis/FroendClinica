@@ -3,7 +3,8 @@ import 'react-date-range/dist/theme/default.css'; // Importa los estilos del tem
 import axios from 'axios';
 import React, { useState, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Headers from '../Headers';
+import Headers from "../components/Headers/Headers"
+
 import { useRef } from 'react';
 import $ from 'jquery';
 

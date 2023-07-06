@@ -1,17 +1,12 @@
-import Cookies from "universal-cookie";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import axios from "axios";
-import logo from "../imagenes/IMG-20230221-WA0009.png";
-import { FaBars } from "react-icons/fa";
-import { FaUser } from "react-icons/fa";
-import { FaCaretDown } from "react-icons/fa";
-import { useNavigate } from "react-router-dom";
-import { BrowserRouter, Routes, Route, Link, Redirect } from "react-router-dom";
 import swal from "sweetalert";
-import Headers from "../Headers"
+import Headers from "../components/Headers/Headers"
+
 import "../responsive.css";
 
-const Admin = () => {
+const Home = () => {
+
   const [name, setName] = useState("");
   const [sex, setSexo] = useState("");
   const [parents_name, setPadreMadreNombre] = useState("");
@@ -377,4 +372,4 @@ const Admin = () => {
   );
 };
 
-export default Admin;
+export default Home;

@@ -12,7 +12,8 @@ import { findDOMNode } from "react-dom";
 import swal from "sweetalert";
 import "bootstrap/dist/css/bootstrap.min.css";
 import DataTable from "react-data-table-component";
-import Headers from "../Headers";
+import Headers from "../components/Headers/Headers"
+
 import {
   DeleteToken,
   getToken,
