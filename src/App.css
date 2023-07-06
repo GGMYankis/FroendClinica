@@ -465,6 +465,12 @@
   margin: 20px;
 }
 
+.cont-recurrence--inside {
+  margin-bottom: 10px;
+}
+
+
+
 .cont-recurrence--inside-visitas {
   margin-bottom: 10px;
 }
@@ -489,6 +495,10 @@
   }
 }
 
+.cont-recurrence-select {
+  width: 100%;
+  margin-bottom: 10px;
+}
 
 .recu-fecha-inicio {
 

@@ -25,6 +25,11 @@ function Evaluacion() {
   const [consul, setConsul] = useState(0);
   const [loading, setLoading] = useState(false);
   const [dayEnviar, setDayEnviar] = useState([]);
+
+  const [price, setPrice] = useState("");
+  const [price1, setPrice1] = useState("");
+
+  
   let id = getDatosUsuario();
   let rol = getUsuarioCompleto();
   const resportes = useRef();
@@ -93,20 +98,6 @@ function Evaluacion() {
     {label:"domingo", value:"domingo"}
   ];
 
-  const dataEvaluacion = {
-    IdPatients: parseInt(idPatients),
-    IdTherapy: parseInt(idTherapy),
-    Price: parseInt(priceEvaluacion),
-    FirstPrice: parseInt(pricePrimeraEvaluacion),
-    IdTerapeuta: parseInt(idterapeuta),
-    visitas: visitas,
-    IdConsultorio: consul,
-    FechaInicio: fechaInicio,
-    Repetir: repetir,
-    Frecuencia: frecuencia,
-    Dias: [],
-    IdTerapeuta: idterapeuta,
-  };
 
   const [dataCrear, setDataCrear] = useState({
     idPatients:"",
@@ -174,6 +165,30 @@ const CrearCitas = async (e) => {
           [e.target.name]: e.target.value
       })
     }
+
+
+    
+
+    const Fprecio = (value) => {
+      const regex = /^[0-9\b]+$/;
+      if (value.target.value === "" || regex.test(value.target.value)) {
+        setPrice(value.target.value);
+      }
+  
+      dataCrear.firstPrice = value.target.value;
+    };
+
+    const Fprecio2 = (value) => {
+      const regex = /^[0-9\b]+$/;
+      if (value.target.value === "" || regex.test(value.target.value)) {
+        setPrice1(value.target.value);
+      }
+  
+      dataCrear.price = value.target.value;
+    };
+  
+  
+   
 
   return (
     <div>
@@ -305,7 +320,8 @@ const CrearCitas = async (e) => {
                                 type="text"
                                 className="form-control"
                                 id="txtnombres"
-                                onChange={handleChange}
+                                onChange={Fprecio2}
+                                value={price1}
                                 autoComplete="off"
                                 name="price"
                               />
@@ -318,7 +334,8 @@ const CrearCitas = async (e) => {
                                 type="text"
                                 className="form-control"
                                 id="txtnombres"
-                                onChange={handleChange}
+                                onChange={Fprecio}
+                                value={price}
                                 autoComplete="off"
                                 name="firstPrice"
                               />
@@ -465,7 +482,7 @@ const CrearCitas = async (e) => {
                   S
                 </label>
               </div> */}
- <div className="cont-recurrence check-select">
+ <div className="cont-recurrence-select check-select">
 
  
 <Select
