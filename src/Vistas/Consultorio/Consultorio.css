@@ -1,0 +1,84 @@
+.cont_consultorio {
+    background-color: rgba(0, 0, 0, .4);
+    position: absolute;
+    top: -120%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.form_consultorio {
+    background-color: white;
+    padding: 20px 30px;
+    border-radius: 8px;
+    position: relative;
+    overflow: hidden;
+    margin: 10px;
+}
+
+.form_consultorio h1 {
+    text-align: center;
+    font-size: 25px;
+    color: white;
+    line-height: 40px;
+}
+
+.form_consultorio label {
+    color: #0b2f57;
+    font-weight: bold;
+}
+
+.form_consultorio input {
+    width: 100%;
+    padding: 13px 15px;
+    margin-bottom: 20px;
+}
+
+.btn_consultorio {
+    width: 100%;
+    padding: 10px 13px;
+    margin-bottom: 10px;
+
+    border-radius: 5px;
+    font-weight: bold;
+    color: white;
+}
+
+.cancelar {
+    background-color: #dc3545;
+    border: 3px solid #dc3545;
+}
+
+.guardar {
+    background-color: #0b2f57;
+    border: 3px solid #0b2f57;
+}
+
+.guardar:hover {
+    background-color: transparent;
+    color: #0b2f57;
+}
+
+.cancelar:hover {
+    background-color: transparent;
+    color: #dc3545;
+}
+
+.active {
+    top: 0;
+}
+
+.titu-consultorio {
+    background-color: #0b2f57;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 40px;
+}
+
+.box_consultorio {
+    margin-top: 40px;
+}

@@ -7,7 +7,7 @@ import Home from "./Vistas/Home";
 import Gastos from "./Vistas/Gastos";
 import AbonoTerapias from "./Vistas/AbonosTerapias/AbonosTerapias";
 import Evaluacion from "./Vistas/Evaluacion";
-import Consultorios from "./Vistas/Consultorios";
+import Consultorios from "./Vistas/Consultorio/Consultorios";
 import "bootstrap/dist/css/bootstrap.min.css";
 import VerGanancias from "./Vistas/VerGanancias";
 import PagoTerapeutas from "./Vistas/PagoTerapeutas";

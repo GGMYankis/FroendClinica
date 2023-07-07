@@ -2,7 +2,6 @@ import React, { useEffect, useState, useRef } from "react";
 import axios from "axios";
 import swal from "sweetalert";
 import Headers from "../components/Headers/Headers"
-
 import {getDatosUsuario , getUsuarioCompleto} from "../auth-helpers";
 import { Loading } from "../components/Loading";
 import Select from 'react-select';
@@ -11,22 +10,11 @@ function Evaluacion() {
 
   const [data, setData] = useState([]);
   const [dataPaciente, setDataPaciente] = useState([]);
-  const [day, setDay] = useState("");
   const [visitas, setVisitas] = useState(false);
-  const [frecuencia, setFrecuencia] = useState("");
-  const [repetir, setRepetir] = useState(null);
-  const [fechaInicio, setFechaInicio] = useState(null);
   const [terapeuta, setTerapeuta] = useState([]);
   const [consultorios, setconsultorios] = useState([]);
-  const [idPatients, setIdPatients] = useState(0);
-  const [idTherapy, setIdTherapy] = useState(0);
-  const [priceEvaluacion, setPriceEvaluacion] = useState(0);
-  const [pricePrimeraEvaluacion, setPricePrimeraEvaluacion] = useState(0);
-  const [idterapeuta, setIdterapeuta] = useState(0);
-  const [consul, setConsul] = useState(0);
   const [loading, setLoading] = useState(false);
   const [dayEnviar, setDayEnviar] = useState([]);
-
   const [price, setPrice] = useState("");
   const [price1, setPrice1] = useState("");
 
@@ -155,7 +143,8 @@ const CrearCitas = async (e) => {
          });
      }
   }catch(error){    
-    swal(error.response.data, "Intentelo mas tarde", "error");
+    swal(error.response.data, "Intentelo mas tarde", "warning");
+    console.log(error)
   }
  
 };  
@@ -490,7 +479,7 @@ const CrearCitas = async (e) => {
                                         isMulti
                                         options={objDias}
                                         onChange={e => handle(e)}                                       
-                                        placeholder = "Seleccione una Terapia"
+                                        placeholder = "Seleccione los días "
                                         name="dias"
                                         required
                                     />

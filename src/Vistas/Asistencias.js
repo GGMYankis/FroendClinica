@@ -1,8 +1,6 @@
-import { error } from "jquery";
 import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import Headers from "../components/Headers/Headers"
-
 import swal from "sweetalert";
 import "../responsive.css";
 import { getDatosUsuario, getUsuarioCompleto } from "../auth-helpers";
@@ -10,8 +8,7 @@ import DatePicker, { DateObject } from "react-multi-date-picker";
 import TimePicker from "react-multi-date-picker/plugins/time_picker";
 import DatePanel from "react-multi-date-picker/plugins/date_panel";
 import Toolbar from "react-multi-date-picker/plugins/toolbar"
-import transition from "react-element-popper/animations/transition"
-import opacity from "react-element-popper/animations/opacity"
+
 
 function Asistencias() {
 
@@ -125,7 +122,9 @@ function Asistencias() {
         }
       })
       .catch((error) => {
-        console.log(error);
+        resportes.current.classList.remove("contenedors");
+
+        swal(error.response.data, "Intentelo mas tarde", "warning");
       });
   };
 

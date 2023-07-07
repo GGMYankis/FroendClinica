@@ -1,10 +1,9 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import React, { useEffect, useState, useRef } from "react";
 import axios from "axios";
-import Headers from "../components/Headers/Headers"
-
+import Headers from "../../components/Headers/Headers"
 import swal from "sweetalert";
-import { useNavigate } from "react-router-dom";
+import "./Consultorio.css";
 
 function Consultorios() {
 
@@ -17,7 +16,6 @@ function Consultorios() {
   const [nombre, setNombre] = useState("");
   const [descripcion, setDescripcion] = useState("");
   const FormularioTherapy = document.getElementById("txtCrearUusario");
-  const navigation = useNavigate();
 
   const modalEditar = useRef();
   const modalCrear = useRef();
@@ -43,7 +41,7 @@ function Consultorios() {
       "https://jdeleon-001-site1.btempurl.com/api/Clinica/EditarConsultorio";
     axios.post(url, data).then((result) => {
       const probar = async () => {
-        modalEditar.current.classList.remove("activeUsers");
+        modalEditar.current.classList.remove("active");
         cargar();
         const ale = await swal({
           title: "Correcto",
@@ -70,7 +68,7 @@ function Consultorios() {
       "https://jdeleon-001-site1.btempurl.com/api/Clinica/CrearConsultorio";
     axios.post(url, dataCrear).then((result) => {
       const probar = async () => {
-        modalCrear.current.classList.remove("activeCrear");
+        modalCrear.current.classList.remove("active");
         cargar();
         const ale = await swal({
           title: "Correcto",
@@ -87,7 +85,7 @@ function Consultorios() {
   }
 
   function EditarUsuario(valor) {
-    modalEditar.current.classList.add("activeUsers");
+    modalEditar.current.classList.add("active");
 
     const encontrado = consultorios.filter((e) => e.idConsultorio == valor);
 
@@ -99,14 +97,14 @@ function Consultorios() {
   }
 
   function Cancelar() {
-    modalCrear.current.classList.remove("activeCrear");
-    modalEditar.current.classList.remove("activeUsers");
+    modalCrear.current.classList.remove("active");
+    modalEditar.current.classList.remove("active");
     modalEliminar.current.classList.remove("activeEli");
     FormularioTherapy.reset();
   }
 
   function modalF() {
-    modalCrear.current.classList.add("activeCrear");
+    modalCrear.current.classList.add("active");
   }
 
   function EliminarUsuario(valor) {
@@ -214,15 +212,13 @@ function Consultorios() {
       </div>
 
       {/* MODAL EDITAR USUARIO */}
-      <div className="cont-modal-lista-usuario" ref={modalEditar}>
-        <form className="form-perfil-usuario" onSubmit={enviar}>
-          <div className="cont-titu-usuario">
+      <div className="cont_consultorio" ref={modalEditar}>
+        <form className="form_consultorio" onSubmit={enviar}>
+          <div className="titu-consultorio">
             <h1>Editar Consultorio</h1>
           </div>
 
-          <div className="box-con-usuario">
-            <div className="row">
-              <div className="col">
+          <div className="box_consultorio">
                 <label>Nombre</label>
                 <input
                   className="form-users"
@@ -230,8 +226,6 @@ function Consultorios() {
                   required
                   onChange={(e) => setNombre(e.target.value)}
                 />
-              </div>
-              <div className="col">
                 <label>Descripción</label>
                 <input
                   className="form-users"
@@ -239,21 +233,17 @@ function Consultorios() {
                   required
                   onChange={(e) => setDescripcion(e.target.value)}
                 />
-              </div>
-            </div>
-            <div className="row">
-              <div className="col-sm-12">
-                <button className="btn-editar-terapia" type="submit">
+              <div>
+                <button   className="btn_consultorio guardar" type="submit">
                   Editar
                 </button>
                 <button
-                  className="btn-eliminar-terapia"
+                   className="btn_consultorio cancelar"
                   type="button"
                   onClick={Cancelar}
                 >
                   Cancelar
                 </button>
-              </div>
             </div>
           </div>
         </form>
@@ -261,51 +251,38 @@ function Consultorios() {
 
       {/* MODAL CREAR USUARIO */}
 
-      <div className="cont-modal-crear-usuario" ref={modalCrear}>
-        <form
-          className="form-crear-usuario"
-          onSubmit={CrearUsuario}
-          id="txtCrearUusario"
-        >
-          <div className="cont-titu-crear-usuario">
+      <div className="cont_consultorio" ref={modalCrear}>
+        <form  className="form_consultorio"onSubmit={CrearUsuario}>
+         
+          
+          <div className="titu-consultorio">
             <h1>Crear Consultorio</h1>
           </div>
 
-          <div className="box-con-usuario">
-            <div className="row">
-              <div className="col">
+          <div className="box_consultorio">
                 <label>Nombre</label>
-                <input
-                  className="form-users"
-                  required
-                  onChange={(e) => setNombre(e.target.value)}
-                />
-              </div>
-              <div className="col">
+                <input className="form-users" required onChange={(e) => setNombre(e.target.value)}/>
+
+
                 <label>Descripción</label>
-                <input
-                  className="form-users"
-                  required
-                  onChange={(e) => setDescripcion(e.target.value)}
-                />
-              </div>
-            </div>
-            <div className="row">
-              <div className="col-sm-12">
-                <input
-                  className="btn-editar-terapia"
+                <input className="form-users" required onChange={(e) => setDescripcion(e.target.value)}/>
+
+                
+               
+              <div className="footer_consultorio">
+                <button
+                  className="btn_consultorio guardar"
                   type="submit"
                   value="Crear"
-                />
+                >Guardar</button>
                 <button
-                  className="btn-eliminar-terapia"
+                   className="btn_consultorio cancelar"
                   type="button"
                   onClick={Cancelar}
                 >
                   Cancelar
                 </button>
               </div>
-            </div>
           </div>
         </form>
       </div>
