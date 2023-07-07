@@ -93,7 +93,7 @@ function Evaluacion() {
     idTherapy:"",
     fechaInicio:"",
     idTerapeuta:"",
-    price:"",
+    price:null,
     firstPrice:"",
     idConsultorio:"",
     Dias:[],
@@ -102,16 +102,6 @@ function Evaluacion() {
     frecuencia:"", */
   });
   
-
-/* 
-  function handle(selectedItems) {
-    const diasEnviar = [];
-    diasEnviar.push(selectedItems.target.value);
-    setDayEnviar(diasEnviar);
-    
-    setDay(selectedItems.target.value);
-
-} */
 
  
 function handle(selectedItems) {
@@ -133,7 +123,6 @@ function handle(selectedItems) {
 const CrearCitas = async (e) => {
   e.preventDefault();
   try{
-    console.log(dataCrear)
      const res = await axios.post("https://jdeleon-001-site1.btempurl.com/api/traerpaciente/CrearEvaluacion",dataCrear);
      if(res.status == 200){
          const ale = await swal({
@@ -326,6 +315,7 @@ const CrearCitas = async (e) => {
                                 id="txtnombres"
                                 onChange={Fprecio}
                                 value={price}
+                                required
                                 autoComplete="off"
                                 name="firstPrice"
                               />

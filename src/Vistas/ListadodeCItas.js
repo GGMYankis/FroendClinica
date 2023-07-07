@@ -35,7 +35,6 @@ function ListadodeCItas() {
   const [priceEvaluacion, setPriceEvaluacion] = useState(0);
   const [idEvaluacion, setIdEvaluacion] = useState(0);
   const [nomPaciente, setNomPaciente] = useState("");
-  const [nomTerapeuta, setNomTerapeuta] = useState("");
   const [recurrencia, setRecurrencia] = useState(0);
   const [dayEnviar, setDayEnviar] = useState([]);
   const [visitas, setVisitas] = useState(false);
@@ -50,7 +49,7 @@ function ListadodeCItas() {
     idTherapy:"",
     fechaInicio:"",
     idTerapeuta:"",
-    price:"",
+    price:null,
     firstPrice:"",
     idConsultorio:"",
     Dias:[],
@@ -150,8 +149,10 @@ function ListadodeCItas() {
   const CrearCitas = async (e) => {
     e.preventDefault();
     try{
+
+
       setLoading(true)
-      console.log(dataCrear)
+
       const res = await axios.post("https://jdeleon-001-site1.btempurl.com/api/traerpaciente/CrearEvaluacion",dataCrear);
       if(res.status == 200){
         setLoading(false)
@@ -356,10 +357,12 @@ function ListadodeCItas() {
   };
   
   const handleEliminar = () => {
+
     const idEva = {
        IdEvaluation: idEvaluacion,
        IdRecurrencia:recurrencia
       };
+
 
     const url =
       "https://jdeleon-001-site1.btempurl.com/api/Clinica/EliminarCita";
@@ -636,7 +639,6 @@ function ListadodeCItas() {
                 </label>
                 <input
                  onChange={handleChange} 
-                  required
                   type="text"
                   className="barraInput"
                   name="price"
@@ -825,9 +827,8 @@ function ListadodeCItas() {
                   </label>
                   <input
                     onChange={(e) => setPriceEvaluacion(e.target.value)}
-                    required
                     type="text"
-                    value={priceEvaluacion}
+                    value={"RD$"+ parseFloat(priceEvaluacion).toLocaleString('es-DO', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                     className="form-control "
                   />
                 </div>
@@ -861,7 +862,7 @@ function ListadodeCItas() {
                     className="form-select"
                     onChange={(e) => setIdterapeuta(e.target.value)}
                     required
-                    value={nomTerapeuta}
+                    value={idterapeuta}
                   >
                     {terapeuta.map((item) => [
                       <option value={item.idUser} key={item.idUser}>

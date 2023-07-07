@@ -39,9 +39,8 @@ function PagoTerapeutas() {
     resportes.current.classList.add("contenedors");
 
     const urls =
-      "https://localhost:63958/api/Clinica/ListaEvaluacions";
+      "https://jdeleon-001-site1.btempurl.com/api/Clinica/ListaEvaluacions";
     axios.post(urls, data).then((result) => {
-      
       setDataPaciente(result.data)
 
   /*      let obj = [];
