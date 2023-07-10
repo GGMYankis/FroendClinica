@@ -82,6 +82,8 @@ function ListadodeCItas() {
   ];
 
 
+
+
   useEffect(() => {
     cargar();
   }, []);
@@ -246,19 +248,28 @@ function ListadodeCItas() {
 
     const IdEvaluacion = citas.filter((item) => item.idEvaluacion == e);
 
-    const dias = [];
+      const dias = [];
     const diasEDITAR = [];
 
-    IdEvaluacion.map((item) => {
+   IdEvaluacion.map(e => {
+      
+    e.diasUi.map(d => {
       const dia = {
-        label: item.dias,
-        value:item.dias
+        label: d,
+        value:d
       };
-      diasEDITAR.push(item.dias)
+      diasEDITAR.push(d.dias)
       dias.push(dia)
-    });
-        setDay(dias)
-        setDayEnviar(diasEDITAR)
+      })
+
+
+      
+    })
+
+    setDay(dias)
+    setDayEnviar(diasEDITAR)
+
+  
    
     IdEvaluacion.map((item) => [ 
        setIdPatients(item.paciente.idPatients),
