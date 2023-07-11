@@ -20,6 +20,10 @@ function Asistencias() {
   const [data, setData] = useState([]);
   const [dataPaciente, setDataPaciente] = useState([]);
   const [justificaciones, setJustificaciones] = useState("");
+
+  const [razonAsistencia, setRazonAsistencia] = useState([]);
+
+
   const resportes = useRef();
 
   let id = getDatosUsuario();
@@ -76,6 +80,14 @@ function Asistencias() {
       .then((response) => {
         setTerapeuta(response.data.usuarios);
       });
+
+
+      axios
+      .get("https://jdeleon-001-site1.btempurl.com/api/Clinica/razon")
+      .then((response) => {
+        setRazonAsistencia(response.data);
+      });
+
   }, []);
 
   const dataValor = {
@@ -160,14 +172,16 @@ function Asistencias() {
  
             <div
               className="box-asistencia"
-              onChange={(e) => setJustificaciones(e.target.value)}
+              
             >
               <label className="label-asistencia">Razón Asistencia</label>
-              <select className="justificacinAsistencias">
-                <option value="">Seleccione una asistencia</option>
-                <option value="asistio">Asistencia</option>
-                <option value="falta">Falta</option>
-                <option value="Justificada">Justificada</option>
+              <select className="justificacinAsistencias" onChange={(e) => setJustificaciones(e.target.value)}>
+                 {
+                    razonAsistencia.map((r,i) => [
+                    <option value={r.id} key={i}>{r.descripcion}</option>
+        
+                  ])
+                }
               </select>
             </div>
             {rol == 2 ? (

@@ -236,6 +236,11 @@ function Headers({ citas,reportesPagos, calendario, myElement, paciente,myElemen
                       <Link className="nav__link" to="/Users">Usuario</Link>
                   </div>
               </li>
+              <li className="list__item">
+                  <div className="list__button">
+                      <Link className="nav__link" to="/configuraciones">Configuraciones</Link>
+                  </div>
+              </li>
 
               <li className="list__item">
                   <div className="list__button">

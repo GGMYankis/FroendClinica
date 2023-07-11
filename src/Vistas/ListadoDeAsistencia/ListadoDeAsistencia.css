@@ -22,7 +22,7 @@
     margin: 0;
 }
 
-.cont-modal {
+.cont-modal-asistencia {
     width: 100%;
     min-height: 100vh;
     display: flex;
@@ -35,7 +35,7 @@
 }
 
 
-.active {
+.active-asistencia {
     top: 0;
 }
 

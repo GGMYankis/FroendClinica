@@ -145,7 +145,7 @@ function ListadoAsistencia() {
 
 
       function handleEdit(e){         
-        modalEditar.current.classList.add('active')
+        modalEditar.current.classList.add('active-asistencia')
         setModal(true)
 
         var res = attendance.filter(a => a.asistencias.idAsistencias == e);
@@ -161,7 +161,7 @@ function ListadoAsistencia() {
       }
 
       function handelEliminar(e){
-        modalEliminar.current.classList.add('active')
+        modalEliminar.current.classList.add('active-asistencia')
         var res = attendance.filter(a => a.asistencias.idAsistencias == e);
         
         res.map(a => {
@@ -171,8 +171,8 @@ function ListadoAsistencia() {
       }
 
       function quitarModal(){
-              modalEditar.current.classList.remove('active')
-              modalEliminar.current.classList.remove('active')
+              modalEditar.current.classList.remove('active-asistencia')
+              modalEliminar.current.classList.remove('active-asistencia')
       }
   
       const dataEditar = {
@@ -194,7 +194,7 @@ function ListadoAsistencia() {
            .then(res => {
           if(res.status == 200){
             fetchData();
-            modalEditar.current.classList.remove('active')
+            modalEditar.current.classList.remove('active-asistencia')
             swal({
                 title: "Correcto",
                 text: "Cambio guardado ",
@@ -218,7 +218,7 @@ function ListadoAsistencia() {
 
           if(res.status == 200){
             fetchData();
-            modalEliminar.current.classList.remove('active')
+            modalEliminar.current.classList.remove('active-asistencia')
             swal({
                 title: "Correcto",
                 text: "Cambio guardado ",
@@ -332,7 +332,7 @@ function ListadoAsistencia() {
                 </div>
             </div> 
             
-            <div className='cont-modal' ref={modalEditar}>
+            <div className='cont-modal-asistencia' ref={modalEditar}>
                 <form className='modalEditar' onSubmit={editarApi}>
                     <div className='cont-titu-modal'> 
                         <h1>Editar Asistencia</h1>
