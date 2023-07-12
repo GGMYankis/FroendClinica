@@ -3,7 +3,7 @@ import { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import Headers from "../components/Headers/Headers"
 
-import { Loading, LoaLogin } from "../components/Loading";
+import { Loading } from "../components/Loading";
 
 function PagoTerapeutas() {
   const [startDate, setStartDate] = useState(null);
@@ -14,6 +14,7 @@ function PagoTerapeutas() {
   const pagotera = useRef();
   const [idterapeuta, setIdterapeuta] = useState(0);
   const [terapeuta, setTerapeuta] = useState([]);
+  const [total, setTotal] = useState(0);
 
 
 
@@ -38,10 +39,22 @@ function PagoTerapeutas() {
 
     resportes.current.classList.add("contenedors");
 
-    const urls =
-      "https://jdeleon-001-site1.btempurl.com/api/Clinica/ListaEvaluacions";
+    const urls = "https://jdeleon-001-site1.btempurl.com/api/Clinica/ListaEvaluacions";
+    
     axios.post(urls, data).then((result) => {
       setDataPaciente(result.data)
+
+
+      const total =  result.data.map(c => c.price).reduce((acc , curr) => acc + curr,0)
+
+      setTotal(total)
+  
+        
+   
+       
+
+      
+
 
   /*      let obj = [];
        let validos = [];
@@ -61,8 +74,9 @@ function PagoTerapeutas() {
       }
       
     }) */
+   
 
-          
+
 
       resportes.current.classList.remove("contenedors");
     });
@@ -75,6 +89,7 @@ function PagoTerapeutas() {
   return (
     <div>
       <div className="cont-formPagoTerapeuat" ref={pagotera}>
+
         <form className="formPagoTerapeuat" onSubmit={enviars} ref={resportes}>
           {loading ? <Loading /> : ""}
           <div className="cont-titu-gastos">
@@ -127,6 +142,7 @@ function PagoTerapeutas() {
                   <th>Terapia</th>
                   <th>Monto</th>
                   <th>Fecha</th>
+                  <th>Razón </th>
                 </tr>
               </thead>
               <tbody>
@@ -136,13 +152,23 @@ function PagoTerapeutas() {
                     <td>{x.terapia.label}</td>
                     <td>RD${parseFloat(x.price).toLocaleString('es-DO', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</td>
                     <td>{x.fechaInicio.substring("", 10)}</td>
+                    <td>{x.tipoAsistencia.descripcion}</td>
                   </tr>,
                 ])}
               </tbody>
             </table>
           </div>
+
+          <div className="total-pagoTerapeuta" >
+            { total ? 
+                 <p>Total a Pagar: RD${parseFloat(total).toLocaleString('es-DO', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</p>      
+              :
+              ""
+            }
+          </div>
+
         </form>
-        <Headers  pagotera={pagotera} />
+         <Headers  pagotera={pagotera} />
       </div>
     </div>
   );

@@ -173,7 +173,7 @@ function Configuraciones() {
                     <div className="modal-body">
                         {
                         <p>
-                            ¿Deseas eliminar el Configuración:{" "}
+                            ¿Deseas eliminar la Configuración:{" "}
                             <span className="text-eliminar">{idKey}</span>?
                         </p>
                         }
@@ -203,7 +203,7 @@ function Configuraciones() {
 
             <Headers/>
 
-                 <ModalConfig  setShowModal={setShowModal} showModal={showModal} cargar={cargar()} /> 
+                 <ModalConfig  setShowModal={setShowModal} showModal={showModal} cargar={cargar} /> 
                       
            
     </>

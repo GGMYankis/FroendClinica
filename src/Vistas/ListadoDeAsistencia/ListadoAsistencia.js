@@ -23,13 +23,12 @@ function ListadoAsistencia() {
   
   
   const [fechaFin, setFechaFin] = useState("");
-  const [fechaBuscar, setfechaBuscar] = useState("");
   const [paciente, setPaciente] = useState("");
   const [terapeuta, setTerapeuta] = useState("");
   const [terapia, setTerapia] = useState("");
   const [remark, setRemark] = useState("");
   const [fechaInicio, setfechaInicio] = useState("");
-  const [razon, setRazon] = useState("");
+  const [razon, setRazon] = useState(0);
   const [asistencia, setAsistencia] = useState(0);
   const modalEditar = useRef();
   const modalEliminar = useRef();
@@ -39,13 +38,17 @@ function ListadoAsistencia() {
   const [modal, setModal] = useState(false);
 
   const fetchData = async () => {
+
     try {
         const resSolicitud = await axios.get("https://jdeleon-001-site1.btempurl.com/api/Clinica/Listadoasistencia");
+       
         setAttendance(resSolicitud.data)
+
       } catch (error) {
         
         console.log(error)
       }
+
 }
 
     useEffect(() => {
@@ -105,9 +108,8 @@ function ListadoAsistencia() {
           cell: (row) => new Date(row.asistencias.fechaInicio).toLocaleDateString(),
         },
         {
-          name: "Razon",
-          selector: (row) => row.asistencias.tipoAsistencias,
-
+          name: "Razón ",
+          selector: (row) => row.tipoAsistencia,
           sortable: true,
         },
        
@@ -181,7 +183,7 @@ function ListadoAsistencia() {
         idTherapy:  parseInt(terapia),
         IdTerapeuta:  parseInt(terapeuta),
         FechaInicio: fechaInicio,
-        TipoAsistencias: razon,
+        TipoAsistencias:parseInt(razon),
         remarks: remark,
       };
 
@@ -234,7 +236,8 @@ function ListadoAsistencia() {
         fechaFinal: fechaFin,
       };
 
-      function filtrarAsistencias () {
+      function filtrarAsistencias (e) {
+        e.preventDefault()
         const url = "https://jdeleon-001-site1.btempurl.com/api/Clinica/FiltrandoAsistencia";
     
         axios.post(url, filtrar)
@@ -246,7 +249,6 @@ function ListadoAsistencia() {
 
         })
         .then(res => {
-            console.log(res)
         })
       }
 
@@ -409,9 +411,9 @@ function ListadoAsistencia() {
 
                                    <label className="label-asistencia">Razón Asistencia</label>
                                     <select   value={razon}  onChange={e => setRazon(e.target.value)}required >
-                                        <option value="asistio">Asistencia</option>
-                                        <option value="falta">Falta</option>
-                                        <option value="Justificada">Justificada</option>
+                                        <option value="1">Asistencia</option>
+                                        <option value="2">Falta</option>
+                                        <option value="3">Justificada</option>
                                     </select>
                                   </div>
                             

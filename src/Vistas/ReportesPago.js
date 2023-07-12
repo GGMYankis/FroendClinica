@@ -2,9 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import { useState } from 'react';
 import Headers from "../components/Headers/Headers"
-
 import { useEffect , useRef} from 'react';
-
 
 function ReportesPago() {
   const [paciente, setPaciente] = useState([]);

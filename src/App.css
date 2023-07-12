@@ -1867,16 +1867,19 @@
   margin-top: 55px;
   display: flex;
   justify-content: center;
+  align-items: center;
   position: relative;
+
 }
 
 .formPagoTerapeuat {
   width: 80%;
-  min-height: 400px;
   margin: 40px 10px 10px 10px;
   background-color: white;
   box-shadow: 0 1rem 2rem rgba(0, 0, 0, .1);
   position: relative;
+  position: absolute;
+  top: 40px;
 }
 
 .padrePagoTerapeuta {
@@ -3010,4 +3013,18 @@ td {
 
 .txtCrearCita {
   width: 50%;
+}
+
+.total-pagoTerapeuta {
+  margin-left: 20px;
+}
+
+.total-pagoTerapeuta p {
+  font-weight: bold;
+}
+
+.label-precio-cita {
+  color: red;
+  position: absolute;
+  left: 0;
 }

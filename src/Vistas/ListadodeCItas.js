@@ -215,6 +215,7 @@ function ListadodeCItas() {
   const  EnviarEvaluacionEditada = async(e) =>{
     e.preventDefault();
 
+
     const res =  axios.post("https://jdeleon-001-site1.btempurl.com/api/Clinica/EditarCitas",dtEditar);
     const resRecurrencia = await axios.post("https://jdeleon-001-site1.btempurl.com/api/traerpaciente/EditarRecurrencia",dtRecu);
     if(resRecurrencia.status == 200){
@@ -254,22 +255,18 @@ function ListadodeCItas() {
    IdEvaluacion.map(e => {
       
     e.diasUi.map(d => {
+
       const dia = {
         label: d,
         value:d
       };
-      diasEDITAR.push(d.dias)
-      dias.push(dia)
+        diasEDITAR.push(d)
+        dias.push(dia)
       })
-
-
-      
     })
 
     setDay(dias)
     setDayEnviar(diasEDITAR)
-
-  
    
     IdEvaluacion.map((item) => [ 
        setIdPatients(item.paciente.idPatients),
@@ -839,7 +836,7 @@ function ListadodeCItas() {
                   <input
                     onChange={(e) => setPriceEvaluacion(e.target.value)}
                     type="text"
-                    value={"RD$"+ parseFloat(priceEvaluacion).toLocaleString('es-DO', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                    value={parseFloat(priceEvaluacion).toLocaleString('es-DO', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                     className="form-control "
                   />
                 </div>
@@ -920,6 +917,8 @@ function ListadodeCItas() {
                                         required
                                         placeholder = "Seleccione una Terapia"
                                     />
+
+
          
             </div>
 
