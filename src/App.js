@@ -13,7 +13,7 @@ import VerGanancias from "./Vistas/VerGanancias";
 import PagoTerapeutas from "./Vistas/PagoTerapeutas";
 import AgeCalculator from "./AgeCalculator";
 import PerfilAdmin from "./Vistas/PerfilAdmin";
-import ListasTerapias from "./Vistas/ListasTerapias";
+import ListasTerapias from "./Vistas/ListadoDeTerapias/ListadoTerapias";
 import ListadodeCItas from "./Vistas/ListadodeCItas";
 import ListadoAsistencia from "./Vistas/ListadoDeAsistencia/ListadoAsistencia";
 import Configuraciones from "./Vistas/Configuraciones/Configuraciones";

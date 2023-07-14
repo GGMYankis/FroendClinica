@@ -1902,7 +1902,13 @@
 
 .table-formPagoTerapeuat thead tr th {
   border: none;
+  text-align: center;
 }
+
+.table-formPagoTerapeuat tbody tr td {
+  text-align: center;
+}
+
 
 .cont-form-abono {
   width: 100%;

@@ -1,0 +1,95 @@
+.cont_modal-terapia {
+    width: 100%;
+    min-height: 100vh;
+    position: absolute;
+    top: -120%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #00000066;
+    position: fixed;
+}
+
+.form_terapia {
+    padding: 20px 30px;
+    background-color: white;
+    margin: 10px;
+    width: 500px;
+    position: relative;
+    overflow: hidden;
+    border-radius: 10px;
+}
+
+.box_terapia {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 10px;
+    margin-top: 40px;
+}
+
+.box_terapia div:last-child input {
+    width: 100%;
+}
+
+.cont_titu_terapia {
+    background-color: #0b2f57;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 40px;
+}
+
+.cont_titu_terapia h1 {
+    color: white;
+    font-size: 25px;
+    text-align: center;
+    line-height: 40px;
+}
+
+.form_terapia input {
+    width: 100%;
+    padding: 10px 13px;
+    margin: 0 0 20px;
+    border-radius: 8px;
+    border: 1px solid rgba(212, 206, 206, 0.531);
+}
+
+.form_terapia label {
+    font-weight: bold;
+    color: #0b2f57;
+}
+
+.form_terapia .btn {
+    width: 100%;
+    padding: 10px 13px;
+    margin: 0 0 10px;
+    font-weight: bold;
+}
+
+.form_terapia .btn.guardar {
+    background-color: #0b2f57;
+    color: white;
+    border: 3px solid #0b2f57;
+}
+
+.form_terapia .btn.guardar:hover {
+    background-color: transparent;
+    color: #0b2f57;
+}
+
+
+.form_terapia .btn.cancelar {
+    background-color: #dc3545;
+    color: white;
+    border: 3px solid #dc3545;
+}
+
+.form_terapia .btn.cancelar:hover {
+    background-color: transparent;
+    color: #dc3545;
+}
+
+.active_modal_terapia {
+    top: 0;
+}

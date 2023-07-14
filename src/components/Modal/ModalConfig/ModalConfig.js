@@ -28,7 +28,7 @@ function ModalConfig(props) {
         })
     }
     
-    function closeModalCrear(e){
+    function closeModal(e){
         setShowModal(false)
        crear.current.classList.remove("active-Modal");
     }
@@ -54,7 +54,7 @@ function ModalConfig(props) {
                         <input placeholder='Value' required  onChange={onChangeData} name='value'/>
 
                         <input className='btn guardar'  type='submit' value="Guardar"/>
-                        <button className='btn eliminar' type='button' onClick={closeModalCrear}>Cancelar</button>
+                        <button className='btn eliminar' type='button' onClick={closeModal}>Cancelar</button>
                     </div>
                     
                 </form>

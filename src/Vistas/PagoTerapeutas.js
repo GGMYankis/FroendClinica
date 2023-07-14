@@ -44,17 +44,9 @@ function PagoTerapeutas() {
     axios.post(urls, data).then((result) => {
       setDataPaciente(result.data)
 
-
       const total =  result.data.map(c => c.price).reduce((acc , curr) => acc + curr,0)
 
       setTotal(total)
-  
-        
-   
-       
-
-      
-
 
   /*      let obj = [];
        let validos = [];
@@ -74,11 +66,8 @@ function PagoTerapeutas() {
       }
       
     }) */
-   
-
-
-
-      resportes.current.classList.remove("contenedors");
+  
+    resportes.current.classList.remove("contenedors");
     });
   };
 
@@ -140,6 +129,7 @@ function PagoTerapeutas() {
                 <tr>
                   <th>Terapeuta</th>
                   <th>Terapia</th>
+                  <th>Paciente</th>
                   <th>Monto</th>
                   <th>Fecha</th>
                   <th>Razón </th>
@@ -150,6 +140,7 @@ function PagoTerapeutas() {
                   <tr key={c}>
                     <td>{x.terapeuta.names}  {x.terapeuta.apellido}</td>
                     <td>{x.terapia.label}</td>
+                    <td>{x.paciente.name}</td>
                     <td>RD${parseFloat(x.price).toLocaleString('es-DO', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</td>
                     <td>{x.fechaInicio.substring("", 10)}</td>
                     <td>{x.tipoAsistencia.descripcion}</td>

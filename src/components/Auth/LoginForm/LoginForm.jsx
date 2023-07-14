@@ -26,10 +26,10 @@ function LoginForm() {
     onSubmit:(formValue) => {
 
         const url = "https://jdeleon-001-site1.btempurl.com/api/Autenticacion/Login";
-        axios .post(url, formValue)
+        axios.post(url, formValue)
         .then((result) => {
-          setToken(result.data.tokencreado);
           setUser(decodeToken(result.data.tokencreado));
+          setToken(result.data.tokencreado);
           setUsuarioCompleto(result.data.user.idRol) 
           idUser(result.data.user.idUser);
         }).catch((error) => {
