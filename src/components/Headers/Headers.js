@@ -203,7 +203,11 @@ function Headers({ citas,reportesPagos, calendario, myElement, paciente,myElemen
                       <Link className="nav__link" to="/">Paciente de ingreso</Link>
                   </div>
               </li>
-             
+              <li className="list__item">
+                  <div className="list__button">
+                      <Link className="nav__link" to="/gastos">Registro de gastos</Link>
+                  </div>
+              </li>
             
               <li className="list__item list__item--click">
                   <div className="list__button list__button--click">
@@ -223,9 +227,7 @@ function Headers({ citas,reportesPagos, calendario, myElement, paciente,myElemen
                       <li className="list__inside">
                           <Link className="nav__link nav__link--inside"  to="/VerGanancias">Historial de gastos</Link>
                       </li>    
-                      <li className="list__inside">
-                      <Link className="nav__link nav__link--inside"to="/gastos"> Registro de gastos</Link>     
-                      </li>         
+                             
 
                                
                   </ul>

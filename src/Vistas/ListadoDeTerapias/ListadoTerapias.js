@@ -40,8 +40,6 @@ function ListasTerapias() {
       });
   };
 
- 
-
 
   const dataEdi = {
     IdTherapy: id,
