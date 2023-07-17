@@ -4,21 +4,13 @@ import axios from "axios";
 import Headers from "../components/Headers/Headers"
 
 import swal from "sweetalert";
-import { FaUser, FaUsers, FaTrash, FaEdit } from "react-icons/fa";
-import { FaBars } from "react-icons/fa";
-import { BrowserRouter, Routes, Route, Link, Redirect } from "react-router-dom";
 import {
   DeleteToken,
-  getToken,
-  initAxiosInterceptors,
-  setUsuarioM,
-  obtenerUser,
-  getNombreUsuario,
+
   getUsuarioCompleto,
 } from "../auth-helpers";
 import { useNavigate } from "react-router-dom";
-import logo from "../imagenes/IMG-20230221-WA0009.png";
-import { set } from "date-fns";
+
 
 function Users() {
   let rol = getUsuarioCompleto();
@@ -35,7 +27,7 @@ function Users() {
   const [correo, setCorreo] = useState("");
   const [contraseñas, setContraseñas] = useState("");
   const [idRol, setIdRol] = useState();
-  const [ediRol, setEdiRol] = useState();
+  const [mensaje, setMensaje] = useState();
 
   const FormularioTherapy = document.getElementById("txtCrearUusario");
   const navigation = useNavigate();
@@ -119,12 +111,13 @@ function Users() {
     IdRol: parseInt(idRol),
   };
 
-  function CrearUsuario(e) {
+  async function CrearUsuario(e) {
     e.preventDefault();
 
-    const url =
-      "https://jdeleon-001-site1.btempurl.com/api/Clinica/CrearUsuario";
-    axios.post(url, dataCrear).then((result) => {
+    try {
+       setMensaje("")
+      const res = await axios.post("https://localhost:63958/api/Clinica/CrearUsuario",dataCrear)
+
       const probar = async () => {
         modalCrear.current.classList.remove("activeCrear");
         cargar();
@@ -134,12 +127,16 @@ function Users() {
           icon: "success",
         });
       };
-      if (result) {
+      if (res) {
         probar();
       }
 
       FormularioTherapy.reset();
-    });
+    } catch (error) {
+     setMensaje(error.response.data.error)
+    }
+
+ 
   }
 
   function EditarUsuario(valor) {
@@ -215,16 +212,10 @@ function Users() {
     });
   }
 
-  const logout = () => {
-    DeleteToken();
-    navigation("/login");
-  };
-
+ 
   const myElementUsuario = useRef(null);
 
-  const handleClickOtro = () => {
-    myElementUsuario.current.classList.toggle("mi-clase-css");
-  };
+ 
 
   const FActivo = (value) => {
   setAc(value)
@@ -493,7 +484,18 @@ function Users() {
 
                 </select>
               </div>
+            
+           
+
             </div>
+              {
+            
+            mensaje ?
+            <div className="mensaje-error-usuario">
+               <label>{mensaje}</label> 
+            </div> : ""
+            }
+             
             <div className="row">
               <div className="col-sm-12">
                 <input

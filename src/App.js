@@ -24,11 +24,11 @@ import TerapiaTerapeuta from "./Vistas/TerapiaTerapeuta";
 import Contabilidad from "./Vistas/Contabilidad";
 import ListasPacientes from "./Vistas/ListasPacientes";
 import Asistencias from "./Vistas/Asistencias";
-import Calendario from "./Vistas/Calendario";
+ import Calendario from "./Vistas/Calendario"; 
 import ReportesPago from "./Vistas/ReportesPago";
 import ErrorPage from "./Vistas/ErrorPage";
 import {getToken, initAxiosInterceptors,getUsuarioCompleto} from "./auth-helpers";
-import { Loading, LoaLogin, LoaAll } from "./components/Loading";
+import { LoaAll } from "./components/Loading";
 import  Auth from "./pages/Auth/Auth"
 import AuthContext from "./context/AuthContext";
 import { decodeToken } from "./components/Auth/LoginForm/Utils/token";
@@ -115,7 +115,7 @@ function App() {
                 <Route exact path="/terapia" element={<Terapias />} />
                 <Route exact path="/" element={<Home />} />
                 <Route exact path="/asistencias" element={<Asistencias />} />
-                <Route exact path="/calendario" element={<Calendario />} />
+                <Route exact path="/calendario" element={<Calendario />} /> 
                 <Route exact path="/contabilidad" element={<Contabilidad />} />
                 <Route exact path="/AgeCalculator" element={<AgeCalculator />} />
                 <Route exact path="/abono" element={<Abono />} />

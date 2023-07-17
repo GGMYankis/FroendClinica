@@ -1,4 +1,3 @@
-import {Form} from 'semantic-ui-react';
 import React, {  useState } from "react";
 import axios from "axios";
 import * as Yup from "yup";
@@ -23,27 +22,29 @@ function LoginForm() {
       password:Yup.string().required("la contraseñas es obligatoria"),
     }),
     
-    onSubmit:(formValue) => {
+    onSubmit: async (formValue) => {
 
-        const url = "https://jdeleon-001-site1.btempurl.com/api/Autenticacion/Login";
-        axios.post(url, formValue)
-        .then((result) => {
+      try {
+
+          const result = await axios.post("https://localhost:63958/api/Autenticacion/Login", formValue);
+
           setUser(decodeToken(result.data.tokencreado));
           setToken(result.data.tokencreado);
           setUsuarioCompleto(result.data.user.idRol) 
           idUser(result.data.user.idUser);
-        }).catch((error) => {
-         setError(error.response.data)
-        });
-      
+
+      } catch (error) {
+        setError(error.response.data)
+      }
     },
+
   });
 
   return (
     <div>
      
          <div className="contenedor_login3">
-            <Form className='hhh' onSubmit={formik.handleSubmit}>
+            <form className='hhh' onSubmit={formik.handleSubmit}>
               <img className="img3" src={logo} />
                 <br></br>
 
@@ -51,7 +52,7 @@ function LoginForm() {
                   <span className="ggL">É</span>nfasis
                 </span>
 
-              <Form.Input
+              <input
               type='text'
               placeholder="Correo electronico"
               name="email"
@@ -59,7 +60,7 @@ function LoginForm() {
               onChange={formik.handleChange}
               error={formik.errors.email}
               />
-                  <Form.Input
+                  <input
               type='password'
               placeholder="Contraseña"
               name="password"
@@ -69,7 +70,7 @@ function LoginForm() {
               />
               <button className='btn'>Iniciar Sesion</button>
               {error && <p className='submit-error'>{error}</p>}
-        </Form>
+        </form>
           </div>
     </div>
   )

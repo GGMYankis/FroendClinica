@@ -3034,3 +3034,12 @@ td {
   position: absolute;
   left: 0;
 }
+
+.mensaje-error-usuario {
+  background-color: #ec7c96;
+  padding: 10px 15px;
+  border-radius: 5px;
+  text-align: center;
+  color: white;
+  font-size: 20px;
+}

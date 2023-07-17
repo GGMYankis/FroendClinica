@@ -5,13 +5,12 @@ import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction";
 import Headers from "../components/Headers/Headers"
-
 import "bootstrap/dist/css/bootstrap.min.css";
 import $ from "jquery";
 import {Loading} from "../components/Loading"
 import { addDays, startOfDay } from 'date-fns';
 
-
+//yan
 function Calendario() {
 
   const [event, setEvent] = useState([]);
@@ -265,7 +264,7 @@ function Calendario() {
             </div>
           </form>
 
-          <FullCalendar
+           <FullCalendar
             plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
             editable={true}
             droppable={true}
@@ -278,7 +277,7 @@ function Calendario() {
             }}
             height={"80vh"}
             eventClick={handleEventClickFecha}
-          />
+          />  
         </div>
       </div>
 

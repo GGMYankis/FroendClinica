@@ -1,104 +1,15 @@
-import DatePicker from "react-multi-date-picker";
-import transition from "react-element-popper/animations/transition";
-import opacity from "react-element-popper/animations/opacity";
-import { useEffect ,useState} from "react";
-import {Loading} from "./components/Loading"
-import FullCalendar from "@fullcalendar/react";
-import dayGridPlugin from "@fullcalendar/daygrid";
-import timeGridPlugin from "@fullcalendar/timegrid";
-import interactionPlugin from "@fullcalendar/interaction";
-import axios from "axios";
-import { addDays, startOfDay } from 'date-fns';
+
 
 
 function AgeCalculator() {
 
-    const [citas, setCitas] = useState([]);
-
-    useEffect(() => {
-
-       async function soli (){
-        const res = await axios.get("https://localhost:63958/api/Citas/Citas")
-            console.log(res.data)
-        res.data.map(x => {
-            if(x.dias == "domingo"){
-              x.dias = 0
-            }
-            if(x.dias == "lunes"){
-                x.dias = 1
-              }
-            if(x.dias == "martes"){
-                x.dias = 2
-              }
-              if(x.dias == "miercoles"){
-                x.dias = 3
-              }
-              if(x.dias == "jueves"){
-                  x.dias = 4
-                }
-                if(x.dias == "viernes"){
-                    x.dias = 5
-                  }
-                  if(x.dias == "sabado"){
-                      x.dias = 6
-                    }
-        })
-        setCitas(res.data);
-
-        }
-        soli()
-    },[])
-
-
-    const empezar = new Date();
-    const diasSemana = [1, 3]; 
-
-    const fechaLimite = addDays(empezar, 9999, 11, 31); 
-    const eventos = [];
-
     
-   
-    const citass = [
-        { paciente:{name:"juan"} , dias:1 , fechaInicio:new Date()},
-        { paciente:{name:"irannys"} , dias:3, fechaInicio:new Date()}
-    ];
-
-    citas.forEach(cita => {
-
-       let iniciar = new Date(cita.fechaInicio)
-
-        while (iniciar <= fechaLimite) {
-
-            if (cita.dias  == iniciar.getDay()) {
-            
-                const evento = {
-                    title:cita.paciente.name,
-                    start: new Date(iniciar.getTime()),
-                };
-    
-              eventos.push(evento);
-            }
-    
-            iniciar = addDays(iniciar, 1);
-     
-     }  
-        
-    });
-
     
 
     
    return (
     <>
-        <FullCalendar
-        
-        plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
-        editable={true}
-        droppable={true}
-        initialView={"dayGridMonth"}
-        events={eventos}
-        />
-        <p>hola yankis</p>
+    <p>hola</p>
    </>
   ) 
 
