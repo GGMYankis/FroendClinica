@@ -109,9 +109,9 @@ function App() {
               <Route >
                 <Route exact path="/evaluacion" element={<Evaluacion />} />
                 <Route exact path="/perfilAdmin" element={<PerfilAdmin />} />
-                <Route exact path="/listasTerapias" element={rol == 1 ? <ListasTerapias /> : <ErrorPage />} />
-                <Route exact path="/listasPacientes" element={ rol == 1 ? <ListasPacientes  /> :  <ErrorPage />} />
-                <Route exact path="/Users" element={ rol == 1 ? <Users /> :  <ErrorPage />} />
+                <Route exact path="/listasTerapias" element={rol == 1 || rol== 3 ? <ListasTerapias /> : <ErrorPage />} />
+                <Route exact path="/listasPacientes" element={ <ListasPacientes  />} />
+                <Route exact path="/Users" element={ rol == 1 || rol== 3? <Users /> :  <ErrorPage />} />
                 <Route exact path="/terapia" element={<Terapias />} />
                 <Route exact path="/" element={<Home />} />
                 <Route exact path="/asistencias" element={<Asistencias />} />
@@ -120,9 +120,9 @@ function App() {
                 <Route exact path="/abono" element={<Abono />} />
                 <Route exact path="/TerapiaTerapeuta" element={<TerapiaTerapeuta />}/>           
                 <Route exact path="/gastos" element={<Gastos />} />
-                <Route exact path="/verGanancias" element={<VerGanancias />} />
+                <Route exact path="/verGanancias" element={rol == 1 ?  <VerGanancias /> :  <ErrorPage />} />
                 <Route exact path="/AbonoTerapias" element={<AbonoTerapias />} />
-                <Route exact path="/PagoTerapeutas" element={<PagoTerapeutas />} />
+                <Route exact path="/PagoTerapeutas" element={rol == 1 ?  <PagoTerapeutas /> : <ErrorPage />} />
                 <Route exact path="/Consultorios" element={<Consultorios />} />
                 <Route exact path="/listadodeCItas" element={<ListadodeCItas />} />
                 <Route exact path="/reportesPago" element={<ReportesPago />} />

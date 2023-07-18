@@ -11,15 +11,15 @@ import { decodeToken } from './Utils/token';
 
 function LoginForm() {
 
-  const [error, setError] = useState("")
+  const [error, setError] = useState("");
   const  {setUser} = useAuth()
   
   const formik = useFormik({
 
     initialValues:initialValues(),
     validationSchema:Yup.object({
-      email:Yup.string().email("El email no es valido").required("el email es obligatorio"),
-      password:Yup.string().required("la contraseñas es obligatoria"),
+      email:Yup.string().email("el email no es valido").required("el email es obligatorio"),
+      password:Yup.string().required("lla contrasena es obligatoria"),
     }),
     
     onSubmit: async (formValue) => {
@@ -40,17 +40,16 @@ function LoginForm() {
 
   });
 
+
+
   return (
     <>
      
-         <div className="contenedor_login3">
-            <form className='hhh' onSubmit={formik.handleSubmit}>
-              <img className="img3" src={logo} />
-                <br></br>
+         <div className="cont_login">
+            <form className='form_login' onSubmit={formik.handleSubmit}>
+              <img className="logo_login" src={logo} />
 
-                <span className="verL">
-                  <span className="ggL">É</span>nfasis
-                </span>
+                  <p className="inicial_letra_login">É<span>nfasis</span></p>
 
               <input
               type='text'
@@ -58,20 +57,20 @@ function LoginForm() {
               name="email"
               value={formik.values.email}
               onChange={formik.handleChange}
-              className={formik.errors.email && "error" }
+              className={formik.errors.email ? 'error' : '' }
+            
               />
-                  <input
+              <input
               type='password'
               placeholder="Contraseña"
               name="password"
               value={formik.values.password}
               onChange={formik.handleChange}
-               className={formik.errors.password && "error" }
-
-
-/>
-              <button className='btn'>Iniciar Sesion</button>
+              className={formik.errors.password  ? 'error' : '' }
+            />
               {error && <p className='submit-error'>{error}</p>}
+
+              <button className='btn'>Iniciar Sesion</button>
         </form>
           </div>
     </>

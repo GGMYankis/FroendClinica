@@ -1,0 +1,62 @@
+.cont_login {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+}
+
+.form_login {
+    background-color: #0b2f57;
+    border-radius: 10px;
+    overflow: hidden;
+    text-align: center;
+    padding: 20px 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    width: 300px;
+    height: 300px;
+}
+
+.logo_login {
+    width: 60px;
+    height: 60px;
+}
+
+.form_login input {
+    width: 100%;
+    padding: 8px 10px;
+    border-radius: 5px;
+    margin-bottom: 15px;
+    outline: none;
+    border: none;
+    border-radius: 20px;
+}
+
+.form_login .btn {
+    width: 100%;
+    background-image: linear-gradient(270deg, #0b2f57, aqua, #0b2f57);
+    background-size: 300%;
+    color: orange;
+    font-weight: bold;
+    border-radius: 5px;
+    border-radius: 20px;
+
+}
+
+.inicial_letra_login {
+    margin: 0px 0px 20px 0px;
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.form_login .btn:hover {
+    background-position: right;
+}
+
+.error {
+    color: #9f3a38;
+}

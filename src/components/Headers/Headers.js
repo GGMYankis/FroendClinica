@@ -9,8 +9,6 @@ import arrow from "../../imagenes/arrow.svg";
 import "./Headers.css";
 import { createBrowserHistory } from 'history';
 
-
-
 function Headers(props) {
  
 const {citas,reportesPagos, calendario, myElement, paciente,myElementTerapia,RefCitas,myElementUsuario ,pagotera, consultorio} = props;
@@ -111,7 +109,7 @@ const {citas,reportesPagos, calendario, myElement, paciente,myElementTerapia,Ref
   }
 
   return (
-    <div>
+    <>
 
           <nav className="header">
             <label onClick={ver}> <FaBars id="bar" /></label>                      
@@ -126,139 +124,164 @@ const {citas,reportesPagos, calendario, myElement, paciente,myElementTerapia,Ref
           </nav>
  
         <nav className="navsd activef" id="menu">
+          {rol == 1 || rol == 3 ? 
           <ul className="list" id="lista">
 
-              <li className="list__item">
-                  <div className="list__button">
-                  {/*    <img src={reportes} className="list__img"/> */}
-                      <Link className="nav__link"  to="/AbonoTerapias">  Abono Terapias</Link>
-                  </div>
-              </li>
-              {rol == 1 ? 
+          <li className="list__item">
+              <div className="list__button">
+                  <Link className="nav__link"  to="/AbonoTerapias">  Abono Terapias</Link>
+              </div>
+          </li>
+          {rol == 1 ||  rol == 3? 
 
-              <span>
-                <li className="list__item">
-                    <div className="list__button">
-                        <Link className="nav__link" to="/TerapiaTerapeuta">Asignación</Link>
-                    </div>
-                </li>
-              </span>
+          <span>
+            <li className="list__item">
+                <div className="list__button">
+                    <Link className="nav__link" to="/TerapiaTerapeuta">Asignación</Link>
+                </div>
+            </li>
+          </span>
 
-              :
-              ""
-            }
-              <li className="list__item">
-                  <div className="list__button">
-                      <Link className="nav__link" to="/asistencias">Asistencia</Link>
-                  </div>
-              </li>
-              <li className="list__item">
-                  <div className="list__button">
-                      <Link className="nav__link"  to="/calendario">Calendario</Link>
-                  </div>
-              </li>
-              <li className="list__item">
-                  <div className="list__button">
-                      <Link className="nav__link"  to="/evaluacion">Citas</Link>
-                  </div>
-              </li>
-              <li className="list__item">
-                  <div className="list__button">
-                      <Link className="nav__link" to="/terapia"> Crear terapia</Link>
-                  </div>
-              </li>
+          :
+          ""
+        }
+          <li className="list__item">
+              <div className="list__button">
+                  <Link className="nav__link" to="/asistencias">Asistencia</Link>
+              </div>
+          </li>
+          <li className="list__item">
+              <div className="list__button">
+                  <Link className="nav__link"  to="/calendario">Calendario</Link>
+              </div>
+          </li>
+          <li className="list__item">
+              <div className="list__button">
+                  <Link className="nav__link"  to="/evaluacion">Citas</Link>
+              </div>
+          </li>
+          <li className="list__item">
+              <div className="list__button">
+                  <Link className="nav__link" to="/terapia"> Crear terapia</Link>
+              </div>
+          </li>
 
-              <li className="list__item list__item--click">
-                  <div className="list__button list__button--click">
-                          <Link  className="nav__link"   >Listados</Link>
-                          <img src={arrow} className="list__img"/>
-                  </div>
+          <li className="list__item list__item--click">
+              <div className="list__button list__button--click">
+                      <Link  className="nav__link"   >Listados</Link>
+                      <img src={arrow} className="list__img"/>
+              </div>
 
-                  <ul className="list__show">
-                      <li className="list__inside">
-                          <Link className="nav__link nav__link--inside" to="/ListadodeCItas">Listado de  Citas</Link>
-                      </li>
- 
-                       {rol == 1 ? 
- 
-                      <span>
-                       <li className="list__inside">
-                                                <Link className="nav__link nav__link--inside" to="/Consultorios">Listado de Consultorios</Link>
-                                            </li>
-                                            <li className="list__inside">
-                                                <Link className="nav__link nav__link--inside" to="/listasPacientes">Listado de Pacientes</Link>
-                                            </li>
-                                            <li className="list__inside">
-                                                <Link className="nav__link nav__link--inside" to="/listasTerapias"> Listado de Terapias</Link>
-                                            </li>
-                                            <li className="list__inside">
-                                                <Link className="nav__link nav__link--inside" to="/listadoAsistencia"> Listado de Asistencias</Link>
-                                            </li>
-                          </span>
-                        :
-                        ""
+              <ul className="list__show">
+                  <li className="list__inside">
+                      <Link className="nav__link nav__link--inside" to="/ListadodeCItas">Listado de  Citas</Link>
+                  </li>
 
-                        }
-                  
-                  </ul>
+                   {rol == 1 || rol == 3 ? 
 
-              </li>
+                  <span>
+                   <li className="list__inside">
+                                            <Link className="nav__link nav__link--inside" to="/Consultorios">Listado de Consultorios</Link>
+                                        </li>
+                                        <li className="list__inside">
+                                            <Link className="nav__link nav__link--inside" to="/listasPacientes">Listado de Pacientes</Link>
+                                        </li>
+                                        <li className="list__inside">
+                                            <Link className="nav__link nav__link--inside" to="/listasTerapias"> Listado de Terapias</Link>
+                                        </li>
+                                        <li className="list__inside">
+                                            <Link className="nav__link nav__link--inside" to="/listadoAsistencia"> Listado de Asistencias</Link>
+                                        </li>
+                      </span>
+                    :
+                    ""
 
-              <li className="list__item">
-                  <div className="list__button">
-                      <Link className="nav__link" to="/">Paciente de ingreso</Link>
-                  </div>
-              </li>
-              <li className="list__item">
-                  <div className="list__button">
-                      <Link className="nav__link" to="/gastos">Registro de gastos</Link>
-                  </div>
-              </li>
-            
-              <li className="list__item list__item--click">
-                  <div className="list__button list__button--click">
-                          <Link  className="nav__link" >Reportes</Link>
-                          <img src={arrow} className="list__img"/>
-                  </div>
+                    }
+              
+              </ul>
 
-                  <ul className="list__show">
-                      <li className="list__inside">
-                          <Link className="nav__link nav__link--inside"  to="/reportesPago">Reportes de Pagos</Link>
-                      </li>
+          </li>
 
-                      <li className="list__inside">
-                      <Link className="nav__link nav__link--inside" to="/PagoTerapeutas">  Pago Terapeutas</Link>
-                      </li>
+          <li className="list__item">
+              <div className="list__button">
+                  <Link className="nav__link" to="/">Paciente de ingreso</Link>
+              </div>
+          </li>
+          <li className="list__item">
+              <div className="list__button">
+                  <Link className="nav__link" to="/gastos">Registro de gastos</Link>
+              </div>
+          </li>
+        
+          <li className="list__item list__item--click">
+              <div className="list__button list__button--click">
+                      <Link  className="nav__link" >Reportes</Link>
+                      <img src={arrow} className="list__img"/>
+              </div>
 
-                      <li className="list__inside">
-                          <Link className="nav__link nav__link--inside"  to="/VerGanancias">Historial de gastos</Link>
-                      </li>    
-                             
+              <ul className="list__show">
+                  <li className="list__inside">
+                      <Link className="nav__link nav__link--inside"  to="/reportesPago">Reportes de Pagos</Link>
+                  </li>
 
-                               
-                  </ul>
+                  { rol == 1 ? 
+                  <span>
+                          <li className="list__inside">
+                            <Link className="nav__link nav__link--inside" to="/PagoTerapeutas">  Pago Terapeutas</Link>
+                           </li>
+     
+                           <li className="list__inside">
+                               <Link className="nav__link nav__link--inside"  to="/VerGanancias">Historial de gastos</Link>
+                           </li>    
+                  </span>
+                           :
+                          
+                           ""
+                
+                }
 
-              </li>
-              <li className="list__item">
-                  <div className="list__button">
-                      <Link className="nav__link" to="/Users">Usuarios</Link>
-                  </div>
-              </li>
-              <li className="list__item">
-                  <div className="list__button">
-                      <Link className="nav__link" to="/configuraciones">Configuraciones</Link>
-                  </div>
-              </li>
+         
+                                               
+              </ul>
 
-              <li className="list__item">
-                  <div className="list__button">
-                      <Link className="nav__link" to="/Users" onClick={onLogout}>Cerra Sesión</Link>
-                  </div>
-              </li>
+          </li>
+          <li className="list__item">
+              <div className="list__button">
+                  <Link className="nav__link" to="/Users">Usuarios</Link>
+              </div>
+          </li>
+          <li className="list__item">
+              <div className="list__button">
+                  <Link className="nav__link" to="/configuraciones">Configuraciones</Link>
+              </div>
+          </li>
+
+          <li className="list__item">
+              <div className="list__button">
+                  <Link className="nav__link" to="/Users" onClick={onLogout}>Cerra Sesión</Link>
+              </div>
+          </li>
           </ul>
+          :
+          <ul className="list" id="lista">
+            <li className="list__item">
+              <div className="list__button">
+                  <Link className="nav__link"  to="/calendario">Calendario</Link>
+              </div>
+          </li>
+
+          <li className="list__item">
+              <div className="list__button">
+                  <Link className="nav__link"  to="/listasPacientes">Listado de Pacientes</Link>
+              </div>
+          </li>
+        </ul>
+        }
+       
+          
         </nav>
 
-    </div>
+    </>
   );
 }
 
