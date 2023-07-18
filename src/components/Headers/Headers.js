@@ -7,11 +7,15 @@ import {getUsuarioCompleto,} from "../../auth-helpers";
 import useAuth from "../../components/Auth/LoginForm/hook/useAuth";
 import arrow from "../../imagenes/arrow.svg";
 import "./Headers.css";
+import { createBrowserHistory } from 'history';
 
 
 
-function Headers({ citas,reportesPagos, calendario, myElement, paciente,myElementTerapia,RefCitas,myElementUsuario ,pagotera, consultorio}) {
+function Headers(props) {
  
+const {citas,reportesPagos, calendario, myElement, paciente,myElementTerapia,RefCitas,myElementUsuario ,pagotera, consultorio} = props;
+  const history = createBrowserHistory();
+
   useEffect(() => {
    
 
@@ -41,13 +45,15 @@ function Headers({ citas,reportesPagos, calendario, myElement, paciente,myElemen
 },[])
 
 
-   const {auth,setUser, deleteTokenC} = useAuth()
+   const {auth, logout} = useAuth();
+
    let user = auth.nameid[1]
    let PrimeraL = user.substr(0, 1) 
   
-  function StateUser(){
-    setUser(null)
-    deleteTokenC();
+  function onLogout(){
+
+    logout();
+
   }
  
   let rol = getUsuarioCompleto();
@@ -246,7 +252,7 @@ function Headers({ citas,reportesPagos, calendario, myElement, paciente,myElemen
 
               <li className="list__item">
                   <div className="list__button">
-                      <Link className="nav__link" to="/Users" onClick={StateUser}>Cerra Sesión</Link>
+                      <Link className="nav__link" to="/Users" onClick={onLogout}>Cerra Sesión</Link>
                   </div>
               </li>
           </ul>

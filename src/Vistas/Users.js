@@ -9,7 +9,6 @@ import {
 
   getUsuarioCompleto,
 } from "../auth-helpers";
-import { useNavigate } from "react-router-dom";
 
 
 function Users() {
@@ -30,7 +29,6 @@ function Users() {
   const [mensaje, setMensaje] = useState();
 
   const FormularioTherapy = document.getElementById("txtCrearUusario");
-  const navigation = useNavigate();
 
   const modalEditar = useRef();
   const modalCrear = useRef();
@@ -116,7 +114,7 @@ function Users() {
 
     try {
        setMensaje("")
-      const res = await axios.post("https://localhost:63958/api/Clinica/CrearUsuario",dataCrear)
+      const res = await axios.post("https://jdeleon-001-site1.btempurl.com/api/Clinica/CrearUsuario",dataCrear)
 
       const probar = async () => {
         modalCrear.current.classList.remove("activeCrear");

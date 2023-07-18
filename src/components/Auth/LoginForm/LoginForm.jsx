@@ -26,7 +26,7 @@ function LoginForm() {
 
       try {
 
-          const result = await axios.post("https://localhost:63958/api/Autenticacion/Login", formValue);
+          const result = await axios.post("https://jdeleon-001-site1.btempurl.com/api/Autenticacion/Login", formValue);
 
           setUser(decodeToken(result.data.tokencreado));
           setToken(result.data.tokencreado);
@@ -41,7 +41,7 @@ function LoginForm() {
   });
 
   return (
-    <div>
+    <>
      
          <div className="contenedor_login3">
             <form className='hhh' onSubmit={formik.handleSubmit}>
@@ -58,7 +58,7 @@ function LoginForm() {
               name="email"
               value={formik.values.email}
               onChange={formik.handleChange}
-              error={formik.errors.email}
+              className={formik.errors.email && "error" }
               />
                   <input
               type='password'
@@ -66,13 +66,15 @@ function LoginForm() {
               name="password"
               value={formik.values.password}
               onChange={formik.handleChange}
-              error={formik.errors.password }
-              />
+               className={formik.errors.password && "error" }
+
+
+/>
               <button className='btn'>Iniciar Sesion</button>
               {error && <p className='submit-error'>{error}</p>}
         </form>
           </div>
-    </div>
+    </>
   )
 
 }

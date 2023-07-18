@@ -1,7 +1,6 @@
 import Cookies from "universal-cookie";
 import { useState, useEffect,useMemo } from "react";
-import axios from "axios";
-import { Routes,Route,HashRouter,} from "react-router-dom";
+import { Routes, Route, HashRouter, useHistory,} from "react-router-dom";
 import "./App.css";
 import Home from "./Vistas/Home";
 import Gastos from "./Vistas/Gastos";
@@ -11,7 +10,6 @@ import Consultorios from "./Vistas/Consultorio/Consultorios";
 import "bootstrap/dist/css/bootstrap.min.css";
 import VerGanancias from "./Vistas/VerGanancias";
 import PagoTerapeutas from "./Vistas/PagoTerapeutas";
-import AgeCalculator from "./AgeCalculator";
 import PerfilAdmin from "./Vistas/PerfilAdmin";
 import ListasTerapias from "./Vistas/ListadoDeTerapias/ListadoTerapias";
 import ListadodeCItas from "./Vistas/ListadodeCItas";
@@ -27,49 +25,50 @@ import Asistencias from "./Vistas/Asistencias";
  import Calendario from "./Vistas/Calendario"; 
 import ReportesPago from "./Vistas/ReportesPago";
 import ErrorPage from "./Vistas/ErrorPage";
-import {getToken, initAxiosInterceptors,getUsuarioCompleto} from "./auth-helpers";
+import {getToken, initAxiosInterceptors,getUsuarioCompleto, removeToken} from "./auth-helpers";
 import { LoaAll } from "./components/Loading";
 import  Auth from "./pages/Auth/Auth"
 import AuthContext from "./context/AuthContext";
 import { decodeToken } from "./components/Auth/LoginForm/Utils/token";
 import './pages/admin.css';
+import { createBrowserHistory } from 'history';
 
 initAxiosInterceptors();
-
 const cookies = new Cookies();
 
 function App() {
 
   const [isLoading, setIsLoading] = useState(true);
   const [auth, setAuth] = useState(undefined);
+  const history = createBrowserHistory();
 
+  
 
   useEffect(() => {
     
     setTimeout(() => {
       setIsLoading(false);
     }, 1000);
-    let token = getToken();
-        if (!token) {
-          setAuth(null)
-        }else{
-          axios
-            .post("https://jdeleon-001-site1.btempurl.com/api/Autenticacion/getUserByToken")               
-            .then((res) => {
-               setAuth(decodeToken(token))
-             
-            }).catch((error) => {
-                 setAuth(null)
-                 deleteTokenC();  
-                 console.clear() 
-
-             });
-        }
-
-        if (window.location.protocol === 'http:' && window.location.hostname !== 'localhost') {
-          window.location.href = `https://${window.location.host}${window.location.pathname}`;
-        }
     
+       let token = getToken();
+
+        if (!token) {
+          setAuth(null);
+        }else{
+           const {exp} = decodeToken(token);
+
+        if( Date.now() >= (exp * 1000) ) {
+          logout();
+          history.push('/') 
+        } else{
+          setAuth(decodeToken(token))
+
+        }
+      }
+
+     if (window.location.protocol === 'http:' && window.location.hostname !== 'localhost') {
+          window.location.href = `https://${window.location.host}${window.location.pathname}`;
+        } 
   }, []);
 
   let rol = getUsuarioCompleto();
@@ -78,15 +77,16 @@ function App() {
     setAuth(user)
   }
 
-  const deleteTokenC = () => {
-    cookies.remove('Token');
+  const logout = () => {
+    removeToken();
+    setAuth(null);
   }
 
   const authData = useMemo(
     () => ({
       auth,
       setUser,
-      deleteTokenC
+      logout
     }),
     [auth]
 
@@ -117,7 +117,6 @@ function App() {
                 <Route exact path="/asistencias" element={<Asistencias />} />
                 <Route exact path="/calendario" element={<Calendario />} /> 
                 <Route exact path="/contabilidad" element={<Contabilidad />} />
-                <Route exact path="/AgeCalculator" element={<AgeCalculator />} />
                 <Route exact path="/abono" element={<Abono />} />
                 <Route exact path="/TerapiaTerapeuta" element={<TerapiaTerapeuta />}/>           
                 <Route exact path="/gastos" element={<Gastos />} />
@@ -145,3 +144,8 @@ function App() {
 }
 
 export default App;
+
+
+/*  if (window.location.protocol === 'http:' && window.location.hostname !== 'localhost') {
+          window.location.href = `https://${window.location.host}${window.location.pathname}`;
+        } */

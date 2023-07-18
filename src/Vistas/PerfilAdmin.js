@@ -2,7 +2,6 @@
 import { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import React from 'react'
-import { useNavigate } from 'react-router-dom';
 import { getDatosUsuario, DeleteToken } from '../auth-helpers'
 import Headers from "../components/Headers/Headers"
 
@@ -21,7 +20,6 @@ function PerfilAdmin() {
     const [mensaje, setMensaje] = useState(false);
 
 
-    const nave = useNavigate()
     const id = getDatosUsuario()
 
 
@@ -125,7 +123,6 @@ function PerfilAdmin() {
 
             if (result) {
                 DeleteToken()
-                nave("/login")
             }
 
         });

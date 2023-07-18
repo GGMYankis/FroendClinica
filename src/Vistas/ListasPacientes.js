@@ -1,35 +1,16 @@
-import Cookies from "universal-cookie";
+
 import React, { useEffect, useState, useRef } from "react";
 import axios from "axios";
-import logo from "../imagenes/IMG-20230221-WA0009.png";
-import { FaBars } from "react-icons/fa";
-import { FaUser, FaUsers, FaTrash, FaEdit } from "react-icons/fa";
-import { FaCaretDown } from "react-icons/fa";
-import { useNavigate } from "react-router-dom";
-import { BrowserRouter, Routes, Route, Link, Redirect } from "react-router-dom";
-import $ from "jquery";
-import { findDOMNode } from "react-dom";
 import swal from "sweetalert";
 import "bootstrap/dist/css/bootstrap.min.css";
 import DataTable from "react-data-table-component";
 import Headers from "../components/Headers/Headers"
+import {getUsuarioCompleto} from "../auth-helpers";
 
-import {
-  DeleteToken,
-  getToken,
-  initAxiosInterceptors,
-  setUsuarioM,
-  obtenerUser,
-  getNombreUsuario,
-  getUsuarioCompleto,
-} from "../auth-helpers";
-import { set } from "date-fns";
-import { Label } from "reactstrap";
-import { format } from "date-fns";
 
 function ListasPacientes() {
-  const [ac, setAc] = useState('');
 
+  const [ac, setAc] = useState('');
   const modalCrear = useRef();
   const modalEditar = useRef();
   const alertEliminar = useRef();
@@ -37,7 +18,6 @@ function ListasPacientes() {
   
   const [idPaciente, setIdPaciente] = useState();
   const [idPacienteEliminar, setIdPacienteEliminar] = useState();
-  const navigation = useNavigate();
   const [listaPaciente, setlistaPaciente] = useState([]);
   const [name, setName] = useState("");
   const [sex, setSex] = useState("");
@@ -68,7 +48,6 @@ function ListasPacientes() {
   const [NumMadre, setNumMadre] = useState("");
   const FormularioTherapy = document.getElementById("txtCrearPaciente");
 
-  const [contadorPacientes, setContadorPacientes] = useState(0);
   const [filteredData, setFilteredData] = useState([]);
   const [verificarActivo, setVerificarActivo] = useState(false);
   const [edadEditar, setEdadEditar] = useState(0);
@@ -82,28 +61,25 @@ function ListasPacientes() {
     cargar();
   }, [refresh]);
 
-  const cargar = (async) => {
-    axios
-      .get("https://jdeleon-001-site1.btempurl.com/api/Clinica/ListaTodos")
-      .then((res) => {
+  const cargar =  async () => {
+    
+
+
+       const url = "https://jdeleon-001-site1.btempurl.com/api/Clinica/ListaTodos";
+
+       axios.get(url)
+       .then((res) => {
+        res.data.map((item) => {
+          item.activo = item.activo ? "si" : "no";
+         });
+       setlistaPaciente(res.data);
+       
+       })
 
     
-        res.data.map((item) => {
-          if (item.activo == true) {
-            setlistaPaciente((item.activo = "si"));
-            setFilteredData((item.activo = "si"));
-          }
-          if (item.activo == false) {
-            setlistaPaciente((item.activo = "no"));
-            setFilteredData((item.activo = "no"));
-          }
-
-          setlistaPaciente(res.data);
-          setFilteredData(res.data)
-
-        });
-      });
   };
+
+
 
 
   const handleNameChange = (value) => {

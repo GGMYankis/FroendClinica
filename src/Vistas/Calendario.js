@@ -9,11 +9,11 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import $ from "jquery";
 import {Loading} from "../components/Loading"
 import { addDays, startOfDay } from 'date-fns';
-
-//yan
 function Calendario() {
 
-  const [event, setEvent] = useState([]);
+  const [eventosFiltrados, setEventosFiltrados] = useState([]);
+
+  
   const [fechaInicio, setfechaInicio] = useState("");
   const [descripcion, setDescripcion] = useState("");
   const [consultorios, setconsultorios] = useState([]);
@@ -27,7 +27,9 @@ function Calendario() {
   const [apellido, setApellido] = useState("");
   const [loading, setLoading] = useState(false);
   const [citas, setCitas] = useState([]);
+  const [citasFiltradas, setCitasFiltradas] = useState([]);
 
+  const [filtrando, setFiltrando] = useState(false);
 
   useEffect(() => {
 
@@ -59,10 +61,11 @@ function Calendario() {
                         x.dias = 6
                       }
           });
-
        
           
       setCitas(res.data);
+
+      console.log(res.data)
 
       } catch (error) {
         console.log(error)
@@ -72,6 +75,7 @@ function Calendario() {
       try {
         const response = await axios.get("https://jdeleon-001-site1.btempurl.com/api/Clinica/Consultorios")
         setconsultorios(response.data.lista);
+        
       } catch (error) {
         console.log(error)
       }
@@ -166,10 +170,20 @@ function Calendario() {
   };
 
   const enviars = (e) => {
-    e.preventDefault()
+    e.preventDefault();
+
+       setCitas([]);
+
     const urls = "https://jdeleon-001-site1.btempurl.com/api/Clinica/FiltrarConsultorios";
       
     axios.post(urls, consultorio).then((result) => {
+      setFiltrando(true)
+      console.log(result.data)
+      const empezar = new Date();
+
+      const fechaLimite = addDays(empezar, 9999, 11, 31); 
+      const eventos = [];
+    
       result.data.map(x => {
         if(x.dias == "domingo"){
           x.dias = 0
@@ -192,10 +206,37 @@ function Calendario() {
               if(x.dias == "sabado"){
                   x.dias = 6
                 }
-      });
+    });
+      result.data.forEach(cita => {
 
-       setCitas([]);
-       setCitas(result.data)
+        let iniciar = new Date(cita.fechaInicio)
+   
+         while (iniciar <= fechaLimite) {
+   
+             if (cita.dias  == iniciar.getDay()) {
+                 const evento = {
+                     title:cita.paciente.name,
+                     start: new Date(iniciar.getTime()),
+                     extendedProps: {
+                       additionalProperty: cita.terapeuta.names , 
+                       anotherProperty: cita.terapia.label, 
+                       description:cita.consultorio.nombre,
+                       name:cita.terapeuta.apellido, 
+                     },
+                     
+                 };
+     
+               eventos.push(evento);
+               setEventosFiltrados(eventos)
+             }
+     
+             iniciar = addDays(iniciar, 1);
+      
+      }  
+         
+     });
+
+       
 
     });
 
@@ -269,7 +310,7 @@ function Calendario() {
             editable={true}
             droppable={true}
             initialView={"dayGridMonth"}
-            events={eventos}
+            events={filtrando ? eventosFiltrados   : eventos}
             headerToolbar={{
               start: "today prev,next",
               center: "title",

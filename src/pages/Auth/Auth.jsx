@@ -4,7 +4,6 @@ function Auth() {
 
   return (
     <div>
-      <p>Autenticacion sin token</p>
       <LoginForm/>
     </div>
   )
