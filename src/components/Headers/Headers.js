@@ -1,5 +1,5 @@
 import React from "react";
-import { Link,  } from "react-router-dom";
+import { Link,useNavigate  } from "react-router-dom";
 import { FaBars } from "react-icons/fa";
 import logo from "../../imagenes/IMG-20230221-WA0009.png";
 import {  useEffect } from "react";
@@ -11,6 +11,7 @@ import { createBrowserHistory } from 'history';
 
 function Headers(props) {
  
+  const navigator = useNavigate();
 const {citas,reportesPagos, calendario, myElement, paciente,myElementTerapia,RefCitas,myElementUsuario ,pagotera, consultorio} = props;
   const history = createBrowserHistory();
 
@@ -49,9 +50,7 @@ const {citas,reportesPagos, calendario, myElement, paciente,myElementTerapia,Ref
    let PrimeraL = user.substr(0, 1) 
   
   function onLogout(){
-
     logout();
-
   }
  
   let rol = getUsuarioCompleto();
@@ -258,7 +257,7 @@ const {citas,reportesPagos, calendario, myElement, paciente,myElementTerapia,Ref
 
           <li className="list__item">
               <div className="list__button">
-                  <Link className="nav__link" to="/Users" onClick={onLogout}>Cerra Sesión</Link>
+                  <Link className="nav__link" to="/" onClick={onLogout}>Cerra Sesión</Link>
               </div>
           </li>
           </ul>
@@ -273,6 +272,11 @@ const {citas,reportesPagos, calendario, myElement, paciente,myElementTerapia,Ref
           <li className="list__item">
               <div className="list__button">
                   <Link className="nav__link"  to="/listasPacientes">Listado de Pacientes</Link>
+              </div>
+          </li>
+          <li className="list__item">
+              <div className="list__button">
+                  <Link className="nav__link" to="/"  onClick={onLogout}>Cerra Sesión</Link>
               </div>
           </li>
         </ul>

@@ -1,0 +1,103 @@
+.cont_usuario {
+    width: 100%;
+    min-height: 100vh;
+    background-color: #00000066;
+    position: absolute;
+    top: -120%;
+    position: fixed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.form_modal_usuario {
+    background-color: white;
+    border-radius: 10px;
+    width: 500px;
+    position: relative;
+    overflow: hidden;
+}
+
+.active_modal_usuario {
+    top: 0;
+}
+
+.modal_crear_usuario {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    padding: 20px 30px;
+}
+
+.cont_titu_usuario {
+    background-color: #0b2f57;
+    color: #fff;
+    height: 40px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    text-align: center;
+}
+
+.cont_titu_usuario h1 {
+    font-size: 25px;
+    line-height: 40px;
+}
+
+.modal_crear_usuario input {
+    border: 1px solid hsla(0, 7%, 82%, .531);
+    border-radius: 8px;
+    margin: 0 0 20px;
+    padding: 10px 13px;
+    width: 100%;
+}
+
+.modal_crear_usuario select {
+    border: 1px solid hsla(0, 7%, 82%, .531);
+    border-radius: 8px;
+    margin: 0 0 20px;
+    padding: 10px 13px;
+    width: 100%;
+}
+
+.modal_crear_usuario label {
+    color: #0b2f57;
+    font-weight: 700;
+}
+
+.modal_crear_usuario .btn {
+    font-weight: 700;
+    margin: 0 0 10px;
+    padding: 10px 13px;
+    width: 100%;
+}
+
+.modal_crear_usuario .btn.crear {
+    background-color: #0b2f57;
+    border: 3px solid #0b2f57;
+    color: #fff;
+}
+
+.modal_crear_usuario .btn.cancelar {
+    background-color: #dc3545;
+    border: 3px solid #dc3545;
+    color: #fff;
+}
+
+.modal_crear_usuario .btn.crear:hover {
+    background-color: transparent;
+    color: #0b2f57;
+}
+
+.modal_crear_usuario .btn.cancelar:hover {
+    background-color: transparent;
+    color: #dc3545;
+}
+
+.modal_crear_usuario .box_usuario {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 10px;
+    margin-top: 40px;
+}

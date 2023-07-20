@@ -8,7 +8,8 @@ import Headers from "../components/Headers/Headers"
 import "bootstrap/dist/css/bootstrap.min.css";
 import $ from "jquery";
 import {Loading} from "../components/Loading"
-import { addDays, startOfDay } from 'date-fns';
+import { addDays } from 'date-fns';
+
 function Calendario() {
 
   const [eventosFiltrados, setEventosFiltrados] = useState([]);

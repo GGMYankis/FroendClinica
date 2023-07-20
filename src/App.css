@@ -2960,3 +2960,16 @@ td {
   color: white;
   font-size: 20px;
 }
+
+.cont_error {
+  background-color: #ec7c96;
+  width: 100%;
+  color: white;
+  text-align: center;
+  padding: 10px;
+  border-radius: 5px;
+  margin: 10px 0px;
+  color: #9f3a38;
+  background: #fff6f6;
+  border: 1px solid red;
+}

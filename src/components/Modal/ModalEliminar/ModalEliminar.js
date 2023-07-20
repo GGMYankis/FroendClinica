@@ -1,6 +1,5 @@
 
 import React from 'react';
-import "./ModalEliminar.css";
 import { useState, useRef } from "react";
 import axios from "axios";
 import swal from "sweetalert";
@@ -48,7 +47,7 @@ function ModalEliminar(props) {
             </div>
 
             <div className='body-eliminar'>
-                <p>{mensaje}</p>
+                <p>¿Deseas eliminar la terapia:<span>{mensaje}</span>?</p>
                 <button className='btn eliminar' onClick={SubmitEliminar}>Eliminar</button>
                 <button className='btn cancelar'onClick={closeModal} >Cancelar</button>
             </div>

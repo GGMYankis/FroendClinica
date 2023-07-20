@@ -1,0 +1,32 @@
+.footer_crear_paciente .btn {
+    width: 200px;
+    padding: 10px 13px;
+    margin: 0px 20px;
+    font-weight: bold;
+
+}
+
+.footer_crear_paciente .guardar {
+    background-color: #0b2f57;
+    border: 2px solid #0b2f57;
+    color: white;
+}
+
+
+.footer_crear_paciente .guardar:hover {
+    background-color: transparent;
+    color: #0b2f57;
+}
+
+.footer_crear_paciente .cancelar {
+    background-color: #dc3545;
+    color: white;
+    border: 2px solid #dc3545;
+
+}
+
+.footer_crear_paciente .cancelar:hover {
+    background-color: transparent;
+    color: #dc3545;
+    font-weight: bold;
+}

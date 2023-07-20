@@ -2,17 +2,14 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import React, { useEffect, useState, useRef } from "react";
 import axios from "axios";
 import Headers from "../components/Headers/Headers"
-
+import ModalUsuario from "../Modal/ModalUsuario/ModalUsuario";
 import swal from "sweetalert";
 import {
-  DeleteToken,
-
   getUsuarioCompleto,
 } from "../auth-helpers";
 
-
 function Users() {
-  let rol = getUsuarioCompleto();
+
   useEffect(() => {
     cargar();
   }, []);
@@ -26,15 +23,14 @@ function Users() {
   const [correo, setCorreo] = useState("");
   const [contraseñas, setContraseñas] = useState("");
   const [idRol, setIdRol] = useState();
-  const [mensaje, setMensaje] = useState();
-
+  const[showModal, setShowModal]= useState(false);
+  
   const FormularioTherapy = document.getElementById("txtCrearUusario");
 
   const modalEditar = useRef();
   const modalCrear = useRef();
   const modalEliminar = useRef();
 
-  const [ac, setAc] = useState();
 
 
   const cargar = (async) => {
@@ -64,23 +60,15 @@ function Users() {
     Direccion: direccion,
     Email: correo,
     Password: contraseñas,
-    IdRol: parseInt(ac),
+    IdRol: parseInt(idRol),
   };
 
   function enviar(e) {
     e.preventDefault();
 
-    /*
-       
-        if(idRol = "Terapeuta"){
-            data.IdRol = 2
-        }else{
-            data.IdRol = 1
-        }
-        */
 
-    const url =
-      "https://jdeleon-001-site1.btempurl.com/api/Clinica/GuardarUsers";
+    const url = "https://jdeleon-001-site1.btempurl.com/api/Clinica/GuardarUsers";
+      
     axios.post(url, data).then((result) => {
       const probar = async () => {
         modalEditar.current.classList.remove("activeUsers");
@@ -98,44 +86,9 @@ function Users() {
     });
   }
 
-  const dataCrear = {
-    Names: nombre,
-    Label: nombre,
-    Apellido: apellido,
-    Telefono: telefono,
-    Direccion: direccion,
-    Email: correo,
-    Password: contraseñas,
-    IdRol: parseInt(idRol),
-  };
-
-  async function CrearUsuario(e) {
-    e.preventDefault();
-
-    try {
-       setMensaje("")
-      const res = await axios.post("https://jdeleon-001-site1.btempurl.com/api/Clinica/CrearUsuario",dataCrear)
-
-      const probar = async () => {
-        modalCrear.current.classList.remove("activeCrear");
-        cargar();
-        const ale = await swal({
-          title: "Correcto",
-          text: "Cambio guardado ",
-          icon: "success",
-        });
-      };
-      if (res) {
-        probar();
-      }
-
-      FormularioTherapy.reset();
-    } catch (error) {
-     setMensaje(error.response.data.error)
-    }
+ 
 
  
-  }
 
   function EditarUsuario(valor) {
     setIdRol(null)
@@ -145,16 +98,17 @@ function Users() {
 
     encontrado.map((item) => {
       if (item.idRol == "Administrador") {
-        setAc(1);
+        setIdRol(1);
 
       }
       else if(item.idRol == "Terapeuta") {
-        setAc(0);
+        setIdRol(2);
       }else{
-        setAc(3)
+        setIdRol(3)
       }
     });
    
+  
     encontrado.map((item) => {
       setNombre(item.names);
       setApellido(item.apellido);
@@ -173,9 +127,6 @@ function Users() {
     FormularioTherapy.reset();
   }
 
-  function modalF() {
-    modalCrear.current.classList.add("activeCrear");
-  }
 
   function EliminarUsuario(valor) {
     const encontrado = terapeuta.filter((e) => e.idUser == valor);
@@ -215,12 +166,25 @@ function Users() {
 
  
 
-  const FActivo = (value) => {
-  setAc(value)
-  };
+
+ const handlerModal = (type) =>{
+  switch(type){
+    case "crear":
+          setShowModal(true)
+      break;
+      case "editar":
+        setShowModal(true)
+      
+      default:
+        break;
+  }
+
+ } 
+
+ 
 
   return (
-    <div>
+    <>
      
     <Headers myElementUsuario={myElementUsuario}/>
 
@@ -237,7 +201,7 @@ function Users() {
                   <button
                     type="button"
                     className="btn-crear-Paciente-tabla"
-                    onClick={modalF}
+                    onClick={() => handlerModal("crear")}
                   >
                     Crear Nuevo
                   </button>
@@ -369,13 +333,15 @@ function Users() {
               <select
                   id="cboactivo"
                   className="form-control"
-                  value={ac}
-                  onChange={(e) => FActivo(e.target.value)}
+                  value={idRol}
+                  onChange={(e) => setIdRol(e.target.value)}
+                  required
                 >
-                  <option defaultValue>seleccione una opción</option>
+                  <option value="">seleccione una opción</option>
                   <option value="1">Administrador</option>
-                  <option value="0">Terapeuta</option>
+                  <option value="2">Terapeuta</option>
                   <option value="3">Asistente</option>
+                  <option value="4">Usuario</option>
                 </select>
               </div>
             </div>
@@ -398,121 +364,8 @@ function Users() {
         </form>
       </div>
 
-      {/* MODAL CREAR USUARIO */}
 
-      <div className="cont-modal-crear-usuario" ref={modalCrear}>
-        <form className="form-crear-usuario" onSubmit={CrearUsuario}id="txtCrearUusario">
-
-          <div className="cont-titu-crear-usuario">
-            <h1>Crear Usuario</h1>
-          </div>
-
-          <div className="box-con-usuario">
-            
-            <div className="one-user-form">
-              <div className="box-user">
-                <label>Nombre</label>
-                <input
-                  className="form-users"
-                  required
-                  onChange={(e) => setNombre(e.target.value)}
-                />
-              </div>
-              <div className="box-user">
-                <label>Apellido</label>
-                <input
-                  className="form-users"
-                  required
-                  onChange={(e) => setApellido(e.target.value)}
-                />
-              </div>
-            </div>
-
-            <div className="one-user-form">
-            <div className="box-user">
-                <label>Telefono</label>
-                <input
-                  className="form-users"
-                  required
-                  onChange={(e) => setTelefono(e.target.value)}
-                />
-              </div>
-              <div className="box-user">
-                <label>Direccion</label>
-                <input
-                  className="form-users"
-                  required
-                  onChange={(e) => setDireccion(e.target.value)}
-                />
-              </div>
-            </div>
-
-            <div className="one-user-form">
-            <div className="box-user">
-                <label>Correo</label>
-                <input
-                  className="form-users"
-                  onChange={(e) => setCorreo(e.target.value)}
-                  required
-                />
-              </div>
-              <div className="box-user">
-                <label>contraseñas</label>
-                <input
-                  className="form-users"
-                  type="password"
-                  onChange={(e) => setContraseñas(e.target.value)}
-                  required
-                />
-              </div>
-            </div>
-
-            <div className="one-user-form">
-            <div className="box-user">
-                <select
-                  onChange={(e) => setIdRol(e.target.value)}
-                  className="form-select-usuario"
-                  required
-                >
-                  <option value=""> seleccione un Rol</option>
-                  <option value="1">Administrador</option>
-                  <option value="2">Terapeuta</option>
-                  <option value="3">Asistente</option>
-                  <option value="4">Usuario</option>
-
-                </select>
-              </div>
-            
-           
-
-            </div>
-              {
-            
-            mensaje ?
-            <div className="mensaje-error-usuario">
-               <label>{mensaje}</label> 
-            </div> : ""
-            }
-             
-            <div className="row">
-              <div className="col-sm-12">
-                <input
-                  className="btn-editar-terapia"
-                  type="submit"
-                  value="Crear"
-                />
-                <button
-                  className="btn-eliminar-terapia"
-                  type="button"
-                  onClick={Cancelar}
-                >
-                  Cancelar
-                </button>
-              </div>
-            </div>
-          </div>
-        </form>
-      </div>
+      <ModalUsuario showModal={showModal} setShowModal={setShowModal}/>
 
       <div className="modal-usuario-eliminar" ref={modalEliminar}>
         <div className="modal-dialog-usuario" role="document">
@@ -547,15 +400,9 @@ function Users() {
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }
 export default Users;
 
-/*
-       <td className='tr-btn'>
-                                                <button className='btn-tabla-usuario' type='button' value={item.idUser} onClick={e => EditarUsuario(e.target.value)}><FaEdit /></button>
-                                                <button className='btn-tabla-usuario-eliminar ' type='button' value={item.idUser} onClick={e => EliminarUsuario(e.target.value)}><FaTrash /></button>
-                                            </td>
 
-*/

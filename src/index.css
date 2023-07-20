@@ -1,13 +1,80 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+/* MODAL ELIMINAR */
+
+.cont_modal-eliminar {
+  background-color: #00000066;
+  position: absolute;
+  top: -120%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  position: fixed;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+.form-eliminar {
+  border-radius: 10px;
+  padding: 20px;
+  width: 400px;
+  overflow: hidden;
+  position: relative;
+  background-color: white;
+  text-align: center;
+
+}
+
+.header_eliminar {
+  background-color: #dc3545;
+  width: 100%;
+  color: white;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  text-align: center;
+  height: 40px;
+  line-height: 40px;
+  font-weight: bold;
+}
+
+.body-eliminar {
+  margin-top: 40px;
+}
+
+.body-eliminar span {
+  color: #dc3545;
+  font-weight: bold;
+}
+
+.body-eliminar .btn {
+  width: 100%;
+  padding: 10px 20px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.body-eliminar .btn.eliminar {
+  background-color: #dc3545;
+  color: white;
+  border: 3px solid #dc3545;
+}
+
+.body-eliminar .btn.eliminar:hover {
+  background-color: transparent;
+  color: #dc3545;
+}
+
+.body-eliminar .btn.cancelar {
+  background-color: #0b2f57;
+  color: white;
+  border: 3px solid #0b2f57;
+}
+
+.body-eliminar .btn.cancelar:hover {
+  background-color: transparent;
+  color: #0b2f57;
+}
+
+.active_Modal_Eliminar {
+  top: 0;
 }

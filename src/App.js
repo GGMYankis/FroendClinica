@@ -1,6 +1,6 @@
 import Cookies from "universal-cookie";
 import { useState, useEffect,useMemo } from "react";
-import { Routes, Route, HashRouter, useHistory,} from "react-router-dom";
+import { Routes, Route, HashRouter, useHistory, useParams} from "react-router-dom";
 import "./App.css";
 import Home from "./Vistas/Home";
 import Gastos from "./Vistas/Gastos";
@@ -20,9 +20,9 @@ import Users from "./Vistas/Users";
 import Abono from "./Vistas/Abono";
 import TerapiaTerapeuta from "./Vistas/TerapiaTerapeuta";
 import Contabilidad from "./Vistas/Contabilidad";
-import ListasPacientes from "./Vistas/ListasPacientes";
+import ListasPacientes from "./Vistas/ListadoDePacientes/ListasPacientes";
 import Asistencias from "./Vistas/Asistencias";
- import Calendario from "./Vistas/Calendario"; 
+/*  import Calendario from "./Vistas/Calendario";  */
 import ReportesPago from "./Vistas/ReportesPago";
 import ErrorPage from "./Vistas/ErrorPage";
 import {getToken, initAxiosInterceptors,getUsuarioCompleto, removeToken} from "./auth-helpers";
@@ -107,27 +107,27 @@ function App() {
             <Routes>
         
               <Route >
-                <Route exact path="/evaluacion" element={<Evaluacion />} />
+                <Route exact path="/evaluacion" element={rol == 1 || rol== 3 ? <Evaluacion /> : <ErrorPage /> }/>
                 <Route exact path="/perfilAdmin" element={<PerfilAdmin />} />
                 <Route exact path="/listasTerapias" element={rol == 1 || rol== 3 ? <ListasTerapias /> : <ErrorPage />} />
                 <Route exact path="/listasPacientes" element={ <ListasPacientes  />} />
                 <Route exact path="/Users" element={ rol == 1 || rol== 3? <Users /> :  <ErrorPage />} />
-                <Route exact path="/terapia" element={<Terapias />} />
+                <Route exact path="/terapia" element={rol == 1 || rol == 3 ? <Terapias /> :  <ErrorPage />} />
                 <Route exact path="/" element={<Home />} />
-                <Route exact path="/asistencias" element={<Asistencias />} />
-                <Route exact path="/calendario" element={<Calendario />} /> 
-                <Route exact path="/contabilidad" element={<Contabilidad />} />
-                <Route exact path="/abono" element={<Abono />} />
+                <Route exact path="/asistencias" element={rol == 1 || rol == 3 ? <Asistencias /> :  <ErrorPage />} />
+           {/*      <Route exact path="/calendario" element={<Calendario />} />  */}
+                <Route exact path="/contabilidad" element={ rol == 1 || rol == 3 ? <Contabilidad /> :  <ErrorPage />} />
+                <Route exact path="/abono" element={ rol == 1 || rol == 3 ? <Abono /> :  <ErrorPage /> } />
                 <Route exact path="/TerapiaTerapeuta" element={<TerapiaTerapeuta />}/>           
-                <Route exact path="/gastos" element={<Gastos />} />
+                <Route exact path="/gastos" element={ rol == 1 || rol == 3 ? <Gastos /> :  <ErrorPage />} />
                 <Route exact path="/verGanancias" element={rol == 1 ?  <VerGanancias /> :  <ErrorPage />} />
-                <Route exact path="/AbonoTerapias" element={<AbonoTerapias />} />
+                <Route exact path="/AbonoTerapias" element={rol == 1 || rol == 3 ? <AbonoTerapias /> : <ErrorPage/>} />
                 <Route exact path="/PagoTerapeutas" element={rol == 1 ?  <PagoTerapeutas /> : <ErrorPage />} />
                 <Route exact path="/Consultorios" element={<Consultorios />} />
-                <Route exact path="/listadodeCItas" element={<ListadodeCItas />} />
+                <Route exact path="/listadodeCItas" element={rol == 1 || rol == 3 ?  <ListadodeCItas /> : <ErrorPage />} />
                 <Route exact path="/reportesPago" element={<ReportesPago />} />
-                <Route exact path="/listadoAsistencia" element={<ListadoAsistencia />} />
-                <Route exact path="/configuraciones" element={<Configuraciones />} />
+                <Route exact path="/listadoAsistencia" element={ rol == 1 || rol == 3 ?  <ListadoAsistencia /> : <ErrorPage />} />
+                <Route exact path="/configuraciones" element={ rol == 1 || rol == 3 ?  <Configuraciones /> : <ErrorPage /> } />
 
                 
                 <Route path="*" element={<ErrorPage />} />
@@ -144,8 +144,3 @@ function App() {
 }
 
 export default App;
-
-
-/*  if (window.location.protocol === 'http:' && window.location.hostname !== 'localhost') {
-          window.location.href = `https://${window.location.host}${window.location.pathname}`;
-        } */

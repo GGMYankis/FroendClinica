@@ -102,7 +102,7 @@ function ListasTerapias() {
 
     const res = terapias.filter((item) => item.nombreTerapia.idTherapy == e);
     res.map((item) => {
-    setMensaje("¿Deseas eliminar la terapia: " + item.nombreTerapia.label+"?");
+    setMensaje(item.nombreTerapia.label);
   });
 
   setIdEliminar(e);
