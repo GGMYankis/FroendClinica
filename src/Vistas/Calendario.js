@@ -14,6 +14,9 @@ function Calendario() {
 
   const [eventosFiltrados, setEventosFiltrados] = useState([]);
 
+  const [inicio, setInicio] = useState("");
+  const [final, setFinal] = useState("");
+  const [consult, setConsult] = useState("");
   
   const [fechaInicio, setfechaInicio] = useState("");
   const [descripcion, setDescripcion] = useState("");
@@ -170,7 +173,7 @@ function Calendario() {
     FechaFinal: endDate,
   };
 
-  const enviars = (e) => {
+/*   const enviars = (e) => {
     e.preventDefault();
 
        setCitas([]);
@@ -241,46 +244,50 @@ function Calendario() {
     });
 
   };
+ */
 
-
-
-  function Buscar(value) {
-
-    setFiltrando(true)
-
-     let fechaInicio  = "2023-07-01";
-     let fechaFin = "2023-07-27";
-
-     const fecha = new Date(fechaInicio);
-     const fin = new Date(fechaFin);
-
-
+  async function Buscar(e) {
+    e.preventDefault();
+  
+    setFiltrando(true);
+    const consultorio = consultorios.filter((c) => c.idConsultorio == consult);
+    let DescripcionConsultorio = "";
+  
+    consultorio.map((c) => {
+      DescripcionConsultorio = c.descripcion;
+    });
+  
+    let fechaInicio = inicio;
+    let fechaFin = final;
+  
+    const fecha = new Date(fechaInicio);
+    const fin = new Date(fechaFin);
+  
     var cita = eventos.filter((eventos) => {
-      const fechaEvento = new Date(eventos.start); 
-      return fechaEvento >= fecha && fechaEvento <= fin;
-    }
-    )
+      const fechaEvento = new Date(eventos.start);
+      return (
+        fechaEvento >= fecha &&
+        fechaEvento <= fin &&
+        eventos.extendedProps.description == DescripcionConsultorio
+      );
+    });
 
-      cita.map(c => {
-        
-           const data = {
-          title:c.title,
-          start:c.start,
-          extendedProps: {
-            additionalProperty: c.extendedProps.additionalProperty , 
-            anotherProperty: c.extendedProps.anotherProperty, 
-            description:c.extendedProps.description,
-            name:c.extendedProps.name, 
-          }
-        } 
-
-        eventosFiltrados.push(data)
-      });
- 
-
-
-   
+    
+  
+    setEventosFiltrados(
+      cita.map((c) => ({
+        title: c.title,
+        start: c.start,
+        extendedProps: {
+          additionalProperty: c.extendedProps.additionalProperty,
+          anotherProperty: c.extendedProps.anotherProperty,
+          description: c.extendedProps.description,
+          name: c.extendedProps.name,
+        },
+      }))
+    );
   }
+  
 
 
   return (
@@ -295,7 +302,7 @@ function Calendario() {
         {
             loading ? <Loading/> : ""
           }
-          <form onSubmit={enviars} className="form-calendario-option ">
+          <form onSubmit={Buscar} className="form-calendario-option ">
         
             <div className="padre-box-calendara-option" >
 
@@ -305,7 +312,7 @@ function Calendario() {
                 <input
                   type="date"
                   className="inputgastos"
-                  onChange={(e) => setStartDate(e.target.value)}
+                  onChange={(e) => setInicio(e.target.value)}
                   required
                 />
               </div>
@@ -314,7 +321,7 @@ function Calendario() {
                 <input
                   type="date"
                   className="inputgastos"
-                  onChange={(e) => setEndDate(e.target.value)}
+                  onChange={(e) => setFinal(e.target.value)}
                   required
                 />
               </div>
@@ -323,7 +330,7 @@ function Calendario() {
                 <label>Consultorio</label>
                 <select
                   className="form-select"
-                  onChange={(e) => setConsul(e.target.value)}
+                  onChange={(e) => setConsult(e.target.value)}
                   required
                   id="selec-consultorio"
                 >
@@ -341,7 +348,6 @@ function Calendario() {
                 <button className="btn-gastos" id="calendar-btn" type="submit">
                   Buscar
                 </button>
-                <button type="button" onClick={e => Buscar(e.target.value)}>Bucscar</button>
               </div>
             </div>
           </form>
