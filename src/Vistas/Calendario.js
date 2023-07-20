@@ -6,7 +6,7 @@ import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction";
 import Headers from "../components/Headers/Headers"
 import "bootstrap/dist/css/bootstrap.min.css";
-import $ from "jquery";
+import $, { event } from "jquery";
 import {Loading} from "../components/Loading"
 import { addDays } from 'date-fns';
 
@@ -66,7 +66,6 @@ function Calendario() {
           
       setCitas(res.data);
 
-      console.log(res.data)
 
       } catch (error) {
         console.log(error)
@@ -88,7 +87,7 @@ function Calendario() {
   const empezar = new Date();
 
   const fechaLimite = addDays(empezar, 9999, 11, 31); 
-  const eventos = [];
+  let eventos = [];
 
   
   citas.forEach(cita => {
@@ -119,6 +118,7 @@ function Calendario() {
    }  
       
   });
+
 
 
 
@@ -179,7 +179,6 @@ function Calendario() {
       
     axios.post(urls, consultorio).then((result) => {
       setFiltrando(true)
-      console.log(result.data)
       const empezar = new Date();
 
       const fechaLimite = addDays(empezar, 9999, 11, 31); 
@@ -244,6 +243,46 @@ function Calendario() {
   };
 
 
+
+  function Buscar(value) {
+
+    setFiltrando(true)
+
+     let fechaInicio  = "2023-07-01";
+     let fechaFin = "2023-07-27";
+
+     const fecha = new Date(fechaInicio);
+     const fin = new Date(fechaFin);
+
+
+    var cita = eventos.filter((eventos) => {
+      const fechaEvento = new Date(eventos.start); 
+      return fechaEvento >= fecha && fechaEvento <= fin;
+    }
+    )
+
+      cita.map(c => {
+        
+           const data = {
+          title:c.title,
+          start:c.start,
+          extendedProps: {
+            additionalProperty: c.extendedProps.additionalProperty , 
+            anotherProperty: c.extendedProps.anotherProperty, 
+            description:c.extendedProps.description,
+            name:c.extendedProps.name, 
+          }
+        } 
+
+        eventosFiltrados.push(data)
+      });
+ 
+
+
+   
+  }
+
+
   return (
 
     <div>
@@ -302,6 +341,7 @@ function Calendario() {
                 <button className="btn-gastos" id="calendar-btn" type="submit">
                   Buscar
                 </button>
+                <button type="button" onClick={e => Buscar(e.target.value)}>Bucscar</button>
               </div>
             </div>
           </form>
@@ -311,7 +351,8 @@ function Calendario() {
             editable={true}
             droppable={true}
             initialView={"dayGridMonth"}
-            events={filtrando ? eventosFiltrados   : eventos}
+             events={filtrando ? eventosFiltrados   : eventos} 
+           /* events={eventos} */
             headerToolbar={{
               start: "today prev,next",
               center: "title",
@@ -321,6 +362,11 @@ function Calendario() {
             eventClick={handleEventClickFecha}
           />  
         </div>
+
+
+
+
+        
       </div>
 
   

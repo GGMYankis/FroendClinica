@@ -1,60 +1,87 @@
-import { useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import axios from "axios";
 import swal from "sweetalert";
+import "bootstrap/dist/css/bootstrap.min.css";
+import * as Yup from "yup";
+import { useFormik } from 'formik';
 import Headers from "../components/Headers/Headers"
 
-import "../responsive.css";
+function Home(props) {
 
-const Home = () => {
-
-  const [name, setName] = useState("");
-  const [sex, setSexo] = useState("");
-  const [parents_name, setPadreMadreNombre] = useState("");
-  const [parent_or_guardian_phone_number, setParent_or_guardian_phone_number] = useState("");
-  const [date_of_birth, setDate_of_birth] = useState("");
-  const [educational_institution, setCentroEstudio] = useState("");
-  const [course, setCurso] = useState("");
-  const [who_refers, setQuienRefiere] = useState("");
-  const [family_settings, setCongiracionFamilia] = useState("");
-  const [therapies_or_service_you_will_receive_at_the_center,setTerapiaServicio,] = useState("");
-  const [diagnosis, setDiagnóstico] = useState("");
-  const [recommendations, setRecomendaciones] = useState("");
-  const [family_members_concerns, setPreocupacionFamiliar] = useState("");
-  const [specific_medical_condition, setCondicionMedica] =useState("");
-  const [other, setOtro] = useState("");
-  const [numberMothers, setNumberMothers] = useState("");
+  const {cargar, setShowModal,showModal} = props;
   const [inputValue, setInputValue] = useState("");
-  const [NumPadre, setNumPadre] = useState("");
-  const [NumMadre, setNumMadre] = useState("");
+  const [error, setError] = useState("");
+  const modal = useRef();
+  const fecha = useRef();
 
-  const handlemothers_number = (value) => {
-    const regex = /^[0-9\b]+$/;
-    if (value.target.value === "" || regex.test(value.target.value)) {
-      setNumMadre(value.target.value);
-    }
+  const formik = useFormik({
 
-    setNumberMothers(value.target.value);
-  };
+    initialValues:initialValues(),
+    validationSchema:Yup.object({
+        Name:Yup.string(),
+        Sex:Yup.string(),
+        ParentsName:Yup.string(),
+        ParentOrGuardianPhoneNumber:Yup.string(),
+        NumberMothers:Yup.string(),
+        DateOfBirth:Yup.string(),
+        Age:Yup.string(),
+        EducationalInstitution:Yup.string(),
+        Course:Yup.string(),
+        WhoRefers:Yup.string(),
+        FamilySettings:Yup.string(),
+        TherapiesOrServiceYouWillReceiveAtTheCenter:Yup.string(),
+        Diagnosis:Yup.string(),
+        Recommendations:Yup.string(),
+        FamilyMembersConcerns:Yup.string(),
+        SpecificMedicalCondition:Yup.string(),
+        Other:Yup.string(),
+        Activo:Yup.boolean(),
+    }),
+    onSubmit: async (formValue) => {
+
+      try {
+        formValue.DateOfBirth = inputValue;
+        formValue.Age = calculateAge();
+   
+
+        if(formValue.Age == ""){
+          console.log("entro")
+          console.log(formValue)
+          return;
+        }
+
+        const activo = formValue.Activo.trim() === "true";
+        formValue.Activo = activo;
+        
+        
+        const res = await axios.post("https://jdeleon-001-site1.btempurl.com/api/Clinica/GuardarPaciente",formValue);
+        VaciarForm();
+
+         const ale = await swal({
+           title: "Correcto",
+           text: "Cambio guardado ",
+           icon: "success",
+         });
+      } catch (error) {
+        setError(error.response.data)
+      }
+
+    },
+  });
 
 
-  
 
-  const handleparent_or_guardian_phone_numberChange = (value) => {
-    const regex = /^[0-9\b]+$/;
+  if(showModal){
+    modal.current.classList.add("active_modal_crear_paciente")
+}
 
-    if (value.target.value === "" || regex.test(value.target.value)) {
-      setNumPadre(value.target.value);
-    }
+  function closeModal() {
+    modal.current.classList.remove("active_modal_crear_paciente");
+    setShowModal(false)
+    VaciarForm()
+  }
 
-    setParent_or_guardian_phone_number(value.target.value);
-  };
-
-  const handledate_of_birthChange = (event) => {
-    setDate_of_birth(event);
-    setInputValue(event);
-  };
-
-  function calculateAge() {
+  function calculateAge(edad){
     const currentDate = new Date();
     const birthDate = new Date(inputValue);
     const differenceMs = currentDate - birthDate;
@@ -63,313 +90,359 @@ const Home = () => {
     );
     let SinEdad = "";
 
+    if (edad != null) {
+      return edad;
+    }
+
     if (isNaN(differenceYears)) {
       return SinEdad;
     }
-
     return differenceYears.toString();
   }
 
- 
-  const data = {
-    Name: name,
-    Sex: sex,
-    ParentsName: parents_name,
-    ParentOrGuardianPhoneNumber: parent_or_guardian_phone_number,
-    DateOfBirth: date_of_birth,
-    Age: calculateAge(),
-    EducationalInstitution: educational_institution,
-    NumberMothers: numberMothers,
-    Course: course,
-    WhoRefers: who_refers,
-    FamilySettings: family_settings,
-    TherapiesOrServiceYouWillReceiveAtTheCenter:
-   therapies_or_service_you_will_receive_at_the_center,
-    Diagnosis: diagnosis,
-    Recommendations: recommendations,
-    FamilyMembersConcerns: family_members_concerns,
-    SpecificMedicalCondition: specific_medical_condition,
-    Other: other,
-    Activo: true,
-  };
+  function initialValues (){
+    return{
+        Name:"",
+        Sex:"",
+        ParentsName:"",
+        ParentOrGuardianPhoneNumber:"",
+        NumberMothers:"",
+        DateOfBirth:"",
+        Age:19.45,
+        EducationalInstitution:"",
+        Course:"",
+        WhoRefers:"",
+        FamilySettings:"",
+        TherapiesOrServiceYouWillReceiveAtTheCenter:"",
+        Diagnosis:"",
+        Recommendations:"",
+        FamilyMembersConcerns:"",
+        SpecificMedicalCondition:"",
+        Other:"",
+        Activo:"",
+    };
+  }
 
-  const FormularioAdmin = document.getElementById("FormularioAdmin");
-  const handleGuardar = (e) => {
-    e.preventDefault();
+  function  VaciarForm() {
+    formik.handleReset()
+  }
 
-    const url =
-      "https://jdeleon-001-site1.btempurl.com/api/Clinica/GuardarPaciente";
-    axios
-      .post(url, data)
-      .then((result) => {
-        swal({
-          title: "Correcto",
-          text: "Cambio guardado ",
-          icon: "success",
-          button: "Aceptar",
-        });
-        FormularioAdmin.reset();
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+  const handleDateChange = (e) => {
+
+    let fecha = e.target.value;
+    let yearPattern = /^(?!0\d{3})\d{4}-\d{1,2}-\d{1,2}$/;
+    let inputElement = e.target;
+  
+    if (!yearPattern.test(fecha)) {
+      inputElement.style.backgroundColor = '#ec7c96';
+      setInputValue("")
+      return;
+    }
+  
+    let dateObject = new Date(fecha);
+    if (isNaN(dateObject.getTime())) {
+      inputElement.style.backgroundColor = '#ec7c96';
+      setInputValue("")
+
+    } else {
+      setInputValue(e.target.value)
+      inputElement.style.backgroundColor = 'white';
+    }
+
   };
+  
 
   return (
-    <div>
-      <Headers />
 
-      <div className="cont-admin">
-        <form
-          onSubmit={handleGuardar}
-          id="FormularioAdmin"
-          className="contenedor-admin"
-        >
-          <div className="cont-titulo-form">
+    <>
+    <Headers/>
+     
+      <div className="cont_modal_home" ref={modal}>
+        <form  onSubmit={formik.handleSubmit} className="form_modal_crear_paciente" id="home_modal">
+ 
+          <div className="cont-titulo-form_crear_paciente">
             <h1>Pacientes de nuevo ingreso </h1>
           </div>
 
-          <div className="paddd">
-            <div className="row" id="primeraFila">
-              <div className="col">
+          <div className="box_crear_paciente">
+              <div>
                 <label htmlFor="validationServer01" className="labelPaciente">
                   Nombre
                 </label>
                 <input
                   type="text"
-                  className="form-control "
                   id="validationServer01"
-                  onChange={(e) => setName(e.target.value)}
+                  onChange={formik.handleChange}
                   required
+                  name="Name"
+                  value={formik.values.Name}
                 />
               </div>
-
-              <div className="col">
-                <label htmlFor="validationServer01" className="labelPaciente">
+              
+              <div>
+                <label htmlFor="validationServer01">
                   Sexo
                 </label>
                 <select
-                  className="form-control"
                   required
-                  onChange={(e) => setSexo(e.target.value)}
+                  onChange={formik.handleChange}
+                  name="Sex"
+                  value={formik.values.Sex}
                 >
-                  <option>seleccione una opción</option>
+                  <option value="">seleccione una opción</option>
                   <option value="Masculino">Masculino</option>
                   <option value="Femenina">Femenino</option>
                 </select>
               </div>
 
-              <div className="col">
-                <label htmlFor="validationServer02" className="labelPaciente">
+              <div>
+                <label htmlFor="validationServer02">
                   Nombre De Los Padres{" "}
                 </label>
                 <input
                   type="text"
-                  className="form-control "
                   id="validationServer02"
-                  onChange={(e) => setPadreMadreNombre(e.target.value)}
+                  onChange={formik.handleChange}
                   required
+                  name="ParentsName"
+                  value={formik.values.ParentsName}
                 />
               </div>
-
-              <div className="col">
-                <label htmlFor="validationServer02" className="labelPacienteCC">
+           
+        
+              <div>
+                <label htmlFor="validationServer02" >
                   Teléfono del padre
                 </label>
                 <input
                   type="text"
-                  className="form-control "
                   id="validationServer02"
-                  value={NumPadre}
-                  required
-                  onChange={handleparent_or_guardian_phone_numberChange}
+                  onChange={formik.handleChange}
+                  name="ParentOrGuardianPhoneNumber"
+                  value={formik.values.ParentOrGuardianPhoneNumber}
+
                 />
               </div>
-              <div className="col">
-                <label htmlFor="validationServer02" className="labelPacienteCC">
+              <div>
+                <label htmlFor="validationServer02">
                   Teléfono de la madre
                 </label>
                 <input
                   type="text"
-                  className="form-control "
+                
                   id="validationServer02"
-                  value={NumMadre}
-                  required
-                  onChange={handlemothers_number}
+                  onChange={formik.handleChange}
+                  name="NumberMothers"
+                  value={formik.values.NumberMothers}
                 />
               </div>
-            </div>
 
-            <div className="row" id="segundaFila">
-              <div className="col">
-                <label htmlFor="validationServer02" className="labelPaciente">
+           
+              <div>
+                <label htmlFor="validationServer02">
                   Fecha de nacimiento
                 </label>
                 <input
                   type="date"
-                  className="form-control"
                   id="validationServer02"
                   required
-                  onChange={(e) => handledate_of_birthChange(e.target.value)}
+                  onChange={handleDateChange }
+                  name="DateOfBirth"
+                  ref={fecha}
                 />
               </div>
 
-              <div className="col">
-                <label htmlFor="validationServer02" className="labelPaciente">
+              <div>
+                <label htmlFor="validationServer02">
                   Edad
                 </label>
                 <input
-                  type="text"
-                  className="form-control"
+                  type="number"
                   id="validationServer02"
-                  value={calculateAge()}
+                  required
                   readOnly
+                  name="Age"
+                  value={calculateAge()}
                 />
               </div>
-
-              <div className="col">
-                <label htmlFor="validationServer02" className="labelPaciente">
+            
+              <div>
+                <label htmlFor="validationServer02" >
                   Centro de Estudios
                 </label>
                 <input
                   type="text"
-                  className="form-control "
                   id="validationServer02"
                   required
-                  onChange={(e) =>
-                    setCentroEstudio(e.target.value)
-                  }
+                  onChange={formik.handleChange}
+                  name="EducationalInstitution"
+                  value={formik.values.EducationalInstitution}
                 />
               </div>
 
-              <div className="col">
-                <label htmlFor="validationServer02" className="labelPaciente">
+              <div>
+                <label htmlFor="validationServer02">
                   Curso
                 </label>
                 <input
                   type="text"
-                  className="form-control "
                   id="validationServer02"
                   required
-                  onChange={(e) => setCurso(e.target.value)}
+                  onChange={formik.handleChange}
+                  name="Course"
+                  value={formik.values.Course}
                 />
               </div>
-              <div className="col">
-                <label htmlFor="validationServer02" className="labelPaciente">
+
+
+             
+              <div>
+                <label htmlFor="validationServer02">
                   Recomendaciones{" "}
                 </label>
                 <input
                   type="text"
-                  className="form-control "
                   id="validationServer02"
                   required
-                  onChange={(e) => setRecomendaciones(e.target.value)}
+                  onChange={formik.handleChange}
+                  name="Recommendations"
+                  value={formik.values.Recommendations}
                 />
               </div>
-            </div>
-            <div className="row" id="terceraFila">
-              <div className="col">
-                <label htmlFor="validationServer02" className="labelPaciente">
+          
+
+            
+              <div>
+                <label htmlFor="validationServer02" >
                   Quien refiere
                 </label>
                 <input
                   type="text"
-                  className="form-control "
                   id="validationServer02"
                   required
-                  onChange={(e) => setQuienRefiere(e.target.value)}
+                  onChange={formik.handleChange}
+                  name="WhoRefers"
+                  value={formik.values.WhoRefers}
                 />
               </div>
-              <div className="col">
-                <label htmlFor="validationServer02" className="labelPaciente">
+              <div>
+                <label htmlFor="validationServer02">
                   Configuración familiar
                 </label>
                 <input
                   type="text"
-                  className="form-control "
                   id="validationServer02"
                   required
-                  onChange={(e) => setCongiracionFamilia(e.target.value)}
+                  onChange={formik.handleChange}
+                  name="FamilySettings"
+                  value={formik.values.FamilySettings}
+
                 />
               </div>
-              <div className="col">
-                <label htmlFor="validationServer02" className="labelPaciente">
+
+              <div>
+                <label htmlFor="validationServer02" >
                   Terapias o servicio{" "}
                 </label>
                 <input
                   type="text"
-                  className="form-control "
                   id="validationServer02"
                   required
-                  onChange={(e) =>
-                    setTerapiaServicio(
-                      e.target.value
-                    )
-                  }
+                  onChange={formik.handleChange}
+                  name="TherapiesOrServiceYouWillReceiveAtTheCenter"
+                  value={formik.values.TherapiesOrServiceYouWillReceiveAtTheCenter}
                 />
               </div>
-              <div className="col">
-                <label htmlFor="validationServer02" className="labelPaciente">
+              <div>
+                <label htmlFor="validationServer02">
                   Diagnóstico{" "}
                 </label>
                 <input
                   type="text"
-                  className="form-control"
                   id="validationServer02"
                   required
-                  onChange={(e) => setDiagnóstico(e.target.value)}
+                  onChange={formik.handleChange}
+                  name="Diagnosis"
+                  value={formik.values.Diagnosis}
                 />
               </div>
-              <div className="col">
-                <label htmlFor="validationServer02" className="labelPaciente">
+
+              <div>
+                <label htmlFor="validationServer02">
                   Condición médica específica{" "}
                 </label>
                 <input
                   type="text"
-                  className="form-control "
                   id="validationServer02"
                   required
-                  onChange={(e) =>
-                    setCondicionMedica(e.target.value)
-                  }
+                  onChange={formik.handleChange}
+                  name="SpecificMedicalCondition"
+                  value={formik.values.SpecificMedicalCondition}
                 />
               </div>
-            </div>
+          
+
             <div className="row">
               <div className="col">
-                <label htmlFor="validationServer02" className="labelPaciente">
+                <label htmlFor="validationServer02" >
                   Preocupación de los familiares
                 </label>
                 <input
                   type="text"
-                  className="form-control "
                   id="validationServer02"
                   required
-                  onChange={(e) =>
-                    setPreocupacionFamiliar(e.target.value)
-                  }
+                  onChange={formik.handleChange}
+                  name="FamilyMembersConcerns"
+                  value={formik.values.FamilyMembersConcerns}
                 />
               </div>
             </div>
-            <div className="row">
-              <div className="col">
+            
+              <div>
+                <label>Activo</label>
+              <select name="Activo"  required value={formik.values.Activo} onChange={formik.handleChange} >
+                  <option value="">seleccione una opción</option>
+                  <option value="true">Si</option>
+                  <option value="false">No</option>
+                </select>
+              </div>      
+{/* 
+            */}
+            {error  ?
+              <div className="cont_error">
+                  <p>{error}</p>
+              </div>
+              : "" }
+
+          </div>
+
+              <div >
                 <label htmlFor="validationServer02">Otro </label>
                 <textarea
                   id="txtArea"
-                  onChange={(e) => setOtro(e.target.value)}
                   rows="10"
                   cols="70"
+                  onChange={formik.handleChange}
+                  name="Other"
+                  value={formik.values.Other}
+                  className="textArea"
                 ></textarea>
               </div>
+
+            <div className="footer_crear_paciente">
+              <button className="btn guardar">Guardar</button>
+              <button  className="btn cancelar" type="button" onClick={closeModal}> Cancelar    </button>
             </div>
-            <div className="col" id="cont-btn-admin">
-              <button className="btnWeb">Guardar</button>
-            </div>
-          </div>
         </form>
       </div>
-    </div>
+
+
+    </>
   );
-};
+}
 
 export default Home;
+
+
+
+

@@ -232,7 +232,6 @@ const {auth} = useAuth();
   const handleEditar = async (e) => {
     e.preventDefault();
 
-    console.log(dataEditar)
     const url =
       "https://jdeleon-001-site1.btempurl.com/api/Clinica/EditarPaciente";
     axios

@@ -45,8 +45,6 @@ function ModalCrearPaciente(props) {
    
 
         if(formValue.Age == ""){
-          console.log("entro")
-          console.log(formValue)
           return;
         }
 
@@ -262,6 +260,7 @@ function ModalCrearPaciente(props) {
                   required
                   readOnly
                   name="Age"
+                  value={calculateAge()}
                 />
               </div>
             
@@ -399,7 +398,7 @@ function ModalCrearPaciente(props) {
             
               <div>
                 <label>Activo</label>
-              <select name="Activo"  value={formik.values.Activo} onChange={formik.handleChange} >
+              <select name="Activo"  required value={formik.values.Activo} onChange={formik.handleChange} >
                   <option value="">seleccione una opción</option>
                   <option value="true">Si</option>
                   <option value="false">No</option>

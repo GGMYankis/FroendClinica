@@ -19,7 +19,6 @@ export default function ModalEliminarPacientes(props) {
          e.preventDefault();
          
         try {
-            console.log(idPatients)
             const res = axios.post("https://jdeleon-001-site1.btempurl.com/api/Clinica/EliminarPaciente", data);
             modal.current.classList.remove("active_Modal_Eliminar");
             setShowModalEliminar(false);

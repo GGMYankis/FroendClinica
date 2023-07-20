@@ -22,7 +22,7 @@ import TerapiaTerapeuta from "./Vistas/TerapiaTerapeuta";
 import Contabilidad from "./Vistas/Contabilidad";
 import ListasPacientes from "./Vistas/ListadoDePacientes/ListasPacientes";
 import Asistencias from "./Vistas/Asistencias";
-/*  import Calendario from "./Vistas/Calendario";  */
+ import Calendario from "./Vistas/Calendario";  
 import ReportesPago from "./Vistas/ReportesPago";
 import ErrorPage from "./Vistas/ErrorPage";
 import {getToken, initAxiosInterceptors,getUsuarioCompleto, removeToken} from "./auth-helpers";
@@ -115,7 +115,7 @@ function App() {
                 <Route exact path="/terapia" element={rol == 1 || rol == 3 ? <Terapias /> :  <ErrorPage />} />
                 <Route exact path="/" element={<Home />} />
                 <Route exact path="/asistencias" element={rol == 1 || rol == 3 ? <Asistencias /> :  <ErrorPage />} />
-           {/*      <Route exact path="/calendario" element={<Calendario />} />  */}
+           <Route exact path="/calendario" element={<Calendario />} />  
                 <Route exact path="/contabilidad" element={ rol == 1 || rol == 3 ? <Contabilidad /> :  <ErrorPage />} />
                 <Route exact path="/abono" element={ rol == 1 || rol == 3 ? <Abono /> :  <ErrorPage /> } />
                 <Route exact path="/TerapiaTerapeuta" element={<TerapiaTerapeuta />}/>           
