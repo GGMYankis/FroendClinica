@@ -1,23 +1,20 @@
-
 import React, { useEffect, useState, useRef } from "react";
 import axios from "axios";
 import swal from "sweetalert";
 import "bootstrap/dist/css/bootstrap.min.css";
 import DataTable from "react-data-table-component";
-import Headers from "../../components/Headers/Headers"
-import {getUsuarioCompleto} from "../../auth-helpers";
+import Headers from "../../components/Headers/Headers";
+import { getUsuarioCompleto } from "../../auth-helpers";
 import useAuth from "../../components/Auth/LoginForm/hook/useAuth";
-import ModalCrearPaciente from "../../Modal/ModalListadoDePacientes/ModalCrearPaciente"
+import ModalCrearPaciente from "../../Modal/ModalListadoDePacientes/ModalCrearPaciente";
 import ModalEliminarPacientes from "../../Modal/ModalListadoDePacientes/ModalEliminarPacientes";
 import "./ListasPacientes.css";
 function ListasPacientes() {
+  const { auth } = useAuth();
 
-const {auth} = useAuth();
-
-  const [ac, setAc] = useState('');
+  const [ac, setAc] = useState("");
   const modalEditar = useRef();
 
-  
   const [idPaciente, setIdPaciente] = useState();
   const [listaPaciente, setlistaPaciente] = useState([]);
   const [name, setName] = useState("");
@@ -60,38 +57,33 @@ const {auth} = useAuth();
   const [showModalEliminar, setShowModalEliminar] = useState(false);
   const [idEliminar, setIdEliminar] = useState(0);
 
-
   useEffect(() => {
     cargar();
   }, [refresh]);
 
   const datass = {
-    idUser:auth.nameid[0]
-  }
-  const cargar =  async () => {
-
-
-    if(rol == 2){
-
-      const res = await axios.post("https://jdeleon-001-site1.btempurl.com/api/Citas/PacientesTerapeuta",datass );
+    idUser: auth.nameid[0],
+  };
+  const cargar = async () => {
+    if (rol == 2) {
+      const res = await axios.post(
+        "https://jdeleon-001-site1.btempurl.com/api/Citas/PacientesTerapeuta",
+        datass
+      );
       res.data.map((item) => {
         item.activo = item.activo ? "si" : "no";
-       });
-      setlistaPaciente(res.data)
-    }else{
-
-      const res = await axios.get("https://jdeleon-001-site1.btempurl.com/api/Clinica/ListaTodos");
+      });
+      setlistaPaciente(res.data);
+    } else {
+      const res = await axios.get(
+        "https://jdeleon-001-site1.btempurl.com/api/Clinica/ListaTodos"
+      );
       res.data.map((item) => {
-         item.activo = item.activo ? "si" : "no";
-       });
-     setlistaPaciente(res.data); 
-
+        item.activo = item.activo ? "si" : "no";
+      });
+      setlistaPaciente(res.data);
     }
-        
   };
-
-
-
 
   const handleNameChange = (value) => {
     setName(value);
@@ -196,14 +188,9 @@ const {auth} = useAuth();
     setOther(value);
   };
 
- 
- 
-
-  
-
   const modalCraePaciente = () => {
-    setShowModal(true)
-    setMensajeError("")
+    setShowModal(true);
+    setMensajeError("");
   };
 
   const dataEditar = {
@@ -219,7 +206,8 @@ const {auth} = useAuth();
     Course: course,
     WhoRefers: who_refers,
     FamilySettings: family_settings,
-    TherapiesOrServiceYouWillReceiveAtTheCenter: therapies_or_service_you_will_receive_at_the_center, 
+    TherapiesOrServiceYouWillReceiveAtTheCenter:
+      therapies_or_service_you_will_receive_at_the_center,
     Diagnosis: diagnosis,
     Recommendations: recommendations,
     FamilyMembersConcerns: family_members_concerns,
@@ -227,7 +215,6 @@ const {auth} = useAuth();
     Other: other,
     Activo: activos,
   };
-
 
   const handleEditar = async (e) => {
     e.preventDefault();
@@ -237,10 +224,8 @@ const {auth} = useAuth();
     axios
       .put(url, dataEditar)
       .then((result) => {
-
-        const probar = async () => {    
-
-          setlistaPaciente([]);   
+        const probar = async () => {
+          setlistaPaciente([]);
           cargar();
           modalEditar.current.classList.remove("active");
           const ale = await swal({
@@ -252,18 +237,14 @@ const {auth} = useAuth();
         if (result) {
           probar();
         }
-
       })
       .catch((error) => {
         console.log(error);
       });
   };
 
-
-  
-
   const modalEliminar = (e) => {
-    setShowModalEliminar(true)
+    setShowModalEliminar(true);
     const IdEliminarPaciente = listaPaciente.filter(
       (item) => item.idPatients == e
     );
@@ -274,17 +255,12 @@ const {auth} = useAuth();
     setIdEliminar(e);
   };
 
-  
-
   const CancelarPacienteEditar = () => {
     modalEditar.current.classList.remove("active");
   };
 
- 
-
   // codigo de filtrado
   const handleEdit = (e) => {
-
     setIdPaciente(e);
     modalEditar.current.classList.add("active");
     const IdEditarPaciente = listaPaciente.filter(
@@ -357,18 +333,17 @@ const {auth} = useAuth();
       selector: (row) => row.age,
       sortable: true,
     },
-   {
-  name: "Fecha de Ingreso",
-  selector: (row) => {
-    if (row.fechaIngreso) {
-      return new Date(row.fechaIngreso).toLocaleDateString();
-    } else {
-      return "";
-    }
-  },
-  sortable: true,
-}
-,
+    {
+      name: "Fecha de Ingreso",
+      selector: (row) => {
+        if (row.fechaIngreso) {
+          return new Date(row.fechaIngreso).toLocaleDateString();
+        } else {
+          return "";
+        }
+      },
+      sortable: true,
+    },
     {
       name: "Activo",
       selector: "activo",
@@ -417,13 +392,14 @@ const {auth} = useAuth();
         return item.name.toLowerCase().includes(keyword.toLowerCase());
       });
       setFilteredData(filteredResults);
-
     } else {
-
-  
       const filteredResults = listaPaciente.filter((item) => {
-
-        const fullName = item.name + " " + item.numberMothers + " " +  item.parentOrGuardianPhoneNumber;
+        const fullName =
+          item.name +
+          " " +
+          item.numberMothers +
+          " " +
+          item.parentOrGuardianPhoneNumber;
 
         const keywordLower = keyword.toLowerCase();
         const fullNameLower = fullName.toLowerCase();
@@ -448,8 +424,6 @@ const {auth} = useAuth();
     } else if (event.target.value == "no") {
       setVerificarActivo(true);
 
-    
-
       const res = listaPaciente.filter((p) => p.activo == "no");
       setFilteredData(res);
     } else {
@@ -462,9 +436,7 @@ const {auth} = useAuth();
       <Headers paciente={paciente} />
 
       <div id="table-container" className="table-container" ref={paciente}>
-        
         <div className="sex-tables">
-
           <div className="cont-titu-tables">
             <h1>Listado de Pacientes</h1>
           </div>
@@ -487,11 +459,10 @@ const {auth} = useAuth();
                 <option value="si">Activo</option>
                 <option value="no">Inactivos</option>
               </select>
-            
             </div>
 
             <div className="cont-crear-paciente">
-            <label>Paciente</label>
+              <label>Paciente</label>
               <input
                 id="txtbuscar"
                 placeholder="Nombre"
@@ -503,14 +474,16 @@ const {auth} = useAuth();
 
           <DataTable
             columns={columns}
-            data={ 
-                verificarActivo || filteredData.length > 0 ? filteredData  : listaPaciente             
+            data={
+              verificarActivo || filteredData.length > 0
+                ? filteredData
+                : listaPaciente
             }
             pagination
           />
         </div>
       </div>
- 
+
       <div className="modal-paciente-editar" ref={modalEditar}>
         <form onSubmit={handleEditar} className="contenedor-cita">
           <div className="cont-titulo-form">
@@ -811,9 +784,18 @@ const {auth} = useAuth();
           </div>
         </form>
       </div>
-      <ModalCrearPaciente cargar={cargar} setShowModal={setShowModal} showModal={showModal}/>
-      <ModalEliminarPacientes  cargar={cargar} nombre={name} idPatients={idEliminar} setShowModalEliminar={setShowModalEliminar} showModalEliminar={showModalEliminar} />
-
+      <ModalCrearPaciente
+        cargar={cargar}
+        setShowModal={setShowModal}
+        showModal={showModal}
+      />
+      <ModalEliminarPacientes
+        cargar={cargar}
+        nombre={name}
+        idPatients={idEliminar}
+        setShowModalEliminar={setShowModalEliminar}
+        showModalEliminar={showModalEliminar}
+      />
     </>
   );
 }

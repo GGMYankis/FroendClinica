@@ -8,9 +8,8 @@
   transition: all 0.3s linear;
 }
 
-
 :root {
-  --fc-button-bg-color: #2c3e50
+  --fc-button-bg-color: #2c3e50;
 }
 
 .btnWeb {
@@ -24,25 +23,19 @@
   margin: auto;
   width: 200px;
   font-weight: bold;
-  box-shadow: 0 .2rem .5rem rgba(0, 0, 0, .2);
-
+  box-shadow: 0 0.2rem 0.5rem rgba(0, 0, 0, 0.2);
 }
-
-
-
 
 .btnWeb:hover {
   background-color: white;
   color: #0b2f57;
 }
 
-
-@media (max-width:600px) {
+@media (max-width: 600px) {
   .btnWeb {
     width: 100%;
   }
 }
-
 
 /* FOOTER DE LA WEB */
 
@@ -50,13 +43,12 @@
   padding: 10px;
   height: 70px;
   width: 100%;
-  background-color: #F8F9FA;
+  background-color: #f8f9fa;
   display: flex;
   justify-content: flex-start;
   align-items: center;
   color: black;
 }
-
 
 .btn-crear {
   padding: 10px;
@@ -65,22 +57,17 @@
   color: white;
   border: 1px solid #0b2f57;
   margin-bottom: 10px;
-  transition: all .2s;
+  transition: all 0.2s;
   font-weight: bold;
   position: absolute;
   right: 0;
   margin-right: 30px;
-
 }
 
-
-
 .btn-crear:hover {
-
   color: orange;
   transform: scale(1.1);
-  transition: all .2s;
-
+  transition: all 0.2s;
 }
 
 /* LOGIN  */
@@ -98,7 +85,6 @@
   right: 0;
   top: 0;
   height: 100vh;
-
 }
 
 .ggL {
@@ -115,7 +101,6 @@
   position: relative;
 }
 
-
 .email {
   color: orange;
   font-size: 20px;
@@ -129,11 +114,6 @@
   margin-right: 20px;
   color: white;
 }
-
-
-
-
-
 
 /* formulario de terapia */
 
@@ -149,12 +129,12 @@
   background-color: white;
   width: 50%;
   height: 520px;
-  box-shadow: 0 1rem 2rem rgba(0, 0, 0, .1);
+  box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.1);
   border-radius: 10px;
   margin: 40px 10px 10px 10px;
 }
 
-@media (max-width:600px) {
+@media (max-width: 600px) {
   .form-terapias {
     width: 90%;
   }
@@ -172,15 +152,14 @@
 
 .cont-barra-tera input {
   padding: 6px;
-  border-radius: .375rem;
+  border-radius: 0.375rem;
   border: 1px solid #ced4da;
 }
 
 .cont-barra-tera textarea {
-  border-radius: .375rem;
+  border-radius: 0.375rem;
   border: 1px solid #ced4da;
 }
-
 
 .btn-terapia {
   padding: 10px;
@@ -208,14 +187,13 @@
 }
 
 .cont-titu-Pagina-terapia h1 {
-  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+    "Lucida Sans", Arial, sans-serif;
   font-weight: bold;
   color: white;
   font-size: 25px;
   margin-bottom: 0px;
 }
-
-
 
 /* formulario de evaluacion */
 
@@ -238,14 +216,11 @@
   flex-direction: column;
 }
 
-@media(max-width:585px) {
+@media (max-width: 585px) {
   .modal-content {
     width: 98%;
-
   }
-
 }
-
 
 .btn-Guardar {
   background-color: #0b2f57;
@@ -259,7 +234,6 @@
 }
 
 .btn-Cancelar {
-
   background-color: gray;
   color: white;
   padding: 10px;
@@ -284,7 +258,7 @@
 
 .form-select-evaluacion {
   width: 50%;
-  box-shadow: 0 1rem 2rem rgba(0, 0, 0, .1);
+  box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.1);
   background-color: white;
   border-radius: 10px;
   margin: 40px 0px;
@@ -306,42 +280,34 @@
   align-items: center;
 }
 
-@media(max-width:750px) {
+@media (max-width: 750px) {
   .form-select-evaluacion {
     width: 90%;
   }
 }
 
-@media(max-width:500px) {
+@media (max-width: 500px) {
   .form-select-evaluacion {
     width: 95%;
   }
 }
 
-
-@media(max-width:460) {
+@media (max-width: 460) {
   .labelCheck {
     margin-left: 5px;
-
   }
 }
 
-
-
-@media(max-width:450px) {
-
-
+@media (max-width: 450px) {
   .recu-repe {
     margin-left: 10px;
   }
 }
 
-
-@media(max-width:850px) {
+@media (max-width: 850px) {
   .check-select {
     margin: auto;
   }
-
 }
 
 .titu-barra {
@@ -349,14 +315,12 @@
   color: #0b2f57;
 }
 
-
-
 .form-select-evaluacion h1 {
-
   color: white;
   font-weight: bold;
   text-align: center;
-  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+    "Lucida Sans", Arial, sans-serif;
   font-size: 25px;
   padding: 10px;
 }
@@ -371,7 +335,6 @@
   display: block;
   margin: auto;
   width: 200px;
-
 }
 
 .btn-evaluacion:hover {
@@ -391,8 +354,6 @@
   margin-bottom: 10px;
 }
 
-
-
 .cont-recurrence--inside-visitas {
   margin-bottom: 10px;
 }
@@ -409,11 +370,9 @@
   color: #0b2f57;
 }
 
-@media(max-width:450px) {
+@media (max-width: 450px) {
   #recu-fecha {
-
     flex-direction: column;
-
   }
 }
 
@@ -423,7 +382,6 @@
 }
 
 .recu-fecha-inicio {
-
   border-radius: 8px;
   border: none;
   padding: 5px;
@@ -440,14 +398,11 @@
   background-color: rgba(196, 190, 190, 0.322);
 }
 
-
-
-
 .tite-recu {
   margin-top: 11px;
   font-weight: bold;
   color: #0b2f57;
-  font-size: 15px
+  font-size: 15px;
 }
 
 .recu-select {
@@ -464,8 +419,7 @@
   color: #0b2f57;
 }
 
-
-@media(max-width:540px) {
+@media (max-width: 540px) {
   .recu-repe {
     margin-left: auto;
   }
@@ -483,7 +437,6 @@
   font-weight: bold;
   text-align: center;
 }
-
 
 #labeldiasCheckL {
   padding: 10px;
@@ -539,39 +492,37 @@
   text-align: center;
 }
 
-
-#diasCheckD:checked~#labeldiasCheckD {
+#diasCheckD:checked ~ #labeldiasCheckD {
   background-color: #0b2e57b1;
   color: white;
 }
 
-#diasCheckL:checked~#labeldiasCheckL {
+#diasCheckL:checked ~ #labeldiasCheckL {
   background-color: #0b2e57b1;
   color: white;
 }
 
-#diasCheckM:checked~#labeldiasCheckM {
+#diasCheckM:checked ~ #labeldiasCheckM {
   background-color: #0b2e57b1;
   color: white;
 }
 
-#diasCheckMM:checked~#labeldiasCheckMM {
+#diasCheckMM:checked ~ #labeldiasCheckMM {
   background-color: #0b2e57b1;
   color: white;
 }
 
-
-#diasCheckJ:checked~#labediasCheckJ {
+#diasCheckJ:checked ~ #labediasCheckJ {
   background-color: #0b2e57b1;
   color: white;
 }
 
-#diasCheckV:checked~#labeldiasCheckV {
+#diasCheckV:checked ~ #labeldiasCheckV {
   background-color: #0b2e57b1;
   color: white;
 }
 
-#diasCheckS:checked~#labeldiasCheckS {
+#diasCheckS:checked ~ #labeldiasCheckS {
   background-color: #0b2e57b1;
   color: white;
 }
@@ -580,18 +531,10 @@
   display: none;
 }
 
-
-
-
-
-
 .img-doctor {
   width: 500px;
   height: 400px;
 }
-
-
-
 
 .cont-select-evaluacion1 {
   width: 100%;
@@ -601,18 +544,13 @@
   justify-content: left;
 }
 
-
-
 .cont-select-evaluacion2 {
-
   width: 100%;
   padding: 20px;
-
 }
 
 .campo-login {
   color: orange;
-
 }
 
 #txtArea {
@@ -633,7 +571,7 @@
 .contanedor-asistencias {
   width: 50%;
   border-radius: 10px;
-  box-shadow: 0 1rem 2rem rgba(0, 0, 0, .1);
+  box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.1);
   background-color: white;
   margin: 40px 10px 10px 10px;
 }
@@ -660,30 +598,28 @@
 
 .cont-titu-asistencias h1 {
   font-size: 25px;
-  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+    "Lucida Sans", Arial, sans-serif;
   font-weight: bold;
   color: white;
   margin-bottom: 0px;
 }
 
-@media(max-width:750px) {
+@media (max-width: 750px) {
   .contanedor-asistencias {
     width: 90%;
   }
 }
 
-@media(max-width:550px) {
+@media (max-width: 550px) {
   .contanedor-asistencias {
     width: 99%;
 
     .form-asistencia {
       padding: 10px 10px 0px 10px;
-
     }
   }
 }
-
-
 
 .form-asistencia {
   padding: 10px 20px 0px 20px;
@@ -695,7 +631,6 @@
   flex-direction: column;
 }
 
-
 .select-asistencia {
   border-radius: 10px;
   padding: 10px;
@@ -704,7 +639,6 @@
 .label-asistencia {
   color: #0b2f57;
   font-weight: bold;
-
 }
 
 .btn-asistencia {
@@ -725,7 +659,6 @@
 
 /* CALENDARIO */
 
-
 #tableContabilidad {
   width: 100%;
 }
@@ -735,7 +668,7 @@
   min-height: 100vh;
   display: flex;
   justify-content: center;
-  transition: all .5s;
+  transition: all 0.5s;
   background-color: white;
   margin-top: 55px;
 }
@@ -743,7 +676,7 @@
 .calendario {
   margin: 40px 10px 10px 10px;
   width: 80%;
-  box-shadow: 0 1rem 2rem rgba(0, 0, 0, .1);
+  box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.1);
   background-color: white;
   position: relative;
   padding: 10px;
@@ -760,7 +693,6 @@
   justify-content: center;
   align-items: center;
   gap: 45px;
-
 }
 
 .option-box {
@@ -772,13 +704,13 @@
   color: transparent;
 }
 
-@media(max-width:1124px) {
+@media (max-width: 1124px) {
   .padre-box-calendara-option {
     gap: 10px;
   }
 }
 
-@media(max-width:920px) {
+@media (max-width: 920px) {
   .padre-box-calendara-option {
     display: flex;
     flex-direction: column;
@@ -791,9 +723,7 @@
   .visilibi-buscar-calendar {
     display: none;
   }
-
 }
-
 
 #selec-consultorio {
   width: 250px;
@@ -806,7 +736,6 @@
 
 #fila-agenda {
   margin-bottom: 10px;
-
 }
 
 .contPadreContabilidad {
@@ -836,38 +765,32 @@
 
 .cont-table-contabilidad {
   width: 50%;
-  box-shadow: 0 1rem 2rem rgba(0, 0, 0, .1);
-  transition: all .2s;
+  box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.1);
+  transition: all 0.2s;
   border-radius: 10px;
 }
 
-
-@media (max-width:865px) {
+@media (max-width: 865px) {
   .cont-table-contabilidad {
     width: 70%;
-
   }
 }
 
-@media (max-width:670px) {
+@media (max-width: 670px) {
   .cont-table-contabilidad {
     width: 80%;
-
   }
 }
 
-@media (max-width:580px) {
+@media (max-width: 580px) {
   .cont-table-contabilidad {
     width: 95%;
   }
 
   .contPadreContabilidad {
-
     padding: 0;
-
   }
 }
-
 
 #tabelContabilidad {
   width: 100%;
@@ -909,32 +832,25 @@
   color: rgba(183, 176, 176, 0.828);
 }
 
-
-
 .form-contabilidad {
-  box-shadow: 0 1rem 2rem rgba(0, 0, 0, .1);
+  box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.1);
   border-radius: 10px;
   padding: 20px;
   width: 40%;
   height: auto;
   background-color: white;
   text-align: center;
-  transition: all .2s;
+  transition: all 0.2s;
 }
 
 .mostar:hover {
-
   background-color: red;
-
 }
 
 .contPadreContabilidad table {
   width: 50%;
-  transition: all .2s;
+  transition: all 0.2s;
 }
-
-
-
 
 #select-contabilidad {
   margin-bottom: 15px;
@@ -945,9 +861,8 @@
 }
 
 .form-contabilidad:hover {
-
   transform: scale(1.1);
-  transition: all .2s;
+  transition: all 0.2s;
 }
 
 .btn-contabilidad {
@@ -962,12 +877,12 @@
   margin-bottom: 10px;
   border-radius: 8px;
   width: 200px;
-  transition: all .2s;
+  transition: all 0.2s;
 }
 
 .btn-contabilidad:hover {
   transform: scale(1.1);
-  transition: all .2s;
+  transition: all 0.2s;
 }
 
 #xdf {
@@ -1019,7 +934,6 @@
   width: 100%;
 }
 
-
 #tablaUsuarios thead {
   background-color: #0b2f57;
 }
@@ -1037,7 +951,7 @@
   font-size: 14px;
   font-weight: 600;
   letter-spacing: 0.35px;
-  color: #FFFFFF;
+  color: #ffffff;
   opacity: 1;
   padding: 12px;
   vertical-align: top;
@@ -1053,7 +967,7 @@
 
 .card-box {
   border-radius: 10px;
-  box-shadow: 0 1rem 2rem rgba(0, 0, 0, .1);
+  box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.1);
 }
 
 .modalFade {
@@ -1081,12 +995,12 @@
 }
 
 .contTituUsuario h1 {
-  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+    "Lucida Sans", Arial, sans-serif;
   font-weight: bold;
   color: white;
   font-size: 25px;
   margin-bottom: 0px;
-
 }
 
 .card-header h3 {
@@ -1098,7 +1012,7 @@
 .form-perfil-usuario {
   position: relative;
   width: 500px;
-  box-shadow: 0 1rem 2rem rgba(0, 0, 0, .1);
+  box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.1);
   border-radius: 10px;
   background-color: white;
 }
@@ -1112,7 +1026,7 @@
 }
 
 .cont-modal-lista-usuario {
-  background-color: rgba(0, 0, 0, .7);
+  background-color: rgba(0, 0, 0, 0.7);
   width: 100%;
   min-height: 100vh;
   position: fixed;
@@ -1155,7 +1069,7 @@
   width: 500px;
   border-radius: 10px;
   background-color: white;
-  box-shadow: 0 1rem 2rem rgba(0, 0, 0, .1);
+  box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.1);
 }
 
 .modal-content-usuario .btn {
@@ -1207,7 +1121,7 @@
   left: 0;
   min-height: 100vh;
   width: 100%;
-  background-color: rgba(0, 0, 0, .7);
+  background-color: rgba(0, 0, 0, 0.7);
   z-index: 10000;
   display: flex;
   justify-content: center;
@@ -1217,11 +1131,10 @@
 .form-crear-usuario {
   position: relative;
   width: 50%;
-  box-shadow: 0 1rem 2rem rgba(0, 0, 0, .1);
+  box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.1);
   border-radius: 10px;
   background-color: white;
   margin: 10px;
-
 }
 
 .one-user-form {
@@ -1237,13 +1150,13 @@
   width: 100%;
 }
 
-@media(max-width:914px) {
+@media (max-width: 914px) {
   .form-crear-usuario {
     width: 90%;
   }
 }
 
-@media(max-width:600px) {
+@media (max-width: 600px) {
   .one-user-form {
     display: flex;
     flex-direction: column;
@@ -1253,7 +1166,6 @@
     gap: 0px;
   }
 }
-
 
 /*sssssssssss*/
 
@@ -1291,7 +1203,7 @@
   text-decoration: none;
   line-height: 35px;
   display: inline-block;
-  background-color: #FF1046;
+  background-color: #ff1046;
   color: white;
   padding: 10px;
   display: flex;
@@ -1337,9 +1249,7 @@
   }
 }
 
-
 /* abono */
-
 
 .cont-abono {
   display: flex;
@@ -1349,14 +1259,12 @@
   align-items: center;
 }
 
-
 .form-abono {
   width: 500px;
   border-radius: 10px;
-  box-shadow: 0 1rem 2rem rgba(0, 0, 0, .1);
+  box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.1);
   height: 360px;
 }
-
 
 .btnAbono {
   display: block;
@@ -1368,7 +1276,6 @@
   padding: 10px;
   border-radius: 5px;
 }
-
 
 #cont-barra-bono {
   margin-top: 15px;
@@ -1391,7 +1298,6 @@
   font-size: 25px;
 }
 
-
 .cont-asignar {
   width: 100%;
   min-height: 100vh;
@@ -1404,20 +1310,19 @@
   width: 40%;
   margin: 40px 10px 10px 10px;
   border-radius: 10px;
-  box-shadow: 0 1rem 2rem rgba(0, 0, 0, .1);
+  box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.1);
   background-color: white;
   height: 240px;
 }
 
-@media(max-width:778px) {
+@media (max-width: 778px) {
   .form-asignar {
     width: 90%;
   }
 }
 
-
-.btn-asignacion-terapeuta:hover {}
-
+.btn-asignacion-terapeuta:hover {
+}
 
 .sub-asignar {
   padding: 20px;
@@ -1434,7 +1339,6 @@
   color: #817a7a;
 }
 
-
 .cont-titu-asignacionTerapeuta {
   background-color: #0b2f57;
   border-top-right-radius: 10px;
@@ -1445,8 +1349,8 @@
 }
 
 .cont-titu-asignacionTerapeuta h1 {
-
-  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+    "Lucida Sans", Arial, sans-serif;
   font-weight: bold;
   color: white;
 
@@ -1486,14 +1390,12 @@
 }
 
 .contTableGastos {
-  box-shadow: 0 1rem 2rem rgba(0, 0, 0, .1);
+  box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.1);
   border-radius: 8px;
   background-color: white;
   margin: 40px 10px 10px 10px;
   width: 80%;
 }
-
-
 
 .cont-box-body-gastos label {
   padding-right: 10px;
@@ -1508,12 +1410,12 @@
   background-color: #0b2f57;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
-
 }
 
 .cont-titu-gastos h1 {
   font-size: 25px;
-  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+    "Lucida Sans", Arial, sans-serif;
   font-weight: bold;
   color: white;
 
@@ -1535,10 +1437,8 @@
 }
 
 .btn-gastos:hover {
-
   background-color: transparent;
   color: #0b2f57;
-
 }
 
 .inputgastos {
@@ -1630,7 +1530,6 @@
   font-weight: 400;
 }
 
-
 /* HEADERS */
 
 .icono-menu {
@@ -1645,14 +1544,13 @@
   cursor: pointer;
 }
 
-
 .cont-menu {
   background-color: white;
   width: 400px;
   position: absolute;
   top: 0;
   left: 0;
-  transition: all .2s;
+  transition: all 0.2s;
 }
 
 .cont-menu ul {
@@ -1697,9 +1595,8 @@
 
 .opacity {
   background-color: rgba(0, 0, 0, 0.5);
-  transition: all .5s ease;
+  transition: all 0.5s ease;
 }
-
 
 .cont-menuNuevo {
   background-color: rgba(0, 0, 0, 0.5);
@@ -1708,7 +1605,7 @@
   position: fixed;
   top: 0;
   left: -100%;
-  transition: all .5s;
+  transition: all 0.5s;
 }
 
 .activass {
@@ -1750,7 +1647,7 @@
   width: 50%;
   height: 450px;
   background-color: white;
-  box-shadow: 0 1rem 2rem rgba(0, 0, 0, .1);
+  box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.1);
   border-radius: 10px;
   position: relative;
   margin: 40px 10px 10px 10px;
@@ -1761,7 +1658,7 @@
   height: auto;
   background-color: white;
   margin-left: 100px;
-  box-shadow: 0 1rem 2rem rgba(0, 0, 0, .1);
+  box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.1);
 }
 
 .txtTable {
@@ -1792,14 +1689,13 @@
   justify-content: center;
   align-items: center;
   position: relative;
-
 }
 
 .formPagoTerapeuat {
   width: 80%;
   margin: 40px 10px 10px 10px;
   background-color: white;
-  box-shadow: 0 1rem 2rem rgba(0, 0, 0, .1);
+  box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.1);
   position: relative;
   position: absolute;
   top: 40px;
@@ -1811,8 +1707,6 @@
   align-items: center;
   gap: 10px;
 }
-
-
 
 .cont-box-body-gastos {
   padding: 20px;
@@ -1832,7 +1726,6 @@
   text-align: center;
 }
 
-
 .cont-form-abono {
   width: 100%;
   height: 100vh;
@@ -1841,29 +1734,28 @@
   margin-top: 55px;
 }
 
-
 .formAbonoTerapias {
   width: 50%;
-  box-shadow: 0 1rem 2rem rgba(0, 0, 0, .1);
+  box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.1);
   border-radius: 10px;
   background-color: white;
   margin: 40px 10px 10px 10px;
   height: 340px;
 }
 
-@media(max-width:750px) {
+@media (max-width: 750px) {
   .formAbonoTerapias {
     width: 90%;
   }
 }
 
-@media(max-width:500px) {
+@media (max-width: 500px) {
   .formAbonoTerapias {
     width: 100%;
   }
 }
 
-@media(max-width:1146px) {
+@media (max-width: 1146px) {
   .padrePagoTerapeuta {
     flex-direction: column;
     padding: 10px;
@@ -1890,8 +1782,6 @@
   .padrePagoTerapeuta div {
     width: 100%;
   }
-
-
 }
 
 .cont-box-abono {
@@ -1918,12 +1808,10 @@
   width: 50%;
 }
 
-
 #txtCrearCita {
   width: 50%;
   position: relative;
 }
-
 
 .btn-abono:hover {
   background-color: #0b2e57c4;
@@ -1933,10 +1821,10 @@
   color: white;
   font-weight: bold;
   text-align: center;
-  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+    "Lucida Sans", Arial, sans-serif;
   font-size: 25px;
   margin-bottom: 0px;
-
 }
 
 .contenedorsL {
@@ -1945,7 +1833,7 @@
 
 .contenedors {
   opacity: 0.5;
-  box-shadow: 0 1rem 2rem rgba(0, 0, 0, .5);
+  box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.5);
 }
 
 .contenedors p,
@@ -1967,7 +1855,6 @@
 
 .iamgenSelecionada img {
   width: 100%;
-
 }
 
 .con-table-probamdo {
@@ -1977,7 +1864,6 @@
   justify-content: center;
   align-items: center;
 }
-
 
 #txtCrearCitas {
   width: 50%;
@@ -2011,7 +1897,6 @@
 }
 
 .btnCitas:hover {
-
   background-color: rgba(128, 128, 128, 0.736);
 }
 
@@ -2020,10 +1905,7 @@
   border: 1px solid #ced4da;
   border-radius: 0.375rem;
   margin-left: 10px;
-
 }
-
-
 
 #ulticita {
   margin-top: 10px;
@@ -2088,7 +1970,7 @@
 
 .box-resporte-pagos {
   border-radius: 10px;
-  box-shadow: 0 1rem 2rem rgba(0, 0, 0, .1);
+  box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.1);
   width: 90%;
   margin-top: 40px;
 }
@@ -2175,9 +2057,7 @@ td {
 
 .Comen-Error {
   color: white;
-
 }
-
 
 .pageErro a {
   background-color: white;
@@ -2205,12 +2085,12 @@ td {
   margin: 70px 20px 0px 20px;
   background-color: white;
   height: 100vh;
-  transition: all .5s
+  transition: all 0.5s;
 }
 
 .sex-tables {
   border-radius: 10px;
-  box-shadow: 0 1rem 2rem rgba(0, 0, 0, .1);
+  box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.1);
 }
 
 .sub-2 {
@@ -2250,18 +2130,16 @@ td {
   font-weight: 600;
 }
 
-
-
 .cont-titu-tables h1 {
-  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+    "Lucida Sans", Arial, sans-serif;
   font-weight: bold;
   color: white;
   font-size: 25px;
   margin-bottom: 0px;
 }
 
-@media(max-width:678px) {
-
+@media (max-width: 678px) {
   .cont-action {
     flex-direction: column;
   }
@@ -2292,7 +2170,7 @@ td {
 .table {
   width: 100%;
   border-collapse: collapse;
-  box-shadow: 0 1rem 2rem rgba(0, 0, 0, .1);
+  box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.1);
 }
 
 .table thead {
@@ -2303,7 +2181,7 @@ td {
   font-size: 14px;
   font-weight: 600;
   letter-spacing: 0.35px;
-  color: #FFFFFF;
+  color: #ffffff;
   opacity: 1;
   padding: 12px;
   vertical-align: top;
@@ -2324,7 +2202,7 @@ td {
   font-size: 14px;
   font-weight: bold;
   letter-spacing: 0.35px;
-  color: #FF1046;
+  color: #ff1046;
 }
 
 .table .tr-btn {
@@ -2353,12 +2231,10 @@ td {
   border: 3px solid #0b2f57;
 }
 
-
 .actions-container {
   background-color: white;
   padding: 5px;
 }
-
 
 .table tbody tr td .btn {
   width: 100px;
@@ -2388,21 +2264,15 @@ td {
 }
 
 .table tbody tr td .eliminar {
-  background-color: #FF1046;
+  background-color: #ff1046;
   margin-left: 10px;
 }
-
-
-
-
-
 
 .cont-crear-paciente #txtbuscar {
   margin-right: 15px;
   padding: 8px;
   border-radius: 8px;
   border: 1px solid #ced4da;
-
 }
 
 .cantidadPaciente {
@@ -2410,7 +2280,7 @@ td {
   text-align: center;
 }
 
-@media (max-width:405px) {
+@media (max-width: 405px) {
   .table-container {
     padding: 5px;
   }
@@ -2420,8 +2290,7 @@ td {
   color: red;
 }
 
-
-@media (max-width:750px) {
+@media (max-width: 750px) {
   .table td::before {
     content: attr(data-label);
     font-size: 10px;
@@ -2430,7 +2299,7 @@ td {
   }
 }
 
-@media (max-width:525px) {
+@media (max-width: 525px) {
   .table tbody tr td .btn {
     width: 70px;
   }
@@ -2446,8 +2315,7 @@ td {
   }
 }
 
-
-@media (max-width:1150px) {
+@media (max-width: 1150px) {
   .table thead {
     display: none;
   }
@@ -2481,8 +2349,7 @@ td {
   }
 }
 
-
-@media (max-width:1150px) {
+@media (max-width: 1150px) {
   .table thead {
     display: none;
   }
@@ -2521,7 +2388,6 @@ td {
   .tr-btn {
     justify-content: space-between;
   }
-
 }
 
 .divPadre {
@@ -2569,17 +2435,16 @@ td {
 
 /* tablas */
 
-
 .table-container {
   margin: 70px 20px 0px 20px;
   background-color: white;
   height: 100vh;
-  transition: all .5s
+  transition: all 0.5s;
 }
 
 .sex-tables {
   border-radius: 10px;
-  box-shadow: 0 1rem 2rem rgba(0, 0, 0, .1);
+  box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.1);
 }
 
 .sub-2 {
@@ -2619,18 +2484,16 @@ td {
   font-weight: 600;
 }
 
-
-
 .cont-titu-tables h1 {
-  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+    "Lucida Sans", Arial, sans-serif;
   font-weight: bold;
   color: white;
   font-size: 25px;
   margin-bottom: 0px;
 }
 
-@media(max-width:678px) {
-
+@media (max-width: 678px) {
   .cont-action {
     flex-direction: column;
   }
@@ -2661,7 +2524,7 @@ td {
 .table {
   width: 100%;
   border-collapse: collapse;
-  box-shadow: 0 1rem 2rem rgba(0, 0, 0, .1);
+  box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.1);
 }
 
 .table thead {
@@ -2672,7 +2535,7 @@ td {
   font-size: 14px;
   font-weight: 600;
   letter-spacing: 0.35px;
-  color: #FFFFFF;
+  color: #ffffff;
   opacity: 1;
   padding: 12px;
   vertical-align: top;
@@ -2693,7 +2556,7 @@ td {
   font-size: 14px;
   font-weight: bold;
   letter-spacing: 0.35px;
-  color: #FF1046;
+  color: #ff1046;
 }
 
 .table .tr-btn {
@@ -2722,12 +2585,10 @@ td {
   border: 3px solid #0b2f57;
 }
 
-
 .actions-container {
   background-color: white;
   padding: 5px;
 }
-
 
 .table tbody tr td .btn {
   width: 100px;
@@ -2757,24 +2618,20 @@ td {
 }
 
 .table tbody tr td .eliminar {
-  background-color: #FF1046;
+  background-color: #ff1046;
   margin-left: 10px;
 }
-
-
 
 .cont-crear-paciente {
   display: flex;
   align-items: center;
 }
 
-
 .cont-crear-paciente #txtbuscar {
   margin-right: 15px;
   padding: 8px;
   border-radius: 8px;
   border: 1px solid #ced4da;
-
 }
 
 .cantidadPaciente {
@@ -2782,7 +2639,7 @@ td {
   text-align: center;
 }
 
-@media (max-width:405px) {
+@media (max-width: 405px) {
   .table-container {
     padding: 5px;
   }
@@ -2792,8 +2649,7 @@ td {
   color: red;
 }
 
-
-@media (max-width:750px) {
+@media (max-width: 750px) {
   .table td::before {
     content: attr(data-label);
     font-size: 10px;
@@ -2802,7 +2658,7 @@ td {
   }
 }
 
-@media (max-width:525px) {
+@media (max-width: 525px) {
   .table tbody tr td .btn {
     width: 70px;
   }
@@ -2818,8 +2674,7 @@ td {
   }
 }
 
-
-@media (max-width:1150px) {
+@media (max-width: 1150px) {
   .table thead {
     display: none;
   }
@@ -2853,8 +2708,7 @@ td {
   }
 }
 
-
-@media (max-width:1150px) {
+@media (max-width: 1150px) {
   .table thead {
     display: none;
   }
@@ -2893,7 +2747,6 @@ td {
   .tr-btn {
     justify-content: space-between;
   }
-
 }
 
 .divPadre {
@@ -2939,7 +2792,6 @@ td {
   background-color: #0b2f57;
 }
 
-
 .txtCrearCita {
   width: 50%;
 }
@@ -2980,10 +2832,8 @@ td {
   border: 1px solid red;
 }
 
-
 #calendar-navegar {
   background-color: var(--fc-button-bg-color);
-  ;
   border: 2px solid var(--fc-button-bg-color);
 }
 

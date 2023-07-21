@@ -1,161 +1,157 @@
 .modal_crear_paciente {
-    position: absolute;
-    top: -100%;
-    min-height: 100vh;
-    width: 100%;
-    background-color: #00000066;
-    z-index: 10000;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  position: absolute;
+  top: -100%;
+  min-height: 100vh;
+  width: 100%;
+  background-color: #00000066;
+  z-index: 10000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .form_modal_crear_paciente {
-    background-color: white;
-    border-radius: 10px;
-    padding: 20px 30px;
-    position: relative;
-    margin: 10px;
-
+  background-color: white;
+  border-radius: 10px;
+  padding: 20px 30px;
+  position: relative;
+  margin: 10px;
 }
 
 .cont-titulo-form_crear_paciente {
-    background-color: #0b2f57;
-    height: 40px;
-    color: white;
-    text-align: center;
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
-    position: absolute;
-    top: 0;
-    right: 0;
-    left: 0;
+  background-color: #0b2f57;
+  height: 40px;
+  color: white;
+  text-align: center;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
 }
 
 .cont-titulo-form_crear_paciente h1 {
-    font-size: 25px;
-    line-height: 40px;
+  font-size: 25px;
+  line-height: 40px;
 }
 
 .box_crear_paciente {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-    grid-gap: 10px;
-    margin-top: 40px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  grid-gap: 10px;
+  margin-top: 40px;
 }
 
 .box_crear_paciente div {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 
 .box_crear_paciente div label {
-    font-weight: bold;
-    color: #0b2f57;
+  font-weight: bold;
+  color: #0b2f57;
 }
 
 .box_crear_paciente div input,
 select {
-    width: 100%;
-    padding: 10px 13px;
-    border-radius: 8px;
-    border: 1px solid rgba(212, 206, 206, 0.531);
+  width: 100%;
+  padding: 10px 13px;
+  border-radius: 8px;
+  border: 1px solid rgba(212, 206, 206, 0.531);
 }
 
 .footer_crear_paciente {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .footer_crear_paciente .btn {
-    width: 200px;
-    padding: 10px 13px;
-    margin: 0px 20px;
-    font-weight: bold;
+  width: 200px;
+  padding: 10px 13px;
+  margin: 0px 20px;
+  font-weight: bold;
 }
 
 .footer_crear_paciente .guardar {
-    background-color: #0b2f57;
-    border: 2px solid #0b2f57;
-    color: white;
+  background-color: #0b2f57;
+  border: 2px solid #0b2f57;
+  color: white;
 }
 
 .footer_crear_paciente .guardar:hover {
-    background-color: transparent;
-    color: #0b2f57;
+  background-color: transparent;
+  color: #0b2f57;
 }
 
 .footer_crear_paciente .cancelar {
-    background-color: #dc3545;
-    color: white;
-    border: 2px solid #dc3545;
+  background-color: #dc3545;
+  color: white;
+  border: 2px solid #dc3545;
 }
 
 .footer_crear_paciente .cancelar:hover {
-    background-color: transparent;
-    color: #dc3545;
-    font-weight: bold;
+  background-color: transparent;
+  color: #dc3545;
+  font-weight: bold;
 }
 
 .active_modal_crear_paciente {
-    top: 0;
+  top: 0;
 }
 
 .active_valids {
-    background-color: red;
+  background-color: red;
 }
 
-@media(max-width:1150px) {
-
-    .box_crear_paciente {
-        grid-template-columns: 1fr 1fr 1fr 1fr;
-    }
+@media (max-width: 1150px) {
+  .box_crear_paciente {
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+  }
 }
 
-@media(max-width:900px) {
-
-    .box_crear_paciente {
-        grid-template-columns: 1fr 1fr 1fr;
-    }
+@media (max-width: 900px) {
+  .box_crear_paciente {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
 }
 
-@media(max-width:665px) {
+@media (max-width: 665px) {
+  .box_crear_paciente {
+    grid-template-columns: 1fr 1fr;
+  }
 
-    .box_crear_paciente {
-        grid-template-columns: 1fr 1fr;
-    }
-
-    .form_modal_crear_paciente {
-        padding: 10px;
-    }
+  .form_modal_crear_paciente {
+    padding: 10px;
+  }
 }
 
-@media(max-width:573px) {
-
-    .box_crear_paciente {
-        grid-template-columns: 1fr;
-    }
+@media (max-width: 573px) {
+  .box_crear_paciente {
+    grid-template-columns: 1fr;
+  }
 }
 
 .cont_modal_home {
-    min-height: 100vh;
-    width: 100%;
-    background-color: white;
-    z-index: 10000;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 55px;
+  min-height: 100vh;
+  width: 100%;
+  background-color: white;
+  z-index: 10000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 55px;
 }
 
 #home_modal {
-    box-shadow: 0 1rem 2rem rgba(0, 0, 0, .1);
-
+  box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.1);
+  width: 80%;
+  height: 80%;
 }
 
 .move_left_modal {
-    transform: translateX(200px);
-    transition: all 1s;
+  transform: translateX(200px);
+  transition: all 1s;
 }

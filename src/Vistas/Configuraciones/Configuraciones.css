@@ -1,199 +1,183 @@
 .cont-consultorio {
-    margin-top: 55px;
-    width: 100%;
-    min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: relative;
+  margin-top: 55px;
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
 }
 
 .cont-table {
-    position: absolute;
-    top: 40px;
-    width: 60%;
-    box-shadow: 0 1rem 2rem rgba(0, 0, 0, .1);
-    overflow: hidden;
-    border-radius: 10px;
+  position: absolute;
+  top: 40px;
+  width: 60%;
+  box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  border-radius: 10px;
 }
 
 .table-config {
-    width: 100%;
+  width: 100%;
 }
 
-
 .titu-config h1 {
-    color: white;
-    font-size: 25px;
-    text-align: center;
-    line-height: 40px;
-
+  color: white;
+  font-size: 25px;
+  text-align: center;
+  line-height: 40px;
 }
 
 .titu-config {
-    background-color: #0b2f57;
-    width: 100%;
-    height: 40px;
-
+  background-color: #0b2f57;
+  width: 100%;
+  height: 40px;
 }
 
-
 .table-config thead {
-    background-color: #0b2f57;
-
+  background-color: #0b2f57;
 }
 
 .table-config thead tr th {
-    padding: 10px;
-    text-align: center;
-    color: white;
+  padding: 10px;
+  text-align: center;
+  color: white;
 }
 
 .table-config tbody tr td {
-    padding: 10px;
-    text-align: center;
+  padding: 10px;
+  text-align: center;
 }
 
-
-
 .table-config .btn {
-    margin: 0px 0px 0px 10px;
-    width: 100px;
-    padding: 10px;
-
+  margin: 0px 0px 0px 10px;
+  width: 100px;
+  padding: 10px;
 }
 
 .table-config .btn.editar {
-    background-color: #0b2f57;
-    margin: 0px 0px 0px 10px;
-    color: white;
+  background-color: #0b2f57;
+  margin: 0px 0px 0px 10px;
+  color: white;
 }
-
-
 
 .table-config .btn.eliminar {
-    background-color: #dc3545;
-    margin: 0px 0px 0px 10px;
-    color: white;
-
+  background-color: #dc3545;
+  margin: 0px 0px 0px 10px;
+  color: white;
 }
 
-
 .table-config tbody tr:nth-of-type(even) {
-    background-color: white;
+  background-color: white;
 }
 
 .cont-crear-config {
-    width: 100%;
-    padding: 10px 10px;
-    display: flex;
-    justify-content: left;
-    align-items: center;
+  width: 100%;
+  padding: 10px 10px;
+  display: flex;
+  justify-content: left;
+  align-items: center;
 }
 
-
 .cont-crear-config .btn {
-    background-color: #0b2f57;
-    color: white;
-    padding: 10px;
-    width: 120px;
-    border-radius: 5px;
-    border: 3px solid #0b2f57;
+  background-color: #0b2f57;
+  color: white;
+  padding: 10px;
+  width: 120px;
+  border-radius: 5px;
+  border: 3px solid #0b2f57;
 }
 
 .cont-crear-config .btn:hover {
-    background-color: transparent;
-    color: #0b2f57;
+  background-color: transparent;
+  color: #0b2f57;
 }
-
 
 /* Modal */
 .cont-modal {
-    top: -120%;
-    position: absolute;
-    left: 0;
-    right: 0;
-    min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: rgba(0, 0, 0, .4);
+  top: -120%;
+  position: absolute;
+  left: 0;
+  right: 0;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.4);
 }
 
 .form-modal {
-    background-color: white;
-    border-radius: 10px;
-    padding: 20px 30px;
-    position: relative;
-    overflow: hidden;
-    margin: 10px;
+  background-color: white;
+  border-radius: 10px;
+  padding: 20px 30px;
+  position: relative;
+  overflow: hidden;
+  margin: 10px;
 }
 
 .box-modal {
-    margin-top: 40px;
+  margin-top: 40px;
 }
 
 .form-modal input {
-    width: 100%;
-    padding: 13px 15px;
-    margin: 0 0 20px;
+  width: 100%;
+  padding: 13px 15px;
+  margin: 0 0 20px;
 }
 
 .form-modal .btn {
-    width: 100%;
-    padding: 10px 13px;
-    border-radius: 5px;
-    font-weight: bold;
-    font-size: 16px;
-    margin-bottom: 10px;
+  width: 100%;
+  padding: 10px 13px;
+  border-radius: 5px;
+  font-weight: bold;
+  font-size: 16px;
+  margin-bottom: 10px;
 }
 
 .form-modal .btn.guardar {
-    background-color: #0b2f57;
-    color: white;
-    border: 3px solid #0b2f57;
+  background-color: #0b2f57;
+  color: white;
+  border: 3px solid #0b2f57;
 }
 
 .form-modal .btn.guardar:hover {
-    background-color: transparent;
-    color: #0b2f57;
-
+  background-color: transparent;
+  color: #0b2f57;
 }
 
 .form-modal .btn.eliminar {
-    background-color: #dc3545;
-    color: white;
-    border: 3px solid #dc3545;
+  background-color: #dc3545;
+  color: white;
+  border: 3px solid #dc3545;
 }
 
 .form-modal .btn.eliminar:hover {
-    background-color: transparent;
-    color: #dc3545;
-
+  background-color: transparent;
+  color: #dc3545;
 }
 
 .form-modal label {
-    color: #0b2f57;
-    font-weight: bold;
-    text-align: left;
+  color: #0b2f57;
+  font-weight: bold;
+  text-align: left;
 }
 
 .titu-modal h1 {
-    color: white;
-    font-size: 25px;
-    text-align: center;
-    line-height: 40px;
+  color: white;
+  font-size: 25px;
+  text-align: center;
+  line-height: 40px;
 }
 
 .titu-modal {
-    background-color: #0b2f57;
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 40px;
+  background-color: #0b2f57;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 40px;
 }
 
 .active-Modal {
-    top: 0;
+  top: 0;
 }

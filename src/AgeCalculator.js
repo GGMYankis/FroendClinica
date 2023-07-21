@@ -1,18 +1,9 @@
-
-
-
 function AgeCalculator() {
-
-    
-    
-
-    
-   return (
+  return (
     <>
-    <p>hola</p>
-   </>
-  ) 
-
+      <p>hola</p>
+    </>
+  );
 }
 
 export default AgeCalculator;
@@ -30,7 +21,6 @@ export default AgeCalculator;
   }
   fechaActual = addDays(fechaActual, 7);
 } */
-
 
 /* [HttpPost]
 [Route("InsertMondays")]

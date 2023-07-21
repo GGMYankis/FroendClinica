@@ -1,91 +1,89 @@
 .cont-modal {
-    top: -120%;
-    position: absolute;
-    left: 0;
-    right: 0;
-    min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: rgba(0, 0, 0, .4);
+  top: -120%;
+  position: absolute;
+  left: 0;
+  right: 0;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.4);
 }
 
 .form-modal {
-    background-color: white;
-    border-radius: 10px;
-    padding: 20px 30px;
-    position: relative;
-    overflow: hidden;
-    margin: 10px;
+  background-color: white;
+  border-radius: 10px;
+  padding: 20px 30px;
+  position: relative;
+  overflow: hidden;
+  margin: 10px;
 }
 
 .box-modal {
-    margin-top: 40px;
+  margin-top: 40px;
 }
 
 .form-modal input {
-    width: 100%;
-    padding: 13px 15px;
-    margin: 0 0 20px;
-    border-radius: 5px;
-    border: 1px solid rgba(212, 206, 206, 0.531);
+  width: 100%;
+  padding: 13px 15px;
+  margin: 0 0 20px;
+  border-radius: 5px;
+  border: 1px solid rgba(212, 206, 206, 0.531);
 }
 
 .form-modal .btn {
-    width: 100%;
-    padding: 10px 13px;
-    border-radius: 5px;
-    font-weight: bold;
-    font-size: 16px;
-    margin-bottom: 10px;
+  width: 100%;
+  padding: 10px 13px;
+  border-radius: 5px;
+  font-weight: bold;
+  font-size: 16px;
+  margin-bottom: 10px;
 }
 
 .form-modal .btn.guardar {
-    background-color: #0b2f57;
-    color: white;
-    border: 3px solid #0b2f57;
+  background-color: #0b2f57;
+  color: white;
+  border: 3px solid #0b2f57;
 }
 
 .form-modal .btn.guardar:hover {
-    background-color: transparent;
-    color: #0b2f57;
-
+  background-color: transparent;
+  color: #0b2f57;
 }
 
 .form-modal .btn.eliminar {
-    background-color: #dc3545;
-    color: white;
-    border: 3px solid #dc3545;
+  background-color: #dc3545;
+  color: white;
+  border: 3px solid #dc3545;
 }
 
 .form-modal .btn.eliminar:hover {
-    background-color: transparent;
-    color: #dc3545;
-
+  background-color: transparent;
+  color: #dc3545;
 }
 
 .form-modal label {
-    color: #0b2f57;
-    font-weight: bold;
-    text-align: left;
+  color: #0b2f57;
+  font-weight: bold;
+  text-align: left;
 }
 
 .titu-modal h1 {
-    color: white;
-    font-size: 25px;
-    text-align: center;
-    line-height: 40px;
+  color: white;
+  font-size: 25px;
+  text-align: center;
+  line-height: 40px;
 }
 
 .titu-modal {
-    background-color: #0b2f57;
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 40px;
+  background-color: #0b2f57;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 40px;
 }
 
 .active-Modal {
-    top: 0;
+  top: 0;
 }

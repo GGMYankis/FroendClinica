@@ -1,17 +1,15 @@
 import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
-import Headers from "../components/Headers/Headers"
+import Headers from "../components/Headers/Headers";
 import swal from "sweetalert";
 import "../responsive.css";
 import { getDatosUsuario, getUsuarioCompleto } from "../auth-helpers";
 import DatePicker, { DateObject } from "react-multi-date-picker";
 import TimePicker from "react-multi-date-picker/plugins/time_picker";
 import DatePanel from "react-multi-date-picker/plugins/date_panel";
-import Toolbar from "react-multi-date-picker/plugins/toolbar"
-
+import Toolbar from "react-multi-date-picker/plugins/toolbar";
 
 function Asistencias() {
-
   const [paciente, setPaciente] = useState();
   const [terapia, setTerapia] = useState();
   const [idTerapeuta, setIdTerapeuta] = useState();
@@ -22,7 +20,6 @@ function Asistencias() {
   const [justificaciones, setJustificaciones] = useState("");
 
   const [razonAsistencia, setRazonAsistencia] = useState([]);
-
 
   const resportes = useRef();
 
@@ -35,11 +32,10 @@ function Asistencias() {
   let rol = getUsuarioCompleto();
 
   useEffect(() => {
-
     let no = document.querySelector("div.rmdp-container > :nth-child(2)");
-    no.style.transform = "translate(7.20215e-6px, 185.406px)";;
+    no.style.transform = "translate(7.20215e-6px, 185.406px)";
     no.style.left = "auto";
-  
+
     if (rol == 2) {
       axios
         .post(
@@ -65,14 +61,12 @@ function Asistencias() {
         )
         .then((response) => {
           setData(response.data);
-          
         });
     } else {
       axios
         .get("https://jdeleon-001-site1.btempurl.com/api/Clinica/ListaTerapia")
         .then((response) => {
           setData(response.data);
-          
         });
     }
     axios
@@ -81,13 +75,11 @@ function Asistencias() {
         setTerapeuta(response.data.usuarios);
       });
 
-
-      axios
+    axios
       .get("https://jdeleon-001-site1.btempurl.com/api/Clinica/razon")
       .then((response) => {
         setRazonAsistencia(response.data);
       });
-
   }, []);
 
   const dataValor = {
@@ -104,12 +96,9 @@ function Asistencias() {
   const enviar = (e) => {
     e.preventDefault();
 
-    
-
     const fechas = values.map((date) => date.format("YYYY-MM-DDTHH:mm:ss"));
 
-
-    dataValor.FechaInicio = fechas
+    dataValor.FechaInicio = fechas;
 
     resportes.current.classList.add("contenedors");
     if (rol == 2) {
@@ -140,8 +129,6 @@ function Asistencias() {
       });
   };
 
-
-
   const [values, setValues] = useState(
     [1, 2, 3].map((number) =>
       new DateObject().set({
@@ -157,7 +144,6 @@ function Asistencias() {
     setValues(newValues);
   };
 
-
   return (
     <div>
       <Headers />
@@ -168,20 +154,22 @@ function Asistencias() {
             <h1>Asistencias</h1>
           </div>
 
-          <form  onSubmit={enviar} className="form-asistencia" id="formAsistencia" >
- 
-            <div
-              className="box-asistencia"
-              
-            >
+          <form
+            onSubmit={enviar}
+            className="form-asistencia"
+            id="formAsistencia"
+          >
+            <div className="box-asistencia">
               <label className="label-asistencia">Razón Asistencia</label>
-              <select className="justificacinAsistencias" onChange={(e) => setJustificaciones(e.target.value)}>
-                 {
-                    razonAsistencia.map((r,i) => [
-                    <option value={r.id} key={i}>{r.descripcion}</option>
-        
-                  ])
-                }
+              <select
+                className="justificacinAsistencias"
+                onChange={(e) => setJustificaciones(e.target.value)}
+              >
+                {razonAsistencia.map((r, i) => [
+                  <option value={r.id} key={i}>
+                    {r.descripcion}
+                  </option>,
+                ])}
               </select>
             </div>
             {rol == 2 ? (
@@ -193,7 +181,7 @@ function Asistencias() {
                   className="select-asistencia"
                 >
                   <option value="">Seleccione un Paciente</option>
-                  {dataPaciente.map((item,index) => [
+                  {dataPaciente.map((item, index) => [
                     //<option key={item.value} value={item.value}>{item.value}</option>
                     <option key={index} value={item.nombrePaciente.idPatients}>
                       {item.nombrePaciente.name}
@@ -211,7 +199,9 @@ function Asistencias() {
                 >
                   <option value="">Seleccione un Paciente</option>
                   {dataPaciente.map((item, index) => [
-                    <option  key={index}  value={item.idPatients}>{item.name}</option>,
+                    <option key={index} value={item.idPatients}>
+                      {item.name}
+                    </option>,
                   ])}
                 </select>
               </div>
@@ -219,34 +209,33 @@ function Asistencias() {
 
             <div className="box-asistencia">
               <label className="label-asistencia">Lista de Terapias</label>
-              { rol == 2 ? 
+              {rol == 2 ? (
                 <select
-                onChange={(e) => setTerapia(e.target.value)}
-                required
-                className="select-asistencia"
-              >
-                <option  value="">Seleccione una Terapia</option>
-                {data.map((item, index) => [
-                  <option key={index}  value={item.idTherapy}>
-                    {item.label}
-                  </option>,
-                ])}
-              </select>
-              :
-              <select
-              onChange={(e) => setTerapia(e.target.value)}
-              required
-              className="select-asistencia"
-            >
-              <option value="">Seleccione una Terapia</option>
-              {data.map((item,index) => [
-                <option key={index}  value={item.nombreTerapia.idTherapy}>
-                  {item.nombreTerapia.label}
-                </option>,
-              ])}
-            </select>
-              }
-            
+                  onChange={(e) => setTerapia(e.target.value)}
+                  required
+                  className="select-asistencia"
+                >
+                  <option value="">Seleccione una Terapia</option>
+                  {data.map((item, index) => [
+                    <option key={index} value={item.idTherapy}>
+                      {item.label}
+                    </option>,
+                  ])}
+                </select>
+              ) : (
+                <select
+                  onChange={(e) => setTerapia(e.target.value)}
+                  required
+                  className="select-asistencia"
+                >
+                  <option value="">Seleccione una Terapia</option>
+                  {data.map((item, index) => [
+                    <option key={index} value={item.nombreTerapia.idTherapy}>
+                      {item.nombreTerapia.label}
+                    </option>,
+                  ])}
+                </select>
+              )}
             </div>
 
             {rol == 1 ? (
@@ -260,7 +249,7 @@ function Asistencias() {
                   <option value="">Seleccione un Terapeuta</option>
                   {terapeuta.map((item, index) => [
                     //<option key={item.value} value={item.value}>{item.value}</option>
-                    <option key={index}  value={item.idUser}>
+                    <option key={index} value={item.idUser}>
                       {item.names} {item.apellido}
                     </option>,
                   ])}
@@ -272,20 +261,20 @@ function Asistencias() {
             <div className="box-asistencia">
               <label className="label-asistencia">Fecha</label>
               <DatePicker
-             value={values}
-                  onChange={handleDateChange}
-                  format="MM/DD/YYYY HH:mm:ss"
-                  multiple
-                  plugins={[<TimePicker position="bottom" />, <DatePanel markFocused />,
-                  <Toolbar 
-                  position="bottom" 
-                  sort={["deselect", "close", "today"]} 
-                  
-                />,
-                 ]}
-                 style={{ height: '50px', width: '100%' }}
-                 
-                />
+                value={values}
+                onChange={handleDateChange}
+                format="MM/DD/YYYY HH:mm:ss"
+                multiple
+                plugins={[
+                  <TimePicker position="bottom" />,
+                  <DatePanel markFocused />,
+                  <Toolbar
+                    position="bottom"
+                    sort={["deselect", "close", "today"]}
+                  />,
+                ]}
+                style={{ height: "50px", width: "100%" }}
+              />
             </div>
             <div className="box-asistencia">
               <label className="label-asistencia">Observaciones</label>

@@ -3,14 +3,13 @@ import axios from "axios";
 import swal from "sweetalert";
 import "bootstrap/dist/css/bootstrap.min.css";
 import DataTable from "react-data-table-component";
-import Headers from "../components/Headers/Headers"
+import Headers from "../components/Headers/Headers";
 
-import {getDatosUsuario,getUsuarioCompleto} from "../auth-helpers";
-import Select from 'react-select';
-import {Loading} from "../components/Loading"
+import { getDatosUsuario, getUsuarioCompleto } from "../auth-helpers";
+import Select from "react-select";
+import { Loading } from "../components/Loading";
 
 function ListadodeCItas() {
-
   const modalCrear = useRef();
   const modalEditar = useRef();
   const alertEliminar = useRef();
@@ -38,31 +37,30 @@ function ListadodeCItas() {
   const [recurrencia, setRecurrencia] = useState(0);
   const [dayEnviar, setDayEnviar] = useState([]);
   const [visitas, setVisitas] = useState(false);
-  const [fechaInicioF, setFechaInicioF] = useState('');
-  const [fechaFinF, setFechaFinF] = useState('');
+  const [fechaInicioF, setFechaInicioF] = useState("");
+  const [fechaFinF, setFechaFinF] = useState("");
   const [pricePrimeraEvaluacion, setPricePrimeraEvaluacion] = useState(0);
   const [loading, setLoading] = useState(false);
 
-
   const [dataCrear, setDataCrear] = useState({
-    idPatients:"",
-    idTherapy:"",
-    fechaInicio:"",
-    idTerapeuta:"",
-    price:null,
-    firstPrice:"",
-    idConsultorio:"",
-    Dias:[],
-    Visitas:true,
-   /*  repetir:"",
+    idPatients: "",
+    idTherapy: "",
+    fechaInicio: "",
+    idTerapeuta: "",
+    price: null,
+    firstPrice: "",
+    idConsultorio: "",
+    Dias: [],
+    Visitas: true,
+    /*  repetir:"",
     frecuencia:"", */
   });
 
   function handleChange(e) {
     setDataCrear({
-         ...dataCrear,
-         [e.target.name]: e.target.value
-    })
+      ...dataCrear,
+      [e.target.name]: e.target.value,
+    });
   }
 
   let id = getDatosUsuario();
@@ -72,49 +70,34 @@ function ListadodeCItas() {
   };
 
   const objDias = [
-    {label:"lunes", value:"lunes"},
-    {label:"martes", value:"martes"},
-    {label:"miercoles", value:"miercoles"},
-    {label:"jueves", value:"jueves"},
-    {label:"viernes", value:"viernes"},
-    {label:"sabado", value:"sabado"},
-    {label:"domingo", value:"domingo"}
+    { label: "lunes", value: "lunes" },
+    { label: "martes", value: "martes" },
+    { label: "miercoles", value: "miercoles" },
+    { label: "jueves", value: "jueves" },
+    { label: "viernes", value: "viernes" },
+    { label: "sabado", value: "sabado" },
+    { label: "domingo", value: "domingo" },
   ];
-
-
-
 
   useEffect(() => {
     cargar();
   }, []);
 
   const cargar = async () => {
-
     try {
-
-      const res = await axios.get("https://jdeleon-001-site1.btempurl.com/api/Citas/Citas");
+      const res = await axios.get(
+        "https://jdeleon-001-site1.btempurl.com/api/Citas/Citas"
+      );
       setCitas(res.data);
     } catch (error) {
       console.error("el error es : " + error);
     }
-   
 
-    if (rol == 2) {
-      axios
-        .post(
-          "https://jdeleon-001-site1.btempurl.com/api/Clinica/BuscarPacientePorTerapeuta",
-          date
-        )
-        .then((responses) => {
-          setDataPaciente(responses.data);
-        });
-    } else {
-      axios
-        .get("https://jdeleon-001-site1.btempurl.com/api/Clinica/Lista")
-        .then((responses) => {
-          setDataPaciente(responses.data);
-        });
-    }
+    axios
+      .get("https://jdeleon-001-site1.btempurl.com/api/Clinica/Lista")
+      .then((responses) => {
+        setDataPaciente(responses.data);
+      });
 
     if (rol == 2) {
       axios
@@ -149,27 +132,27 @@ function ListadodeCItas() {
 
   const CrearCitas = async (e) => {
     e.preventDefault();
-    try{
+    try {
+      setLoading(true);
 
-
-      setLoading(true)
-
-      const res = await axios.post("https://jdeleon-001-site1.btempurl.com/api/traerpaciente/CrearEvaluacion",dataCrear);
-      if(res.status == 200){
-        setLoading(false)
+      const res = await axios.post(
+        "https://jdeleon-001-site1.btempurl.com/api/traerpaciente/CrearEvaluacion",
+        dataCrear
+      );
+      if (res.status == 200) {
+        setLoading(false);
         cargar();
-          modalCrear.current.classList.remove("active");
-          const ale = await swal({
-            title: "Correcto",
-            text: "Cambio guardado ",
-            icon: "success",
-          });
+        modalCrear.current.classList.remove("active");
+        const ale = await swal({
+          title: "Correcto",
+          text: "Cambio guardado ",
+          icon: "success",
+        });
       }
-    }catch(error){   
-      setLoading(false)
+    } catch (error) {
+      setLoading(false);
       swal(error.response.data, "Intentelo mas tarde", "error");
     }
-     
   };
 
   const dtEditar = {
@@ -190,48 +173,46 @@ function ListadodeCItas() {
     Repetir: repetir,
     Frecuencia: frecuencia,
     DiasA: dayEnviar,
-    IdEvaluation:parseInt(idEvaluacion),
+    IdEvaluation: parseInt(idEvaluacion),
   };
 
   function handle(selectedItems) {
+    const diasEnviar = [];
 
-    const diasEnviar = []
+    selectedItems.map((item) => {
+      diasEnviar.push(item.value);
+      setDayEnviar(diasEnviar);
+      dataCrear.Dias = diasEnviar;
+    });
 
-    selectedItems.map(item => {
-  
-    diasEnviar.push(item.value);
-    setDayEnviar(diasEnviar);
-   dataCrear.Dias = diasEnviar
+    setDay(selectedItems);
+  }
 
- 
- })
-
-   setDay(selectedItems)
-
-}
-
-
-  const  EnviarEvaluacionEditada = async(e) =>{
+  const EnviarEvaluacionEditada = async (e) => {
     e.preventDefault();
 
-
-    const res =  axios.post("https://jdeleon-001-site1.btempurl.com/api/Clinica/EditarCitas",dtEditar);
-    const resRecurrencia = await axios.post("https://jdeleon-001-site1.btempurl.com/api/traerpaciente/EditarRecurrencia",dtRecu);
-    if(resRecurrencia.status == 200){
+    const res = axios.post(
+      "https://jdeleon-001-site1.btempurl.com/api/Clinica/EditarCitas",
+      dtEditar
+    );
+    const resRecurrencia = await axios.post(
+      "https://jdeleon-001-site1.btempurl.com/api/traerpaciente/EditarRecurrencia",
+      dtRecu
+    );
+    if (resRecurrencia.status == 200) {
       cargar();
       modalEditar.current.classList.remove("active");
       const ale = await swal({
         title: "Correcto",
         text: "Cambio guardado ",
         icon: "success",
-      }); 
-     }
-  }
+      });
+    }
+  };
 
   const modalCraePaciente = () => {
     modalCrear.current.classList.add("active");
   };
-
 
   const CancelarPaciente = () => {
     modalCrear.current.classList.remove("active");
@@ -248,27 +229,25 @@ function ListadodeCItas() {
 
     const IdEvaluacion = citas.filter((item) => item.idEvaluacion == e);
 
-      const dias = [];
+    const dias = [];
     const diasEDITAR = [];
 
-   IdEvaluacion.map(e => {
-      
-    e.diasUi.map(d => {
+    IdEvaluacion.map((e) => {
+      e.diasUi.map((d) => {
+        const dia = {
+          label: d,
+          value: d,
+        };
+        diasEDITAR.push(d);
+        dias.push(dia);
+      });
+    });
 
-      const dia = {
-        label: d,
-        value:d
-      };
-        diasEDITAR.push(d)
-        dias.push(dia)
-      })
-    })
+    setDay(dias);
+    setDayEnviar(diasEDITAR);
 
-    setDay(dias)
-    setDayEnviar(diasEDITAR)
-   
-    IdEvaluacion.map((item) => [ 
-       setIdPatients(item.paciente.idPatients),
+    IdEvaluacion.map((item) => [
+      setIdPatients(item.paciente.idPatients),
       setTerapia(item.terapia.idTherapy),
       setIdterapeuta(item.terapeuta.idUser),
       setConsul(item.consultorio.idConsultorio),
@@ -276,8 +255,8 @@ function ListadodeCItas() {
       setFechaInicio(item.fechaInicio),
       setRepetir(item.repetir),
       setFrecuencia(item.frecuencia),
-      setRecurrencia(item.recurrencia.idRecurrencia),   
-    setPricePrimeraEvaluacion(item.firstPrice),   
+      setRecurrencia(item.recurrencia.idRecurrencia),
+      setPricePrimeraEvaluacion(item.firstPrice),
     ]);
   };
 
@@ -295,7 +274,7 @@ function ListadodeCItas() {
     ,
     {
       name: "Terapeuta",
-      selector: (row) => row.terapeuta.names + " " +row.terapeuta.apellido,
+      selector: (row) => row.terapeuta.names + " " + row.terapeuta.apellido,
       sortable: true,
     },
     {
@@ -328,9 +307,12 @@ function ListadodeCItas() {
     {
       cell: (row) => (
         <div className="actions-container">
-          <button className="btn-tabla-usuario-eliminar"  onClick={() => modalEliminar(row.idEvaluacion)}>            
+          <button
+            className="btn-tabla-usuario-eliminar"
+            onClick={() => modalEliminar(row.idEvaluacion)}
+          >
             Eliminar
-            </button>
+          </button>
         </div>
       ),
       ignoreRowClick: true,
@@ -352,29 +334,24 @@ function ListadodeCItas() {
     }
   };
 
- 
- 
   function Fterapia(e) {
     setTerapia(e);
   }
 
-
   const modalCerrarEliminar = () => {
     alertEliminar.current.classList.remove("activeEli");
   };
-  
+
   const handleEliminar = () => {
-
     const idEva = {
-       IdEvaluation: idEvaluacion,
-       IdRecurrencia:recurrencia
-      };
-
+      IdEvaluation: idEvaluacion,
+      IdRecurrencia: recurrencia,
+    };
 
     const url =
       "https://jdeleon-001-site1.btempurl.com/api/Clinica/EliminarCita";
-     axios
-      .post(url,idEva)
+    axios
+      .post(url, idEva)
       .then((result) => {
         const probar = async () => {
           alertEliminar.current.classList.remove("activeEli");
@@ -398,44 +375,41 @@ function ListadodeCItas() {
       });
   };
 
-  
   const modalEliminar = (e) => {
-    const IdEliminarCita = citas.filter(
-      (item) => item.idEvaluacion == e
-    );
+    const IdEliminarCita = citas.filter((item) => item.idEvaluacion == e);
 
     IdEliminarCita.map((item) => {
       setNomPaciente(item.paciente.name);
-      setRecurrencia(item.recurrencia.idRecurrencia)
-    }); 
-     setIdEvaluacion(e)
+      setRecurrencia(item.recurrencia.idRecurrencia);
+    });
+    setIdEvaluacion(e);
     alertEliminar.current.classList.add("activeEli");
   };
 
- function filtrarCitasFechas () {
-  setCitas([])
-    const fechaConHora = citas.filter(cita => cita.fechaInicio.substring(0, 10) >= fechaInicioF
-      &&
-      cita.fechaInicio.substring(0, 10) < fechaFinF )
-      setCitas(fechaConHora)
- }
+  function filtrarCitasFechas() {
+    setCitas([]);
+    const fechaConHora = citas.filter(
+      (cita) =>
+        cita.fechaInicio.substring(0, 10) >= fechaInicioF &&
+        cita.fechaInicio.substring(0, 10) < fechaFinF
+    );
+    setCitas(fechaConHora);
+  }
 
+  function getCurrentDateTime() {
+    const now = new Date();
+    let month = (now.getMonth() + 1).toString();
+    let day = now.getDate().toString();
+    let hour = now.getHours().toString();
+    let minute = now.getMinutes().toString();
 
- function getCurrentDateTime() {
-  const now = new Date();
-  let month = (now.getMonth() + 1).toString();
-  let day = now.getDate().toString();
-  let hour = now.getHours().toString();
-  let minute = now.getMinutes().toString();
+    month = month.length === 1 ? "0" + month : month;
+    day = day.length === 1 ? "0" + day : day;
+    hour = hour.length === 1 ? "0" + hour : hour;
+    minute = minute.length === 1 ? "0" + minute : minute;
 
-  month = month.length === 1 ? '0' + month : month;
-  day = day.length === 1 ? '0' + day : day;
-  hour = hour.length === 1 ? '0' + hour : hour;
-  minute = minute.length === 1 ? '0' + minute : minute;
-
-  return `${now.getFullYear()}-${month}-${day}T${hour}:${minute}`;
-}
-
+    return `${now.getFullYear()}-${month}-${day}T${hour}:${minute}`;
+  }
 
   return (
     <div>
@@ -456,8 +430,6 @@ function ListadodeCItas() {
                 {" "}
                 Crear Cita
               </button>
-         
-              
             </div>
 
             <div className="cont-crear-paciente">
@@ -470,38 +442,32 @@ function ListadodeCItas() {
               />
             </div>
 
-            <form onSubmit={filtrarCitasFechas} className="filtrarCitastables">            
-            <div className="cont-crear-paciente">
-              <label>Fecha Inicio</label>   
-              <input
-                id="txtbuscar"
-                placeholder="Buscar"
-                onChange={e => setFechaInicioF(e.target.value)}
-                autoComplete="off"
-                type="date" 
-                required
-              />
-            </div>
-            <div className="cont-crear-paciente">
-              <label>Fecha Fin</label>   
-              <input
-                id="txtbuscar"
-                placeholder="Buscar"
-                onChange={e => setFechaFinF(e.target.value)}
-                autoComplete="off"
-                type="date"
-                required
-              />
-            </div>
+            <form onSubmit={filtrarCitasFechas} className="filtrarCitastables">
+              <div className="cont-crear-paciente">
+                <label>Fecha Inicio</label>
+                <input
+                  id="txtbuscar"
+                  placeholder="Buscar"
+                  onChange={(e) => setFechaInicioF(e.target.value)}
+                  autoComplete="off"
+                  type="date"
+                  required
+                />
+              </div>
+              <div className="cont-crear-paciente">
+                <label>Fecha Fin</label>
+                <input
+                  id="txtbuscar"
+                  placeholder="Buscar"
+                  onChange={(e) => setFechaFinF(e.target.value)}
+                  autoComplete="off"
+                  type="date"
+                  required
+                />
+              </div>
 
-            <button
-                className="btn-gastos"
-                
-              >
-                {" "}
-                Buscar
-              </button>
-              </form>
+              <button className="btn-gastos"> Buscar</button>
+            </form>
           </div>
 
           <DataTable
@@ -514,15 +480,14 @@ function ListadodeCItas() {
         </div>
       </div>
 
-
-
       <div className="modal-paciente" ref={modalCrear}>
-        <form onSubmit={CrearCitas} className="contenedor-cita"id="txtCrearCita">
+        <form
+          onSubmit={CrearCitas}
+          className="contenedor-cita"
+          id="txtCrearCita"
+        >
+          {loading ? <Loading /> : ""}
 
-          {
-            loading ? <Loading/> : ""
-          }
-          
           <div className="cont-titulo-form">
             <h1>Nuevas Citas </h1>
           </div>
@@ -540,7 +505,7 @@ function ListadodeCItas() {
                       <select
                         className="form-select"
                         required
-                        onChange={handleChange} 
+                        onChange={handleChange}
                         name="idPatients"
                       >
                         <option value="">Seleccione una paciente</option>
@@ -559,9 +524,8 @@ function ListadodeCItas() {
                       <select
                         className="form-select"
                         required
-                        onChange={handleChange} 
+                        onChange={handleChange}
                         name="idPatients"
-
                       >
                         <option value="">Seleccione una paciente</option>
                         {dataPaciente.map((item) => [
@@ -581,10 +545,9 @@ function ListadodeCItas() {
                   </label>
                   <select
                     className="form-select"
-                    onChange={handleChange} 
+                    onChange={handleChange}
                     required
                     name="idTherapy"
-
                   >
                     <option value="">Seleccione una terapia</option>
                     {datas.map((item) => [
@@ -612,7 +575,7 @@ function ListadodeCItas() {
                     className="form-control "
                     id="validationServer02"
                     required
-                    onChange={handleChange} 
+                    onChange={handleChange}
                     min={getCurrentDateTime()}
                     name="fechaInicio"
                   />
@@ -625,7 +588,7 @@ function ListadodeCItas() {
                   </label>
                   <select
                     className="form-select"
-                    onChange={handleChange} 
+                    onChange={handleChange}
                     required
                     name="idTerapeuta"
                   >
@@ -640,41 +603,41 @@ function ListadodeCItas() {
               </div>
             </div>
 
-              <div className="rowCitas">
-                <label htmlFor="validationServer02" className="labelPaciente">
-                  Precio{" "}
-                </label>
-                <input
-                 onChange={handleChange} 
-                  type="text"
-                  className="barraInput"
-                  name="price"
-                />
-              </div>
-              <div className="rowCitas">
-                <label htmlFor="validationServer02" className="labelPaciente">
+            <div className="rowCitas">
+              <label htmlFor="validationServer02" className="labelPaciente">
+                Precio{" "}
+              </label>
+              <input
+                onChange={handleChange}
+                type="text"
+                className="barraInput"
+                name="price"
+              />
+            </div>
+            <div className="rowCitas">
+              <label htmlFor="validationServer02" className="labelPaciente">
                 Precio de la primera Evaluación{" "}
-                </label>
-                <input
-                 onChange={handleChange} 
-                  required
-                  type="text"
-                  className="barraInput"
-                  name="firstPrice"
-                />
-              </div>
-              
+              </label>
+              <input
+                onChange={handleChange}
+                required
+                type="text"
+                className="barraInput"
+                name="firstPrice"
+              />
+            </div>
+
             <div className="rowCitas">
               <label htmlFor="validationServer02" className="labelPaciente">
                 Consultorio{" "}
               </label>
               <select
                 className="form-select"
-                onChange={handleChange} 
+                onChange={handleChange}
                 required
                 name="idConsultorio"
               >
-                    <option value="">Seleccione un Consultorio</option>
+                <option value="">Seleccione un Consultorio</option>
 
                 {consultorios.map((item) => [
                   <option value={item.idConsultorio} key={item.idConsultorio}>
@@ -686,20 +649,19 @@ function ListadodeCItas() {
 
             <div className="rowCitas" id="ultidias">
               <label htmlFor="validationServer02" className="labelPaciente">
-               Días{" "}
+                Días{" "}
               </label>
               <Select
-                                        isMulti
-                                        options={objDias}
-                                        onChange={e => handle(e)}                                       
-                                        placeholder = "Seleccione una Terapia"
-                                        name="dias"
-                                        required
-                                    />
-            
+                isMulti
+                options={objDias}
+                onChange={(e) => handle(e)}
+                placeholder="Seleccione una Terapia"
+                name="dias"
+                required
+              />
             </div>
 
-           {/*  <div id="ulticita">
+            {/*  <div id="ulticita">
                 <div className="rowCitas">
                   <label htmlFor="validationServer02" className="labelPaciente">
                     Repetir{" "}
@@ -745,7 +707,6 @@ function ListadodeCItas() {
           </div>
         </form>
       </div>
-
 
       <div className="modal-paciente" ref={modalEditar}>
         <form
@@ -826,7 +787,6 @@ function ListadodeCItas() {
             </div>
 
             <div className="row">
-
               <div className="col">
                 <div className="rowCitas">
                   <label htmlFor="validationServer02" className="labelPaciente">
@@ -835,7 +795,10 @@ function ListadodeCItas() {
                   <input
                     onChange={(e) => setPriceEvaluacion(e.target.value)}
                     type="text"
-                    value={parseFloat(priceEvaluacion).toLocaleString('es-DO', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                    value={parseFloat(priceEvaluacion).toLocaleString("es-DO", {
+                      minimumFractionDigits: 2,
+                      maximumFractionDigits: 2,
+                    })}
                     className="form-control "
                   />
                 </div>
@@ -906,41 +869,37 @@ function ListadodeCItas() {
 
             <div className="rowCitas">
               <label htmlFor="validationServer02" className="labelPaciente">
-              Días{" "}
+                Días{" "}
               </label>
               <Select
-                                        isMulti
-                                        options={objDias}
-                                        onChange={(e) => handle(e)}
-                                        value={day} 
-                                        required
-                                        placeholder = "Seleccione una Terapia"
-                                    />
-
-
-         
+                isMulti
+                options={objDias}
+                onChange={(e) => handle(e)}
+                value={day}
+                required
+                placeholder="Seleccione una Terapia"
+              />
             </div>
 
-              <div className="row">
-                       <div className="rowCitas">
-                            <label htmlFor="validationServer02" className="labelPaciente">
-                            Precio de la primera Evaluación{" "}
-                            </label>
-                            <input
-                           onChange={(e) => setPricePrimeraEvaluacion(e.target.value)}
-                              required
-                              type="text"
-                              value={pricePrimeraEvaluacion}
-                              className="form-control "
-                            />
-                          </div>
-                 </div>
-
+            <div className="row">
+              <div className="rowCitas">
+                <label htmlFor="validationServer02" className="labelPaciente">
+                  Precio de la primera Evaluación{" "}
+                </label>
+                <input
+                  onChange={(e) => setPricePrimeraEvaluacion(e.target.value)}
+                  required
+                  type="text"
+                  value={pricePrimeraEvaluacion}
+                  className="form-control "
+                />
+              </div>
+            </div>
 
             <div className="row" id="ulticita">
               <div className="col">
                 {" "}
-             {/*    <div className="rowCitas">
+                {/*    <div className="rowCitas">
                   <label htmlFor="validationServer02" className="labelPaciente">
                     Repetir{" "}
                   </label>
@@ -956,7 +915,7 @@ function ListadodeCItas() {
               </div>
               <div className="col">
                 {" "}
-             {/*    <div className="rowCitas">
+                {/*    <div className="rowCitas">
                   <label htmlFor="validationServer02" className="labelPaciente">
                     Frecuencia{" "}
                   </label>
@@ -987,8 +946,7 @@ function ListadodeCItas() {
           </div>
         </form>
       </div>
-      
-        
+
       <div className="modal-usuario-eliminar" ref={alertEliminar}>
         <div className="modal-dialog-usuario" role="document">
           <div className="modal-content-usuario">
@@ -999,7 +957,7 @@ function ListadodeCItas() {
               <div className="modal-body">
                 {
                   <p>
-                    ¿Deseas eliminar la cita con : 
+                    ¿Deseas eliminar la cita con :
                     <span className="text-eliminar"> {nomPaciente} </span> ?
                   </p>
                 }
@@ -1025,12 +983,9 @@ function ListadodeCItas() {
             </div>
           </div>
         </div>
-      </div> 
-
+      </div>
     </div>
   );
 }
 
 export default ListadodeCItas;
-
-

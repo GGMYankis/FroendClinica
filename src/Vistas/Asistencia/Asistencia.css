@@ -1,0 +1,70 @@
+.cont_padre_asistencia {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  position: relative;
+  margin-top: 55px;
+}
+
+.form_asistencia {
+  padding: 20px 30px;
+  border-radius: 10px;
+  box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.1);
+  position: relative;
+  overflow: hidden;
+  position: absolute;
+  top: 40px;
+  width: 50%;
+}
+.box_asistencia {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 10px;
+  margin-top: 40px;
+}
+
+.form_asistencia .btn {
+  color: white;
+  font-weight: bold;
+  border: 2px solid #0b2f57;
+  background-color: #0b2f57;
+  padding: 10px 13px;
+  width: 100%;
+}
+
+.form_asistencia .btn:hover {
+  background-color: transparent;
+  color: #0b2f57;
+}
+
+.box_asistencia div {
+  display: flex;
+  flex-direction: column;
+}
+.cont_datePiker {
+  width: 100%;
+  background-color: red;
+}
+
+.cont_titu_asistencias {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  background-color: #0b2f57;
+  color: white;
+  height: 40px;
+}
+.cont_titu_asistencias h1 {
+  font-size: 25px;
+  text-align: center;
+  line-height: 40px;
+}
+
+.form_asistencia textarea {
+  border-radius: 5px;
+  padding: 10px;
+  border: 1px solid hsla(0, 7%, 82%, 0.531);
+  border-radius: 8px;
+}

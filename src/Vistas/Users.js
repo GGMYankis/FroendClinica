@@ -1,15 +1,12 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import React, { useEffect, useState, useRef } from "react";
 import axios from "axios";
-import Headers from "../components/Headers/Headers"
+import Headers from "../components/Headers/Headers";
 import ModalUsuario from "../Modal/ModalUsuario/ModalUsuario";
 import swal from "sweetalert";
-import {
-  getUsuarioCompleto,
-} from "../auth-helpers";
+import { getUsuarioCompleto } from "../auth-helpers";
 
 function Users() {
-
   useEffect(() => {
     cargar();
   }, []);
@@ -23,15 +20,10 @@ function Users() {
   const [correo, setCorreo] = useState("");
   const [contraseñas, setContraseñas] = useState("");
   const [idRol, setIdRol] = useState();
-  const[showModal, setShowModal]= useState(false);
-  
-  const FormularioTherapy = document.getElementById("txtCrearUusario");
+  const [showModal, setShowModal] = useState(false);
 
   const modalEditar = useRef();
-  const modalCrear = useRef();
   const modalEliminar = useRef();
-
-
 
   const cargar = (async) => {
     axios
@@ -66,9 +58,9 @@ function Users() {
   function enviar(e) {
     e.preventDefault();
 
+    const url =
+      "https://jdeleon-001-site1.btempurl.com/api/Clinica/GuardarUsers";
 
-    const url = "https://jdeleon-001-site1.btempurl.com/api/Clinica/GuardarUsers";
-      
     axios.post(url, data).then((result) => {
       const probar = async () => {
         modalEditar.current.classList.remove("activeUsers");
@@ -86,12 +78,8 @@ function Users() {
     });
   }
 
- 
-
- 
-
   function EditarUsuario(valor) {
-    setIdRol(null)
+    setIdRol(null);
     modalEditar.current.classList.add("activeUsers");
 
     const encontrado = terapeuta.filter((e) => e.idUser == valor);
@@ -99,16 +87,13 @@ function Users() {
     encontrado.map((item) => {
       if (item.idRol == "Administrador") {
         setIdRol(1);
-
-      }
-      else if(item.idRol == "Terapeuta") {
+      } else if (item.idRol == "Terapeuta") {
         setIdRol(2);
-      }else{
-        setIdRol(3)
+      } else {
+        setIdRol(3);
       }
     });
-   
-  
+
     encontrado.map((item) => {
       setNombre(item.names);
       setApellido(item.apellido);
@@ -121,12 +106,9 @@ function Users() {
   }
 
   function Cancelar() {
-    modalCrear.current.classList.remove("activeCrear");
     modalEditar.current.classList.remove("activeUsers");
     modalEliminar.current.classList.remove("activeEli");
-    FormularioTherapy.reset();
   }
-
 
   function EliminarUsuario(valor) {
     const encontrado = terapeuta.filter((e) => e.idUser == valor);
@@ -161,32 +143,24 @@ function Users() {
     });
   }
 
- 
   const myElementUsuario = useRef(null);
 
- 
-
-
- const handlerModal = (type) =>{
-  switch(type){
-    case "crear":
-          setShowModal(true)
-      break;
+  const handlerModal = (type) => {
+    switch (type) {
+      case "crear":
+        setShowModal(true);
+        break;
       case "editar":
-        setShowModal(true)
-      
+        setShowModal(true);
+
       default:
         break;
-  }
-
- } 
-
- 
+    }
+  };
 
   return (
     <>
-     
-    <Headers myElementUsuario={myElementUsuario}/>
+      <Headers myElementUsuario={myElementUsuario} />
 
       <div className="contCard" ref={myElementUsuario}>
         <div className="card-box ">
@@ -330,7 +304,7 @@ function Users() {
 
             <div className="row">
               <div className="col">
-              <select
+                <select
                   id="cboactivo"
                   className="form-control"
                   value={idRol}
@@ -364,8 +338,7 @@ function Users() {
         </form>
       </div>
 
-
-      <ModalUsuario showModal={showModal} setShowModal={setShowModal}/>
+      <ModalUsuario showModal={showModal} setShowModal={setShowModal} />
 
       <div className="modal-usuario-eliminar" ref={modalEliminar}>
         <div className="modal-dialog-usuario" role="document">
@@ -404,5 +377,3 @@ function Users() {
   );
 }
 export default Users;
-
-

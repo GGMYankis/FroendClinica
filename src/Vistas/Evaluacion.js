@@ -1,13 +1,12 @@
 import React, { useEffect, useState, useRef } from "react";
 import axios from "axios";
 import swal from "sweetalert";
-import Headers from "../components/Headers/Headers"
-import {getDatosUsuario , getUsuarioCompleto} from "../auth-helpers";
+import Headers from "../components/Headers/Headers";
+import { getDatosUsuario, getUsuarioCompleto } from "../auth-helpers";
 import { Loading } from "../components/Loading";
-import Select from 'react-select';
+import Select from "react-select";
 
 function Evaluacion() {
-
   const [data, setData] = useState([]);
   const [dataPaciente, setDataPaciente] = useState([]);
   const [visitas, setVisitas] = useState(false);
@@ -18,7 +17,6 @@ function Evaluacion() {
   const [price, setPrice] = useState("");
   const [price1, setPrice1] = useState("");
 
-  
   let id = getDatosUsuario();
   let rol = getUsuarioCompleto();
   const resportes = useRef();
@@ -28,22 +26,11 @@ function Evaluacion() {
   };
 
   useEffect(() => {
-    if (rol == 2) {
-      axios
-        .post(
-          "https://jdeleon-001-site1.btempurl.com/api/Clinica/BuscarPacientePorTerapeuta",
-          date
-        )
-        .then((responses) => {
-          setDataPaciente(responses.data);
-        });
-    } else {
-      axios
-        .get("https://jdeleon-001-site1.btempurl.com/api/Clinica/Lista")
-        .then((responses) => {
-          setDataPaciente(responses.data);
-        });
-    }
+    axios
+      .get("https://jdeleon-001-site1.btempurl.com/api/Clinica/Lista")
+      .then((responses) => {
+        setDataPaciente(responses.data);
+      });
 
     if (rol == 2) {
       axios
@@ -76,114 +63,100 @@ function Evaluacion() {
       });
   }, []);
 
- 
   const objDias = [
-    {label:"lunes", value:"lunes"},
-    {label:"martes", value:"martes"},
-    {label:"miercoles", value:"miercoles"},
-    {label:"jueves", value:"jueves"},
-    {label:"viernes", value:"viernes"},
-    {label:"sabado", value:"sabado"},
-    {label:"domingo", value:"domingo"}
+    { label: "lunes", value: "lunes" },
+    { label: "martes", value: "martes" },
+    { label: "miercoles", value: "miercoles" },
+    { label: "jueves", value: "jueves" },
+    { label: "viernes", value: "viernes" },
+    { label: "sabado", value: "sabado" },
+    { label: "domingo", value: "domingo" },
   ];
 
-
   const [dataCrear, setDataCrear] = useState({
-    idPatients:"",
-    idTherapy:"",
-    fechaInicio:"",
-    idTerapeuta:"",
-    price:null,
-    firstPrice:"",
-    idConsultorio:"",
-    Dias:[],
-    Visitas:true,
-   /*  repetir:"",
+    idPatients: "",
+    idTherapy: "",
+    fechaInicio: "",
+    idTerapeuta: "",
+    price: null,
+    firstPrice: "",
+    idConsultorio: "",
+    Dias: [],
+    Visitas: true,
+    /*  repetir:"",
     frecuencia:"", */
   });
-  
 
- 
-function handle(selectedItems) {
+  function handle(selectedItems) {
+    const diasEnviar = [];
 
-  const diasEnviar = []
-
-  selectedItems.map(item => {
-
-  diasEnviar.push(item.value);
-  setDayEnviar(diasEnviar);
- dataCrear.Dias = diasEnviar
-
-})
-
-
-}
-  
-
-const CrearCitas = async (e) => {
-  e.preventDefault();
-  try{
-     const res = await axios.post("https://jdeleon-001-site1.btempurl.com/api/traerpaciente/CrearEvaluacion",dataCrear);
-     if(res.status == 200){
-         const ale = await swal({
-           title: "Correcto",
-           text: "Cambio guardado ",
-           icon: "success",
-         });
-     }
-  }catch(error){    
-    swal(error.response.data, "Intentelo mas tarde", "warning");
-    console.log(error)
+    selectedItems.map((item) => {
+      diasEnviar.push(item.value);
+      setDayEnviar(diasEnviar);
+      dataCrear.Dias = diasEnviar;
+    });
   }
- 
-};  
 
-    function handleChange(e) {
-      setDataCrear({
-          ...dataCrear,
-          [e.target.name]: e.target.value
-      })
+  const CrearCitas = async (e) => {
+    e.preventDefault();
+    try {
+      const res = await axios.post(
+        "https://jdeleon-001-site1.btempurl.com/api/traerpaciente/CrearEvaluacion",
+        dataCrear
+      );
+      if (res.status == 200) {
+        const ale = await swal({
+          title: "Correcto",
+          text: "Cambio guardado ",
+          icon: "success",
+        });
+      }
+    } catch (error) {
+      swal(error.response.data, "Intentelo mas tarde", "warning");
+      console.log(error);
+    }
+  };
+
+  function handleChange(e) {
+    setDataCrear({
+      ...dataCrear,
+      [e.target.name]: e.target.value,
+    });
+  }
+
+  const Fprecio = (value) => {
+    const regex = /^[0-9\b]+$/;
+    if (value.target.value === "" || regex.test(value.target.value)) {
+      setPrice(value.target.value);
     }
 
+    dataCrear.firstPrice = value.target.value;
+  };
 
-    
+  const Fprecio2 = (value) => {
+    const regex = /^[0-9\b]+$/;
+    if (value.target.value === "" || regex.test(value.target.value)) {
+      setPrice1(value.target.value);
+    }
 
-    const Fprecio = (value) => {
-      const regex = /^[0-9\b]+$/;
-      if (value.target.value === "" || regex.test(value.target.value)) {
-        setPrice(value.target.value);
-      }
-  
-      dataCrear.firstPrice = value.target.value;
-    };
-
-    const Fprecio2 = (value) => {
-      const regex = /^[0-9\b]+$/;
-      if (value.target.value === "" || regex.test(value.target.value)) {
-        setPrice1(value.target.value);
-      }
-  
-      dataCrear.price = value.target.value;
-    };
-  
-  
-   
+    dataCrear.price = value.target.value;
+  };
 
   return (
     <div>
-     
-
       <Headers />
 
       <div className="contenedor-evaluacion">
-        <form className="form-select-evaluacion" onSubmit={CrearCitas} ref={resportes} >
-           
+        <form
+          className="form-select-evaluacion"
+          onSubmit={CrearCitas}
+          ref={resportes}
+        >
           {loading ? <Loading /> : ""}
           <div className="cont-titu-select">
             <h1>Citas</h1>
             <i className="bi bi-person-circle"></i>
           </div>
-        
 
           <div className="sub-cont-evaluacion">
             {rol == 2 ? (
@@ -282,51 +255,51 @@ const CrearCitas = async (e) => {
             </div>
 
             <div>
-
-        
-                                 
               <div className="cont-recurrence--inside-visitas">
+                <input
+                  type="checkbox"
+                  value="true"
+                  onChange={() => setVisitas(true)}
+                />
+                <label htmlFor="txtnombres" className="form-label">
+                  Visitas
+                </label>
+              </div>
 
-              <input type="checkbox"value="true" onChange={() => setVisitas(true)}/>
-             <label htmlFor="txtnombres" className="form-label">Visitas</label>
-            </div>
+              <div className="cont-recurrence--inside">
+                <label htmlFor="txtnombres" className="form-label">
+                  Precio de la Terapia
+                </label>
+                <input
+                  type="text"
+                  className="form-control"
+                  id="txtnombres"
+                  onChange={Fprecio2}
+                  value={price1}
+                  autoComplete="off"
+                  name="price"
+                />
+              </div>
+              <div className="cont-recurrence--inside">
+                <label htmlFor="txtnombres" className="form-label">
+                  Precio de la primera Evaluación
+                </label>
+                <input
+                  type="text"
+                  className="form-control"
+                  id="txtnombres"
+                  onChange={Fprecio}
+                  value={price}
+                  required
+                  autoComplete="off"
+                  name="firstPrice"
+                />
+              </div>
 
-            <div className="cont-recurrence--inside">
-                        <label htmlFor="txtnombres" className="form-label">
-                                Precio de la Terapia
-                              </label>
-                              <input
-                                type="text"
-                                className="form-control"
-                                id="txtnombres"
-                                onChange={Fprecio2}
-                                value={price1}
-                                autoComplete="off"
-                                name="price"
-                              />
-                        </div>
-                        <div className="cont-recurrence--inside">
-                        <label htmlFor="txtnombres" className="form-label">
-                        Precio de la primera Evaluación
-                              </label>
-                              <input
-                                type="text"
-                                className="form-control"
-                                id="txtnombres"
-                                onChange={Fprecio}
-                                value={price}
-                                required
-                                autoComplete="off"
-                                name="firstPrice"
-                              />
-                        </div>
+              <hr></hr>
 
-            <hr></hr>
-
-
-                
               <div className="cont-recurrence">
-                   <p className="tite-recu">Recurrencia</p>
+                <p className="tite-recu">Recurrencia</p>
               </div>
 
               <div className="cont-recurrence" id="recu-fecha">
@@ -341,7 +314,7 @@ const CrearCitas = async (e) => {
                 />
               </div>
 
-             {/*  <div className="cont-recurrence">
+              {/*  <div className="cont-recurrence">
                 <p className="text-recu">Repetir</p>
                 <input
                   type="number"
@@ -362,7 +335,7 @@ const CrearCitas = async (e) => {
                 </select>
               </div> */}
 
-           {/*    <div className="cont-recurrence check-select">
+              {/*    <div className="cont-recurrence check-select">
                 <input
                   type="checkbox"
                   id="diasCheckD"
@@ -462,18 +435,16 @@ const CrearCitas = async (e) => {
                   S
                 </label>
               </div> */}
- <div className="cont-recurrence-select check-select">
-
- 
-<Select
-                                        isMulti
-                                        options={objDias}
-                                        onChange={e => handle(e)}                                       
-                                        placeholder = "Seleccione los días "
-                                        name="dias"
-                                        required
-                                    />
-                                    </div>
+              <div className="cont-recurrence-select check-select">
+                <Select
+                  isMulti
+                  options={objDias}
+                  onChange={(e) => handle(e)}
+                  placeholder="Seleccione los días "
+                  name="dias"
+                  required
+                />
+              </div>
             </div>
             <button className="btnWeb" type="submit">
               Guadar
