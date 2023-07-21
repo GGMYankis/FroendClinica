@@ -5,6 +5,8 @@ import swal from 'sweetalert';
 import axios from 'axios';
 import {getUsuarioCompleto } from '../../auth-helpers'
 import Headers from "../../components/Headers/Headers";
+import "./AbonoTerapias.css";
+
 
 
 function AbonoTerapias() {
@@ -108,21 +110,19 @@ function AbonoTerapias() {
 
     return (
 
-        <div>
-            <Headers />
-            <div className='cont-form-abono'>
-                <form onSubmit={CrearAbonoTerapias} className='formAbonoTerapias' ref={resportes}>
+        <>
+            <div className='cont_form_abono'>
+                <form onSubmit={CrearAbonoTerapias} className='form_abono' ref={resportes}>
                     {
                         loading ? <Loading /> : ""
                     }
-                    <div className='cont-titu-select'>
+                    <div className='cont_titu_abono'>
                         <h1>Abonos</h1>
                     </div>
 
-                    <div className='cont-sub-box-abono'>
 
-                        <div className='cont-box-abono'>
-                            <select className='form-select' onChange={e => setIdTerapia(e.target.value)} required >
+                        <div className='box-abono'>
+                            <select onChange={e => setIdTerapia(e.target.value)} required >
                                 <option value="">Seleccione una terapia</option>
                                 {
                                     data.map((item, index) => [
@@ -130,10 +130,8 @@ function AbonoTerapias() {
                                     ])
                                 }
                             </select>
-                        </div>
-                        <div className='cont-box-abono'>
 
-                            <select className='form-select' required onChange={e => setIdPaciente(e.target.value)}  >
+                            <select  required onChange={e => setIdPaciente(e.target.value)}  >
                                 <option value="" >Seleccione una paciente</option>
                                 {
                                     dataPaciente.map((item, index) => [
@@ -141,9 +139,7 @@ function AbonoTerapias() {
                                     ])
                                 }
                             </select>
-                        </div>
-                        <div className='cont-box-abono'>
-                            <select className='form-select' onChange={e => setIdTerapeuta(e.target.value)} required >
+                            <select onChange={e => setIdTerapeuta(e.target.value)} required >
                                 <option value="">Seleccione un Terapeuta</option>
                                 {
                                     terapeuta.map((item, index) => [
@@ -151,18 +147,18 @@ function AbonoTerapias() {
                                     ])
                                 }
                             </select>
-                        </div>
-                        <div className='cont-box-abono'>
-                            <input type='text' value={apagarIu} className='form-control' placeholder='monto' name='montoPagado' onChange={FmontoApagar} required />
+                        <div className='cont_box_abono'>
+                            <input type='text' value={apagarIu}  placeholder='Monto' name='montoPagado' onChange={FmontoApagar} required />
                         </div>
 
-                        <button type='submit' className='btnWeb'>Guardar</button>
+                        <button type='submit' className='btn guardar'>Guardar</button>
                     </div>
                 </form>
             </div>
+            <Headers />
 
 
-        </div>
+        </>
 
 
     )

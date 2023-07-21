@@ -1,0 +1,58 @@
+.cont_form_asignar {
+  display: flex;
+  justify-content: center;
+  min-height: 100vh;
+  margin-top: 55px;
+  position: relative;
+}
+
+.form_asignar {
+  top: 55px;
+  position: absolute;
+  box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.1);
+  width: 400px;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.cont_titu_asignar {
+  background-color: #0b2f57;
+  color: white;
+  height: 40px;
+}
+
+.cont_titu_asignar h1 {
+  font-size: 25px;
+  line-height: 40px;
+  text-align: center;
+}
+
+.box_asignar {
+  padding: 20px 30px;
+  display: flex;
+  flex-direction: column;
+}
+
+.box_asignar select {
+  margin-bottom: 20px;
+  border-color: hsl(0, 0%, 70%);
+  border-style: solid;
+  border-radius: 4px;
+  padding: 10px 13px;
+  width: 100%;
+  color: gray;
+}
+
+.box_asignar .btn {
+  color: white;
+  font-weight: bold;
+  border: 2px solid #0b2f57;
+  background-color: #0b2f57;
+  margin-top: 20px;
+  padding: 10px 13px;
+}
+
+.box_asignar .btn:hover {
+  background-color: transparent;
+  color: #0b2f57;
+}

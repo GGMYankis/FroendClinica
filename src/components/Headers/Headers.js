@@ -12,7 +12,7 @@ import { createBrowserHistory } from 'history';
 function Headers(props) {
  
   const navigator = useNavigate();
-const {citas,reportesPagos, calendario, myElement, paciente,myElementTerapia,RefCitas,myElementUsuario ,pagotera, consultorio} = props;
+const {citas,home,reportesPagos, calendario, myElement, paciente,myElementTerapia,RefCitas,myElementUsuario ,pagotera, consultorio} = props;
   const history = createBrowserHistory();
 
   useEffect(() => {
@@ -73,8 +73,7 @@ const {citas,reportesPagos, calendario, myElement, paciente,myElementTerapia,Ref
       myElement.current.classList.toggle("mi-clase-css");
     }
     if(myElementTerapia){
-      myElementTerapia.current.classList.toggle("mi-clase-css");
-
+      myElementTerapia.current.classList.toggle("move_left_modal");
     }
     if(RefCitas){
       RefCitas.current.classList.toggle("mi-clase-css");
@@ -104,6 +103,12 @@ const {citas,reportesPagos, calendario, myElement, paciente,myElementTerapia,Ref
       citas.current.classList.toggle("reportesAnimation");
 
     }
+
+    
+    if(home){
+       home.current.classList.toggle("move_left_modal");
+    }
+    
     
   }
 
@@ -136,7 +141,7 @@ const {citas,reportesPagos, calendario, myElement, paciente,myElementTerapia,Ref
           <span>
             <li className="list__item">
                 <div className="list__button">
-                    <Link className="nav__link" to="/TerapiaTerapeuta">Asignación</Link>
+                    <Link className="nav__link" to="/Asignación">Asignación</Link>
                 </div>
             </li>
           </span>

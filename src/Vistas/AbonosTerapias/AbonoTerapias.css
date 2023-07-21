@@ -1,0 +1,62 @@
+.cont_form_abono {
+  display: flex;
+  justify-content: center;
+  min-height: 100vh;
+  position: relative;
+  margin-top: 55px;
+}
+
+.form_abono {
+  top: 55px;
+  position: absolute;
+  box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.1);
+  width: 400px;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.box-abono {
+  padding: 20px 30px;
+  display: flex;
+  flex-direction: column;
+}
+
+.box-abono select {
+  margin-bottom: 20px;
+  border: 1px solid hsla(0, 7%, 82%, 0.531);
+  border-radius: 8px;
+  padding: 10px 13px;
+  width: 100%;
+}
+
+.box-abono input {
+  margin-bottom: 20px;
+  border: 1px solid hsla(0, 7%, 82%, 0.531);
+  border-radius: 8px;
+  padding: 10px 13px;
+  width: 100%;
+}
+
+.box-abono .btn {
+  color: white;
+  font-weight: bold;
+  border: 2px solid #0b2f57;
+  padding: 10px 13px;
+}
+
+.box-abono .btn:hover {
+  background-color: transparent;
+  color: #0b2f57;
+}
+
+.cont_titu_abono {
+  background-color: #0b2f57;
+  color: white;
+  height: 40px;
+}
+
+.cont_titu_abono h1 {
+  font-size: 25px;
+  line-height: 40px;
+  text-align: center;
+}

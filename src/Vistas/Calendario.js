@@ -13,6 +13,7 @@ import { addDays } from 'date-fns';
 function Calendario() {
 
   const [eventosFiltrados, setEventosFiltrados] = useState([]);
+  const [showNav, setShowNav] = useState(true);
 
   const [inicio, setInicio] = useState("");
   const [final, setFinal] = useState("");
@@ -250,6 +251,7 @@ function Calendario() {
     e.preventDefault();
   
     setFiltrando(true);
+    setShowNav(false)
     const consultorio = consultorios.filter((c) => c.idConsultorio == consult);
     let DescripcionConsultorio = "";
   
@@ -316,6 +318,7 @@ function Calendario() {
                   required
                 />
               </div>
+             
               <div className="option-box">
                 <label>Fecha Fin</label>
                 <input
@@ -349,19 +352,39 @@ function Calendario() {
                   Buscar
                 </button>
               </div>
+
+            <div className="option-box">
+            {!showNav ?
+            <div className="option-box">
+
+                <label className="visilibi-buscar-calendar">sdw</label>
+                <button className="btn-gastos" id="calendar-navegar" onClick={() => setShowNav(true)}>
+                  Navegar
+                </button>
+                </div> 
+                : ""
+              }
+              
+              </div> 
+
+            
+              
             </div>
           </form>
 
-           <FullCalendar
+     
+
+
+         <FullCalendar
             plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
             editable={true}
             droppable={true}
             initialView={"dayGridMonth"}
              events={filtrando ? eventosFiltrados   : eventos} 
-           /* events={eventos} */
             headerToolbar={{
-              start: "today prev,next",
-              center: "title",
+             left: showNav ? "prev,next" : "",
+          center: "title",
+          right: showNav ? "today" : "",
               end: "dayGridMonth,timeGridWeek,timeGridDay",
             }}
             height={"80vh"}
@@ -369,10 +392,6 @@ function Calendario() {
           />  
         </div>
 
-
-
-
-        
       </div>
 
   

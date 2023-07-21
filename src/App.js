@@ -14,6 +14,8 @@ import PerfilAdmin from "./Vistas/PerfilAdmin";
 import ListasTerapias from "./Vistas/ListadoDeTerapias/ListadoTerapias";
 import ListadodeCItas from "./Vistas/ListadodeCItas";
 import ListadoAsistencia from "./Vistas/ListadoDeAsistencia/ListadoAsistencia";
+import Terapia from "./Vistas/Terapia/Terapia";
+import Asignación from "./Vistas/Asignación/Asignación";
 import Configuraciones from "./Vistas/Configuraciones/Configuraciones";
 import Terapias from "./Vistas/Terapias";
 import Users from "./Vistas/Users";
@@ -112,13 +114,13 @@ function App() {
                 <Route exact path="/listasTerapias" element={rol == 1 || rol== 3 ? <ListasTerapias /> : <ErrorPage />} />
                 <Route exact path="/listasPacientes" element={ <ListasPacientes  />} />
                 <Route exact path="/Users" element={ rol == 1 || rol== 3? <Users /> :  <ErrorPage />} />
-                <Route exact path="/terapia" element={rol == 1 || rol == 3 ? <Terapias /> :  <ErrorPage />} />
+                <Route exact path="/Terapia" element={rol == 1 || rol == 3 ? <Terapia /> :  <ErrorPage />} />
                 <Route exact path="/" element={<Home />} />
                 <Route exact path="/asistencias" element={rol == 1 || rol == 3 ? <Asistencias /> :  <ErrorPage />} />
            <Route exact path="/calendario" element={<Calendario />} />  
                 <Route exact path="/contabilidad" element={ rol == 1 || rol == 3 ? <Contabilidad /> :  <ErrorPage />} />
                 <Route exact path="/abono" element={ rol == 1 || rol == 3 ? <Abono /> :  <ErrorPage /> } />
-                <Route exact path="/TerapiaTerapeuta" element={<TerapiaTerapeuta />}/>           
+                <Route exact path="/Asignación" element={<Asignación />}/>           
                 <Route exact path="/gastos" element={ rol == 1 || rol == 3 ? <Gastos /> :  <ErrorPage />} />
                 <Route exact path="/verGanancias" element={rol == 1 ?  <VerGanancias /> :  <ErrorPage />} />
                 <Route exact path="/AbonoTerapias" element={rol == 1 || rol == 3 ? <AbonoTerapias /> : <ErrorPage/>} />

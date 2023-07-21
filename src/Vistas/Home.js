@@ -155,7 +155,7 @@ function Home(props) {
   return (
 
     <>
-    <Headers/>
+    <Headers home={modal}/>
      
       <div className="cont_modal_home" ref={modal}>
         <form  onSubmit={formik.handleSubmit} className="form_modal_crear_paciente" id="home_modal">

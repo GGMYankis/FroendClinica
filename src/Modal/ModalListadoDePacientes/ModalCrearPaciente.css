@@ -152,4 +152,10 @@ select {
 
 #home_modal {
     box-shadow: 0 1rem 2rem rgba(0, 0, 0, .1);
+
+}
+
+.move_left_modal {
+    transform: translateX(200px);
+    transition: all 1s;
 }
