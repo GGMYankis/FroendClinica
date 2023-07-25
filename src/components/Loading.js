@@ -8,7 +8,7 @@ import { BallTriangle, Circles } from "react-loader-spinner";
 export function Loading() {
   return (
     <div className="divPadre">
-      <div className="divHijo">
+      <div className="all_Loading">
         <Spinner color="#0b2f57" />
       </div>
     </div>

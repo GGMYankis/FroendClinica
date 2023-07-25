@@ -275,6 +275,8 @@
   background-color: #0b2f57;
   border: 3px solid #0b2f57;
   color: #fff;
+  position: relative;
+  overflow: hidden;
 }
 
 .footer_cita {
@@ -2899,4 +2901,20 @@ td {
 #calendar-navegar:hover {
   background-color: transparent;
   color: var(--fc-button-bg-color);
+}
+
+.all_Loading {
+  background-color: #0b2f57;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.disabledAll {
+  pointer-events: none;
+  opacity: 0.7;
 }

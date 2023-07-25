@@ -100,11 +100,13 @@ function Evaluacion() {
   const CrearCitas = async (e) => {
     e.preventDefault();
     try {
+      setLoading(true);
       const res = await axios.post(
         "https://jdeleon-001-site1.btempurl.com/api/traerpaciente/CrearEvaluacion",
         dataCrear
       );
       if (res.status == 200) {
+        setLoading(false);
         const ale = await swal({
           title: "Correcto",
           text: "Cambio guardado ",
@@ -114,6 +116,7 @@ function Evaluacion() {
     } catch (error) {
       swal(error.response.data, "Intentelo mas tarde", "warning");
       console.log(error);
+      setLoading(false);
     }
   };
 
@@ -148,7 +151,6 @@ function Evaluacion() {
 
       <div className="cont_evaluacion">
         <form className="form_evaluacion" onSubmit={CrearCitas} ref={resportes}>
-          {loading ? <Loading /> : ""}
           <div className="cont-titu-select">
             <h1>Citas</h1>
             <i className="bi bi-person-circle"></i>
@@ -277,8 +279,12 @@ function Evaluacion() {
             </div>
           </div>
           <div className="footer_cita">
-            <button className="btn guardar" type="submit">
+            <button
+              className={loading ? "btn guardar disabledAll" : "btn guardar"}
+              type="submit"
+            >
               Guadar
+              {loading ? <Loading /> : ""}
             </button>
           </div>
         </form>

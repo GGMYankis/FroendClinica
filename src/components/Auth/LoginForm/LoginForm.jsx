@@ -24,18 +24,21 @@ function LoginForm() {
 
     onSubmit: async (formValue) => {
       try {
+        setLoading(true);
         const result = await axios.post(
           "https://jdeleon-001-site1.btempurl.com/api/Autenticacion/Login",
           formValue
         );
 
-        //   setUser(decodeToken(result.data.tokencreado));
-        //  setToken(result.data.tokencreado);
+        setUser(decodeToken(result.data.tokencreado));
+        setToken(result.data.tokencreado);
         setUsuarioCompleto(result.data.user.idRol);
         idUser(result.data.user.idUser);
       } catch (error) {
         setError(error.response.data);
+        setLoading(false);
       }
+      setLoading(false);
     },
   });
 
@@ -87,7 +90,9 @@ function LoginForm() {
           />
           {error && <p className="submit-error">{error}</p>}
 
-          <button className="btn">Iniciar Sesion {<LoaLogin />}</button>
+          <button className={loading ? "btn disabled" : "btn"}>
+            Iniciar Sesion{loading && <LoaLogin />}
+          </button>
         </Form>
       </div>
     </>
