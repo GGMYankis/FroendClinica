@@ -16,7 +16,12 @@ export function Loading() {
 }
 
 export function LoaLogin() {
-  return <div className="divPadre"></div>;
+  return (
+    <div className="loading">
+      {" "}
+      <Spinner color="#0b2f57" style={{ width: "10px", height: "10px" }} />
+    </div>
+  );
 }
 
 export function LoaAll() {

@@ -8,9 +8,11 @@ import logo from "../../../imagenes/IMG-20230221-WA0009.png";
 import useAuth from "./hook/useAuth";
 import { decodeToken } from "./Utils/token";
 import { Form } from "semantic-ui-react";
+import { LoaLogin } from "../../../components/Loading";
 
 function LoginForm() {
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
   const { setUser } = useAuth();
 
   const formik = useFormik({
@@ -27,8 +29,8 @@ function LoginForm() {
           formValue
         );
 
-        setUser(decodeToken(result.data.tokencreado));
-        setToken(result.data.tokencreado);
+        //   setUser(decodeToken(result.data.tokencreado));
+        //  setToken(result.data.tokencreado);
         setUsuarioCompleto(result.data.user.idRol);
         idUser(result.data.user.idUser);
       } catch (error) {
@@ -85,7 +87,7 @@ function LoginForm() {
           />
           {error && <p className="submit-error">{error}</p>}
 
-          <button className="btn">Iniciar Sesion</button>
+          <button className="btn">Iniciar Sesion {<LoaLogin />}</button>
         </Form>
       </div>
     </>
