@@ -4,27 +4,23 @@ import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction";
-import Headers from "../components/Headers/Headers"
+import Headers from "../components/Headers/Headers";
 import "bootstrap/dist/css/bootstrap.min.css";
 import $, { event } from "jquery";
-import {Loading} from "../components/Loading"
-import { addDays } from 'date-fns';
+import { Loading } from "../components/Loading";
+import { addDays } from "date-fns";
 
 function Calendario() {
-
   const [eventosFiltrados, setEventosFiltrados] = useState([]);
   const [showNav, setShowNav] = useState(true);
 
   const [inicio, setInicio] = useState("");
   const [final, setFinal] = useState("");
   const [consult, setConsult] = useState("");
-  
+
   const [fechaInicio, setfechaInicio] = useState("");
   const [descripcion, setDescripcion] = useState("");
   const [consultorios, setconsultorios] = useState([]);
-  const [consul, setConsul] = useState(0);
-  const [startDate, setStartDate] = useState(null);
-  const [endDate, setEndDate] = useState(null);
   const [terapeuta, setTerapeuta] = useState("");
   const [terapia, setTerapia] = useState("");
   const [consultorioCalendario, setConsultorioCalendario] = useState("");
@@ -37,103 +33,85 @@ function Calendario() {
   const [filtrando, setFiltrando] = useState(false);
 
   useEffect(() => {
-
-     async function solicitarData (){
-
+    async function solicitarData() {
       try {
+        const res = await axios.get(
+          "https://jdeleon-001-site1.btempurl.com/api/Citas/CitasNoUnicas"
+        );
+        res.data.map((x) => {
+          if (x.dias == "domingo") {
+            x.dias = 0;
+          }
+          if (x.dias == "lunes") {
+            x.dias = 1;
+          }
+          if (x.dias == "martes") {
+            x.dias = 2;
+          }
+          if (x.dias == "miercoles") {
+            x.dias = 3;
+          }
+          if (x.dias == "jueves") {
+            x.dias = 4;
+          }
+          if (x.dias == "viernes") {
+            x.dias = 5;
+          }
+          if (x.dias == "sabado") {
+            x.dias = 6;
+          }
+        });
 
-        const res = await axios.get("https://jdeleon-001-site1.btempurl.com/api/Citas/CitasNoUnicas")
-          res.data.map(x => {
-              if(x.dias == "domingo"){
-                x.dias = 0
-              }
-              if(x.dias == "lunes"){
-                  x.dias = 1
-                }
-              if(x.dias == "martes"){
-                  x.dias = 2
-                }
-                if(x.dias == "miercoles"){
-                  x.dias = 3
-                }
-                if(x.dias == "jueves"){
-                    x.dias = 4
-                  }
-                  if(x.dias == "viernes"){
-                      x.dias = 5
-                    }
-                    if(x.dias == "sabado"){
-                        x.dias = 6
-                      }
-          });
-       
-          
-      setCitas(res.data);
-
-
+        setCitas(res.data);
       } catch (error) {
-        console.log(error)
+        console.log(error);
       }
-     
-  
+
       try {
-        const response = await axios.get("https://jdeleon-001-site1.btempurl.com/api/Clinica/Consultorios")
+        const response = await axios.get(
+          "https://jdeleon-001-site1.btempurl.com/api/Clinica/Consultorios"
+        );
         setconsultorios(response.data.lista);
-        
       } catch (error) {
-        console.log(error)
+        console.log(error);
       }
-     }
-     solicitarData()
-   
+    }
+    solicitarData();
   }, []);
 
   const empezar = new Date();
 
-  const fechaLimite = addDays(empezar, 9999, 11, 31); 
+  const fechaLimite = addDays(empezar, 9999, 11, 31);
   let eventos = [];
 
-  
-  citas.forEach(cita => {
+  citas.forEach((cita) => {
+    let iniciar = new Date(cita.fechaInicio);
 
-     let iniciar = new Date(cita.fechaInicio)
+    while (iniciar <= fechaLimite) {
+      if (cita.dias == iniciar.getDay()) {
+        const evento = {
+          title: cita.paciente.name,
+          start: new Date(iniciar.getTime()),
+          extendedProps: {
+            additionalProperty: cita.terapeuta.names,
+            anotherProperty: cita.terapia.label,
+            description: cita.consultorio.nombre,
+            name: cita.terapeuta.apellido,
+          },
+        };
 
-      while (iniciar <= fechaLimite) {
+        eventos.push(evento);
+      }
 
-          if (cita.dias  == iniciar.getDay()) {
-          
-              const evento = {
-                  title:cita.paciente.name,
-                  start: new Date(iniciar.getTime()),
-                  extendedProps: {
-                    additionalProperty: cita.terapeuta.names , 
-                    anotherProperty: cita.terapia.label, 
-                    description:cita.consultorio.nombre,
-                  name:cita.terapeuta.apellido, 
-                  },
-                  
-              };
-  
-            eventos.push(evento);
-          }
-  
-          iniciar = addDays(iniciar, 1);
-   
-   }  
-      
+      iniciar = addDays(iniciar, 1);
+    }
   });
-
-
-
-
-  
 
   const modalCerrarEliminarFecha = () => {
     $("#eliminarEvento").hide();
   };
 
   const calendario = useRef(null);
-
 
   async function handleEventClickFecha(info) {
     $("#eliminarEvento").show();
@@ -146,7 +124,7 @@ function Calendario() {
     const hora = start.getHours();
     let hora12 = hora;
     const minutos = start.getMinutes();
-    const amPM = (hora >= 12) ? 'PM' : 'AM';
+    const amPM = hora >= 12 ? "PM" : "AM";
 
     if (hora > 12) {
       hora12 = hora - 12;
@@ -154,117 +132,38 @@ function Calendario() {
       hora12 = 12;
     }
 
-    const reaHora = `${hora12}:${minutos < 10 ? '0' + minutos : minutos} ${amPM}`;
+    const reaHora = `${hora12}:${
+      minutos < 10 ? "0" + minutos : minutos
+    } ${amPM}`;
     const titu = info.event.title;
     setfechaInicio(fecha);
-    
-    
+
     setHora(reaHora);
     setDescripcion(titu);
     setTerapeuta(info.event.extendedProps.additionalProperty);
     setTerapia(info.event.extendedProps.anotherProperty);
     setConsultorioCalendario(info.event.extendedProps.description);
     setApellido(info.event.extendedProps.name);
-    
   }
-  
-  const consultorio = {
-    IdConsultorio: consul,
-    FechaInicio: startDate,
-    FechaFinal: endDate,
-  };
-
-/*   const enviars = (e) => {
-    e.preventDefault();
-
-       setCitas([]);
-
-    const urls = "https://jdeleon-001-site1.btempurl.com/api/Clinica/FiltrarConsultorios";
-      
-    axios.post(urls, consultorio).then((result) => {
-      setFiltrando(true)
-      const empezar = new Date();
-
-      const fechaLimite = addDays(empezar, 9999, 11, 31); 
-      const eventos = [];
-    
-      result.data.map(x => {
-        if(x.dias == "domingo"){
-          x.dias = 0
-        }
-        if(x.dias == "lunes"){
-            x.dias = 1
-          }
-        if(x.dias == "martes"){
-            x.dias = 2
-          }
-          if(x.dias == "miercoles"){
-            x.dias = 3
-          }
-          if(x.dias == "jueves"){
-              x.dias = 4
-            }
-            if(x.dias == "viernes"){
-                x.dias = 5
-              }
-              if(x.dias == "sabado"){
-                  x.dias = 6
-                }
-    });
-      result.data.forEach(cita => {
-
-        let iniciar = new Date(cita.fechaInicio)
-   
-         while (iniciar <= fechaLimite) {
-   
-             if (cita.dias  == iniciar.getDay()) {
-                 const evento = {
-                     title:cita.paciente.name,
-                     start: new Date(iniciar.getTime()),
-                     extendedProps: {
-                       additionalProperty: cita.terapeuta.names , 
-                       anotherProperty: cita.terapia.label, 
-                       description:cita.consultorio.nombre,
-                       name:cita.terapeuta.apellido, 
-                     },
-                     
-                 };
-     
-               eventos.push(evento);
-               setEventosFiltrados(eventos)
-             }
-     
-             iniciar = addDays(iniciar, 1);
-      
-      }  
-         
-     });
-
-       
-
-    });
-
-  };
- */
 
   async function Buscar(e) {
     e.preventDefault();
-  
+
     setFiltrando(true);
-    setShowNav(false)
+    setShowNav(false);
     const consultorio = consultorios.filter((c) => c.idConsultorio == consult);
     let DescripcionConsultorio = "";
-  
+
     consultorio.map((c) => {
       DescripcionConsultorio = c.descripcion;
     });
-  
+
     let fechaInicio = inicio;
     let fechaFin = final;
-  
+
     const fecha = new Date(fechaInicio);
     const fin = new Date(fechaFin);
-  
+
     var cita = eventos.filter((eventos) => {
       const fechaEvento = new Date(eventos.start);
       return (
@@ -274,8 +173,6 @@ function Calendario() {
       );
     });
 
-    
-  
     setEventosFiltrados(
       cita.map((c) => ({
         title: c.title,
@@ -289,26 +186,21 @@ function Calendario() {
       }))
     );
   }
-  
 
+  const nevegar = () => {
+    setShowNav(true);
+    setFiltrando(false);
+  };
 
   return (
-
     <div>
       <Headers calendario={calendario} />
 
       <div className="cont-padre">
-    
-          
         <div className="calendario" ref={calendario}>
-        {
-            loading ? <Loading/> : ""
-          }
+          {loading ? <Loading /> : ""}
           <form onSubmit={Buscar} className="form-calendario-option ">
-        
-            <div className="padre-box-calendara-option" >
-
-         
+            <div className="padre-box-calendara-option">
               <div className="option-box">
                 <label>Fecha Inicio</label>
                 <input
@@ -318,7 +210,7 @@ function Calendario() {
                   required
                 />
               </div>
-             
+
               <div className="option-box">
                 <label>Fecha Fin</label>
                 <input
@@ -329,7 +221,7 @@ function Calendario() {
                 />
               </div>
 
-              <div className="option-box" >
+              <div className="option-box">
                 <label>Consultorio</label>
                 <select
                   className="form-select"
@@ -339,11 +231,12 @@ function Calendario() {
                 >
                   <option value="">Seleccione un Consultorio</option>
                   <option value="0">Todos los Consultorios</option>
-                  {consultorios.map((item,index) => [
-                    <option key={index} value={item.idConsultorio}>{item.nombre} </option>,
+                  {consultorios.map((item, index) => [
+                    <option key={index} value={item.idConsultorio}>
+                      {item.nombre}{" "}
+                    </option>,
                   ])}
                 </select>
-             
               </div>
 
               <div className="option-box">
@@ -353,48 +246,43 @@ function Calendario() {
                 </button>
               </div>
 
-            <div className="option-box">
-            {!showNav ?
-            <div className="option-box">
-
-                <label className="visilibi-buscar-calendar">sdw</label>
-                <button className="btn-gastos" id="calendar-navegar" onClick={() => setShowNav(true)}>
-                  Navegar
-                </button>
-                </div> 
-                : ""
-              }
-              
-              </div> 
-
-            
-              
+              <div className="option-box">
+                {!showNav ? (
+                  <div className="option-box">
+                    <label className="visilibi-buscar-calendar">sdw</label>
+                    <button
+                      className="btn-gastos"
+                      id="calendar-navegar"
+                      onClick={() => nevegar()}
+                    >
+                      Navegar
+                    </button>
+                  </div>
+                ) : (
+                  ""
+                )}
+              </div>
             </div>
           </form>
 
-     
-
-
-         <FullCalendar
+          <FullCalendar
             plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
             editable={true}
             droppable={true}
             initialView={"dayGridMonth"}
-             events={filtrando ? eventosFiltrados   : eventos} 
+            events={filtrando ? eventosFiltrados : eventos}
             headerToolbar={{
-             left: showNav ? "prev,next" : "",
-          center: "title",
-          right: showNav ? "today" : "",
+              left: showNav ? "prev,next" : "",
+              center: "title",
+              right: showNav ? "today" : "",
               end: "dayGridMonth,timeGridWeek,timeGridDay",
             }}
             height={"80vh"}
             eventClick={handleEventClickFecha}
-          />  
+          />
         </div>
-
       </div>
 
-  
       <div className="modal" tabIndex="-1" id="eliminarEvento">
         <div className="modal-dialog" role="document">
           <div className="modal-content">
@@ -417,19 +305,21 @@ function Calendario() {
                 <span className="infocitas">Terapia :</span> {terapia}
               </p>
               <p>
-                <span className="infocitas">Terapeuta :</span> {terapeuta} {apellido}
+                <span className="infocitas">Terapeuta :</span> {terapeuta}{" "}
+                {apellido}
               </p>
               <p>
-                <span className="infocitas">Consultorio :</span> {consultorioCalendario}
+                <span className="infocitas">Consultorio :</span>{" "}
+                {consultorioCalendario}
               </p>
-              
+
               <div className="footerCitas">
                 <button
                   type="button"
                   className="btnCitas"
                   onClick={modalCerrarEliminarFecha}
                 >
-                   Cerrar
+                  Cerrar
                 </button>
               </div>
             </div>

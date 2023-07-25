@@ -8,9 +8,8 @@ import DatePicker, { DateObject } from "react-multi-date-picker";
 import TimePicker from "react-multi-date-picker/plugins/time_picker";
 import DatePanel from "react-multi-date-picker/plugins/date_panel";
 import Toolbar from "react-multi-date-picker/plugins/toolbar";
-import "./Asistencia.css";
 
-function Asistencia() {
+function Asistencias() {
   const [paciente, setPaciente] = useState();
   const [terapia, setTerapia] = useState();
   const [idTerapeuta, setIdTerapeuta] = useState();
@@ -19,6 +18,7 @@ function Asistencia() {
   const [data, setData] = useState([]);
   const [dataPaciente, setDataPaciente] = useState([]);
   const [justificaciones, setJustificaciones] = useState("");
+
   const [razonAsistencia, setRazonAsistencia] = useState([]);
 
   const resportes = useRef();
@@ -36,11 +36,22 @@ function Asistencia() {
     no.style.transform = "translate(7.20215e-6px, 185.406px)";
     no.style.left = "auto";
 
-    axios
-      .get("https://jdeleon-001-site1.btempurl.com/api/Clinica/Lista")
-      .then((responses) => {
-        setDataPaciente(responses.data);
-      });
+    if (rol == 2) {
+      axios
+        .post(
+          "https://jdeleon-001-site1.btempurl.com/api/Clinica/BuscarPacientePorTerapeuta",
+          date
+        )
+        .then((responses) => {
+          setDataPaciente(responses.data);
+        });
+    } else {
+      axios
+        .get("https://jdeleon-001-site1.btempurl.com/api/Clinica/Lista")
+        .then((responses) => {
+          setDataPaciente(responses.data);
+        });
+    }
 
     if (rol == 2) {
       axios
@@ -134,14 +145,21 @@ function Asistencia() {
   };
 
   return (
-    <>
-      <div className="cont_padre_asistencia">
-        <form onSubmit={enviar} className="form_asistencia">
-          <div className="cont_titu_asistencias">
+    <div>
+      <Headers />
+
+      <div className="cont-padre-asistencia">
+        <div className="contanedor-asistencias" ref={resportes}>
+          <div className="cont-titu-asistencias">
             <h1>Asistencias</h1>
           </div>
-          <div className="box_asistencia">
-            <div>
+
+          <form
+            onSubmit={enviar}
+            className="form-asistencia"
+            id="formAsistencia"
+          >
+            <div className="box-asistencia">
               <label className="label-asistencia">Razón Asistencia</label>
               <select
                 className="justificacinAsistencias"
@@ -154,55 +172,92 @@ function Asistencia() {
                 ])}
               </select>
             </div>
+            {rol == 2 ? (
+              <div className="box-asistencia">
+                <label className="label-asistencia">Lista de Pacientes</label>
+                <select
+                  onChange={(e) => setPaciente(e.target.value)}
+                  required
+                  className="select-asistencia"
+                >
+                  <option value="">Seleccione un Paciente</option>
+                  {dataPaciente.map((item, index) => [
+                    //<option key={item.value} value={item.value}>{item.value}</option>
+                    <option key={index} value={item.nombrePaciente.idPatients}>
+                      {item.nombrePaciente.name}
+                    </option>,
+                  ])}
+                </select>
+              </div>
+            ) : (
+              <div className="box-asistencia">
+                <label className="label-asistencia">Lista de Pacientes</label>
+                <select
+                  onChange={(e) => setPaciente(e.target.value)}
+                  required
+                  className="select-asistencia"
+                >
+                  <option value="">Seleccione un Paciente</option>
+                  {dataPaciente.map((item, index) => [
+                    <option key={index} value={item.idPatients}>
+                      {item.name}
+                    </option>,
+                  ])}
+                </select>
+              </div>
+            )}
 
-            <div>
-              <label className="label-asistencia">Lista de Pacientes</label>
-              <select
-                onChange={(e) => setPaciente(e.target.value)}
-                required
-                className="select-asistencia"
-              >
-                <option value="">Seleccione un Paciente</option>
-                {dataPaciente.map((item, index) => [
-                  <option key={index} value={item.idPatients}>
-                    {item.name}
-                  </option>,
-                ])}
-              </select>
-            </div>
-            <div>
+            <div className="box-asistencia">
               <label className="label-asistencia">Lista de Terapias</label>
-
-              <select
-                onChange={(e) => setTerapia(e.target.value)}
-                required
-                className="select-asistencia"
-              >
-                <option value="">Seleccione una Terapia</option>
-                {data.map((item, index) => [
-                  <option key={index} value={item.nombreTerapia.idTherapy}>
-                    {item.nombreTerapia.label}
-                  </option>,
-                ])}
-              </select>
+              {rol == 2 ? (
+                <select
+                  onChange={(e) => setTerapia(e.target.value)}
+                  required
+                  className="select-asistencia"
+                >
+                  <option value="">Seleccione una Terapia</option>
+                  {data.map((item, index) => [
+                    <option key={index} value={item.idTherapy}>
+                      {item.label}
+                    </option>,
+                  ])}
+                </select>
+              ) : (
+                <select
+                  onChange={(e) => setTerapia(e.target.value)}
+                  required
+                  className="select-asistencia"
+                >
+                  <option value="">Seleccione una Terapia</option>
+                  {data.map((item, index) => [
+                    <option key={index} value={item.nombreTerapia.idTherapy}>
+                      {item.nombreTerapia.label}
+                    </option>,
+                  ])}
+                </select>
+              )}
             </div>
 
-            <div>
-              <label className="label-asistencia">Lista de Terapeuta</label>
-              <select
-                onChange={(e) => setIdTerapeuta(e.target.value)}
-                required
-                className="select-asistencia"
-              >
-                <option value="">Seleccione un Terapeuta</option>
-                {terapeuta.map((item, index) => [
-                  <option key={index} value={item.idUser}>
-                    {item.names} {item.apellido}
-                  </option>,
-                ])}
-              </select>
-            </div>
-
+            {rol == 1 ? (
+              <div className="box-asistencia">
+                <label className="label-asistencia">Lista de Terapeuta</label>
+                <select
+                  onChange={(e) => setIdTerapeuta(e.target.value)}
+                  required
+                  className="select-asistencia"
+                >
+                  <option value="">Seleccione un Terapeuta</option>
+                  {terapeuta.map((item, index) => [
+                    //<option key={item.value} value={item.value}>{item.value}</option>
+                    <option key={index} value={item.idUser}>
+                      {item.names} {item.apellido}
+                    </option>,
+                  ])}
+                </select>
+              </div>
+            ) : (
+              ""
+            )}
             <div className="box-asistencia">
               <label className="label-asistencia">Fecha</label>
               <DatePicker
@@ -229,17 +284,18 @@ function Asistencia() {
                 className="select-asistencia"
               />
             </div>
-          </div>
-          <div>
-            <button type="submit" className="btn">
-              Guardar
-            </button>
-          </div>
-        </form>
+            <div className="box-asistencia">
+              <div className="col">
+                <button type="submit" className="btnWeb">
+                  Guardar
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
       </div>
-      <Headers />
-    </>
+    </div>
   );
 }
 
-export default Asistencia;
+export default Asistencias;

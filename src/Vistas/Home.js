@@ -381,7 +381,7 @@ function Home(props) {
             )}
           </div>
 
-          <div>
+          <div className="div_area">
             <label htmlFor="validationServer02">Otro </label>
             <textarea
               id="txtArea"
@@ -396,10 +396,6 @@ function Home(props) {
 
           <div className="footer_crear_paciente">
             <button className="btn guardar">Guardar</button>
-            <button className="btn cancelar" type="button" onClick={closeModal}>
-              {" "}
-              Cancelar{" "}
-            </button>
           </div>
         </form>
       </div>
