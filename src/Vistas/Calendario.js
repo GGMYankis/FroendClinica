@@ -28,7 +28,6 @@ function Calendario() {
   const [apellido, setApellido] = useState("");
   const [loading, setLoading] = useState(false);
   const [citas, setCitas] = useState([]);
-  const [citasFiltradas, setCitasFiltradas] = useState([]);
 
   const [filtrando, setFiltrando] = useState(false);
 
@@ -185,12 +184,17 @@ function Calendario() {
         },
       }))
     );
+
+    const calendarApi = calendarRef.current.getApi();
+    calendarApi.gotoDate(fechaInicio);
   }
 
   const nevegar = () => {
     setShowNav(true);
     setFiltrando(false);
   };
+
+  const calendarRef = useRef(null);
 
   return (
     <div>
@@ -268,6 +272,7 @@ function Calendario() {
           <FullCalendar
             plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
             editable={true}
+            ref={calendarRef}
             droppable={true}
             initialView={"dayGridMonth"}
             events={filtrando ? eventosFiltrados : eventos}

@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { FaBars } from "react-icons/fa";
 import logo from "../../imagenes/IMG-20230221-WA0009.png";
 import { useEffect } from "react";
@@ -7,10 +7,8 @@ import { getUsuarioCompleto } from "../../auth-helpers";
 import useAuth from "../../components/Auth/LoginForm/hook/useAuth";
 import arrow from "../../imagenes/arrow.svg";
 import "./Headers.css";
-import { createBrowserHistory } from "history";
 
 function Headers(props) {
-  const navigator = useNavigate();
   const {
     citas,
     home,
@@ -24,7 +22,6 @@ function Headers(props) {
     pagotera,
     consultorio,
   } = props;
-  const history = createBrowserHistory();
 
   useEffect(() => {
     let listElements = document.querySelectorAll(".list__button--click");

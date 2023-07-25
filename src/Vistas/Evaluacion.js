@@ -146,68 +146,31 @@ function Evaluacion() {
     <div>
       <Headers />
 
-      <div className="contenedor-evaluacion">
-        <form
-          className="form-select-evaluacion"
-          onSubmit={CrearCitas}
-          ref={resportes}
-        >
+      <div className="cont_evaluacion">
+        <form className="form_evaluacion" onSubmit={CrearCitas} ref={resportes}>
           {loading ? <Loading /> : ""}
           <div className="cont-titu-select">
             <h1>Citas</h1>
             <i className="bi bi-person-circle"></i>
           </div>
 
-          <div className="sub-cont-evaluacion">
-            {rol == 2 ? (
-              <div className="cont-select-evaluacion1">
-                <p className="titu-barra"> Lista de Pacientes </p>
-                <select
-                  className="form-select"
-                  required
-                  name="idPatients"
-                  onChange={handleChange}
-                >
-                  <option value="">Seleccione una paciente</option>
-                  {dataPaciente.map((item) => [
-                    <option
-                      key={item.nombrePaciente.idPatients}
-                      value={item.nombrePaciente.idPatients}
-                    >
-                      {item.nombrePaciente.name}
-                    </option>,
-                  ])}
-                </select>
-              </div>
-            ) : (
-              <div className="cont-select-evaluacion1">
-                <p className="titu-barra"> Lista de Pacientes </p>
-                <select
-                  className="form-select"
-                  name="idPatients"
-                  required
-                  onChange={handleChange}
-                >
-                  <option value="">Seleccione una paciente</option>
-                  {dataPaciente.map((item) => [
-                    <option key={item.idPatients} value={item.idPatients}>
-                      {item.name}
-                    </option>,
-                  ])}
-                </select>
-              </div>
-            )}
+          <div className="box_evaluacion">
+            <div>
+              <label>Lista de Pacientes</label>
+              <select name="idPatients" required onChange={handleChange}>
+                <option value=""></option>
+                {dataPaciente.map((item) => [
+                  <option key={item.idPatients} value={item.idPatients}>
+                    {item.name}
+                  </option>,
+                ])}
+              </select>
+            </div>
 
-            <div className="cont-select-evaluacion1">
-              <p className="titu-barra"> Lista de Terapias </p>
-
-              <select
-                className="form-select"
-                onChange={handleChange}
-                required
-                name="idTherapy"
-              >
-                <option value="">Seleccione una terapia</option>
+            <div>
+              <label>Lista de Terapias </label>
+              <select onChange={handleChange} required name="idTherapy">
+                <option value=""></option>
                 {data.map((item) => [
                   <option
                     key={item.nombreTerapia.idTherapy}
@@ -219,15 +182,10 @@ function Evaluacion() {
               </select>
             </div>
 
-            <div className="cont-select-evaluacion1">
-              <p className="titu-barra"> Terapeuta </p>
-              <select
-                className="form-select"
-                onChange={handleChange}
-                required
-                name="idTerapeuta"
-              >
-                <option value="">Seleccione un Terapeuta</option>
+            <div>
+              <label>Terapeuta</label>
+              <select onChange={handleChange} required name="idTerapeuta">
+                <option value=""></option>
                 {terapeuta.map((item) => [
                   <option value={item.idUser} key={item.idUser}>
                     {item.names} {item.apellido}{" "}
@@ -236,15 +194,10 @@ function Evaluacion() {
               </select>
             </div>
 
-            <div className="cont-select-evaluacion1">
-              <p className="titu-barra"> Consultorio </p>
-              <select
-                className="form-select"
-                onChange={handleChange}
-                required
-                name="idConsultorio"
-              >
-                <option value="">Seleccione un Consultorio</option>
+            <div>
+              <label>Consultorio </label>
+              <select onChange={handleChange} required name="idConsultorio">
+                <option value=""></option>
 
                 {consultorios.map((item) => [
                   <option value={item.idConsultorio} key={item.idConsultorio}>
@@ -255,198 +208,76 @@ function Evaluacion() {
             </div>
 
             <div>
-              <div className="cont-recurrence--inside-visitas">
-                <input
-                  type="checkbox"
-                  value="true"
-                  onChange={() => setVisitas(true)}
-                />
-                <label htmlFor="txtnombres" className="form-label">
-                  Visitas
-                </label>
-              </div>
-
-              <div className="cont-recurrence--inside">
-                <label htmlFor="txtnombres" className="form-label">
-                  Precio de la Terapia
-                </label>
-                <input
-                  type="text"
-                  className="form-control"
-                  id="txtnombres"
-                  onChange={Fprecio2}
-                  value={price1}
-                  autoComplete="off"
-                  name="price"
-                />
-              </div>
-              <div className="cont-recurrence--inside">
-                <label htmlFor="txtnombres" className="form-label">
-                  Precio de la primera Evaluación
-                </label>
-                <input
-                  type="text"
-                  className="form-control"
-                  id="txtnombres"
-                  onChange={Fprecio}
-                  value={price}
-                  required
-                  autoComplete="off"
-                  name="firstPrice"
-                />
-              </div>
-
-              <hr></hr>
-
-              <div className="cont-recurrence">
-                <p className="tite-recu">Recurrencia</p>
-              </div>
-
-              <div className="cont-recurrence" id="recu-fecha">
-                <p className="text-recu">Fecha de Inicio</p>
-                <input
-                  type="datetime-local"
-                  className="recu-fecha-inicio"
-                  min="2023-03-24"
-                  onChange={handleChange}
-                  required
-                  name="fechaInicio"
-                />
-              </div>
-
-              {/*  <div className="cont-recurrence">
-                <p className="text-recu">Repetir</p>
-                <input
-                  type="number"
-                  className="recu-repe"
-                  onChange={(e) => setRepetir(e.target.value)}
-                  required
-                  min="1"
-                />
-                <select
-                  className="recu-select"
-                  onChange={(e) => setFrecuencia(e.target.value)}
-                  required
-                >
-                  <option value="">Frecuencia</option>
-                  <option>Diario</option>
-                  <option>Semanal</option>
-                  <option>Mensual</option>
-                </select>
-              </div> */}
-
-              {/*    <div className="cont-recurrence check-select">
-                <input
-                  type="checkbox"
-                  id="diasCheckD"
-                  className="check"
-                  value="domingo"
-                  onChange={(e) => handle(e)}
-                />
-                <label
-                  htmlFor="diasCheckD"
-                  id="labeldiasCheckD"
-                  className="labelCheck"
-                >
-                  D
-                </label>
-                <input
-                  type="checkbox"
-                  id="diasCheckL"
-                  value="lunes"
-                  className="check"
-                  onChange={(e) => handle(e)}
-                />
-                <label
-                  htmlFor="diasCheckL"
-                  id="labeldiasCheckL"
-                  className="labelCheck"
-                >
-                  L
-                </label>
-                <input
-                  type="checkbox"
-                  id="diasCheckM"
-                  value="martes"
-                  className="check"
-                  onChange={(e) => handle(e)}
-                />
-                <label
-                  htmlFor="diasCheckM"
-                  id="labeldiasCheckM"
-                  className="labelCheck"
-                >
-                  M
-                </label>
-                <input
-                  type="checkbox"
-                  id="diasCheckMM"
-                  value="miercoles"
-                  className="check"
-                  onChange={(e) => handle(e)}
-                />
-                <label
-                  htmlFor="diasCheckMM"
-                  id="labeldiasCheckMM"
-                  className="labelCheck"
-                >
-                  M
-                </label>
-                <input
-                  type="checkbox"
-                  id="diasCheckJ"
-                  value="jueves"
-                  className="check"
-                  onChange={(e) => handle(e)}
-                />
-                <label
-                  htmlFor="diasCheckJ"
-                  id="labediasCheckJ"
-                  className="labelCheck"
-                >
-                  J
-                </label>
-                <input
-                  type="checkbox"
-                  id="diasCheckV"
-                  value="viernes"
-                  className="check"
-                  onChange={(e) => handle(e)}
-                />
-                <label
-                  htmlFor="diasCheckV"
-                  id="labeldiasCheckV"
-                  className="labelCheck"
-                >
-                  V
-                </label>
-                <input
-                  type="checkbox"
-                  id="diasCheckS"
-                  value="sabado"
-                  className="check"
-                  onChange={(e) => handle(e)}
-                />
-                <label
-                  htmlFor="diasCheckS"
-                  id="labeldiasCheckS"
-                  className="labelCheck"
-                >
-                  S
-                </label>
-              </div> */}
-              <div className="cont-recurrence-select check-select">
-                <Select
-                  isMulti
-                  options={objDias}
-                  onChange={(e) => handle(e)}
-                  placeholder="Seleccione los días "
-                  name="dias"
-                  required
-                />
-              </div>
+              <label htmlFor="txtnombres">Precio de la Terapia</label>
+              <input
+                type="text"
+                id="txtnombres"
+                onChange={Fprecio2}
+                value={price1}
+                autoComplete="off"
+                name="price"
+              />
             </div>
-            <button className="btnWeb" type="submit">
+            <div>
+              <label htmlFor="txtnombres">P.C de la primera Evaluación</label>
+              <input
+                type="text"
+                id="txtnombres"
+                onChange={Fprecio}
+                value={price}
+                required
+                autoComplete="off"
+                name="firstPrice"
+              />
+            </div>
+          </div>
+
+          <div className="cont_visitas">
+            <div>
+              <input
+                type="checkbox"
+                value="true"
+                onChange={() => setVisitas(true)}
+              />
+              <label htmlFor="txtnombres">Visitas</label>
+            </div>
+          </div>
+
+          <hr></hr>
+
+          <div className="cont_titu_recurrencia">
+            <h1>Recurrencia</h1>
+          </div>
+
+          <div className="box_recurrencia">
+            <div>
+              <label>Fecha de Inicio</label>
+
+              <label></label>
+              <input
+                type="datetime-local"
+                min="2023-03-24"
+                onChange={handleChange}
+                required
+                name="fechaInicio"
+              />
+            </div>
+
+            <div className="cont-recurrence-select check-select">
+              <label></label>
+
+              <Select
+                isMulti
+                options={objDias}
+                onChange={(e) => handle(e)}
+                placeholder="Seleccione los días "
+                name="dias"
+                required
+              />
+            </div>
+          </div>
+          <div className="footer_cita">
+            <button className="btn guardar" type="submit">
               Guadar
             </button>
           </div>

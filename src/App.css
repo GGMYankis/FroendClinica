@@ -249,23 +249,84 @@
   margin: 10px;
 }
 
-.contenedor-evaluacion {
+/* aqiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii */
+.cont_evaluacion {
+  width: 100%;
+  min-height: 100vh;
+  background-color: white;
   display: flex;
   justify-content: center;
-  height: 100%;
+  align-items: center;
   margin-top: 55px;
 }
 
-.form-select-evaluacion {
-  width: 50%;
+.form_evaluacion {
   box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.1);
-  background-color: white;
   border-radius: 10px;
   margin: 40px 0px;
+  width: 600px;
 }
 
-.sub-cont-evaluacion {
-  padding: 20px;
+.form_evaluacion .guardar {
+  font-weight: 700;
+  margin: 0 0 10px;
+  padding: 10px 13px;
+  width: 100%;
+  background-color: #0b2f57;
+  border: 3px solid #0b2f57;
+  color: #fff;
+}
+
+.footer_cita {
+  padding: 20px 30px;
+}
+.form_evaluacion .guardar:hover {
+  background-color: transparent;
+  border: 3px solid #0b2f57;
+  color: #0b2f57;
+}
+
+.box_evaluacion {
+  padding: 20px 30px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-gap: 10px;
+}
+.box_evaluacion input {
+  border: 1px solid hsla(0, 7%, 82%, 0.531);
+  border-radius: 8px;
+  padding: 10px 13px;
+  width: 100%;
+}
+
+.box_recurrencia {
+  padding: 20px 30px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+.box_recurrencia input {
+  border: 1px solid hsla(0, 7%, 82%, 0.531);
+  border-radius: 4px;
+  padding: 9px 13px;
+  width: 100%;
+}
+
+.cont_titu_recurrencia {
+  width: 100%;
+  text-align: center;
+}
+.cont_visitas {
+  padding: 0px 30px;
+  text-align: left;
+  height: 40px;
+  display: flex;
+  align-items: center;
+}
+
+.cont_visitas label {
+  font-size: 15px;
+  margin-left: 10px;
 }
 
 .cont-titu-select {
