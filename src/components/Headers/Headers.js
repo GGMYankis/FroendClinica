@@ -72,7 +72,7 @@ function Headers(props) {
       myElement.current.classList.toggle("mi-clase-css");
     }
     if (myElementTerapia) {
-      myElementTerapia.current.classList.toggle("move_left_modal");
+      myElementTerapia.current.classList.toggle("move_left_modal_tera");
     }
     if (RefCitas) {
       RefCitas.current.classList.toggle("mi-clase-css");

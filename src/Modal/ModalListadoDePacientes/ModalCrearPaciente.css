@@ -153,7 +153,11 @@ select {
 }
 
 .move_left_modal {
-  transform: translateX(200px);
+  transform: translateX(100px);
+  transition: all 1s;
+}
+.move_left_modal_tera {
+  transform: translateX(210px);
   transition: all 1s;
 }
 
