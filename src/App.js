@@ -3,7 +3,7 @@ import { useState, useEffect, useMemo } from "react";
 import { Routes, Route, HashRouter } from "react-router-dom";
 import "./App.css";
 import Home from "./Vistas/Home";
-import Gastos from "./Vistas/Gastos";
+import Gastos from "./Vistas/Gastos/Gastos"
 import AbonoTerapias from "./Vistas/AbonosTerapias/AbonosTerapias";
 import Evaluacion from "./Vistas/Evaluacion";
 import Consultorios from "./Vistas/Consultorio/Consultorios";
@@ -22,7 +22,6 @@ import Users from "./Vistas/Users";
 import Abono from "./Vistas/Abono";
 import Contabilidad from "./Vistas/Contabilidad";
 import ListasPacientes from "./Vistas/ListadoDePacientes/ListasPacientes";
-import Asistencias from "./Vistas/Asistencias";
 import Calendario from "./Vistas/Calendario";
 import ReportesPago from "./Vistas/ReportesPago";
 import ErrorPage from "./Vistas/ErrorPage";

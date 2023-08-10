@@ -37,6 +37,10 @@
   font-weight: bold;
 }
 
+.header_eliminar p {
+  line-height: 40px;
+}
+
 .body-eliminar {
   margin-top: 40px;
 }
@@ -77,4 +81,8 @@
 
 .active_Modal_Eliminar {
   top: 0;
+}
+
+input{
+  outline: none;
 }

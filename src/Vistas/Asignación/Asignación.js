@@ -4,10 +4,10 @@ import Select from 'react-select';
 import swal from 'sweetalert';
 import Headers from "../../components/Headers/Headers"
 import "./Asignación.css";
+import {urlApi} from "../../auth-helpers"
 
 function Asignación() {
 
-    const FormularioTherapy = document.getElementById("FormularioTherapy");
     const [data, setData] = useState([]);
     const [terapeuta, setTerapeuta] = useState([])
     const [idTerapeuta, setIdTerapeuta] = useState([])
@@ -21,13 +21,13 @@ function Asignación() {
 
     function cargar() {
 
-        axios.get('https://jdeleon-001-site1.btempurl.com/api/Clinica/terapeuta')
+        axios.get(`${urlApi}Clinica/terapeuta`)
 
             .then(response => {
                 setTerapeuta(response.data.usuarios)
             })
 
-        axios.get('https://jdeleon-001-site1.btempurl.com/api/Clinica/ListaTerapia')
+        axios.get(`${urlApi}Clinica/ListaTerapia`)
             .then(response => {
                 const florw = []
                 response.data.map(tera => {
@@ -51,12 +51,10 @@ function Asignación() {
         e.preventDefault()
         resportes.current.classList.add('contenedors');
 
-        const url = 'https://jdeleon-001-site1.btempurl.com/api/Clinica/Post'
-        axios.post(url, datos).then((result) => {
+        axios.post(`${urlApi}Clinica/Post`, datos).then((result) => {
 
             if (result) {
 
-                FormularioTherapy.reset()
                 resportes.current.classList.remove('contenedors');
                 swal({
                     title: "Correcto",

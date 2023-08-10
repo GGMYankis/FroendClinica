@@ -6,7 +6,7 @@ import { useFormik } from "formik";
 import swal from "sweetalert";
 
 export default function ModalUsuario(props) {
-  const { showModal, setShowModal } = props;
+  const { showModal, setShowModal , cargar} = props;
   const modal = useRef();
 
   const formik = useFormik({
@@ -26,6 +26,7 @@ export default function ModalUsuario(props) {
           "https://jdeleon-001-site1.btempurl.com/api/Clinica/CrearUsuario",
           formValue
         );
+        cargar()
         modal.current.classList.remove("active_modal_usuario");
         setShowModal(false);
         const ale = await swal({
@@ -115,7 +116,7 @@ export default function ModalUsuario(props) {
             </div>
           </div>
 
-          <label>Contraseñas</label>
+          <label>Contraseña</label>
           <input
             name="password"
             error={formik.errors.password}

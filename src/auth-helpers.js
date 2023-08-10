@@ -52,6 +52,9 @@ export function removeToken(){
         cookies.remove('Token');
    
    }
+
+   export var urlApi = "https://jdeleon-001-site1.btempurl.com/api/"
+
    
 export function initAxiosInterceptors() {
     axios.interceptors.request.use(function (config) {

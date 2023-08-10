@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import * as Yup from "yup";
 import { useFormik } from "formik";
-import { setToken, setUsuarioCompleto, idUser } from "../../../auth-helpers";
+import { setToken, setUsuarioCompleto, idUser, urlApi } from "../../../auth-helpers";
 import "./LoginForm.css";
 import logo from "../../../imagenes/IMG-20230221-WA0009.png";
 import useAuth from "./hook/useAuth";
@@ -25,12 +25,8 @@ function LoginForm() {
     onSubmit: async (formValue) => {
       try {
         setLoading(true);
-        const result = await axios.post(
-          "https://jdeleon-001-site1.btempurl.com/api/Autenticacion/Login",
-
-          formValue
-        );
-
+        const result = await axios.post(`${urlApi}Autenticacion/Login`,formValue)
+        
         setUser(decodeToken(result.data.tokencreado));
         setToken(result.data.tokencreado);
         setUsuarioCompleto(result.data.user.idRol);
@@ -42,6 +38,7 @@ function LoginForm() {
       setLoading(false);
     },
   });
+
 
   return (
     <>

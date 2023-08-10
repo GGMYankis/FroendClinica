@@ -1,10 +1,12 @@
 
-import Headers from "../components/Headers/Headers"
+import Headers from "../../components/Headers/Headers"
 import 'bootstrap/dist/css/bootstrap.min.css';
 import React, { useEffect, useState, useRef } from 'react'
 import axios from 'axios'
 import swal from 'sweetalert';
-import { Loading, LoaLogin } from '../components/Loading';
+import { Loading, LoaLogin } from '../../components/Loading';
+import "./Gastos.css";
+import {urlApi} from "../../auth-helpers"
 
 function Gastos() {
 
@@ -40,7 +42,7 @@ function Gastos() {
 
         resportes.current.classList.add('contenedors');
 
-        const url = 'https://jdeleon-001-site1.btempurl.com/api/Clinica/ContabilidadReportes';
+        const url = `${urlApi}Clinica/ContabilidadReportes`;
         axios.post(url, dataCrear).then((result) => {
             const probar = async () => {
                 const ale = await swal({
@@ -61,36 +63,36 @@ function Gastos() {
 
         <div>
             <Headers />
-            <div className='cont-form-gastos' >
-                <form className='formReportesGastos' onSubmit={enviarReporte} id="formterapia" ref={resportes}>
+            <div className='cont_form_gastos' >
+                <form className='form_gastos' onSubmit={enviarReporte} ref={resportes}>
                     {
                         loading ? <Loading /> : ""
                     }
-                    <div className='cont-titu-Pagina-terapia'>
+                    <div className='cont_titu_gastos'>
                         <h1>Gastos</h1>
                     </div>
 
-                    <div className='sub-box-Terapia'>
-                        <div className='cont-sub-terapia'>
-                            <div className='cont-barra-tera'>
+                    <div className='box_gastos'>
+                        <div className='cont_sub_gastos'>
+                            <div>
                                 <label>Nombre</label>
                                 <input onChange={(e) => setNombre(e.target.value)} required />
                             </div>
 
-                            <div className='cont-barra-tera'>
+                            <div>
                                 <label>Monto</label>
                                 <input value={NumMadre} onChange={ValidarMonto} required />
                             </div>
-                            <div className='cont-barra-tera'>
+                            <div >
                                 <label>Fecha</label>
                                 <input type="date" onChange={(e) => setFecha(e.target.value)} required />
                             </div>
 
-                            <div className='cont-barra-tera'>
+                            <div >
                                 <label>Descripcion</label>
                                 <textarea className='txtdescripciongastos' onChange={(e) => setDescipcion(e.target.value)} required></textarea>
                             </div>
-                            <button className='btnWeb' type='submit'>Guardar</button>
+                            <button className='btn' type='submit'>Guardar</button>
                         </div>
                     </div>
 

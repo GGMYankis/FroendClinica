@@ -4,7 +4,7 @@ import axios from "axios";
 import Headers from "../components/Headers/Headers";
 import ModalUsuario from "../Modal/ModalUsuario/ModalUsuario";
 import swal from "sweetalert";
-import { getUsuarioCompleto } from "../auth-helpers";
+import { urlApi } from "../auth-helpers";
 
 function Users() {
   useEffect(() => {
@@ -27,7 +27,7 @@ function Users() {
 
   const cargar = (async) => {
     axios
-      .get("https://jdeleon-001-site1.btempurl.com/api/Clinica/ListaUsers")
+      .get(`${urlApi}Clinica/ListaUsers`)
 
       .then((response) => {
         response.data.lista.map((a) => {
@@ -58,12 +58,10 @@ function Users() {
   function enviar(e) {
     e.preventDefault();
 
-    const url =
-      "https://jdeleon-001-site1.btempurl.com/api/Clinica/GuardarUsers";
 
-    axios.post(url, data).then((result) => {
+    axios.post(`${urlApi}Clinica/GuardarUsers`, data).then((result) => {
       const probar = async () => {
-        modalEditar.current.classList.remove("activeUsers");
+        modalEditar.current.classList.remove("active_modal_usuario_editar");
         cargar();
         const ale = await swal({
           title: "Correcto",
@@ -80,7 +78,7 @@ function Users() {
 
   function EditarUsuario(valor) {
     setIdRol(null);
-    modalEditar.current.classList.add("activeUsers");
+    modalEditar.current.classList.add("active_modal_usuario_editar");
 
     const encontrado = terapeuta.filter((e) => e.idUser == valor);
 
@@ -106,7 +104,7 @@ function Users() {
   }
 
   function Cancelar() {
-    modalEditar.current.classList.remove("activeUsers");
+    modalEditar.current.classList.remove("active_modal_usuario_editar");
     modalEliminar.current.classList.remove("activeEli");
   }
 
@@ -125,9 +123,7 @@ function Users() {
   };
 
   function enviarId() {
-    const url =
-      "https://jdeleon-001-site1.btempurl.com/api/Clinica/EliminarUsuario";
-    axios.post(url, idusers).then((result) => {
+    axios.post(`${urlApi}Clinica/EliminarUsuario`, idusers).then((result) => {
       const probar = async () => {
         modalEliminar.current.classList.remove("activeEli");
         cargar();
@@ -230,15 +226,15 @@ function Users() {
       </div>
 
       {/* MODAL EDITAR USUARIO */}
-      <div className="cont-modal-lista-usuario" ref={modalEditar}>
-        <form className="form-perfil-usuario" onSubmit={enviar}>
-          <div className="cont-titu-usuario">
+      <div className="cont_modal_usuario" ref={modalEditar}>
+        <form className="form_usuario" onSubmit={enviar}>
+          <div className="cont_titu_usuario_editar">
             <h1>Editar Usuario</h1>
           </div>
 
-          <div className="box-con">
-            <div className="row">
-              <div className="col">
+          <div className="box_usuario_editar">
+           
+              <div>
                 <label>Nombre</label>
                 <input
                   className="form-users"
@@ -247,7 +243,7 @@ function Users() {
                   onChange={(e) => setNombre(e.target.value)}
                 />
               </div>
-              <div className="col">
+              <div >
                 <label>Apellido</label>
                 <input
                   className="form-users"
@@ -256,10 +252,8 @@ function Users() {
                   onChange={(e) => setApellido(e.target.value)}
                 />
               </div>
-            </div>
 
-            <div className="row">
-              <div className="col">
+              <div >
                 <label>Telefono</label>
                 <input
                   className="form-users"
@@ -268,79 +262,75 @@ function Users() {
                   onChange={(e) => setTelefono(e.target.value)}
                 />
               </div>
-              <div className="col">
+              <div >
                 <label>Direccion</label>
                 <input
-                  className="form-users"
+                  
                   value={direccion}
                   required
                   onChange={(e) => setDireccion(e.target.value)}
                 />
               </div>
-            </div>
 
-            <div className="row">
-              <div className="col">
+              <div >
                 <label>Correo</label>
                 <br></br>
                 <input
-                  className="form-users"
+                  
                   value={correo}
                   required
                   onChange={(e) => setCorreo(e.target.value)}
                 />
               </div>
-              <div className="col">
-                <label>contraseñas</label>
-                <input
-                  className="form-users"
-                  type="password"
-                  value={contraseñas}
-                  required
-                  onChange={(e) => setContraseñas(e.target.value)}
-                />
-              </div>
-            </div>
 
-            <div className="row">
-              <div className="col">
-                <select
-                  id="cboactivo"
-                  className="form-control"
+              <div >
+                <label>Rol</label>
+                <select                     
                   value={idRol}
                   onChange={(e) => setIdRol(e.target.value)}
                   required
                 >
-                  <option value="">seleccione una opción</option>
+                  <option value="">seleccione un rol</option>
                   <option value="1">Administrador</option>
                   <option value="2">Terapeuta</option>
                   <option value="3">Asistente</option>
                   <option value="4">Usuario</option>
                 </select>
               </div>
-            </div>
 
-            <div className="row">
-              <div className="col-sm-12">
-                <button className="btn-editar-terapia" type="submit">
+              <div className="col">
+                <label>Contraseña</label>
+                <input
+                  
+                  type="password"
+                  value={contraseñas}
+                  required
+                  onChange={(e) => setContraseñas(e.target.value)}
+                />
+              </div>
+
+              
+
+              
+          </div>
+          <div >
+                <button type="submit" className="btn editar">
                   Editar
                 </button>
-                <button
-                  className="btn-eliminar-terapia"
+                <button             
                   type="button"
+                  className="btn cancelar"
                   onClick={Cancelar}
                 >
                   Cancelar
                 </button>
               </div>
-            </div>
-          </div>
         </form>
       </div>
 
-      <ModalUsuario showModal={showModal} setShowModal={setShowModal} />
+      <ModalUsuario showModal={showModal} setShowModal={setShowModal} cargar={cargar}/>
 
-      <div className="modal-usuario-eliminar" ref={modalEliminar}>
+      <div className="modal-usuario-eliminar" ref={modalEliminar} >
         <div className="modal-dialog-usuario" role="document">
           <div className="modal-content-usuario">
             <div className="modal-header">

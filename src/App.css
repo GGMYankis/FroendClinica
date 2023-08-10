@@ -2918,3 +2918,85 @@ td {
   pointer-events: none;
   opacity: 0.7;
 }
+
+
+/* modal editar usuario */
+.cont_modal_usuario{
+  width: 100%;
+  min-height: 100vh;
+  background-color: #00000066;
+  position: absolute;
+  top: -120%;
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.form_usuario{
+  background-color: white;
+  border-radius: 10px;
+  width: 580px;
+  position: relative;
+  overflow: hidden;
+  padding: 20px 30px;
+}
+.active_modal_usuario_editar {
+  top: 0;
+}
+.cont_titu_usuario_editar{
+  background-color: #0b2f57;
+  color: #fff;
+  height: 40px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  text-align: center;
+}
+
+.cont_titu_usuario_editar h1{
+  font-size: 25px;
+  line-height: 40px;
+}
+
+
+.box_usuario_editar input {
+  border: 1px solid hsla(0, 7%, 82%, 0.531);
+  border-radius: 8px;
+  padding: 10px 13px;
+  width: 100%;
+}
+
+.box_usuario_editar {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-gap: 10px;
+  margin-top: 40px;
+}
+
+.box_usuario_editar label{
+ color: #0b2f57;
+ font-weight: bold;
+}
+
+.form_usuario .btn{
+  font-weight: 700;
+    margin: 0 0 10px;
+    padding: 10px 13px;
+    width: 100%;
+}
+
+.form_usuario .btn.editar{
+  background-color: #0b2f57;
+  border: 3px solid #0b2f57;
+  color: #fff;
+  margin-top: 20px;
+}
+
+.form_usuario .btn.cancelar{
+  background-color: #dc3545;
+  border: 3px solid #dc3545;
+  color: #fff;
+}
+
