@@ -4,11 +4,12 @@
   justify-content: center;
   align-items: center;
   background-color: #f6f8fa;
+  flex-direction: column;
 }
 
 .form_login {
   background-color: #0b2f57;
-  border-radius: 10px;
+  border-radius:8px;
   overflow: hidden;
   text-align: center;
   padding: 20px 30px 30px 30px;
@@ -72,4 +73,28 @@
 
 .error {
   color: #9f3a38;
+}
+
+
+.cont-forgot{
+  width: 300px;
+  /* background-color: white; */
+  border-radius: 8px;
+ /*  border:  2px solid #0b2f57; */
+   margin-top: 10px;
+   padding: 15px 30px ;
+   display: flex;
+   justify-content: center;
+    align-items: center;
+}
+
+.cont-forgot p {
+  color: #0b2f57;
+  font-size: 15px;
+  font-weight: bold;
+  border-bottom: 2px solid #f6f8fa;
+  
+}
+.cont-forgot p:hover{
+  border-bottom: 2px solid #093e79;
 }

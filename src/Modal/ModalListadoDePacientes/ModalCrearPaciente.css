@@ -169,3 +169,8 @@ select {
     margin-top: 80px;
   }
 }
+
+
+.move_left_home{
+  transform: translateX(200px);
+}

@@ -21,8 +21,6 @@ export function setUsuarioCompleto(users) {
     return cookies.set('rxu', users, { path: '/' });
 }
 
-
-
 export function idUser(idUser) {
     
     return cookies.set('ius^', idUser, { path: '/' });

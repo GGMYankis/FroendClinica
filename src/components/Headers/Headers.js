@@ -26,17 +26,29 @@ function Headers(props) {
   useEffect(() => {
     let listElements = document.querySelectorAll(".list__button--click");
     let lista = document.querySelector("#lista");
+    //let flecha1 = document.querySelector("#flecha");
+    
+    //flecha1.style.transform = "rotate(-88deg)";
 
     listElements.forEach((listElement) => {
       listElement.addEventListener("click", () => {
+
+      
         listElement.classList.toggle("arrow");
+
         let height = 0;
         let menu = listElement.nextElementSibling;
 
         if (menu.clientHeight == "0") {
+         // flecha1.style.transform = "rotate(2deg)";
           height = menu.scrollHeight;
+          menu.style.height = `${height}px`;
+
+        }else{
+           //flecha1.style.transform = "rotate(-88deg)";
         }
         menu.style.height = `${height}px`;
+
         lista.style.background = "#0b2f57";
       });
     });
@@ -98,7 +110,7 @@ function Headers(props) {
     }
 
     if (home) {
-      home.current.classList.toggle("move_left_modal");
+      home.current.classList.toggle("move_left_home");
     }
   }
 
@@ -128,7 +140,7 @@ function Headers(props) {
           <ul className="list" id="lista">
             <li className="list__item">
               <div className="list__button">
-                <Link className="nav__link" to="/AbonoTerapias">
+                <Link className="nav__link normal" to="/AbonoTerapias">
                   {" "}
                   Abono Terapias
                 </Link>
@@ -138,7 +150,7 @@ function Headers(props) {
               <span>
                 <li className="list__item">
                   <div className="list__button">
-                    <Link className="nav__link" to="/Asignación">
+                    <Link className="nav__link normal" to="/Asignación">
                       Asignación
                     </Link>
                   </div>
@@ -180,7 +192,7 @@ function Headers(props) {
             <li className="list__item list__item--click">
               <div className="list__button list__button--click">
                 <Link className="nav__link">Listados</Link>
-                <img src={arrow} className="list__img" />
+                <img src={arrow} className="list__img" id="flecha" />
               </div>
 
               <ul className="list__show">
@@ -254,7 +266,7 @@ function Headers(props) {
             <li className="list__item list__item--click">
               <div className="list__button list__button--click">
                 <Link className="nav__link">Reportes</Link>
-                <img src={arrow} className="list__img" />
+                <img src={arrow} className="list__img"  id="flecha2"/>
               </div>
 
               <ul className="list__show">

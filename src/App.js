@@ -5,7 +5,7 @@ import "./App.css";
 import Home from "./Vistas/Home";
 import Gastos from "./Vistas/Gastos/Gastos"
 import AbonoTerapias from "./Vistas/AbonosTerapias/AbonosTerapias";
-import Evaluacion from "./Vistas/Evaluacion";
+import Evaluacion from "./Vistas/Citas/Evaluacion"
 import Consultorios from "./Vistas/Consultorio/Consultorios";
 import "bootstrap/dist/css/bootstrap.min.css";
 import VerGanancias from "./Vistas/VerGanancias";
@@ -37,6 +37,7 @@ import AuthContext from "./context/AuthContext";
 import { decodeToken } from "./components/Auth/LoginForm/Utils/token";
 import "./pages/admin.css";
 import { createBrowserHistory } from "history";
+import { ro } from "date-fns/locale";
 
 initAxiosInterceptors();
 
@@ -90,6 +91,7 @@ function App() {
 
   if (auth === undefined) return null;
 
+
   return (
     <AuthContext.Provider value={authData}>
       {auth ? (
@@ -129,7 +131,16 @@ function App() {
                   path="/Terapia"
                   element={rol == 1 || rol == 3 ? <Terapia /> : <ErrorPage />}
                 />
+                {
+                  rol == 2 ? <Route
+                  exact
+                  path="/"
+                  element={<ListasPacientes />}
+                />
+                :
                 <Route exact path="/" element={<Home />} />
+                }
+               
                 <Route
                   exact
                   path="/Asistencia"

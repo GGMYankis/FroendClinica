@@ -4,6 +4,7 @@ import swal from "sweetalert";
 import Headers from "../../components/Headers/Headers";
 import { Loading } from "../../components/Loading";
 import "./Terapia.css";
+import { urlApi } from "../../auth-helpers";
 
 function Terapia() {
   const [label, setLabel] = useState("");
@@ -51,10 +52,8 @@ function Terapia() {
     e.preventDefault();
     resportes.current.classList.add("contenedors");
 
-    const url =
-      "https://jdeleon-001-site1.btempurl.com/api/Clinica/CrearTerapia";
     axios
-      .post(url, data)
+      .post(`${urlApi}Clinica/CrearTerapia`, data)
       .then((result) => {
         const probar = async () => {
           const ale = await swal({

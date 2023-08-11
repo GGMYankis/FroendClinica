@@ -145,7 +145,7 @@ function Home(props) {
 
   return (
     <>
-      <Headers home={modal} />
+     
 
       <div className="cont_modal_home" ref={modal}>
         <form
@@ -399,6 +399,7 @@ function Home(props) {
           </div>
         </form>
       </div>
+       <Headers home={modal} />
     </>
   );
 }

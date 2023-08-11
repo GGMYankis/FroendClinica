@@ -9,12 +9,14 @@ import useAuth from "./hook/useAuth";
 import { decodeToken } from "./Utils/token";
 import { Form } from "semantic-ui-react";
 import { LoaLogin } from "../../../components/Loading";
+import ForgotPassword from "../../ForgotPassword/ForgotPassword";
+
 
 function LoginForm() {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const { setUser } = useAuth();
-
+  const[forgot , setForgot] = useState(false)
   const formik = useFormik({
     initialValues: initialValues(),
     validationSchema: Yup.object({
@@ -27,6 +29,7 @@ function LoginForm() {
         setLoading(true);
         const result = await axios.post(`${urlApi}Autenticacion/Login`,formValue)
         
+       // console.log(result.data.user)
         setUser(decodeToken(result.data.tokencreado));
         setToken(result.data.tokencreado);
         setUsuarioCompleto(result.data.user.idRol);
@@ -38,6 +41,8 @@ function LoginForm() {
       setLoading(false);
     },
   });
+
+  if(forgot) return <ForgotPassword setForgot={setForgot}/>
 
 
   return (
@@ -92,6 +97,12 @@ function LoginForm() {
             Iniciar Sesion{loading && <LoaLogin />}
           </button>
         </Form>
+
+        {/*  <div className="cont-forgot">
+           <p onClick={() => setForgot(true)}>Forgot password?</p>
+        </div>   */}
+       
+            
       </div>
     </>
   );

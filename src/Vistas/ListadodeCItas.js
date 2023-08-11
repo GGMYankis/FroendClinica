@@ -4,8 +4,7 @@ import swal from "sweetalert";
 import "bootstrap/dist/css/bootstrap.min.css";
 import DataTable from "react-data-table-component";
 import Headers from "../components/Headers/Headers";
-
-import { getDatosUsuario, getUsuarioCompleto } from "../auth-helpers";
+import { getDatosUsuario, getUsuarioCompleto, urlApi } from "../auth-helpers";
 import Select from "react-select";
 import { Loading } from "../components/Loading";
 
@@ -86,7 +85,7 @@ function ListadodeCItas() {
   const cargar = async () => {
     try {
       const res = await axios.get(
-        "https://jdeleon-001-site1.btempurl.com/api/Citas/Citas"
+        `${urlApi}Citas/Citas`
       );
       setCitas(res.data);
     } catch (error) {
@@ -94,7 +93,7 @@ function ListadodeCItas() {
     }
 
     axios
-      .get("https://jdeleon-001-site1.btempurl.com/api/Clinica/Lista")
+      .get(`${urlApi}Clinica/Lista`)
       .then((responses) => {
         setDataPaciente(responses.data);
       });
@@ -102,7 +101,7 @@ function ListadodeCItas() {
     if (rol == 2) {
       axios
         .post(
-          "https://jdeleon-001-site1.btempurl.com/api/Clinica/GetEvaluacionByTerapeuta",
+          `${urlApi}Clinica/GetEvaluacionByTerapeuta`,
           date
         )
         .then((response) => {
@@ -110,20 +109,20 @@ function ListadodeCItas() {
         });
     } else {
       axios
-        .get("https://jdeleon-001-site1.btempurl.com/api/Clinica/ListaTerapia")
+        .get(`${urlApi}Clinica/ListaTerapia`)
         .then((response) => {
           setData(response.data);
         });
     }
 
     axios
-      .get("https://jdeleon-001-site1.btempurl.com/api/Clinica/terapeuta")
+      .get(`${urlApi}Clinica/terapeuta`)
 
       .then((response) => {
         setTerapeuta(response.data.usuarios);
       });
     axios
-      .get("https://jdeleon-001-site1.btempurl.com/api/Clinica/Consultorios")
+      .get(`${urlApi}Clinica/Consultorios`)
 
       .then((response) => {
         setconsultorios(response.data.lista);
@@ -133,14 +132,13 @@ function ListadodeCItas() {
   const CrearCitas = async (e) => {
     e.preventDefault();
     try {
-      setLoading(true);
+      
 
       const res = await axios.post(
-        "https://jdeleon-001-site1.btempurl.com/api/traerpaciente/CrearEvaluacion",
+        `${urlApi}traerpaciente/CrearEvaluacion`,
         dataCrear
       );
       if (res.status == 200) {
-        setLoading(false);
         cargar();
         modalCrear.current.classList.remove("active");
         const ale = await swal({
@@ -150,7 +148,6 @@ function ListadodeCItas() {
         });
       }
     } catch (error) {
-      setLoading(false);
       swal(error.response.data, "Intentelo mas tarde", "error");
     }
   };
@@ -192,11 +189,11 @@ function ListadodeCItas() {
     e.preventDefault();
 
     const res = axios.post(
-      "https://jdeleon-001-site1.btempurl.com/api/Clinica/EditarCitas",
+      `${urlApi}Clinica/EditarCitas`,
       dtEditar
     );
     const resRecurrencia = await axios.post(
-      "https://jdeleon-001-site1.btempurl.com/api/traerpaciente/EditarRecurrencia",
+      `${urlApi}traerpaciente/EditarRecurrencia`,
       dtRecu
     );
     if (resRecurrencia.status == 200) {
@@ -348,10 +345,9 @@ function ListadodeCItas() {
       IdRecurrencia: recurrencia,
     };
 
-    const url =
-      "https://jdeleon-001-site1.btempurl.com/api/Clinica/EliminarCita";
+   
     axios
-      .post(url, idEva)
+      .post(`${urlApi}Clinica/EliminarCita`, idEva)
       .then((result) => {
         const probar = async () => {
           alertEliminar.current.classList.remove("activeEli");
