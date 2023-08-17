@@ -3,7 +3,7 @@ import * as Yup from "yup";
 import { useFormik } from 'formik';
 import axios from "axios";
 import swal from "sweetalert";
-
+import {urlApi} from "../../auth-helpers"
 
 export default function ModalEliminarPacientes(props) {
     
@@ -19,7 +19,7 @@ export default function ModalEliminarPacientes(props) {
          e.preventDefault();
          
         try {
-            const res = axios.post("https://jdeleon-001-site1.btempurl.com/api/Clinica/EliminarPaciente", data);
+            const res = axios.post(`${urlApi}Clinica/EliminarPaciente`, data);
             modal.current.classList.remove("active_Modal_Eliminar");
             setShowModalEliminar(false);
             cargar();

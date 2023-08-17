@@ -4,6 +4,7 @@ import axios from "axios";
 import * as Yup from "yup";
 import { useFormik } from "formik";
 import swal from "sweetalert";
+import {urlApi} from "../../auth-helpers"
 
 export default function ModalUsuario(props) {
   const { showModal, setShowModal , cargar} = props;
@@ -23,7 +24,7 @@ export default function ModalUsuario(props) {
     onSubmit: async (formValue) => {
       try {
         const result = await axios.post(
-          "https://jdeleon-001-site1.btempurl.com/api/Clinica/CrearUsuario",
+          `${urlApi}Clinica/CrearUsuario`,
           formValue
         );
         cargar()

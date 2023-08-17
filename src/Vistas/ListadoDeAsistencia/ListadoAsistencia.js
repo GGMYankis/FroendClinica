@@ -10,6 +10,7 @@ import swal from "sweetalert";
 import DataTable from "react-data-table-component";
 import Headers from "../../components/Headers/Headers";
 import "./ListadoDeAsistencia.css";
+import { urlApi } from "../../auth-helpers";
 
 function ListadoAsistencia() {
 
@@ -40,7 +41,7 @@ function ListadoAsistencia() {
   const fetchData = async () => {
 
     try {
-        const resSolicitud = await axios.get("https://jdeleon-001-site1.btempurl.com/api/Clinica/Listadoasistencia");
+        const resSolicitud = await axios.get(`${urlApi}Clinica/Listadoasistencia`);
        
         setAttendance(resSolicitud.data)
 
@@ -56,19 +57,19 @@ function ListadoAsistencia() {
         fetchData();
 
         
-        axios.get("https://jdeleon-001-site1.btempurl.com/api/Clinica/Lista")   
+        axios.get(`${urlApi}Clinica/Lista`)   
         .then((responses) => {
             setDataPaciente(responses.data);
         });
 
         axios
-        .get("https://jdeleon-001-site1.btempurl.com/api/Clinica/ListaTerapia")
+        .get(`${urlApi}Clinica/ListaTerapia`)
         .then((response) => {
             setListadoTerapias(response.data);
         });
 
         axios
-        .get("https://jdeleon-001-site1.btempurl.com/api/Clinica/terapeuta")
+        .get(`${urlApi}Clinica/terapeuta`)
   
         .then((response) => {
           setListadoTerapeuta(response.data.usuarios);
@@ -76,7 +77,7 @@ function ListadoAsistencia() {
 
 
         axios
-        .get("https://jdeleon-001-site1.btempurl.com/api/Clinica/Consultorios")
+        .get(`${urlApi}Clinica/Consultorios`)
   
         .then((response) => {
             setListadoConsultorio(response.data.lista);
@@ -190,9 +191,9 @@ function ListadoAsistencia() {
       function editarApi(e){
         e.preventDefault()
 
-        const url = "https://jdeleon-001-site1.btempurl.com/api/Clinica/EditarAsistencia";
         
-           axios.post(url, dataEditar)
+        
+           axios.post(`${urlApi}Clinica/EditarAsistencia`, dataEditar)
            .then(res => {
           if(res.status == 200){
             fetchData();
@@ -213,9 +214,9 @@ function ListadoAsistencia() {
 
       function elimibarApi(e){
 
-        const url = "https://jdeleon-001-site1.btempurl.com/api/Clinica/EliminarAsistencia";
         
-           axios.post(url, dataEliminar)
+        
+           axios.post(`${urlApi}Clinica/EliminarAsistencia`, dataEliminar)
            .then(res => {
 
           if(res.status == 200){
@@ -238,9 +239,8 @@ function ListadoAsistencia() {
 
       function filtrarAsistencias (e) {
         e.preventDefault()
-        const url = "https://jdeleon-001-site1.btempurl.com/api/Clinica/FiltrandoAsistencia";
     
-        axios.post(url, filtrar)
+        axios.post(`${urlApi}Clinica/FiltrandoAsistencia`, filtrar)
         .then(res => {
         if(res.data != null){
             setAttendance([])

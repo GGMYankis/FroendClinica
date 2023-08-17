@@ -9,6 +9,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import $, { event } from "jquery";
 import { Loading } from "../components/Loading";
 import { addDays } from "date-fns";
+import { urlApi } from "../auth-helpers";
 
 function Calendario() {
   const [eventosFiltrados, setEventosFiltrados] = useState([]);
@@ -35,7 +36,7 @@ function Calendario() {
     async function solicitarData() {
       try {
         const res = await axios.get(
-          "https://jdeleon-001-site1.btempurl.com/api/Citas/CitasNoUnicas"
+          `${urlApi}Citas/CitasNoUnicas`
         );
         res.data.map((x) => {
           if (x.dias == "domingo") {
@@ -68,7 +69,7 @@ function Calendario() {
 
       try {
         const response = await axios.get(
-          "https://jdeleon-001-site1.btempurl.com/api/Clinica/Consultorios"
+         `${urlApi}Clinica/Consultorios`
         );
         setconsultorios(response.data.lista);
       } catch (error) {

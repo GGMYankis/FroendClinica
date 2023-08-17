@@ -4,6 +4,7 @@ import axios from "axios";
 import Headers from "../../components/Headers/Headers"
 import swal from "sweetalert";
 import "./Consultorio.css";
+import { urlApi } from "../../auth-helpers";
 
 function Consultorios() {
 
@@ -23,7 +24,7 @@ function Consultorios() {
 
   const cargar = async () => {
 
-    const response = await axios.get("https://jdeleon-001-site1.btempurl.com/api/Clinica/Consultorios")
+    const response = await axios.get(`${urlApi}Clinica/Consultorios`)
   
           setConsultorio(response.data.lista);
   };
@@ -37,9 +38,8 @@ function Consultorios() {
   function enviar(e) {
     e.preventDefault();
 
-    const url =
-      "https://jdeleon-001-site1.btempurl.com/api/Clinica/EditarConsultorio";
-    axios.post(url, data).then((result) => {
+    
+    axios.post(`${urlApi}Clinica/EditarConsultorio`, data).then((result) => {
       const probar = async () => {
         modalEditar.current.classList.remove("active");
         cargar();
@@ -64,9 +64,8 @@ function Consultorios() {
   function CrearUsuario(e) {
     e.preventDefault();
 
-    const url =
-      "https://jdeleon-001-site1.btempurl.com/api/Clinica/CrearConsultorio";
-    axios.post(url, dataCrear).then((result) => {
+
+    axios.post(`${urlApi}Clinica/CrearConsultorio`, dataCrear).then((result) => {
       const probar = async () => {
         modalCrear.current.classList.remove("active");
         cargar();
@@ -79,8 +78,6 @@ function Consultorios() {
       if (result) {
         probar();
       }
-
-      FormularioTherapy.reset();
     });
   }
 
@@ -122,9 +119,8 @@ function Consultorios() {
   };
 
   function enviarId() {
-    const url =
-      "https://jdeleon-001-site1.btempurl.com/api/Clinica/EliminarConsultorio";
-    axios.post(url, idusers).then((result) => {
+   
+    axios.post(`${urlApi}Clinica/EliminarConsultorio`, idusers).then((result) => {
       const probar = async () => {
         modalEliminar.current.classList.remove("activeEli");
         cargar();

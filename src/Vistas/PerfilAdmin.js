@@ -2,7 +2,7 @@
 import { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import React from 'react'
-import { getDatosUsuario, DeleteToken } from '../auth-helpers'
+import { getDatosUsuario, DeleteToken , urlApi} from '../auth-helpers'
 import Headers from "../components/Headers/Headers"
 
 
@@ -38,8 +38,8 @@ function PerfilAdmin() {
             idUser: id
         }
 
-        const url = 'https://jdeleon-001-site1.btempurl.com/api/Clinica/TraerUsuario';
-        axios.post(url, data).then((result) => {
+        
+        axios.post(`${urlApi}Clinica/TraerUsuario`, data).then((result) => {
 
             if (result.data.users.idRol == 1) {
                 setTipoRol("Admin")
@@ -76,9 +76,7 @@ function PerfilAdmin() {
             return;
         }
 
-        const url = 'https://jdeleon-001-site1.btempurl.com/api/Clinica/editarPassword';
-        axios.put(url, editarDatos).then((result) => {
-
+        axios.put(`${urlApi}Clinica/editarPassword`, editarDatos).then((result) => {
             resetForm()
             setMensaje(true)
         });
@@ -100,9 +98,7 @@ function PerfilAdmin() {
             return;
         }
 
-
-        const url = 'https://jdeleon-001-site1.btempurl.com/api/Clinica/EditarAdmin';
-        axios.put(url, editarInfoUser).then((result) => {
+        axios.put(`${urlApi}Clinica/EditarAdmin`, editarInfoUser).then((result) => {
             resetForm()
             setMensaje(true)
         });
@@ -118,8 +114,8 @@ function PerfilAdmin() {
 
     function eliminarCuenta(e) {
         e.preventDefault()
-        const url = 'https://jdeleon-001-site1.btempurl.com/api/Clinica/EliminarUsuario';
-        axios.post(url, user).then((result) => {
+       
+        axios.post(`${urlApi}Clinica/EliminarUsuario`, user).then((result) => {
 
             if (result) {
                 DeleteToken()

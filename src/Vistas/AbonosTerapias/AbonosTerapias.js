@@ -3,7 +3,7 @@ import React, { useEffect, useState, useRef } from 'react'
 import { Loading, LoaLogin } from '../../components/Loading';
 import swal from 'sweetalert';
 import axios from 'axios';
-import {getUsuarioCompleto } from '../../auth-helpers'
+import {getUsuarioCompleto, urlApi } from '../../auth-helpers'
 import Headers from "../../components/Headers/Headers";
 import "./AbonoTerapias.css";
 
@@ -27,18 +27,18 @@ function AbonoTerapias() {
     const resportes = useRef();
 
     useEffect(() => {
-        axios.get('https://jdeleon-001-site1.btempurl.com/api/Clinica/Lista')
+        axios.get(`${urlApi}Clinica/Lista`)
             .then(responses => {
 
                 setDataPaciente(responses.data)
             });
 
-        axios.get('https://jdeleon-001-site1.btempurl.com/api/Clinica/ListaTerapia')
+        axios.get(`${urlApi}Clinica/ListaTerapia`)
             .then(response => {
                 setData(response.data)
             });
 
-        axios.get('https://jdeleon-001-site1.btempurl.com/api/Clinica/terapeuta')
+        axios.get(`${urlApi}Clinica/terapeuta`)
 
             .then(response => {
                 setTerapeuta(response.data.usuarios)
@@ -76,8 +76,7 @@ function AbonoTerapias() {
         e.preventDefault()
         resportes.current.classList.add('contenedors');
 
-        const url = 'https://jdeleon-001-site1.btempurl.com/api/Clinica/AbonoTerapias';
-        axios.post(url, dataEnviar).then((result) => {
+        axios.post(`${urlApi}Clinica/AbonoTerapias `, dataEnviar).then((result) => {
 
 
             const probar = async () => {

@@ -2,7 +2,7 @@ import React from "react";
 import { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import Headers from "../components/Headers/Headers"
-
+import { urlApi } from "../auth-helpers";
 import { Loading } from "../components/Loading";
 
 function PagoTerapeutas() {
@@ -21,7 +21,7 @@ function PagoTerapeutas() {
   useEffect(() =>{
 
     axios
-    .get("https://jdeleon-001-site1.btempurl.com/api/Clinica/terapeuta")
+    .get(`${urlApi}Clinica/terapeuta`)
 
     .then((response) => {
       setTerapeuta(response.data.usuarios);
@@ -39,9 +39,9 @@ function PagoTerapeutas() {
 
     resportes.current.classList.add("contenedors");
 
-    const urls = "https://jdeleon-001-site1.btempurl.com/api/Clinica/ListaEvaluacions";
+   
     
-    axios.post(urls, data).then((result) => {
+    axios.post(`${urlApi}Clinica/ListaEvaluacions`, data).then((result) => {
       setDataPaciente(result.data)
 
       const total =  result.data.map(c => c.price).reduce((acc , curr) => acc + curr,0)

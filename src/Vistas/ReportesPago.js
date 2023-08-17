@@ -3,13 +3,14 @@ import axios from 'axios';
 import { useState } from 'react';
 import Headers from "../components/Headers/Headers"
 import { useEffect , useRef} from 'react';
+import { urlApi } from '../auth-helpers';
 
 function ReportesPago() {
   const [paciente, setPaciente] = useState([]);
       
     useEffect(() => { 
 
-        axios.get("https://jdeleon-001-site1.btempurl.com/api/Clinica/Lista")       
+        axios.get(`${urlApi}Clinica/Lista`)       
         .then((responses) => {
             setPaciente(responses.data);
         });
@@ -33,7 +34,7 @@ function ReportesPago() {
     const enviar = async (e) => {
         e.preventDefault();
 
-         const res = await axios.post("https://jdeleon-001-site1.btempurl.com/api/Clinica/ReportesPago",data)
+         const res = await axios.post(`${urlApi}Clinica/ReportesPago`,data)
          setFiltrado(res.data)
     }
 

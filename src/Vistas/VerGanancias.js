@@ -4,12 +4,10 @@ import axios from "axios";
 import React, { useState, useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Headers from "../components/Headers/Headers"
-
 import { Loading, LoaLogin } from "../components/Loading";
 import { useRef } from "react";
-
 import { DatePicker } from "antd";
-
+import { urlApi } from "../auth-helpers";
 const { RangePicker } = DatePicker;
 
 function VerGanancias() {
@@ -70,10 +68,7 @@ function VerGanancias() {
 
   const enviars = (e) => {
     resportes.current.classList.add("contenedors");
-
-    const urls =
-      "https://jdeleon-001-site1.btempurl.com/api/Clinica/FiltrarGastos";
-    axios.post(urls, data).then((result) => {
+    axios.post(`${urlApi}Clinica/FiltrarGastos`, data).then((result) => {
       if (result.data.mensaje) {
         setMensaje(true);
       } else {
@@ -86,8 +81,8 @@ function VerGanancias() {
 
     try {
       e.preventDefault();
-      const url = "https://jdeleon-001-site1.btempurl.com/api/Clinica/Probar";
-      axios.post(url, datas).then((result) => {
+   
+      axios.post(`${urlApi}Clinica/Probar`, datas).then((result) => {
         if (result.data) {
           resportes.current.classList.remove("contenedors");
         }

@@ -3,7 +3,7 @@ import axios from "axios";
 import Headers from "../../components/Headers/Headers";
 import swal from "sweetalert";
 import "../../responsive.css";
-import { getDatosUsuario, getUsuarioCompleto } from "../../auth-helpers";
+import { getDatosUsuario, getUsuarioCompleto , urlApi} from "../../auth-helpers";
 import DatePicker, { DateObject } from "react-multi-date-picker";
 import TimePicker from "react-multi-date-picker/plugins/time_picker";
 import DatePanel from "react-multi-date-picker/plugins/date_panel";
@@ -39,7 +39,7 @@ function Asistencias() {
     if (rol == 2) {
       axios
         .post(
-          "https://jdeleon-001-site1.btempurl.com/api/Clinica/BuscarPacientePorTerapeuta",
+          `${urlApi}Clinica/BuscarPacientePorTerapeuta`,
           date
         )
         .then((responses) => {
@@ -47,7 +47,7 @@ function Asistencias() {
         });
     } else {
       axios
-        .get("https://jdeleon-001-site1.btempurl.com/api/Clinica/Lista")
+        .get(`${urlApi}Clinica/Lista`)
         .then((responses) => {
           setDataPaciente(responses.data);
         });
@@ -56,7 +56,7 @@ function Asistencias() {
     if (rol == 2) {
       axios
         .post(
-          "https://jdeleon-001-site1.btempurl.com/api/Clinica/GetEvaluacionByTerapeuta",
+          `${urlApi}Clinica/GetEvaluacionByTerapeuta`,
           date
         )
         .then((response) => {
@@ -64,19 +64,19 @@ function Asistencias() {
         });
     } else {
       axios
-        .get("https://jdeleon-001-site1.btempurl.com/api/Clinica/ListaTerapia")
+        .get(`${urlApi}Clinica/ListaTerapia`)
         .then((response) => {
           setData(response.data);
         });
     }
     axios
-      .get("https://jdeleon-001-site1.btempurl.com/api/Clinica/terapeuta")
+      .get(`${urlApi}Clinica/terapeuta`)
       .then((response) => {
         setTerapeuta(response.data.usuarios);
       });
 
     axios
-      .get("https://jdeleon-001-site1.btempurl.com/api/Clinica/razon")
+      .get(`${urlApi}Clinica/razon`)
       .then((response) => {
         setRazonAsistencia(response.data);
       });
@@ -105,10 +105,9 @@ function Asistencias() {
       dataValor.IdTerapeuta = id;
     }
 
-    const url =
-      "https://jdeleon-001-site1.btempurl.com/api/Clinica/Asistencias";
+    
     axios
-      .post(url, dataValor)
+      .post(`${urlApi}Clinica/Asistencias`, dataValor)
       .then((result) => {
         resportes.current.classList.remove("contenedors");
         swal({

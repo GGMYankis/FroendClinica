@@ -4,15 +4,8 @@ import axios from 'axios';
 import React, { useState, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Headers from "../components/Headers/Headers"
-
-import { useRef } from 'react';
-import $ from 'jquery';
-
 import { DatePicker } from 'antd';
-import moment from 'moment'
-
-
-
+import { urlApi } from '../auth-helpers';
 const { RangePicker } = DatePicker;
 
 function Contabilidad() {
@@ -21,19 +14,13 @@ function Contabilidad() {
     const [terapeuta, setTerapeuta] = useState([])
     const [citas, setCitas] = useState([]);
 
-
-
-
     useEffect(() => {
 
-        axios.get('https://jdeleon-001-site1.btempurl.com/api/Clinica/terapeuta')
+        axios.get(`${urlApi}Clinica/terapeuta`)
             .then(res => {
                 setTerapeuta(res.data.usuarios)
             });
     }, []);
-
-
-
 
     // ------------------------
 
@@ -64,9 +51,7 @@ function Contabilidad() {
 
         e.preventDefault()
 
-
-        const url = 'https://jdeleon-001-site1.btempurl.com/api/Clinica/Buscar'
-        axios.post(url, datas).then((result) => {
+        axios.post(`${urlApi}Clinica/Buscar`, datas).then((result) => {
 
             if (result.data != null) {
                 setCitas(result.data)

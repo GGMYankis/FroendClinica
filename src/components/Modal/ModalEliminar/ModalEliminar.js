@@ -3,6 +3,7 @@ import React from 'react';
 import { useState, useRef } from "react";
 import axios from "axios";
 import swal from "sweetalert";
+import {urlApi} from "../../../auth-helpers";
 
 function ModalEliminar(props) {
 
@@ -23,7 +24,7 @@ function ModalEliminar(props) {
     
     const data = { IdTherapy: idEliminar };
 
-    const res = await axios.post("https://jdeleon-001-site1.btempurl.com/api/Clinica/EliminarTerapia",data);
+    const res = await axios.post(`${urlApi}Clinica/EliminarTerapia`,data);
       const probar = async () => {
         cargar();
         setShowModalEliminar(false)

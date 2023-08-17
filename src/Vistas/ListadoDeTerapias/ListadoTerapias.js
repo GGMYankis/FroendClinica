@@ -6,6 +6,7 @@ import "../../Tabla.css";
 import ModalTerapia from "../../components/Modal/ModalTerapia/ModalTerapia";
 import ModalEliminar from "../../components/Modal/ModalEliminar/ModalEliminar";
 import "./ListadoDeTerapias.css";
+import { urlApi } from "../../auth-helpers";
 function ListasTerapias() {
   
   const [terapias, setTerapias] = useState([]);
@@ -34,7 +35,7 @@ function ListasTerapias() {
   
   const cargar = (async) => {
     axios
-      .get("https://jdeleon-001-site1.btempurl.com/api/Clinica/ListaTerapia")
+      .get(`${urlApi}Clinica/ListaTerapia`)
       .then((response) => {
         setTerapias(response.data);   
       });
@@ -52,8 +53,7 @@ function ListasTerapias() {
 
   const SubmitEditar = (e) => {
     e.preventDefault();
-    const url ="https://jdeleon-001-site1.btempurl.com/api/Clinica/EditarTerapia";
-    axios.post(url, dataEdi).then((res) => {
+    axios.post(`${urlApi}Clinica/EditarTerapia`, dataEdi).then((res) => {
       
       if(res.status === 200){
         modalEditar.current.classList.remove("active_modal_editar_terapia");
@@ -87,9 +87,7 @@ function ListasTerapias() {
     ]);
   }
 
-  function refreshPage() {
-    window.location.reload();
-  }
+  
 
 
   function quitarModal() {

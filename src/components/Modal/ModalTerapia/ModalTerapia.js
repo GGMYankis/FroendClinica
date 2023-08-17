@@ -3,6 +3,7 @@ import { useState, useEffect, useRef } from "react";
 import swal from "sweetalert";
 import axios from "axios";
 import "./ModalTerapia.css";
+import {urlApi} from "../../../auth-helpers"
 
 
 function ModalTerapia(props) {
@@ -33,9 +34,7 @@ function ModalTerapia(props) {
 
   const SubmitCrear = (e) => {
     e.preventDefault();
-
-    const url = "https://jdeleon-001-site1.btempurl.com/api/Clinica/CrearTerapia";
-    axios.post(url, data2).then((res) => {
+    axios.post(`${urlApi}Clinica/CrearTerapia`, data2).then((res) => {
       const probar = async () => {
         modal.current.classList.remove("active_modal_terapia");
         setShowModal(false)
@@ -51,7 +50,7 @@ function ModalTerapia(props) {
         probar();
       }
 
-      FormularioTherapy.reset();
+    
     });
   };
 

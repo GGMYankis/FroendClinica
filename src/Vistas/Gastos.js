@@ -5,6 +5,7 @@ import React, { useEffect, useState, useRef } from 'react'
 import axios from 'axios'
 import swal from 'sweetalert';
 import { Loading, LoaLogin } from '../components/Loading';
+import { urlApi } from "../auth-helpers";
 
 function Gastos() {
 
@@ -40,8 +41,8 @@ function Gastos() {
 
         resportes.current.classList.add('contenedors');
 
-        const url = 'https://jdeleon-001-site1.btempurl.com/api/Clinica/ContabilidadReportes';
-        axios.post(url, dataCrear).then((result) => {
+      
+        axios.post(`${urlApi}Clinica/ContabilidadReportes`, dataCrear).then((result) => {
             const probar = async () => {
                 const ale = await swal({
                     title: "Correcto",

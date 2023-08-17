@@ -103,7 +103,7 @@ function Evaluacion() {
     try {
       setLoading(true);
       const res = await axios.post(
-        "https://jdeleon-001-site1.btempurl.com/api/traerpaciente/CrearEvaluacion",
+        `${urlApi}traerpaciente/CrearEvaluacion`,
         dataCrear
       );
       if (res.status == 200) {

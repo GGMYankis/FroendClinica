@@ -1,7 +1,7 @@
 import { useState, useRef } from "react";
 import axios from "axios";
 import React from "react";
-
+import {urlApi} from "../../../auth-helpers"
 function ModalConfig(props) {
   const { showModal, setShowModal, cargar } = props;
   const crear = useRef();
@@ -14,7 +14,7 @@ function ModalConfig(props) {
   async function enviar(e) {
     e.preventDefault();
     const res = await axios.post(
-      "https://jdeleon-001-site1.btempurl.com/api/Clinica/Config",
+      `${urlApi}Clinica/Config`,
       dataCrear
     );
     cargar();

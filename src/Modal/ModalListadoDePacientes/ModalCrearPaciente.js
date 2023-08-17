@@ -4,7 +4,8 @@ import swal from "sweetalert";
 import "bootstrap/dist/css/bootstrap.min.css";
 import * as Yup from "yup";
 import { useFormik } from 'formik';
-import "./ModalCrearPaciente.css"
+import "./ModalCrearPaciente.css";
+import {urlApi} from "../../auth-helpers"
 
 function ModalCrearPaciente(props) {
 
@@ -51,7 +52,7 @@ function ModalCrearPaciente(props) {
         const activo = formValue.Activo.trim() === "true";
         formValue.Activo = activo;
         
-        const res = await axios.post("https://jdeleon-001-site1.btempurl.com/api/Clinica/GuardarPaciente",formValue);
+        const res = await axios.post(`${urlApi}Clinica/GuardarPaciente`,formValue);
          setShowModal(false)
          modal.current.classList.remove("active_modal_crear_paciente");
          cargar();

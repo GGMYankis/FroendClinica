@@ -5,6 +5,7 @@ import { useState, useRef } from 'react';
 import axios from "axios";
 import { useEffect } from 'react';
 import ModalConfig from "../../components/Modal/ModalConfig/ModalConfig"
+import { urlApi } from '../../auth-helpers';
 
 function Configuraciones() {
 
@@ -21,7 +22,7 @@ function Configuraciones() {
 
   
        async  function cargar(){
-        const res = await axios.get("https://jdeleon-001-site1.btempurl.com/api/Clinica/ConfigListado")
+        const res = await axios.get(`${urlApi}Clinica/ConfigListado`)
         setConfig(res.data);
 
         }
@@ -38,7 +39,7 @@ function Configuraciones() {
 
         async function SubmitEditar(e){
             e.preventDefault();
-            const res = await axios.post("https://jdeleon-001-site1.btempurl.com/api/Clinica/ConfigEditar",dataEditar)
+            const res = await axios.post(`${urlApi}Clinica/ConfigEditar`,dataEditar)
             cargar();
             editar.current.classList.remove("active-Modal");
         }
@@ -87,7 +88,7 @@ function Configuraciones() {
         async function SubmitEliminar(e){
 
             e.preventDefault();
-            const res = await axios.post("https://jdeleon-001-site1.btempurl.com/api/Clinica/ConfigEliminar",dataEliminar)
+            const res = await axios.post(`${urlApi}Clinica/ConfigEliminar`,dataEliminar)
             cargar();
             eliminar.current.classList.remove("active-Modal");
         }

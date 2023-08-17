@@ -9,6 +9,7 @@ import useAuth from "../../components/Auth/LoginForm/hook/useAuth";
 import ModalCrearPaciente from "../../Modal/ModalListadoDePacientes/ModalCrearPaciente";
 import ModalEliminarPacientes from "../../Modal/ModalListadoDePacientes/ModalEliminarPacientes";
 import "./ListasPacientes.css";
+import { urlApi } from "../../auth-helpers";
 function ListasPacientes() {
   const { auth } = useAuth();
 
@@ -67,7 +68,7 @@ function ListasPacientes() {
   const cargar = async () => {
     if (rol == 2) {
       const res = await axios.post(
-        "https://jdeleon-001-site1.btempurl.com/api/Citas/PacientesTerapeuta",
+        `${urlApi}Citas/PacientesTerapeuta`,
         datass
       );
       res.data.map((item) => {
@@ -76,7 +77,7 @@ function ListasPacientes() {
       setlistaPaciente(res.data);
     } else {
       const res = await axios.get(
-        "https://jdeleon-001-site1.btempurl.com/api/Clinica/ListaTodos"
+        `${urlApi}Clinica/ListaTodos`
       );
       res.data.map((item) => {
         item.activo = item.activo ? "si" : "no";
@@ -219,10 +220,9 @@ function ListasPacientes() {
   const handleEditar = async (e) => {
     e.preventDefault();
 
-    const url =
-      "https://jdeleon-001-site1.btempurl.com/api/Clinica/EditarPaciente";
+    
     axios
-      .put(url, dataEditar)
+      .put(`${urlApi}Clinica/EditarPaciente`, dataEditar)
       .then((result) => {
         const probar = async () => {
           setlistaPaciente([]);

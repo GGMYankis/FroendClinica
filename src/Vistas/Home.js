@@ -5,6 +5,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import * as Yup from "yup";
 import { useFormik } from "formik";
 import Headers from "../components/Headers/Headers";
+import { urlApi } from "../auth-helpers";
 
 function Home(props) {
   const { cargar, setShowModal, showModal } = props;
@@ -50,7 +51,7 @@ function Home(props) {
         formValue.Activo = activo;
 
         const res = await axios.post(
-          "https://jdeleon-001-site1.btempurl.com/api/Clinica/GuardarPaciente",
+          `${urlApi}Clinica/GuardarPaciente`,
           formValue
         );
         VaciarForm();
