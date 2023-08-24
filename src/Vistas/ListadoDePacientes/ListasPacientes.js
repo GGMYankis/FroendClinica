@@ -79,6 +79,7 @@ function ListasPacientes() {
       const res = await axios.get(
         `${urlApi}Clinica/ListaTodos`
       );
+
       res.data.map((item) => {
         item.activo = item.activo ? "si" : "no";
       });
@@ -201,14 +202,13 @@ function ListasPacientes() {
     ParentsName: parents_name,
     ParentOrGuardianPhoneNumber: parent_or_guardian_phone_number,
     DateOfBirth: date_of_birth,
-    Age: age,
+    Age: calculateAge() ? calculateAge() : edadEditar,
     EducationalInstitution: educational_institution,
     NumberMothers: number_Mothers,
     Course: course,
     WhoRefers: who_refers,
     FamilySettings: family_settings,
-    TherapiesOrServiceYouWillReceiveAtTheCenter:
-      therapies_or_service_you_will_receive_at_the_center,
+    therapiesOrServiceYouWillReceiveAtTheCenter : therapies_or_service_you_will_receive_at_the_center ,
     Diagnosis: diagnosis,
     Recommendations: recommendations,
     FamilyMembersConcerns: family_members_concerns,
@@ -220,22 +220,51 @@ function ListasPacientes() {
   const handleEditar = async (e) => {
     e.preventDefault();
 
-    
+    console.log(dataEditar)
     axios
       .put(`${urlApi}Clinica/EditarPaciente`, dataEditar)
       .then((result) => {
         const probar = async () => {
-          setlistaPaciente([]);
-          cargar();
+        //  setlistaPaciente([]);
+         // cargar();
           modalEditar.current.classList.remove("active");
           const ale = await swal({
             title: "Correcto",
             text: "Cambio guardado ",
             icon: "success",
           });
+           
+        
         };
         if (result) {
-          probar();
+          //  probar();
+          modalEditar.current.classList.remove("active");
+
+          const PacienteId = listaPaciente.findIndex(item => item.idPatients == idPaciente);
+         
+          const newList = [...listaPaciente];
+          newList[PacienteId] = {
+            ... newList[PacienteId],
+            name : name,
+            sex : sex,
+            parentsName : parents_name,
+            parentOrGuardianPhoneNumber : parent_or_guardian_phone_number,
+            dateOfBirth : date_of_birth,
+            age: calculateAge() ? calculateAge() : edadEditar,
+            educationalInstitution : educational_institution,
+            numberMothers : number_Mothers,
+            course : course,
+            whoRefers : who_refers,
+            familySettings : family_settings,
+            therapiesOrServiceYouWillReceiveAtTheCenter: therapies_or_service_you_will_receive_at_the_center,
+            diagnosis : diagnosis,
+            recommendations : recommendations,
+            familyMembersConcerns : family_members_concerns,
+            specificMedicalCondition : specific_medical_condition,
+            other : other,
+            activo : activos ? "si" : "no",
+          }
+          setlistaPaciente(newList)
         }
       })
       .catch((error) => {
@@ -273,8 +302,9 @@ function ListasPacientes() {
       }
       if (item.activo == "no") {
         setAc(0);
-      }
+      } 
     });
+
 
     IdEditarPaciente.map((item) => [
       setName(item.name),
@@ -321,6 +351,7 @@ function ListasPacientes() {
       selector: (row) => row.parentOrGuardianPhoneNumber,
       sortable: true,
     },
+   
     {
       name: "Fecha de nacimiento",
       selector: (row) => row.dateOfBirth,

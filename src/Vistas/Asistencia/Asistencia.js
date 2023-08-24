@@ -164,6 +164,7 @@ function Asistencias() {
                 className="justificacinAsistencias"
                 onChange={(e) => setJustificaciones(e.target.value)}
               >
+                  <option value="">Seleccione una razón</option>
                 {razonAsistencia.map((r, i) => [
                   <option value={r.id} key={i}>
                     {r.descripcion}
